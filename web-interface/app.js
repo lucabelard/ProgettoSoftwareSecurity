@@ -236,6 +236,12 @@ function setupEventListeners() {
         });
     });
     
+    // Send All Evidences
+    const sendAllEvidencesBtn = document.getElementById('sendAllEvidencesBtn');
+    if (sendAllEvidencesBtn) {
+        sendAllEvidencesBtn.addEventListener('click', sendAllEvidences);
+    }
+    
     // Validate Payment
     const validatePaymentBtn = document.getElementById('validatePaymentBtn');
     if (validatePaymentBtn) {
