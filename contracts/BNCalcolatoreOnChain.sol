@@ -87,7 +87,7 @@ contract BNCalcolatoreOnChain is AccessControl {
     }
 
     mapping(uint256 => Spedizione) public spedizioni;
-    uint256 private _contatoreIdSpedizione;
+    uint256 public _contatoreIdSpedizione;
 
     event SpedizioneCreata(uint256 indexed id, address indexed mittente, address indexed corriere);
     event SpedizionePagata(uint256 indexed id, address indexed corriere, uint256 importo);
