@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blockchain Shipment Tracker - Sistema di Tracciamento Spedizioni</title>
+    <meta name="description" content="Sistema avanzato di tracciamento spedizioni basato su blockchain con validazione Bayesiana">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <rect width="40" height="40" rx="8" fill="url(#gradient1)"/>
+                        <path d="M20 10L28 15V25L20 30L12 25V15L20 10Z" stroke="white" stroke-width="2" stroke-linejoin="round"/>
+                        <path d="M20 20L28 15M20 20L12 15M20 20V30" stroke="white" stroke-width="2"/>
+                        <defs>
+                            <linearGradient id="gradient1" x1="0" y1="0" x2="40" y2="40">
+                                <stop offset="0%" stop-color="#667eea"/>
+                                <stop offset="100%" stop-color="#764ba2"/>
+                            </linearGradient>
+                        </defs>
+                    </svg>
+                    <h1>Shipment Tracker</h1>
+                </div>
+                <div class="header-info">
+                    <div class="network-status" id="networkStatus">
+                        <span class="status-dot"></span>
+                        <span id="networkName">Disconnected</span>
+                    </div>
+                    <div class="account-info" id="accountInfo">
+                        <span class="account-label">Account:</span>
+                        <span class="account-address" id="accountAddress">Not Connected</span>
+                    </div>
+                    <button class="btn btn-primary" id="connectWallet">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <rect x="2" y="5" width="20" height="14" rx="2"/>
+                            <path d="M2 10h20"/>
+                        </svg>
+                        Connect Wallet
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="container">
+            <!-- Role Selector -->
+            <div class="role-selector" id="roleSelector">
+                <h2>Seleziona il tuo Ruolo</h2>
+                <div class="role-cards">
+                    <div class="role-card" data-role="admin">
+                        <div class="role-icon">⚙️</div>
+                        <h3>Admin/Oracolo</h3>
+                        <p>Configura CPT e probabilità a priori</p>
+                    </div>
+                    <div class="role-card" data-role="mittente">
+                        <div class="role-icon">📦</div>
+                        <h3>Mittente</h3>
+                        <p>Crea nuove spedizioni</p>
+                    </div>
+                    <div class="role-card" data-role="sensore">
+                        <div class="role-icon">📊</div>
+                        <h3>Sensore</h3>
+                        <p>Invia evidenze dai sensori IoT</p>
+                    </div>
+                    <div class="role-card" data-role="corriere">
+                        <div class="role-icon">🚚</div>
+                        <h3>Corriere</h3>
+                        <p>Valida e ricevi pagamenti</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Dashboard Section -->
+            <section class="dashboard-section" id="dashboardSection">
+                <div class="section-header">
+                    <h2>Dashboard Spedizioni</h2>
+                    <div class="dashboard-controls">
+                        <input type="text" class="search-input" id="searchInput" placeholder="Cerca per ID o indirizzo...">
+                        <select class="filter-select" id="filterStatus">
+                            <option value="all">Tutti gli stati</option>
+                            <option value="InAttesa">In Attesa</option>
+                            <option value="Pagata">Pagata</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="shipments-grid" id="shipmentsGrid">
+                    <div class="empty-state">
+                        <div class="empty-icon">📭</div>
+                        <h3>Nessuna spedizione trovata</h3>
+                        <p>Crea una nuova spedizione per iniziare</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Admin Panel -->
+            <section class="panel admin-panel" id="adminPanel" style="display: none;">
+                <div class="panel-header">
+                    <h2>⚙️ Pannello Amministratore</h2>
+                    <p>Configura le probabilità a priori e le tabelle CPT</p>
+                </div>
+                <div class="panel-content">
+                    <div class="form-group-row">
+                        <div class="form-group">
+                            <label for="pF1T">P(F1=True) - Integrità Temperatura (%)</label>
+                            <input type="number" id="pF1T" min="0" max="100" value="95" class="form-input">
+                        </div>
+                        <div class="form-group">
+                            <label for="pF2T">P(F2=True) - Integrità Imballaggio (%)</label>
+                            <input type="number" id="pF2T" min="0" max="100" value="95" class="form-input">
+                        </div>
+                    </div>
+                    <button class="btn btn-primary" id="setPriorBtn">Imposta Probabilità A Priori</button>
+
+                    <div class="divider"></div>
+
+                    <h3>Configura Tabelle CPT</h3>
+                    <div class="cpt-selector">
+                        <label>Seleziona Evidenza:</label>
+                        <select id="cptEvidenceSelect" class="form-input">
+                            <option value="1">E1 - Temperatura</option>
+                            <option value="2">E2 - Sigillo</option>
+                            <option value="3">E3 - Shock</option>
+                            <option value="4">E4 - Luce</option>
+                            <option value="5">E5 - Scan Arrivo</option>
+                        </select>
+                    </div>
+                    <div class="cpt-grid">
+                        <div class="form-group">
+                            <label>P(E=T | F1=F, F2=F) (%)</label>
+                            <input type="number" id="cptFF" min="0" max="100" value="10" class="form-input">
+                        </div>
+                        <div class="form-group">
+                            <label>P(E=T | F1=F, F2=T) (%)</label>
+                            <input type="number" id="cptFT" min="0" max="100" value="30" class="form-input">
+                        </div>
+                        <div class="form-group">
+                            <label>P(E=T | F1=T, F2=F) (%)</label>
+                            <input type="number" id="cptTF" min="0" max="100" value="50" class="form-input">
+                        </div>
+                        <div class="form-group">
+                            <label>P(E=T | F1=T, F2=T) (%)</label>
+                            <input type="number" id="cptTT" min="0" max="100" value="95" class="form-input">
+                        </div>
+                    </div>
+                    <button class="btn btn-primary" id="setCPTBtn">Imposta CPT</button>
+                </div>
+            </section>
+
+            <!-- Create Shipment Panel -->
+            <section class="panel create-panel" id="createPanel" style="display: none;">
+                <div class="panel-header">
+                    <h2>📦 Crea Nuova Spedizione</h2>
+                    <p>Inserisci i dettagli della spedizione e invia il pagamento</p>
+                </div>
+                <div class="panel-content">
+                    <div class="form-group">
+                        <label for="corriereAddress">Indirizzo Corriere</label>
+                        <input type="text" id="corriereAddress" class="form-input" placeholder="0x...">
+                    </div>
+                    <div class="form-group">
+                        <label for="paymentAmount">Importo Pagamento (ETH)</label>
+                        <input type="number" id="paymentAmount" class="form-input" step="0.01" min="0.01" value="1">
+                    </div>
+                    <button class="btn btn-primary btn-large" id="createShipmentBtn">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M12 5v14M5 12h14"/>
+                        </svg>
+                        Crea Spedizione
+                    </button>
+                </div>
+            </section>
+
+            <!-- Sensor Panel -->
+            <section class="panel sensor-panel" id="sensorPanel" style="display: none;">
+                <div class="panel-header">
+                    <h2>📊 Invia Evidenze Sensori</h2>
+                    <p>Seleziona la spedizione e invia i dati dei sensori IoT</p>
+                </div>
+                <div class="panel-content">
+                    <div class="form-group">
+                        <label for="shipmentIdSensor">ID Spedizione</label>
+                        <input type="number" id="shipmentIdSensor" class="form-input" min="1" placeholder="1">
+                    </div>
+                    <div class="evidence-grid">
+                        <div class="evidence-card">
+                            <h4>E1 - Temperatura</h4>
+                            <div class="toggle-group">
+                                <label class="toggle-label">
+                                    <input type="checkbox" id="e1Value" class="toggle-input" checked>
+                                    <span class="toggle-slider"></span>
+                                    <span class="toggle-text">OK</span>
+                                </label>
+                            </div>
+                            <button class="btn btn-secondary btn-small" data-evidence="1">Invia E1</button>
+                        </div>
+                        <div class="evidence-card">
+                            <h4>E2 - Sigillo</h4>
+                            <div class="toggle-group">
+                                <label class="toggle-label">
+                                    <input type="checkbox" id="e2Value" class="toggle-input" checked>
+                                    <span class="toggle-slider"></span>
+                                    <span class="toggle-text">OK</span>
+                                </label>
+                            </div>
+                            <button class="btn btn-secondary btn-small" data-evidence="2">Invia E2</button>
+                        </div>
+                        <div class="evidence-card">
+                            <h4>E3 - Shock</h4>
+                            <div class="toggle-group">
+                                <label class="toggle-label">
+                                    <input type="checkbox" id="e3Value" class="toggle-input">
+                                    <span class="toggle-slider"></span>
+                                    <span class="toggle-text">No Shock</span>
+                                </label>
+                            </div>
+                            <button class="btn btn-secondary btn-small" data-evidence="3">Invia E3</button>
+                        </div>
+                        <div class="evidence-card">
+                            <h4>E4 - Luce</h4>
+                            <div class="toggle-group">
+                                <label class="toggle-label">
+                                    <input type="checkbox" id="e4Value" class="toggle-input">
+                                    <span class="toggle-slider"></span>
+                                    <span class="toggle-text">Chiuso</span>
+                                </label>
+                            </div>
+                            <button class="btn btn-secondary btn-small" data-evidence="4">Invia E4</button>
+                        </div>
+                        <div class="evidence-card">
+                            <h4>E5 - Scan Arrivo</h4>
+                            <div class="toggle-group">
+                                <label class="toggle-label">
+                                    <input type="checkbox" id="e5Value" class="toggle-input" checked>
+                                    <span class="toggle-slider"></span>
+                                    <span class="toggle-text">In Orario</span>
+                                </label>
+                            </div>
+                            <button class="btn btn-secondary btn-small" data-evidence="5">Invia E5</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Courier Panel -->
+            <section class="panel courier-panel" id="courierPanel" style="display: none;">
+                <div class="panel-header">
+                    <h2>🚚 Valida e Ricevi Pagamento</h2>
+                    <p>Verifica le evidenze e richiedi il pagamento per la spedizione completata</p>
+                </div>
+                <div class="panel-content">
+                    <div class="form-group">
+                        <label for="shipmentIdCourier">ID Spedizione</label>
+                        <input type="number" id="shipmentIdCourier" class="form-input" min="1" placeholder="1">
+                    </div>
+                    <button class="btn btn-primary btn-large" id="validatePaymentBtn">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M20 6L9 17l-5-5"/>
+                        </svg>
+                        Valida e Ricevi Pagamento
+                    </button>
+                    <div class="info-box">
+                        <strong>ℹ️ Nota:</strong> Il pagamento sarà effettuato solo se tutte le evidenze sono state ricevute e le probabilità F1 e F2 superano la soglia del 95%.
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Toast Notifications -->
+    <div class="toast-container" id="toastContainer"></div>
+
+    <!-- Loading Overlay -->
+    <div class="loading-overlay" id="loadingOverlay">
+        <div class="loading-spinner"></div>
+        <p id="loadingText">Elaborazione in corso...</p>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/web3@4.16.0/dist/web3.min.js"></script>
+    <script src="app.js?v=2"></script>
+</body>
+</html>

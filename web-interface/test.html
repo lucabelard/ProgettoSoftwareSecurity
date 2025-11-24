@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Connessione</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background: #1a1a2e;
+            color: white;
+        }
+        .test-box {
+            background: rgba(255,255,255,0.1);
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+        }
+        button {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            margin: 10px 5px;
+        }
+        button:hover {
+            opacity: 0.9;
+        }
+        .success { color: #10b981; }
+        .error { color: #ef4444; }
+        .info { color: #3b82f6; }
+        pre {
+            background: #0f0f23;
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+        }
+    </style>
+</head>
+<body>
+    <h1>🔍 Test Connessione Web3</h1>
+    
+    <div class="test-box">
+        <h2>1. Test MetaMask</h2>
+        <button onclick="testMetaMask()">Test MetaMask</button>
+        <div id="metamaskResult"></div>
+    </div>
+
+    <div class="test-box">
+        <h2>2. Connetti Wallet</h2>
+        <button onclick="connectWallet()">Connetti</button>
+        <div id="connectResult"></div>
+    </div>
+
+    <div class="test-box">
+        <h2>3. Test Network ID</h2>
+        <button onclick="testNetwork()">Controlla Network</button>
+        <div id="networkResult"></div>
+    </div>
+
+    <div class="test-box">
+        <h2>4. Test Caricamento Contratto</h2>
+        <button onclick="testContract()">Carica Contratto</button>
+        <div id="contractResult"></div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/web3@4.16.0/dist/web3.min.js"></script>
+    <script>
+        let web3;
+        let account;
+        let networkId;
+
+        function log(elementId, message, type = 'info') {
+            const el = document.getElementById(elementId);
+            const className = type === 'success' ? 'success' : type === 'error' ? 'error' : 'info';
+            el.innerHTML += `<p class="${className}">${message}</p>`;
+        }
+
+        async function testMetaMask() {
+            const result = document.getElementById('metamaskResult');
+            result.innerHTML = '';
+            
+            if (typeof window.ethereum !== 'undefined') {
+                log('metamaskResult', '✅ MetaMask rilevato!', 'success');
+                log('metamaskResult', `Provider: ${window.ethereum.isMetaMask ? 'MetaMask' : 'Altro'}`, 'info');
+                
+                web3 = new Web3(window.ethereum);
+                log('metamaskResult', '✅ Web3 istanziato', 'success');
+            } else {
+                log('metamaskResult', '❌ MetaMask NON rilevato', 'error');
+                log('metamaskResult', 'Installa MetaMask o usa Ganache direttamente', 'info');
+            }
+        }
+
+        async function connectWallet() {
+            const result = document.getElementById('connectResult');
+            result.innerHTML = '';
+            
+            try {
+                log('connectResult', '🔄 Richiesta connessione...', 'info');
+                
+                const accounts = await window.ethereum.request({ 
+                    method: 'eth_requestAccounts' 
+                });
+                
+                account = accounts[0];
+                log('connectResult', `✅ Connesso!`, 'success');
+                log('connectResult', `Account: ${account}`, 'info');
+                
+            } catch (error) {
+                log('connectResult', `❌ Errore: ${error.message}`, 'error');
+                console.error(error);
+            }
+        }
+
+        async function testNetwork() {
+            const result = document.getElementById('networkResult');
+            result.innerHTML = '';
+            
+            try {
+                if (!web3) {
+                    web3 = new Web3(window.ethereum);
+                }
+                
+                networkId = await web3.eth.net.getId();
+                log('networkResult', `✅ Network ID: ${networkId}`, 'success');
+                
+                if (networkId === 1337n || networkId === 1337) {
+                    log('networkResult', '✅ Sei sulla rete Ganache corretta (1337)', 'success');
+                } else if (networkId === 5777n || networkId === 5777) {
+                    log('networkResult', '⚠️ Sei sulla rete Ganache (5777)', 'info');
+                } else {
+                    log('networkResult', `⚠️ Rete non riconosciuta: ${networkId}`, 'error');
+                }
+                
+                const chainId = await web3.eth.getChainId();
+                log('networkResult', `Chain ID: ${chainId}`, 'info');
+                
+            } catch (error) {
+                log('networkResult', `❌ Errore: ${error.message}`, 'error');
+                console.error(error);
+            }
+        }
+
+        async function testContract() {
+            const result = document.getElementById('contractResult');
+            result.innerHTML = '';
+            
+            try {
+                log('contractResult', '🔄 Caricamento ABI...', 'info');
+                
+                const response = await fetch('./BNCalcolatoreOnChain.json');
+                if (!response.ok) {
+                    throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+                }
+                
+                const contractData = await response.json();
+                log('contractResult', '✅ ABI caricato', 'success');
+                
+                if (!networkId) {
+                    networkId = await web3.eth.net.getId();
+                }
+                
+                const networkIdStr = networkId.toString();
+                log('contractResult', `Cercando contratto sulla rete ${networkIdStr}...`, 'info');
+                
+                const networkData = contractData.networks[networkIdStr] || contractData.networks[networkId];
+                
+                if (networkData) {
+                    const address = networkData.address;
+                    log('contractResult', `✅ Contratto trovato!`, 'success');
+                    log('contractResult', `Indirizzo: ${address}`, 'info');
+                    
+                    const contract = new web3.eth.Contract(contractData.abi, address);
+                    log('contractResult', '✅ Contratto istanziato', 'success');
+                    
+                    // Test chiamata
+                    try {
+                        const soglia = await contract.methods.SOGLIA_PROBABILITA().call();
+                        log('contractResult', `✅ Test chiamata OK - Soglia: ${soglia}%`, 'success');
+                    } catch (e) {
+                        log('contractResult', `⚠️ Contratto caricato ma chiamata fallita: ${e.message}`, 'error');
+                    }
+                    
+                } else {
+                    log('contractResult', `❌ Contratto NON trovato sulla rete ${networkIdStr}`, 'error');
+                    log('contractResult', 'Reti disponibili nel JSON:', 'info');
+                    log('contractResult', `<pre>${JSON.stringify(Object.keys(contractData.networks), null, 2)}</pre>`, 'info');
+                    log('contractResult', 'Esegui: truffle migrate --reset', 'error');
+                }
+                
+            } catch (error) {
+                log('contractResult', `❌ Errore: ${error.message}`, 'error');
+                console.error(error);
+            }
+        }
+
+        // Auto-test all'avvio
+        window.addEventListener('load', () => {
+            console.log('Pagina di test caricata');
+            testMetaMask();
+        });
+    </script>
+</body>
+</html>
