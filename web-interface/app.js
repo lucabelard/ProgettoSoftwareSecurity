@@ -462,6 +462,89 @@ async function sendEvidence(evidenceId) {
     }
 }
 
+// ===== SEND ALL EVIDENCES =====
+async function sendAllEvidences() {
+    if (!contract || !currentAccount) {
+        showToast('Connetti prima il wallet', 'error');
+        return;
+    }
+    
+    try {
+        const shipmentId = document.getElementById('shipmentIdSensor').value;
+        
+        if (!shipmentId || shipmentId.trim() === '') {
+            showToast('Inserisci l\'ID della spedizione', 'error');
+            return;
+        }
+        
+        // Verifica lo stato della spedizione PRIMA di inviare
+        console.log('Verifica stato spedizione ID:', shipmentId);
+        const shipment = await contract.methods.spedizioni(shipmentId).call();
+        
+        // Controlla se la spedizione esiste
+        if (shipment.mittente === '0x0000000000000000000000000000000000000000') {
+            showToast('Spedizione non esistente', 'error');
+            return;
+        }
+        
+        // Controlla se la spedizione è già stata pagata
+        if (shipment.stato != 0 && shipment.stato !== '0') {
+            showToast('La spedizione è già stata pagata. Non è possibile inviare altre evidenze.', 'error');
+            return;
+        }
+        
+        showLoading('Invio di tutte le evidenze in corso...');
+        
+        // Raccogli i valori di tutte le evidenze
+        const evidences = [
+            { id: 1, value: document.getElementById('e1Value').checked },
+            { id: 2, value: document.getElementById('e2Value').checked },
+            { id: 3, value: document.getElementById('e3Value').checked },
+            { id: 4, value: document.getElementById('e4Value').checked },
+            { id: 5, value: document.getElementById('e5Value').checked }
+        ];
+        
+        let successCount = 0;
+        let failedEvidence = null;
+        
+        // Invia tutte le evidenze in sequenza
+        for (const evidence of evidences) {
+            try {
+                console.log(`Invio evidenza E${evidence.id}: ${evidence.value}`);
+                
+                await contract.methods.inviaEvidenza(shipmentId, evidence.id, evidence.value)
+                    .send({ from: currentAccount, gas: 150000 });
+                
+                successCount++;
+                
+                // Aggiorna il messaggio di loading
+                showLoading(`Evidenze inviate: ${successCount}/5...`);
+                
+            } catch (error) {
+                console.error(`Errore invio E${evidence.id}:`, error);
+                failedEvidence = evidence.id;
+                break; // Ferma se c'è un errore
+            }
+        }
+        
+        hideLoading();
+        
+        if (successCount === 5) {
+            showToast('✅ Tutte le 5 evidenze inviate con successo!', 'success');
+        } else {
+            showToast(`⚠️ Inviate ${successCount}/5 evidenze. Errore su E${failedEvidence}`, 'error');
+        }
+        
+        // Reload shipments
+        await loadShipments();
+        
+    } catch (error) {
+        console.error('Errore:', error);
+        showToast(`Errore: ${error.message}`, 'error');
+        hideLoading();
+    }
+}
+
 // ===== VALIDATE AND PAY =====
 async function validateAndPay() {
     if (!contract || !currentAccount) {
