@@ -684,10 +684,31 @@ function renderShipmentCard(id, shipment) {
     
     const evidences = shipment.evidenze;
     const evidenceFields = ['E1_ricevuta', 'E2_ricevuta', 'E3_ricevuta', 'E4_ricevuta', 'E5_ricevuta'];
+    const evidenceValues = ['E1_valore', 'E2_valore', 'E3_valore', 'E4_valore', 'E5_valore'];
+    
+    // Definisci quali valori sono "buoni" (conformi) per ogni evidenza
+    // E1 (Temperatura): true = OK, false = Fuori range
+    // E2 (Sigillo): true = Intatto, false = Rotto
+    // E3 (Shock): false = Nessuno shock (BUONO), true = Shock rilevato (MALE)
+    // E4 (Luce): false = Nessuna esposizione (BUONO), true = Esposto (MALE)
+    // E5 (Scan): true = Scan OK, false = Scan mancante
+    const goodValues = [true, true, false, false, true];
+    
     const evidenceHTML = ['E1', 'E2', 'E3', 'E4', 'E5'].map((name, index) => {
-        const received = evidences[evidenceFields[index]]; // Access by field name
-        const className = received ? 'received' : 'pending';
-        return `<div class="evidence-indicator ${className}">${name}</div>`;
+        const received = evidences[evidenceFields[index]];
+        const value = evidences[evidenceValues[index]];
+        
+        if (!received) {
+            // Non ancora ricevuta - grigio
+            return `<div class="evidence-indicator pending">${name}</div>`;
+        }
+        
+        // Ricevuta - determina se è conforme (verde) o non conforme (rosso)
+        const isGood = value === goodValues[index];
+        const className = isGood ? 'received good' : 'received bad';
+        const icon = isGood ? '✓' : '✗';
+        
+        return `<div class="evidence-indicator ${className}">${name} ${icon}</div>`;
     }).join('');
     
     const card = document.createElement('div');

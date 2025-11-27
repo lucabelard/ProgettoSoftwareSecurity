@@ -1,0 +1,25 @@
+# Node modules
+node_modules/
+
+# Build artifacts (generati da truffle compile)
+build/
+
+# Contract JSON copiato nell'interfaccia web
+web-interface/BNCalcolatoreOnChain.json
+web-interface/*.backup
+
+# Environment files
+.env
+.env.local
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+npm-debug.log*

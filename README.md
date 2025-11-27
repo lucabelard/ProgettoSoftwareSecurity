@@ -53,10 +53,10 @@ python -m http.server 8000
 
 3. **Apri l'interfaccia**: http://localhost:8000
 
-## 📖 Documentazione Completa
+## 📖 Documentazione
 
-- 📘 [**Guida di Installazione Completa**](./INSTALLATION_GUIDE.md) - Setup dettagliato e troubleshooting
-- ⚡ [**Quick Start Guide**](./QUICK_START.md) - Test rapido in 5 minuti
+- 📘 [**Guida Installazione e Troubleshooting**](./GUIDA_INSTALLAZIONE_E_TROUBLESHOOTING.md) - Setup completo e risoluzione problemi
+- 📖 [**Manuale Utente**](./MANUALE_UTENTE.md) - Guida all'utilizzo del sistema
 - 🎯 [**Analisi i* e Sicurezza**](./docs/istar_diagrams.md) - Diagrammi SD/SR e alberi di attacco
 
 ## 🏗️ Architettura
