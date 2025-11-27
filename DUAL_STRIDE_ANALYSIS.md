@@ -1,7 +1,7 @@
-# 🛡️ DUAL-STRIDE Security Analysis
+# 🛡️ DUAL-STRIDE-DUA Security Analysis (Extended Model)
 ## Sistema Oracolo Bayesiano per Catena del Freddo Farmaceutica
 
-**Versione**: 1.0  
+**Versione**: 2.0 (Extended)  
 **Data**: 27 Novembre 2024  
 **Autore**: Luca Belard
 
@@ -12,7 +12,7 @@
 1. [Introduzione](#introduzione)
 2. [Asset del Sistema](#asset-del-sistema)
 3. [Attori e Threat Model](#attori-e-threat-model)
-4. [Analisi STRIDE per Asset](#analisi-stride-per-asset)
+4. [Analisi STRIDE-DUA per Asset](#analisi-stride-dua-per-asset)
 5. [Abuse/Misuse Cases](#abusemisuse-cases)
 6. [Contromisure Implementate](#contromisure-implementate)
 7. [Raccomandazioni](#raccomandazioni)
@@ -23,13 +23,28 @@
 
 ### 1.1 Scopo del Documento
 
-Questo documento presenta un'analisi di sicurezza **DUAL-STRIDE** del Sistema Oracolo Bayesiano, identificando minacce per ogni asset del sistema considerando sia **attaccanti intenzionali** che **utenti maldestri**. L'analisi include riferimenti a **CAPEC** (Common Attack Pattern Enumeration and Classification) e **ATT&CK** (Adversarial Tactics, Techniques, and Common Knowledge).
+Questo documento presenta un'analisi di sicurezza **DUAL-STRIDE-DUA** del Sistema Oracolo Bayesiano, identificando minacce per ogni asset del sistema considerando sia **attaccanti intenzionali** che **utenti maldestri**. L'analisi include riferimenti a **CAPEC** (Common Attack Pattern Enumeration and Classification) e **ATT&CK** (Adversarial Tactics, Techniques, and Common Knowledge).
 
 ### 1.2 Metodologia
 
-- **STRIDE**: Framework per identificare minacce (Spoofing, Tampering, Repudiation, Information Disclosure, Denial of Service, Elevation of Privilege)
+- **STRIDE**: Framework classico per identificare minacce (Spoofing, Tampering, Repudiation, Information Disclosure, Denial of Service, Elevation of Privilege)
+- **DUA Extension**: Estensioni per sistemi critici (Danger, Unreliability, Absence of resilience)
 - **DUAL**: Analisi separata per attaccanti intenzionali e utenti maldestri
 - **CAPEC/ATT&CK**: Mappatura a pattern di attacco noti
+
+### 1.3 STRIDE-DUA Framework
+
+| Categoria | Acronimo | Descrizione | Applicabilità |
+|-----------|----------|-------------|---------------|
+| **Spoofing** | S | Falsificazione identità | Tutti i sistemi |
+| **Tampering** | T | Manomissione dati/codice | Tutti i sistemi |
+| **Repudiation** | R | Negazione azioni | Tutti i sistemi |
+| **Information Disclosure** | I | Divulgazione informazioni | Tutti i sistemi |
+| **Denial of Service** | D | Interruzione servizio | Tutti i sistemi |
+| **Elevation of Privilege** | E | Escalation privilegi | Tutti i sistemi |
+| **Danger** | D+ | Pericolo fisico/safety | Sistemi cyber-physical |
+| **Unreliability** | U | Inaffidabilità componenti | Sistemi distribuiti/IoT |
+| **Absence of resilience** | A | Mancanza resilienza | Sistemi critici |
 
 ---
 
@@ -838,6 +853,489 @@ function recuperaFondi(uint256 _id) external {
 - **User education**: Formazione anti-phishing
 - **Hardware wallet**: Ledger/Trezor per chiavi critiche
 - **Multi-factor authentication**: Conferma transazioni su dispositivo separato
+
+---
+
+## 4.5 Estensione DUA (Danger, Unreliability, Absence of resilience)
+
+### ⚠️ D+ - Danger (Pericolo Fisico/Safety)
+
+La categoria **Danger** si applica a sistemi cyber-physical dove malfunzionamenti software possono causare **danni fisici** a persone, prodotti o ambiente.
+
+#### Minaccia D+1.1: Deterioramento Prodotto Farmaceutico
+
+**Descrizione**: Evidenze false causano approvazione pagamento per spedizione con prodotto deteriorato, mettendo a rischio la salute dei pazienti.
+
+**Attore**: Sensore Malfunzionante / Corriere Disonesto
+
+**Scenario**:
+```
+1. Prodotto farmaceutico (es. vaccino) richiede temperatura 2-8°C
+2. Durante trasporto, temperatura sale a 25°C per 6 ore
+3. Sensore malfunzionante continua a riportare E1=true (temperatura OK)
+4. Sistema calcola P(F1) >= 95% basandosi su dati falsi
+5. Corriere riceve pagamento
+6. Prodotto deteriorato viene distribuito a ospedali
+7. Pazienti ricevono vaccino inefficace o dannoso
+```
+
+**CAPEC**:
+- [CAPEC-390](https://capec.mitre.org/data/definitions/390.html): Bypassing Physical Security
+- [CAPEC-624](https://capec.mitre.org/data/definitions/624.html): Hardware Fault Injection
+
+**ATT&CK**:
+- [T1200](https://attack.mitre.org/techniques/T1200/): Hardware Additions
+- [T1495](https://attack.mitre.org/techniques/T1495/): Firmware Corruption
+
+**Impatto**: 🔴 **CRITICO - Safety Critical**
+- Rischio per la salute umana
+- Responsabilità legale
+- Danni reputazionali irreversibili
+- Possibili decessi
+
+**Contromisura Implementata**:
+- ✅ Bayesian Network riduce impatto di singolo sensore falso
+- ✅ Soglia 95% richiede evidenze multiple conformi
+
+**Contromisura Aggiuntiva Raccomandata**:
+
+1. **Sensor Redundancy con Voting**:
+```solidity
+struct EvidenzaRidondante {
+    bool sensore1_valore;
+    bool sensore2_valore;
+    bool sensore3_valore;
+    bool consenso; // true se almeno 2/3 concordano
+}
+
+function inviaEvidenzaRidondante(
+    uint256 _idSpedizione,
+    uint8 _idEvidenza,
+    bool _valore1,
+    bool _valore2,
+    bool _valore3
+) external onlyRole(RUOLO_SENSORE) {
+    // Majority voting
+    uint8 count = 0;
+    if (_valore1) count++;
+    if (_valore2) count++;
+    if (_valore3) count++;
+    
+    bool consenso = (count >= 2);
+    
+    // Salva evidenza solo se c'è consenso
+    require(consenso, "Sensori non concordano - possibile malfunzionamento");
+    
+    // Procedi con evidenza validata
+}
+```
+
+2. **Anomaly Detection ML**:
+- Modello ML off-chain analizza pattern storici
+- Alert se evidenze sono statisticamente anomale
+- Richiede validazione manuale per spedizioni sospette
+
+3. **Certificazione Prodotto**:
+- Aggiungere hash crittografico del prodotto
+- Verifica integrità al ricevimento
+- Tracciabilità end-to-end
+
+---
+
+#### Minaccia D+1.2: Esposizione a Condizioni Pericolose
+
+**Descrizione**: Evidenze manipolate nascondono esposizione a condizioni pericolose (es. radiazioni, contaminazione).
+
+**Attore**: Insider Malevolo
+
+**Scenario**:
+```
+1. Spedizione contiene materiale radioattivo medico
+2. Durante trasporto, contenitore si danneggia
+3. Sensore radiazioni (ipotetico E6) rileva esposizione
+4. Insider disabilita sensore o manipola dati
+5. Corriere e personale ospedaliero esposti a radiazioni
+6. Nessun alert generato dal sistema
+```
+
+**CAPEC**:
+- [CAPEC-390](https://capec.mitre.org/data/definitions/390.html): Bypassing Physical Security
+
+**Impatto**: 🔴 **CRITICO - Safety Critical**
+
+**Contromisura Raccomandata**:
+- **Safety-critical sensors**: Sensori critici per safety devono avere certificazione hardware (SIL 2/3)
+- **Watchdog timer**: Sensori devono inviare heartbeat periodico
+- **Fail-safe default**: In assenza di evidenze, assumere condizione pericolosa
+
+---
+
+### 🔄 U - Unreliability (Inaffidabilità)
+
+La categoria **Unreliability** identifica minacce derivanti da **componenti inaffidabili** o **failure modes** non gestiti.
+
+#### Minaccia U1.1: Failure Sensore IoT
+
+**Descrizione**: Sensori IoT hanno tasso di failure elevato, causando blocco spedizioni legittime.
+
+**Attore**: Nessuno (failure hardware)
+
+**Scenario**:
+```
+1. Sensore temperatura ha MTBF (Mean Time Between Failures) di 1000 ore
+2. Spedizione dura 72 ore
+3. Probabilità failure durante spedizione: ~7%
+4. Su 100 spedizioni, 7 sensori falliscono
+5. Evidenze incomplete → Pagamenti bloccati
+6. Corrieri legittimi non ricevono compenso
+7. Sistema diventa economicamente non sostenibile
+```
+
+**CAPEC**:
+- N/A (hardware failure, non attacco)
+
+**Impatto**: 🟠 Alto - Inaffidabilità sistemica
+
+**Metriche di Affidabilità**:
+- **MTBF**: Mean Time Between Failures
+- **MTTF**: Mean Time To Failure
+- **Availability**: Uptime / (Uptime + Downtime)
+
+**Contromisura Implementata**:
+- ❌ Nessuna - Sistema assume sensori sempre funzionanti
+
+**Contromisura Raccomandata**:
+
+1. **Graceful Degradation**:
+```solidity
+uint8 public constant EVIDENZE_MINIME_RICHIESTE = 4; // Invece di 5
+
+function validaEPaga(uint256 _id) external {
+    Spedizione storage s = spedizioni[_id];
+    
+    // Conta evidenze ricevute
+    uint8 evidenzeRicevute = 0;
+    if (s.evidenze.E1_ricevuta) evidenzeRicevute++;
+    if (s.evidenze.E2_ricevuta) evidenzeRicevute++;
+    if (s.evidenze.E3_ricevuta) evidenzeRicevute++;
+    if (s.evidenze.E4_ricevuta) evidenzeRicevute++;
+    if (s.evidenze.E5_ricevuta) evidenzeRicevute++;
+    
+    require(
+        evidenzeRicevute >= EVIDENZE_MINIME_RICHIESTE,
+        "Almeno 4/5 evidenze richieste"
+    );
+    
+    // Procedi con validazione
+}
+```
+
+2. **Health Monitoring**:
+```solidity
+struct SensoreHealth {
+    uint256 ultimoHeartbeat;
+    uint256 numeroFailures;
+    bool attivo;
+}
+
+mapping(address => SensoreHealth) public sensoriHealth;
+
+function heartbeat() external onlyRole(RUOLO_SENSORE) {
+    sensoriHealth[msg.sender].ultimoHeartbeat = block.timestamp;
+    sensoriHealth[msg.sender].attivo = true;
+}
+
+function checkSensoreAttivo(address _sensore) public view returns (bool) {
+    return (block.timestamp - sensoriHealth[_sensore].ultimoHeartbeat) < 1 hours;
+}
+```
+
+3. **Fallback Oracle**:
+- Se sensore primario fallisce, oracle esterno (Chainlink) fornisce dati
+- Costo maggiore ma garantisce completamento spedizione
+
+---
+
+#### Minaccia U1.2: Network Unreliability (Connettività IoT)
+
+**Descrizione**: Sensori IoT perdono connettività di rete, impedendo invio evidenze.
+
+**Attore**: Nessuno (network failure)
+
+**Scenario**:
+```
+1. Spedizione attraversa zona rurale senza copertura cellulare
+2. Sensori raccolgono dati ma non possono trasmetterli
+3. Spedizione arriva a destinazione
+4. Evidenze mai inviate on-chain
+5. Corriere non può validare pagamento
+6. Timeout scade, mittente recupera fondi
+7. Corriere ha eseguito servizio ma non viene pagato
+```
+
+**Impatto**: 🟠 Alto - Perdita economica per corriere
+
+**Contromisura Raccomandata**:
+
+1. **Store-and-Forward**:
+- Sensori salvano evidenze localmente
+- Trasmettono quando connettività disponibile
+- Timestamp garantisce ordine temporale
+
+2. **Offline Signing**:
+```solidity
+struct EvidenzaFirmata {
+    uint256 idSpedizione;
+    uint8 idEvidenza;
+    bool valore;
+    uint256 timestamp;
+    bytes firma; // Firma ECDSA del sensore
+}
+
+function inviaEvidenzaDifferita(EvidenzaFirmata calldata _evidenza) external {
+    // Verifica firma
+    address sensore = recoverSigner(_evidenza);
+    require(hasRole(RUOLO_SENSORE, sensore), "Firma non valida");
+    
+    // Verifica timestamp ragionevole
+    require(
+        _evidenza.timestamp <= block.timestamp &&
+        _evidenza.timestamp >= block.timestamp - 7 days,
+        "Timestamp non valido"
+    );
+    
+    // Salva evidenza
+}
+```
+
+---
+
+#### Minaccia U1.3: Smart Contract Bugs (Unreliability del Codice)
+
+**Descrizione**: Bug nel calcolo bayesiano causano risultati incorretti.
+
+**Attore**: Nessuno (bug software)
+
+**Scenario**:
+```
+1. Bug in _calcolaProbabilitaCombinata() causa overflow
+2. P(F1) calcolato come 255 invece di 95
+3. Tutte le spedizioni vengono approvate
+4. Pagamenti eseguiti anche per spedizioni non conformi
+5. Sistema perde credibilità
+```
+
+**CAPEC**:
+- [CAPEC-92](https://capec.mitre.org/data/definitions/92.html): Forced Integer Overflow
+
+**Impatto**: 🔴 Critico - Compromissione logica
+
+**Contromisura Implementata**:
+- ✅ Solidity 0.8+ ha overflow protection nativo
+- ✅ Uso di `uint256` per evitare overflow
+
+**Contromisura Raccomandata**:
+- **Formal Verification**: Usare Certora o Runtime Verification
+- **Extensive Testing**: Unit test per tutti i casi edge
+- **Audit**: Audit esterno da Trail of Bits o OpenZeppelin
+
+---
+
+### 🛡️ A - Absence of Resilience (Mancanza di Resilienza)
+
+La categoria **Absence of Resilience** identifica mancanza di capacità di **recupero** da failure, attacchi o condizioni avverse.
+
+#### Minaccia A1.1: Single Point of Failure (Oracolo)
+
+**Descrizione**: Admin/Oracolo è un single point of failure - se compromesso o indisponibile, sistema si blocca.
+
+**Attore**: Vari (attaccante, failure, indisponibilità)
+
+**Scenario**:
+```
+1. Admin unico ha RUOLO_ORACOLO
+2. Admin perde chiave privata / viene compromesso / muore
+3. Nessuno può più modificare CPT
+4. CPT diventano obsolete (es. nuovi sensori, nuove condizioni)
+5. Sistema non può adattarsi a cambiamenti
+6. Sistema diventa inutilizzabile nel lungo termine
+```
+
+**CAPEC**:
+- [CAPEC-469](https://capec.mitre.org/data/definitions/469.html): HTTP DoS
+
+**Impatto**: 🔴 Critico - Sistema non resiliente
+
+**Contromisura Implementata**:
+- ❌ Nessuna - Admin singolo
+
+**Contromisura Raccomandata**:
+
+1. **Multi-Sig Governance**:
+```solidity
+import "@openzeppelin/contracts/governance/Governor.sol";
+import "@openzeppelin/contracts/governance/extensions/GovernorSettings.sol";
+import "@openzeppelin/contracts/governance/extensions/GovernorCountingSimple.sol";
+import "@openzeppelin/contracts/governance/extensions/GovernorVotes.sol";
+
+contract BNGovernance is Governor, GovernorSettings, GovernorCountingSimple, GovernorVotes {
+    // Richiede 3/5 admin per modifiche CPT
+    // Voting period: 2 giorni
+    // Timelock: 1 giorno dopo approvazione
+}
+```
+
+2. **Decentralized Oracle Network**:
+- Usare Chainlink DON (Decentralized Oracle Network)
+- Multiple oracle nodes forniscono CPT
+- Consensus mechanism per aggregare risultati
+
+3. **Emergency Pause**:
+```solidity
+import "@openzeppelin/contracts/security/Pausable.sol";
+
+contract BNCalcolatoreOnChain is AccessControl, Pausable {
+    bytes32 public constant PAUSER_ROLE = keccak256("PAUSER_ROLE");
+    
+    function pause() external onlyRole(PAUSER_ROLE) {
+        _pause();
+    }
+    
+    function unpause() external onlyRole(DEFAULT_ADMIN_ROLE) {
+        _unpause();
+    }
+    
+    function validaEPaga(uint256 _id) external whenNotPaused {
+        // ...
+    }
+}
+```
+
+---
+
+#### Minaccia A1.2: No Disaster Recovery
+
+**Descrizione**: Nessun meccanismo di disaster recovery se blockchain Ganache si corrompe o perde dati.
+
+**Attore**: Nessuno (disaster scenario)
+
+**Scenario**:
+```
+1. Server Ganache si guasta
+2. Hard disk si corrompe
+3. Tutti i dati spedizioni persi
+4. Nessun backup disponibile
+5. Dispute legali: chi ha pagato? Chi deve pagare?
+6. Sistema non recuperabile
+```
+
+**Impatto**: 🔴 Critico - Perdita dati permanente
+
+**Contromisura Implementata**:
+- ❌ Nessuna - Ganache è per sviluppo, non ha backup
+
+**Contromisura Raccomandata**:
+
+1. **Migrazione a Testnet Pubblica**:
+- Sepolia, Goerli (Ethereum testnets)
+- Dati replicati su multiple nodes
+- Impossibile perdere dati
+
+2. **Event Logging Off-Chain**:
+```javascript
+// Backend service che ascolta eventi
+contract.events.SpedizioneCreata()
+    .on('data', (event) => {
+        // Salva in database PostgreSQL
+        db.spedizioni.insert({
+            id: event.returnValues.id,
+            mittente: event.returnValues.mittente,
+            corriere: event.returnValues.corriere,
+            timestamp: Date.now()
+        });
+    });
+```
+
+3. **IPFS per Dati Immutabili**:
+- Salva snapshot stato contratto su IPFS
+- Hash IPFS salvato on-chain
+- Recupero dati sempre possibile
+
+---
+
+#### Minaccia A1.3: No Incident Response Plan
+
+**Descrizione**: Nessun piano di risposta a incidenti se sistema viene compromesso.
+
+**Attore**: Vari
+
+**Scenario**:
+```
+1. Attaccante trova vulnerabilità zero-day in OpenZeppelin
+2. Ottiene RUOLO_ORACOLO
+3. Modifica CPT per approvare tutte le spedizioni
+4. Team non ha procedure per rispondere
+5. Attacco continua per giorni prima di essere rilevato
+6. Danni estesi prima di mitigazione
+```
+
+**Impatto**: 🟠 Alto - Risposta lenta ad attacchi
+
+**Contromisura Raccomandata**:
+
+1. **Incident Response Plan**:
+```markdown
+# Incident Response Playbook
+
+## Fase 1: Detection (0-1h)
+- Monitor eventi anomali (es. 100 modifiche CPT in 1 ora)
+- Alert automatici via PagerDuty/Slack
+- On-call engineer notificato
+
+## Fase 2: Containment (1-4h)
+- Pause contratto con emergencyPause()
+- Blocca account compromessi
+- Snapshot stato attuale
+
+## Fase 3: Eradication (4-24h)
+- Identifica root cause
+- Patch vulnerabilità
+- Deploy nuovo contratto se necessario
+
+## Fase 4: Recovery (24-48h)
+- Unpause contratto o migra a nuovo
+- Restore dati da backup
+- Comunicazione stakeholders
+
+## Fase 5: Lessons Learned (48h+)
+- Post-mortem meeting
+- Update security measures
+- Improve monitoring
+```
+
+2. **Circuit Breaker Pattern**:
+```solidity
+uint256 public constant MAX_PAGAMENTI_PER_ORA = 10;
+mapping(uint256 => uint256) public pagamentiPerOra; // timestamp => count
+
+function validaEPaga(uint256 _id) external {
+    uint256 oraCorrente = block.timestamp / 1 hours;
+    
+    require(
+        pagamentiPerOra[oraCorrente] < MAX_PAGAMENTI_PER_ORA,
+        "Troppi pagamenti in questa ora - possibile attacco"
+    );
+    
+    pagamentiPerOra[oraCorrente]++;
+    
+    // Procedi con validazione
+}
+```
+
+3. **Monitoring Dashboard**:
+- Grafana dashboard con metriche real-time
+- Alert su anomalie (es. spike transazioni)
+- Audit log di tutte le operazioni critiche
 
 ---
 
