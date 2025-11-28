@@ -1,0 +1,32 @@
+// i* Strategic Dependency (SD) Model
+// Supply Chain WITHOUT System
+// Compatible with piStar tool
+
+// ACTORS
+actor Mittente
+actor Corriere
+actor Sensore
+
+// DEPENDENCIES
+
+// Mittente depends on Corriere
+Mittente -> Corriere: Consegna Merce [goal]
+Mittente -> Corriere: Merce Integra [softgoal]
+Mittente -> Corriere: Prova di Consegna [resource]
+
+// Mittente depends on Sensore
+Mittente -> Sensore: Monitoraggio Condizioni [task]
+Mittente -> Sensore: Dati Ambientali [resource]
+
+// Corriere depends on Mittente
+Corriere -> Mittente: Pagamento [resource]
+Corriere -> Mittente: Informazioni Spedizione [resource]
+
+// Corriere depends on Sensore
+Corriere -> Sensore: Validazione Condizioni Trasporto [goal]
+
+// Sensore depends on Mittente
+Sensore -> Mittente: Compenso per Monitoraggio [resource]
+
+// Sensore depends on Corriere
+Sensore -> Corriere: Accesso ai Dati Sensore [task]

@@ -1,0 +1,44 @@
+// i* Strategic Dependency (SD) Model
+// Supply Chain WITH System AND Attackers
+// Compatible with piStar tool
+
+// ACTORS
+actor Mittente
+actor Corriere
+actor Sensore
+actor Admin
+actor Sistema_Blockchain
+actor Attaccante_Esterno
+actor Attaccante_Interno
+actor Utente_Maldestro
+
+// LEGITIMATE DEPENDENCIES (same as with system)
+Mittente -> Sistema_Blockchain: Creazione Spedizione [task]
+Mittente -> Sistema_Blockchain: Validazione Evidenze [goal]
+Corriere -> Sistema_Blockchain: Registrazione Consegna [task]
+Corriere -> Sistema_Blockchain: Ricezione Pagamento [goal]
+Sensore -> Sistema_Blockchain: Invio Dati Ambientali [task]
+Admin -> Sistema_Blockchain: Validazione Manuale Evidenze [task]
+Sistema_Blockchain -> Admin: Approvazione Evidenze [goal]
+
+// MALICIOUS DEPENDENCIES - Attaccante Esterno
+Attaccante_Esterno -> Sistema_Blockchain: Accesso Non Autorizzato [goal]
+Attaccante_Esterno -> Sistema_Blockchain: Manipolazione Transazioni [goal]
+Attaccante_Esterno -> Mittente: Furto Credenziali [goal]
+Attaccante_Esterno -> Corriere: Furto Credenziali [goal]
+Attaccante_Esterno -> Sensore: Compromissione Dispositivo [goal]
+
+// MALICIOUS DEPENDENCIES - Attaccante Interno (Corriere Disonesto)
+Attaccante_Interno -> Sistema_Blockchain: Falsificazione Evidenze [goal]
+Attaccante_Interno -> Sensore: Manipolazione Dati [goal]
+Attaccante_Interno -> Sistema_Blockchain: Ottenere Pagamento Indebito [goal]
+
+// MALICIOUS DEPENDENCIES - Utente Maldestro (Admin o Mittente)
+Utente_Maldestro -> Sistema_Blockchain: Errore Configurazione [task]
+Utente_Maldestro -> Sistema_Blockchain: Esposizione Chiavi Private [resource]
+Utente_Maldestro -> Admin: Errore Validazione [task]
+
+// DEFENSIVE DEPENDENCIES
+Sistema_Blockchain -> Sistema_Blockchain: Controllo Accessi [softgoal]
+Sistema_Blockchain -> Sistema_Blockchain: Validazione Input [softgoal]
+Admin -> Sistema_Blockchain: Monitoraggio Anomalie [task]

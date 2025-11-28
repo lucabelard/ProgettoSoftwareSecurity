@@ -1,0 +1,74 @@
+// i* Strategic Rationale (SR) Model
+// Supply Chain WITHOUT System
+// Compatible with piStar tool
+
+// ACTOR: Mittente
+actor Mittente {
+  goal: Spedire Merce in Sicurezza
+  
+  // Decomposition
+  Spedire Merce in Sicurezza -D-> task: Selezionare Corriere Affidabile
+  Spedire Merce in Sicurezza -D-> task: Richiedere Monitoraggio
+  Spedire Merce in Sicurezza -D-> goal: Garantire Integrità Merce
+  Spedire Merce in Sicurezza -D-> goal: Ricevere Conferma Consegna
+  
+  // Means-end
+  task: Selezionare Corriere Affidabile -ME-> goal: Consegna Affidabile
+  task: Richiedere Monitoraggio -ME-> resource: Dati Ambientali
+  task: Verificare Condizioni Trasporto -ME-> goal: Garantire Integrità Merce
+  
+  // Softgoals
+  softgoal: Minimizzare Costi
+  softgoal: Tracciabilità Completa
+  
+  // Contributions
+  task: Richiedere Monitoraggio ---> softgoal: Tracciabilità Completa
+  task: Selezionare Corriere Affidabile ---> softgoal: Minimizzare Costi
+}
+
+// ACTOR: Corriere
+actor Corriere {
+  goal: Consegnare Merce e Ricevere Pagamento
+  
+  // Decomposition
+  Consegnare Merce e Ricevere Pagamento -D-> task: Ritirare Merce
+  Consegnare Merce e Ricevere Pagamento -D-> task: Trasportare in Condizioni Adeguate
+  Consegnare Merce e Ricevere Pagamento -D-> task: Consegnare al Destinatario
+  Consegnare Merce e Ricevere Pagamento -D-> goal: Dimostrare Conformità
+  
+  // Means-end
+  task: Collaborare con Sensore -ME-> goal: Dimostrare Conformità
+  task: Fornire Prova di Consegna -ME-> resource: Documentazione Consegna
+  
+  // Softgoals
+  softgoal: Efficienza Operativa
+  softgoal: Reputazione Professionale
+  
+  // Contributions
+  task: Trasportare in Condizioni Adeguate ++-> softgoal: Reputazione Professionale
+  task: Collaborare con Sensore ---> softgoal: Efficienza Operativa
+}
+
+// ACTOR: Sensore
+actor Sensore {
+  goal: Monitorare Condizioni Trasporto
+  
+  // Decomposition
+  Monitorare Condizioni Trasporto -D-> task: Rilevare Temperatura
+  Monitorare Condizioni Trasporto -D-> task: Rilevare Umidità
+  Monitorare Condizioni Trasporto -D-> task: Rilevare Urti
+  Monitorare Condizioni Trasporto -D-> task: Registrare Dati
+  
+  // Means-end
+  task: Registrare Dati -ME-> resource: Log Condizioni Ambientali
+  task: Comunicare Anomalie -ME-> goal: Allertare Parti Interessate
+  
+  // Softgoals
+  softgoal: Precisione Misurazioni
+  softgoal: Affidabilità Continua
+  
+  // Contributions
+  task: Rilevare Temperatura ++-> softgoal: Precisione Misurazioni
+  task: Rilevare Umidità ++-> softgoal: Precisione Misurazioni
+  task: Rilevare Urti ++-> softgoal: Precisione Misurazioni
+}

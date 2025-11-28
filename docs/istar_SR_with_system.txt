@@ -1,0 +1,123 @@
+// i* Strategic Rationale (SR) Model
+// Supply Chain WITH System (Smart Contract + Bayesian Network)
+// Compatible with piStar tool
+
+// ACTOR: Mittente
+actor Mittente {
+  goal: Spedire Merce con Garanzie Automatiche
+  
+  // Decomposition
+  Spedire Merce con Garanzie Automatiche -D-> task: Creare Spedizione su Blockchain
+  Spedire Merce con Garanzie Automatiche -D-> task: Depositare Pagamento in Escrow
+  Spedire Merce con Garanzie Automatiche -D-> goal: Verificare Condizioni Trasporto
+  Spedire Merce con Garanzie Automatiche -D-> goal: Pagare Solo se Conforme
+  
+  // Means-end
+  task: Creare Spedizione su Blockchain -ME-> resource: Smart Contract Attivo
+  task: Monitorare Evidenze -ME-> goal: Verificare Condizioni Trasporto
+  task: Attendere Validazione BN -ME-> goal: Pagare Solo se Conforme
+  
+  // Softgoals
+  softgoal: Trasparenza Totale
+  softgoal: Non Ripudiabilità
+  softgoal: Automazione Pagamenti
+  
+  // Contributions
+  task: Creare Spedizione su Blockchain ++-> softgoal: Trasparenza Totale
+  task: Depositare Pagamento in Escrow ++-> softgoal: Automazione Pagamenti
+}
+
+// ACTOR: Corriere
+actor Corriere {
+  goal: Consegnare e Ricevere Pagamento Garantito
+  
+  // Decomposition
+  Consegnare e Ricevere Pagamento Garantito -D-> task: Registrare Ritiro su Blockchain
+  Consegnare e Ricevere Pagamento Garantito -D-> task: Trasportare Secondo Standard
+  Consegnare e Ricevere Pagamento Garantito -D-> task: Registrare Consegna su Blockchain
+  Consegnare e Ricevere Pagamento Garantito -D-> goal: Ottenere Validazione Evidenze
+  
+  // Means-end
+  task: Collaborare con Sensore -ME-> resource: Dati Ambientali Certificati
+  task: Fornire Evidenze -ME-> goal: Ottenere Validazione Evidenze
+  task: Attendere Approvazione Admin -ME-> resource: Pagamento Sbloccato
+  
+  // Softgoals
+  softgoal: Certezza di Pagamento
+  softgoal: Prova Oggettiva Conformità
+  
+  // Contributions
+  task: Registrare Consegna su Blockchain ++-> softgoal: Certezza di Pagamento
+  task: Fornire Evidenze ++-> softgoal: Prova Oggettiva Conformità
+}
+
+// ACTOR: Sensore
+actor Sensore {
+  goal: Fornire Dati Certificati e Immutabili
+  
+  // Decomposition
+  Fornire Dati Certificati e Immutabili -D-> task: Rilevare Parametri Ambientali
+  Fornire Dati Certificati e Immutabili -D-> task: Inviare Dati a Smart Contract
+  Fornire Dati Certificati e Immutabili -D-> task: Garantire Timestamp Blockchain
+  
+  // Means-end
+  task: Inviare Dati a Smart Contract -ME-> resource: Evidenze On-Chain
+  task: Firmare Digitalmente Letture -ME-> softgoal: Autenticità Dati
+  
+  // Softgoals
+  softgoal: Autenticità Dati
+  softgoal: Immutabilità Registrazioni
+  
+  // Contributions
+  task: Garantire Timestamp Blockchain ++-> softgoal: Immutabilità Registrazioni
+  task: Firmare Digitalmente Letture ++-> softgoal: Autenticità Dati
+}
+
+// ACTOR: Admin
+actor Admin {
+  goal: Gestire Sistema e Validare Evidenze
+  
+  // Decomposition
+  Gestire Sistema e Validare Evidenze -D-> task: Assegnare Ruoli
+  Gestire Sistema e Validare Evidenze -D-> task: Validare Evidenze Manualmente
+  Gestire Sistema e Validare Evidenze -D-> task: Supervisionare Bayesian Network
+  Gestire Sistema e Validare Evidenze -D-> goal: Garantire Correttezza Sistema
+  
+  // Means-end
+  task: Verificare Output BN -ME-> goal: Validazione Accurata
+  task: Controllare Anomalie -ME-> goal: Garantire Correttezza Sistema
+  
+  // Softgoals
+  softgoal: Imparzialità
+  softgoal: Sicurezza Sistema
+  
+  // Contributions
+  task: Validare Evidenze Manualmente ++-> softgoal: Imparzialità
+  task: Assegnare Ruoli ++-> softgoal: Sicurezza Sistema
+}
+
+// ACTOR: Sistema_Blockchain
+actor Sistema_Blockchain {
+  goal: Automatizzare Processo Supply Chain
+  
+  // Decomposition
+  Automatizzare Processo Supply Chain -D-> task: Registrare Transazioni
+  Automatizzare Processo Supply Chain -D-> task: Calcolare Probabilità con BN
+  Automatizzare Processo Supply Chain -D-> task: Gestire Escrow
+  Automatizzare Processo Supply Chain -D-> goal: Garantire Trasparenza
+  
+  // Means-end
+  task: Calcolare Probabilità con BN -ME-> resource: Score Validazione
+  task: Eseguire Smart Contract -ME-> goal: Pagamento Condizionale
+  task: Memorizzare su Blockchain -ME-> goal: Garantire Trasparenza
+  
+  // Softgoals
+  softgoal: Decentralizzazione
+  softgoal: Immutabilità
+  softgoal: Trustless Execution
+  
+  // Contributions
+  task: Registrare Transazioni ++-> softgoal: Immutabilità
+  task: Eseguire Smart Contract ++-> softgoal: Trustless Execution
+  task: Calcolare Probabilità con BN ++-> softgoal: Decisioni Oggettive
+}

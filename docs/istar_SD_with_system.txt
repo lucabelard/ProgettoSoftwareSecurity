@@ -1,0 +1,46 @@
+// i* Strategic Dependency (SD) Model
+// Supply Chain WITH System (Smart Contract + Bayesian Network)
+// Compatible with piStar tool
+
+// ACTORS
+actor Mittente
+actor Corriere
+actor Sensore
+actor Admin
+actor Sistema_Blockchain
+
+// DEPENDENCIES
+
+// Mittente depends on Sistema_Blockchain
+Mittente -> Sistema_Blockchain: Creazione Spedizione [task]
+Mittente -> Sistema_Blockchain: Validazione Evidenze [goal]
+Mittente -> Sistema_Blockchain: Pagamento Automatico [task]
+Mittente -> Sistema_Blockchain: Tracciabilità Immutabile [softgoal]
+
+// Corriere depends on Sistema_Blockchain
+Corriere -> Sistema_Blockchain: Registrazione Consegna [task]
+Corriere -> Sistema_Blockchain: Ricezione Pagamento [goal]
+Corriere -> Sistema_Blockchain: Prova di Conformità [resource]
+
+// Sensore depends on Sistema_Blockchain
+Sensore -> Sistema_Blockchain: Invio Dati Ambientali [task]
+Sensore -> Sistema_Blockchain: Timestamp Certificato [resource]
+
+// Admin depends on Sistema_Blockchain
+Admin -> Sistema_Blockchain: Gestione Ruoli [task]
+Admin -> Sistema_Blockchain: Validazione Manuale Evidenze [task]
+
+// Sistema_Blockchain depends on Admin
+Sistema_Blockchain -> Admin: Approvazione Evidenze [goal]
+Sistema_Blockchain -> Admin: Configurazione Sistema [task]
+
+// Sistema_Blockchain depends on Sensore
+Sistema_Blockchain -> Sensore: Dati Affidabili [softgoal]
+Sistema_Blockchain -> Sensore: Letture Ambientali [resource]
+
+// Sistema_Blockchain depends on Corriere
+Sistema_Blockchain -> Corriere: Conferma Consegna [resource]
+
+// Mittente still has some dependencies on actors
+Mittente -> Corriere: Consegna Fisica Merce [goal]
+Corriere -> Mittente: Informazioni Destinatario [resource]

@@ -1,0 +1,161 @@
+// i* Strategic Rationale (SR) Model
+// Supply Chain WITH System AND Attackers
+// Compatible with piStar tool
+
+// ACTOR: Attaccante_Esterno
+actor Attaccante_Esterno {
+  goal: Compromettere Sistema Supply Chain
+  
+  // Decomposition
+  Compromettere Sistema Supply Chain -D-> goal: Rubare Fondi
+  Compromettere Sistema Supply Chain -D-> goal: Manipolare Dati
+  Compromettere Sistema Supply Chain -D-> goal: Interrompere Servizio
+  
+  // Attack paths for stealing funds
+  Rubare Fondi -D-> task: Compromettere Wallet Mittente
+  Rubare Fondi -D-> task: Sfruttare Vulnerabilità Smart Contract
+  Rubare Fondi -D-> task: Attacco Man-in-the-Middle
+  
+  // Means-end for wallet compromise
+  task: Phishing Credenziali -ME-> task: Compromettere Wallet Mittente
+  task: Keylogger -ME-> task: Compromettere Wallet Mittente
+  task: Social Engineering -ME-> task: Compromettere Wallet Mittente
+  
+  // Means-end for smart contract exploit
+  task: Reentrancy Attack -ME-> task: Sfruttare Vulnerabilità Smart Contract
+  task: Integer Overflow -ME-> task: Sfruttare Vulnerabilità Smart Contract
+  task: Front-Running -ME-> task: Sfruttare Vulnerabilità Smart Contract
+  
+  // Attack paths for data manipulation
+  Manipolare Dati -D-> task: Compromettere Sensore
+  Manipolare Dati -D-> task: Replay Attack
+  Manipolare Dati -D-> task: Falsificare Transazioni
+  
+  // Means-end for sensor compromise
+  task: Accesso Fisico Sensore -ME-> task: Compromettere Sensore
+  task: Exploit Firmware -ME-> task: Compromettere Sensore
+  
+  // Attack paths for service disruption
+  Interrompere Servizio -D-> task: DDoS su Nodi Blockchain
+  Interrompere Servizio -D-> task: Spam Transazioni
+  Interrompere Servizio -D-> task: Esaurire Gas
+  
+  // Softgoals
+  softgoal: Anonimato
+  softgoal: Evasione Rilevamento
+  
+  // Contributions
+  task: Usare Mixer -+-> softgoal: Anonimato
+  task: Attacchi Graduali ---> softgoal: Evasione Rilevamento
+}
+
+// ACTOR: Attaccante_Interno (Corriere Disonesto)
+actor Attaccante_Interno {
+  goal: Ottenere Pagamento Senza Conformità
+  
+  // Decomposition
+  Ottenere Pagamento Senza Conformità -D-> goal: Falsificare Evidenze
+  Ottenere Pagamento Senza Conformità -D-> goal: Manipolare Sensore
+  Ottenere Pagamento Senza Conformità -D-> goal: Colludere con Altri Attori
+  
+  // Attack paths for evidence falsification
+  Falsificare Evidenze -D-> task: Modificare Dati Sensore
+  Falsificare Evidenze -D-> task: Sostituire Sensore
+  Falsificare Evidenze -D-> task: Replay Dati Validi
+  
+  // Means-end for sensor manipulation
+  task: Accesso Privilegiato Sensore -ME-> task: Modificare Dati Sensore
+  task: Manomissione Fisica -ME-> task: Sostituire Sensore
+  task: Intercettare Comunicazioni -ME-> task: Replay Dati Validi
+  
+  // Attack paths for collusion
+  Colludere con Altri Attori -D-> task: Corrompere Admin
+  Colludere con Altri Attori -D-> task: Accordo con Mittente
+  Colludere con Altri Attori -D-> task: Compromettere Fornitore Sensori
+  
+  // Means-end for admin corruption
+  task: Offrire Tangente -ME-> task: Corrompere Admin
+  task: Ricatto -ME-> task: Corrompere Admin
+  
+  // Softgoals
+  softgoal: Mantenere Reputazione
+  softgoal: Evitare Tracce
+  
+  // Contributions
+  task: Attacchi Sporadici ---> softgoal: Mantenere Reputazione
+  task: Usare Account Multipli ---> softgoal: Evitare Tracce
+}
+
+// ACTOR: Utente_Maldestro (Admin o Mittente Negligente)
+actor Utente_Maldestro {
+  goal: Completare Operazioni (con Errori)
+  
+  // Decomposition
+  Completare Operazioni -D-> task: Gestire Chiavi Private
+  Completare Operazioni -D-> task: Validare Evidenze
+  Completare Operazioni -D-> task: Configurare Sistema
+  
+  // Error paths for key management
+  Gestire Chiavi Private -D-> task: Salvare Chiavi in Chiaro
+  Gestire Chiavi Private -D-> task: Condividere Chiavi
+  Gestire Chiavi Private -D-> task: Usare Password Deboli
+  
+  // Means-end for key exposure
+  task: Salvare su Cloud Non Cifrato -ME-> task: Salvare Chiavi in Chiaro
+  task: Inviare via Email -ME-> task: Condividere Chiavi
+  task: Usare "password123" -ME-> task: Usare Password Deboli
+  
+  // Error paths for validation
+  Validare Evidenze -D-> task: Approvare Senza Verificare
+  Validare Evidenze -D-> task: Ignorare Anomalie
+  Validare Evidenze -D-> task: Validare Sotto Pressione
+  
+  // Error paths for configuration
+  Configurare Sistema -D-> task: Lasciare Porte Aperte
+  Configurare Sistema -D-> task: Non Aggiornare Software
+  Configurare Sistema -D-> task: Disabilitare Sicurezza
+  
+  // Means-end for misconfigurations
+  task: Usare Configurazione Default -ME-> task: Lasciare Porte Aperte
+  task: Rimandare Manutenzione -ME-> task: Non Aggiornare Software
+  task: "Semplificare" per Comodità -ME-> task: Disabilitare Sicurezza
+  
+  // Softgoals (negative)
+  softgoal: Velocità Operazioni
+  softgoal: Semplicità Uso
+  
+  // Negative contributions
+  task: Saltare Verifiche ---> softgoal: Velocità Operazioni
+  task: Disabilitare 2FA ---> softgoal: Semplicità Uso
+}
+
+// DEFENSIVE ACTOR: Sistema_Blockchain (Security Focused)
+actor Sistema_Blockchain {
+  goal: Resistere ad Attacchi
+  
+  // Decomposition
+  Resistere ad Attacchi -D-> goal: Prevenire Accessi Non Autorizzati
+  Resistere ad Attacchi -D-> goal: Rilevare Anomalie
+  Resistere ad Attacchi -D-> goal: Mitigare Errori Utente
+  
+  // Defense mechanisms
+  Prevenire Accessi Non Autorizzati -D-> task: Controllo Ruoli RBAC
+  Prevenire Accessi Non Autorizzati -D-> task: Validazione Firme Digitali
+  Prevenire Accessi Non Autorizzati -D-> task: Rate Limiting
+  
+  Rilevare Anomalie -D-> task: Monitorare Pattern Transazioni
+  Rilevare Anomalie -D-> task: Validare Dati Sensore
+  Rilevare Anomalie -D-> task: Analizzare Comportamenti
+  
+  Mitigare Errori Utente -D-> task: Validazione Input
+  Mitigare Errori Utente -D-> task: Conferme Multiple
+  Mitigare Errori Utente -D-> task: Limiti Transazioni
+  
+  // Softgoals
+  softgoal: Defense in Depth
+  softgoal: Fail-Safe Defaults
+  
+  // Contributions
+  task: Controllo Ruoli RBAC ++-> softgoal: Defense in Depth
+  task: Validazione Input ++-> softgoal: Fail-Safe Defaults
+}
