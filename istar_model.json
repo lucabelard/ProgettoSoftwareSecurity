@@ -1,0 +1,220 @@
+{
+    "diagram": {
+        "name": "Sistema Blockchain Spedizioni",
+        "width": 3000,
+        "height": 2500,
+        "customProperties": {}
+    },
+    "tool": "pistar.2.0.0",
+    "istar": "2.0",
+    "saveDate": "2025-11-28T14:59:21.000Z",
+    "actors": [
+        {
+            "id": "mittente",
+            "text": "Mittente",
+            "type": "istar.Actor",
+            "x": 150,
+            "y": 150,
+            "nodes": []
+        },
+        {
+            "id": "corriere",
+            "text": "Corriere",
+            "type": "istar.Actor",
+            "x": 2400,
+            "y": 150,
+            "nodes": []
+        },
+        {
+            "id": "sensore",
+            "text": "Sensore",
+            "type": "istar.Actor",
+            "x": 150,
+            "y": 1800,
+            "nodes": []
+        },
+        {
+            "id": "admin",
+            "text": "Admin",
+            "type": "istar.Actor",
+            "x": 2400,
+            "y": 1800,
+            "nodes": []
+        },
+        {
+            "id": "sistema_blockchain",
+            "text": "Sistema_Blockchain",
+            "type": "istar.Actor",
+            "x": 1200,
+            "y": 1000,
+            "nodes": []
+        }
+    ],
+    "dependencies": [
+        {
+            "id": "d01",
+            "text": "Creazione Spedizione",
+            "type": "istar.Task",
+            "x": 650,
+            "y": 300,
+            "source": "mittente",
+            "target": "sistema_blockchain"
+        },
+        {
+            "id": "d02",
+            "text": "Validazione Evidenze",
+            "type": "istar.Goal",
+            "x": 650,
+            "y": 400,
+            "source": "mittente",
+            "target": "sistema_blockchain"
+        },
+        {
+            "id": "d03",
+            "text": "Pagamento Automatico",
+            "type": "istar.Task",
+            "x": 650,
+            "y": 500,
+            "source": "mittente",
+            "target": "sistema_blockchain"
+        },
+        {
+            "id": "d04",
+            "text": "Tracciabilità Immutabile",
+            "type": "istar.Quality",
+            "x": 650,
+            "y": 600,
+            "source": "mittente",
+            "target": "sistema_blockchain"
+        },
+        {
+            "id": "d05",
+            "text": "Registrazione Consegna",
+            "type": "istar.Task",
+            "x": 1800,
+            "y": 300,
+            "source": "corriere",
+            "target": "sistema_blockchain"
+        },
+        {
+            "id": "d06",
+            "text": "Ricezione Pagamento",
+            "type": "istar.Goal",
+            "x": 1800,
+            "y": 400,
+            "source": "corriere",
+            "target": "sistema_blockchain"
+        },
+        {
+            "id": "d07",
+            "text": "Prova di Conformità",
+            "type": "istar.Resource",
+            "x": 1800,
+            "y": 500,
+            "source": "corriere",
+            "target": "sistema_blockchain"
+        },
+        {
+            "id": "d08",
+            "text": "Invio Dati Ambientali",
+            "type": "istar.Task",
+            "x": 650,
+            "y": 1500,
+            "source": "sensore",
+            "target": "sistema_blockchain"
+        },
+        {
+            "id": "d09",
+            "text": "Timestamp Certificato",
+            "type": "istar.Resource",
+            "x": 650,
+            "y": 1600,
+            "source": "sensore",
+            "target": "sistema_blockchain"
+        },
+        {
+            "id": "d10",
+            "text": "Gestione Ruoli",
+            "type": "istar.Task",
+            "x": 1800,
+            "y": 1500,
+            "source": "admin",
+            "target": "sistema_blockchain"
+        },
+        {
+            "id": "d11",
+            "text": "Validazione Manuale Evidenze",
+            "type": "istar.Task",
+            "x": 1800,
+            "y": 1600,
+            "source": "admin",
+            "target": "sistema_blockchain"
+        },
+        {
+            "id": "d12",
+            "text": "Approvazione Evidenze",
+            "type": "istar.Goal",
+            "x": 1800,
+            "y": 1700,
+            "source": "sistema_blockchain",
+            "target": "admin"
+        },
+        {
+            "id": "d13",
+            "text": "Configurazione Sistema",
+            "type": "istar.Task",
+            "x": 1800,
+            "y": 1800,
+            "source": "sistema_blockchain",
+            "target": "admin"
+        },
+        {
+            "id": "d14",
+            "text": "Dati Affidabili",
+            "type": "istar.Quality",
+            "x": 650,
+            "y": 1700,
+            "source": "sistema_blockchain",
+            "target": "sensore"
+        },
+        {
+            "id": "d15",
+            "text": "Letture Ambientali",
+            "type": "istar.Resource",
+            "x": 650,
+            "y": 1800,
+            "source": "sistema_blockchain",
+            "target": "sensore"
+        },
+        {
+            "id": "d16",
+            "text": "Conferma Consegna",
+            "type": "istar.Resource",
+            "x": 1800,
+            "y": 600,
+            "source": "sistema_blockchain",
+            "target": "corriere"
+        },
+        {
+            "id": "d17",
+            "text": "Consegna Fisica Merce",
+            "type": "istar.Goal",
+            "x": 1200,
+            "y": 100,
+            "source": "mittente",
+            "target": "corriere"
+        },
+        {
+            "id": "d18",
+            "text": "Informazioni Destinatario",
+            "type": "istar.Resource",
+            "x": 1200,
+            "y": 50,
+            "source": "corriere",
+            "target": "mittente"
+        }
+    ],
+    "links": [],
+    "display": {},
+    "orphans": []
+}
