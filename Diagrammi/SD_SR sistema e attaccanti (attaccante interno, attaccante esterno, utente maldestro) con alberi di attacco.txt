@@ -1,0 +1,465 @@
+{
+  "actors": [
+    {
+      "id": "65af193c-d514-42fa-9a7e-923a30f4e097",
+      "text": "Sistema (Smart Contract)",
+      "type": "istar.Actor",
+      "x": 600,
+      "y": 300,
+      "customProperties": {
+        "Description": ""
+      },
+      "nodes": [
+        {
+          "id": "8c261784-9000-42f5-8ae6-350d754fbc39",
+          "text": "Garantire Integrit\u00e0",
+          "type": "istar.Goal",
+          "x": 750,
+          "y": 330,
+          "customProperties": {
+            "Description": ""
+          }
+        },
+        {
+          "id": "1ead2ebb-f123-46af-9094-f6c65016c6f1",
+          "text": "Immutabilit\u00e0",
+          "type": "istar.Quality",
+          "x": 650,
+          "y": 430,
+          "customProperties": {
+            "Description": ""
+          }
+        },
+        {
+          "id": "2c77dc3c-b4ba-4f06-9b1b-925f032c2024",
+          "text": "Trasparenza",
+          "type": "istar.Quality",
+          "x": 750,
+          "y": 430,
+          "customProperties": {
+            "Description": ""
+          }
+        },
+        {
+          "id": "c053a85f-f290-4b0f-9019-d55112ff3e19",
+          "text": "Correttezza",
+          "type": "istar.Quality",
+          "x": 850,
+          "y": 430,
+          "customProperties": {
+            "Description": ""
+          }
+        },
+        {
+          "id": "ef600187-9f1d-44e1-ad42-78bbeae17a03",
+          "text": "Access Control\n(RBAC)",
+          "type": "istar.Task",
+          "x": 620,
+          "y": 550,
+          "customProperties": {
+            "Description": ""
+          }
+        },
+        {
+          "id": "bda08fe8-bd49-4071-9fec-4ff9b9b979a9",
+          "text": "Validazione Input",
+          "type": "istar.Task",
+          "x": 720,
+          "y": 550,
+          "customProperties": {
+            "Description": ""
+          }
+        },
+        {
+          "id": "15a97483-4e30-4376-9315-6fb8a0baf544",
+          "text": "Logica Bayesiana",
+          "type": "istar.Task",
+          "x": 820,
+          "y": 550,
+          "customProperties": {
+            "Description": ""
+          }
+        },
+        {
+          "id": "25e60d87-89f5-4bf0-8dc7-414969ae2091",
+          "text": "Gestione Stati",
+          "type": "istar.Task",
+          "x": 920,
+          "y": 550,
+          "customProperties": {
+            "Description": ""
+          }
+        }
+      ]
+    },
+    {
+      "id": "fa52a29f-8322-4a74-9962-86afa915809a",
+      "text": "Attaccante Interno",
+      "type": "istar.Role",
+      "x": 100,
+      "y": 100,
+      "customProperties": {
+        "Description": ""
+      },
+      "nodes": [
+        {
+          "id": "97e0937e-a754-4cef-9dfa-f11ac9669111",
+          "text": "Ottenere Pagamento\nIllecito",
+          "type": "istar.Goal",
+          "x": 150,
+          "y": 130,
+          "customProperties": {
+            "Description": ""
+          }
+        },
+        {
+          "id": "2b2c783f-d594-47f7-a2ae-99bdeadc573d",
+          "text": "Inviare Evidenze\nFalse",
+          "type": "istar.Task",
+          "x": 120,
+          "y": 250,
+          "customProperties": {
+            "Description": ""
+          }
+        },
+        {
+          "id": "4beadb25-ed22-463a-a288-60b5201ed331",
+          "text": "Colludere con\nOracolo",
+          "type": "istar.Task",
+          "x": 280,
+          "y": 250,
+          "customProperties": {
+            "Description": ""
+          }
+        },
+        {
+          "id": "36e105d3-7e05-4ca7-b27a-3b543803fa9f",
+          "text": "Compromettere\nSensore",
+          "type": "istar.Task",
+          "x": 120,
+          "y": 350,
+          "customProperties": {
+            "Description": ""
+          }
+        },
+        {
+          "id": "d28baa01-0bee-4465-9c40-0220c27bc65d",
+          "text": "Replay Evidenze",
+          "type": "istar.Task",
+          "x": 220,
+          "y": 350,
+          "customProperties": {
+            "Description": ""
+          }
+        }
+      ]
+    },
+    {
+      "id": "640c2f5b-d6d9-43df-8d07-f51c2b8158a1",
+      "text": "Attaccante Esterno",
+      "type": "istar.Role",
+      "x": 1100,
+      "y": 100,
+      "customProperties": {
+        "Description": ""
+      },
+      "nodes": [
+        {
+          "id": "4dda0a5e-76ea-464b-ad8b-67a24c4d66b3",
+          "text": "Eseguire Azioni\nProtette",
+          "type": "istar.Goal",
+          "x": 1150,
+          "y": 130,
+          "customProperties": {
+            "Description": ""
+          }
+        },
+        {
+          "id": "e5fe0bd4-d849-4dbe-8ea6-95a2b00210fe",
+          "text": "Bypass Ruoli",
+          "type": "istar.Task",
+          "x": 1120,
+          "y": 250,
+          "customProperties": {
+            "Description": ""
+          }
+        },
+        {
+          "id": "aebc191b-c3b3-44dc-9c87-e4ea78261ca1",
+          "text": "Front-running",
+          "type": "istar.Task",
+          "x": 1250,
+          "y": 250,
+          "customProperties": {
+            "Description": ""
+          }
+        },
+        {
+          "id": "2782e66d-3556-4837-9117-0c3ef373344a",
+          "text": "DoS (Gas)",
+          "type": "istar.Task",
+          "x": 1380,
+          "y": 250,
+          "customProperties": {
+            "Description": ""
+          }
+        }
+      ]
+    },
+    {
+      "id": "17f25c6b-9ba0-45c8-9968-b9172eb98fb3",
+      "text": "Utente Maldestro",
+      "type": "istar.Role",
+      "x": 600,
+      "y": 800,
+      "customProperties": {
+        "Description": ""
+      },
+      "nodes": [
+        {
+          "id": "6b786310-c7f1-43c5-942c-54175ec0a115",
+          "text": "Errore Operativo",
+          "type": "istar.Goal",
+          "x": 650,
+          "y": 830,
+          "customProperties": {
+            "Description": ""
+          }
+        },
+        {
+          "id": "0f2523c3-bab1-4546-b87f-609f2b99cdf5",
+          "text": "Input Indirizzo\nErrao",
+          "type": "istar.Task",
+          "x": 620,
+          "y": 950,
+          "customProperties": {
+            "Description": ""
+          }
+        },
+        {
+          "id": "162a7c96-8e0d-4d28-bba9-5700f67ee08e",
+          "text": "Configurazione\nCPT Errata",
+          "type": "istar.Task",
+          "x": 750,
+          "y": 950,
+          "customProperties": {
+            "Description": ""
+          }
+        },
+        {
+          "id": "431218ac-9cc3-454b-8b44-7f394ed6772f",
+          "text": "Perdita Chiave",
+          "type": "istar.Task",
+          "x": 880,
+          "y": 950,
+          "customProperties": {
+            "Description": ""
+          }
+        }
+      ]
+    }
+  ],
+  "orphans": [],
+  "dependencies": [
+    {
+      "id": "b445b14f-92e6-4617-9f5b-fd999b46621f",
+      "text": "Pagamento",
+      "type": "istar.Resource",
+      "x": 350,
+      "y": 200,
+      "customProperties": {
+        "Description": ""
+      },
+      "source": "fa52a29f-8322-4a74-9962-86afa915809a",
+      "target": "65af193c-d514-42fa-9a7e-923a30f4e097"
+    },
+    {
+      "id": "5a50e205-f4e8-4de8-8fb4-45fafdb92950",
+      "text": "Accesso Funzioni",
+      "type": "istar.Task",
+      "x": 850,
+      "y": 200,
+      "customProperties": {
+        "Description": ""
+      },
+      "source": "640c2f5b-d6d9-43df-8d07-f51c2b8158a1",
+      "target": "65af193c-d514-42fa-9a7e-923a30f4e097"
+    },
+    {
+      "id": "bea2951b-544d-4192-9044-7b981aa04622",
+      "text": "Input Dati",
+      "type": "istar.Resource",
+      "x": 600,
+      "y": 600,
+      "customProperties": {
+        "Description": ""
+      },
+      "source": "17f25c6b-9ba0-45c8-9968-b9172eb98fb3",
+      "target": "65af193c-d514-42fa-9a7e-923a30f4e097"
+    },
+    {
+      "id": "9f814042-36a3-4c46-9ceb-8c2e7d9bff2f",
+      "text": "Validazione",
+      "type": "istar.Goal",
+      "x": 450,
+      "y": 250,
+      "customProperties": {
+        "Description": ""
+      },
+      "source": "65af193c-d514-42fa-9a7e-923a30f4e097",
+      "target": "fa52a29f-8322-4a74-9962-86afa915809a"
+    },
+    {
+      "id": "d26ddf90-669a-4735-83c5-c905cf1d0c01",
+      "text": "Sicurezza",
+      "type": "istar.Quality",
+      "x": 950,
+      "y": 250,
+      "customProperties": {
+        "Description": ""
+      },
+      "source": "65af193c-d514-42fa-9a7e-923a30f4e097",
+      "target": "640c2f5b-d6d9-43df-8d07-f51c2b8158a1"
+    }
+  ],
+  "links": [
+    {
+      "id": "9037e586-db1f-46c1-94a8-ae739a486a13",
+      "type": "istar.OrRefinementLink",
+      "source": "2b2c783f-d594-47f7-a2ae-99bdeadc573d",
+      "target": "97e0937e-a754-4cef-9dfa-f11ac9669111"
+    },
+    {
+      "id": "138d6192-9c1e-4e40-ad81-d2e61ce4d499",
+      "type": "istar.OrRefinementLink",
+      "source": "4beadb25-ed22-463a-a288-60b5201ed331",
+      "target": "97e0937e-a754-4cef-9dfa-f11ac9669111"
+    },
+    {
+      "id": "3e51f9e0-503a-48a0-a64f-fbe7c8d10b2f",
+      "type": "istar.AndRefinementLink",
+      "source": "36e105d3-7e05-4ca7-b27a-3b543803fa9f",
+      "target": "2b2c783f-d594-47f7-a2ae-99bdeadc573d"
+    },
+    {
+      "id": "eaff1cbf-b474-4271-8da5-a5a703389e94",
+      "type": "istar.AndRefinementLink",
+      "source": "d28baa01-0bee-4465-9c40-0220c27bc65d",
+      "target": "2b2c783f-d594-47f7-a2ae-99bdeadc573d"
+    },
+    {
+      "id": "eb146f18-19f9-4a09-b076-df9cb1ae8cca",
+      "type": "istar.OrRefinementLink",
+      "source": "e5fe0bd4-d849-4dbe-8ea6-95a2b00210fe",
+      "target": "4dda0a5e-76ea-464b-ad8b-67a24c4d66b3"
+    },
+    {
+      "id": "0e0a2a37-da8f-44ad-b848-16604cd9a61e",
+      "type": "istar.OrRefinementLink",
+      "source": "aebc191b-c3b3-44dc-9c87-e4ea78261ca1",
+      "target": "4dda0a5e-76ea-464b-ad8b-67a24c4d66b3"
+    },
+    {
+      "id": "28b190fb-3385-4178-946c-b57a9d2ec505",
+      "type": "istar.OrRefinementLink",
+      "source": "2782e66d-3556-4837-9117-0c3ef373344a",
+      "target": "4dda0a5e-76ea-464b-ad8b-67a24c4d66b3"
+    },
+    {
+      "id": "50092a1e-4fa6-4405-9c5c-ae5e951f6167",
+      "type": "istar.OrRefinementLink",
+      "source": "0f2523c3-bab1-4546-b87f-609f2b99cdf5",
+      "target": "6b786310-c7f1-43c5-942c-54175ec0a115"
+    },
+    {
+      "id": "08f6ec6b-48d8-451d-8bf5-59ecf6ac8877",
+      "type": "istar.OrRefinementLink",
+      "source": "162a7c96-8e0d-4d28-bba9-5700f67ee08e",
+      "target": "6b786310-c7f1-43c5-942c-54175ec0a115"
+    },
+    {
+      "id": "f7fc1258-419c-4c56-b1b4-ef342e6ae501",
+      "type": "istar.OrRefinementLink",
+      "source": "431218ac-9cc3-454b-8b44-7f394ed6772f",
+      "target": "6b786310-c7f1-43c5-942c-54175ec0a115"
+    },
+    {
+      "id": "0394b784-0ab7-4bab-9a2d-c74ee4a8ee44",
+      "type": "istar.AndRefinementLink",
+      "source": "ef600187-9f1d-44e1-ad42-78bbeae17a03",
+      "target": "8c261784-9000-42f5-8ae6-350d754fbc39"
+    },
+    {
+      "id": "a825f98b-a989-43f3-a322-75981bd67e46",
+      "type": "istar.AndRefinementLink",
+      "source": "bda08fe8-bd49-4071-9fec-4ff9b9b979a9",
+      "target": "8c261784-9000-42f5-8ae6-350d754fbc39"
+    },
+    {
+      "id": "622c0f30-5f6a-4c29-97e9-6923919a783b",
+      "type": "istar.AndRefinementLink",
+      "source": "15a97483-4e30-4376-9315-6fb8a0baf544",
+      "target": "8c261784-9000-42f5-8ae6-350d754fbc39"
+    },
+    {
+      "id": "0a733550-0f00-4212-b675-77eb9a6988b3",
+      "type": "istar.AndRefinementLink",
+      "source": "25e60d87-89f5-4bf0-8dc7-414969ae2091",
+      "target": "8c261784-9000-42f5-8ae6-350d754fbc39"
+    },
+    {
+      "id": "d746c11a-63f6-490f-b7c0-c92d7bb9d34a",
+      "type": "istar.ContributionLink",
+      "source": "ef600187-9f1d-44e1-ad42-78bbeae17a03",
+      "target": "1ead2ebb-f123-46af-9094-f6c65016c6f1",
+      "label": "make"
+    },
+    {
+      "id": "d91a202f-c550-44e0-8651-f59ea9d5275d",
+      "type": "istar.ContributionLink",
+      "source": "15a97483-4e30-4376-9315-6fb8a0baf544",
+      "target": "c053a85f-f290-4b0f-9019-d55112ff3e19",
+      "label": "make"
+    },
+    {
+      "id": "0b978f32-8445-4267-b929-a908d622d815",
+      "type": "istar.ContributionLink",
+      "source": "25e60d87-89f5-4bf0-8dc7-414969ae2091",
+      "target": "1ead2ebb-f123-46af-9094-f6c65016c6f1",
+      "label": "help"
+    }
+  ],
+  "display": {
+    "65af193c-d514-42fa-9a7e-923a30f4e097": {
+      "width": 400,
+      "height": 400,
+      "backgroundColor": "#E6E6E6"
+    },
+    "fa52a29f-8322-4a74-9962-86afa915809a": {
+      "width": 350,
+      "height": 350,
+      "backgroundColor": "#E6E6E6"
+    },
+    "640c2f5b-d6d9-43df-8d07-f51c2b8158a1": {
+      "width": 350,
+      "height": 350,
+      "backgroundColor": "#E6E6E6"
+    },
+    "17f25c6b-9ba0-45c8-9968-b9172eb98fb3": {
+      "width": 350,
+      "height": 350,
+      "backgroundColor": "#E6E6E6"
+    }
+  },
+  "tool": "pistar.2.1.0",
+  "istar": "2.0",
+  "saveDate": "Fri, 28 Nov 2025 16:33:25 GMT",
+  "diagram": {
+    "width": 2000,
+    "height": 1500,
+    "name": "Blockchain Shipment Tracker Security Model",
+    "customProperties": {
+      "Description": "Generated i* model for Software Security Project"
+    }
+  }
+}
