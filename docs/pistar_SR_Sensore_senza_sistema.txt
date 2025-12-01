@@ -1,0 +1,63 @@
+{
+  "actors": [
+    {
+      "id": "sr-sensore-main",
+      "text": "Sensore_IoT",
+      "type": "istar.Actor",
+      "x": 400,
+      "y": 200,
+      "customProperties": {"Description": "Dispositivo IoT per monitoraggio condizioni trasporto"},
+      "nodes": [
+        {"id": "g1-monitorare-registrare", "text": "Monitorare e Registrare Condizioni Trasporto", "type": "istar.Goal", "x": 550, "y": 250, "customProperties": {"Description": "Goal principale del sensore"}},
+        {"id": "t1-rilevare-temperatura", "text": "Rilevare Temperatura E1", "type": "istar.Task", "x": 450, "y": 330, "customProperties": {"Description": "T1: Sensore temperatura"}},
+        {"id": "t2-rilevare-shock", "text": "Rilevare Shock E3", "type": "istar.Task", "x": 550, "y": 330, "customProperties": {"Description": "T2: Accelerometro"}},
+        {"id": "t3-rilevare-apertura", "text": "Rilevare Apertura/Luce E4", "type": "istar.Task", "x": 650, "y": 330, "customProperties": {"Description": "T3: Fotosensore"}},
+        {"id": "t4-verificare-sigillo", "text": "Verificare Sigillo Elettronico E2", "type": "istar.Task", "x": 750, "y": 330, "customProperties": {"Description": "T4: Tamper detection"}},
+        {"id": "t5-registrare-timestamp", "text": "Registrare Timestamp E5", "type": "istar.Task", "x": 450, "y": 400, "customProperties": {"Description": "T5: Scan arrivo"}},
+        {"id": "g2-trasmettere-dati", "text": "Trasmettere Dati", "type": "istar.Goal", "x": 650, "y": 400, "customProperties": {"Description": "G2: Invio dati"}},
+        {"id": "t6-campionare", "text": "Campionare Ogni 5 Minuti", "type": "istar.Task", "x": 380, "y": 480, "customProperties": {"Description": "T6: Frequenza campionamento"}},
+        {"id": "t7-verificare-range", "text": "Verificare Range 2-8°C", "type": "istar.Task", "x": 480, "y": 480, "customProperties": {"Description": "T7: Controllo soglie"}},
+        {"id": "t8-generare-alert", "text": "Generare Alert se Fuori Range", "type": "istar.Task", "x": 580, "y": 480, "customProperties": {"Description": "T8: Allarmi"}},
+        {"id": "t9-salvare-memoria", "text": "Salvare su Memoria Interna", "type": "istar.Task", "x": 580, "y": 550, "customProperties": {"Description": "T9: Storage locale"}},
+        {"id": "t10-inviare-bluetooth", "text": "Inviare via Bluetooth/WiFi", "type": "istar.Task", "x": 680, "y": 550, "customProperties": {"Description": "T10: Trasmissione wireless"}},
+        {"id": "t11-generare-report", "text": "Generare Report Finale", "type": "istar.Task", "x": 780, "y": 550, "customProperties": {"Description": "T11: Report E1-E5"}},
+        {"id": "sg1-precisione", "text": "Precisione Misurazioni", "type": "istar.Quality", "x": 280, "y": 350, "customProperties": {"Description": "SG1: Accuratezza dati"}},
+        {"id": "sg2-integrita", "text": "Integrità Dati", "type": "istar.Quality", "x": 280, "y": 450, "customProperties": {"Description": "SG2: Dati non alterati"}},
+        {"id": "sg3-autonomia", "text": "Autonomia Batteria", "type": "istar.Quality", "x": 880, "y": 350, "customProperties": {"Description": "SG3: Durata batteria"}}
+      ]
+    },
+    {"id": "ext-mittente", "text": "Mittente", "type": "istar.Actor", "x": 150, "y": 300, "customProperties": {"Description": "Attore esterno"}, "nodes": []},
+    {"id": "ext-corriere", "text": "Corriere", "type": "istar.Actor", "x": 950, "y": 300, "customProperties": {"Description": "Attore esterno"}, "nodes": []}
+  ],
+  "orphans": [],
+  "dependencies": [
+    {"id": "dep-d17-config", "text": "Configurazione Parametri", "type": "istar.Resource", "x": 270, "y": 250, "customProperties": {"Description": "D17: Parametri da Mittente"}, "source": "ext-mittente", "target": "sr-sensore-main"},
+    {"id": "dep-d18-protezione", "text": "Protezione Fisica", "type": "istar.Quality", "x": 830, "y": 250, "customProperties": {"Description": "D18: Non manomettere sensore"}, "source": "ext-corriere", "target": "sr-sensore-main"}
+  ],
+  "links": [
+    {"id": "link-dep17-1", "type": "istar.DependencyLink", "source": "ext-mittente", "target": "dep-d17-config"},
+    {"id": "link-dep17-2", "type": "istar.DependencyLink", "source": "dep-d17-config", "target": "sr-sensore-main"},
+    {"id": "link-dep18-1", "type": "istar.DependencyLink", "source": "ext-corriere", "target": "dep-d18-protezione"},
+    {"id": "link-dep18-2", "type": "istar.DependencyLink", "source": "dep-d18-protezione", "target": "sr-sensore-main"},
+    {"id": "decomp-g1-t1", "type": "istar.AndRefinementLink", "source": "g1-monitorare-registrare", "target": "t1-rilevare-temperatura"},
+    {"id": "decomp-g1-t2", "type": "istar.AndRefinementLink", "source": "g1-monitorare-registrare", "target": "t2-rilevare-shock"},
+    {"id": "decomp-g1-t3", "type": "istar.AndRefinementLink", "source": "g1-monitorare-registrare", "target": "t3-rilevare-apertura"},
+    {"id": "decomp-g1-t4", "type": "istar.AndRefinementLink", "source": "g1-monitorare-registrare", "target": "t4-verificare-sigillo"},
+    {"id": "decomp-g1-t5", "type": "istar.AndRefinementLink", "source": "g1-monitorare-registrare", "target": "t5-registrare-timestamp"},
+    {"id": "decomp-g1-g2", "type": "istar.AndRefinementLink", "source": "g1-monitorare-registrare", "target": "g2-trasmettere-dati"},
+    {"id": "decomp-t1-t6", "type": "istar.AndRefinementLink", "source": "t1-rilevare-temperatura", "target": "t6-campionare"},
+    {"id": "decomp-t1-t7", "type": "istar.AndRefinementLink", "source": "t1-rilevare-temperatura", "target": "t7-verificare-range"},
+    {"id": "decomp-t1-t8", "type": "istar.AndRefinementLink", "source": "t1-rilevare-temperatura", "target": "t8-generare-alert"},
+    {"id": "decomp-g2-t9", "type": "istar.AndRefinementLink", "source": "g2-trasmettere-dati", "target": "t9-salvare-memoria"},
+    {"id": "decomp-g2-t10", "type": "istar.AndRefinementLink", "source": "g2-trasmettere-dati", "target": "t10-inviare-bluetooth"},
+    {"id": "decomp-g2-t11", "type": "istar.AndRefinementLink", "source": "g2-trasmettere-dati", "target": "t11-generare-report"},
+    {"id": "contrib-t6-sg1", "type": "istar.ContributionLink", "source": "t6-campionare", "target": "sg1-precisione", "value": "++"},
+    {"id": "contrib-t9-sg2", "type": "istar.ContributionLink", "source": "t9-salvare-memoria", "target": "sg2-integrita", "value": "++"},
+    {"id": "contrib-t6-sg3", "type": "istar.ContributionLink", "source": "t6-campionare", "target": "sg3-autonomia", "value": "--"}
+  ],
+  "display": {"sr-sensore-main": {"collapsed": false}, "ext-mittente": {"collapsed": true}, "ext-corriere": {"collapsed": true}},
+  "tool": "pistar.2.1.0",
+  "istar": "2.0",
+  "saveDate": "Sun, 01 Dec 2024 14:37:00 GMT",
+  "diagram": {"width": 1200, "height": 800, "customProperties": {"Description": "Strategic Rationale Model - Sensore IoT - Sistema SENZA Blockchain"}}
+}

@@ -1,0 +1,349 @@
+{
+  "actors": [
+    {
+      "id": "sr-mittente-main",
+      "text": "Mittente",
+      "type": "istar.Actor",
+      "x": 285,
+      "y": 137,
+      "customProperties": {
+        "Description": "Farmacia o produttore farmaceutico"
+      },
+      "nodes": [
+        {
+          "id": "g1-spedire-farmaci",
+          "text": "Spedizione farmaci in catena del freddo",
+          "type": "istar.Goal",
+          "x": 623,
+          "y": 153,
+          "customProperties": {
+            "Description": "Goal principale del mittente"
+          }
+        },
+        {
+          "id": "t1-selezionare-corriere",
+          "text": "Selezionare corriere certificato",
+          "type": "istar.Task",
+          "x": 751,
+          "y": 258,
+          "customProperties": {
+            "Description": "T1: Scegliere corriere affidabile"
+          }
+        },
+        {
+          "id": "t3-installare-sensori",
+          "text": "Installare sensori IoT",
+          "type": "istar.Task",
+          "x": 876,
+          "y": 177,
+          "customProperties": {
+            "Description": "T3: Montare dispositivi monitoraggio"
+          }
+        },
+        {
+          "id": "t4-depositare-fondi",
+          "text": "Depositare fondi in escrow",
+          "type": "istar.Task",
+          "x": 836,
+          "y": 573,
+          "customProperties": {
+            "Description": "T4: Pagamento anticipato"
+          }
+        },
+        {
+          "id": "g2-verificare-conformita",
+          "text": "Verificare conformità post-consegna",
+          "type": "istar.Goal",
+          "x": 391,
+          "y": 185,
+          "customProperties": {
+            "Description": "G2: Controllo dopo consegna"
+          }
+        },
+        {
+          "id": "g3-pagare-se-conforme",
+          "text": "Pagare solo se conforme",
+          "type": "istar.Goal",
+          "x": 614,
+          "y": 295,
+          "customProperties": {
+            "Description": "G3: Pagamento condizionale"
+          }
+        },
+        {
+          "id": "t5-richiedere-report",
+          "text": "Richiedere report sensori",
+          "type": "istar.Task",
+          "x": 309,
+          "y": 294,
+          "customProperties": {
+            "Description": "T5: Ottenere dati IoT"
+          }
+        },
+        {
+          "id": "t6-verificare-certificati",
+          "text": "Verificare certificati corriere",
+          "type": "istar.Task",
+          "x": 466,
+          "y": 302,
+          "customProperties": {
+            "Description": "T6: Controllare documenti"
+          }
+        },
+        {
+          "id": "t10-attendere-decisione",
+          "text": "Attendere decisione manuale",
+          "type": "istar.Task",
+          "x": 395,
+          "y": 392,
+          "customProperties": {
+            "Description": "T10: Processo manuale intermediario"
+          }
+        },
+        {
+          "id": "t11-contestare",
+          "text": "Contestare se non conforme",
+          "type": "istar.Task",
+          "x": 608,
+          "y": 395,
+          "customProperties": {
+            "Description": "T11: Aprire dispute"
+          }
+        },
+        {
+          "id": "sg1-protezione-finanziaria",
+          "text": "Protezione Finanziaria",
+          "type": "istar.Quality",
+          "x": 404,
+          "y": 543,
+          "customProperties": {
+            "Description": "SG1: Sicurezza pagamento"
+          }
+        },
+        {
+          "id": "sg2-tracciabilita",
+          "text": "Tracciabilità completa",
+          "type": "istar.Quality",
+          "x": 880,
+          "y": 297,
+          "customProperties": {
+            "Description": "SG2: Monitoraggio end-to-end"
+          }
+        },
+        {
+          "id": "sg3-minimizzare-rischio",
+          "text": "Minimizzare rischio perdita",
+          "type": "istar.Quality",
+          "x": 611,
+          "y": 483,
+          "customProperties": {
+            "Description": "SG3: Ridurre perdite farmaci"
+          }
+        }
+      ]
+    },
+    {
+      "id": "ext-corriere",
+      "text": "Corriere",
+      "type": "istar.Actor",
+      "x": 823,
+      "y": 37,
+      "customProperties": {
+        "Description": "Attore esterno"
+      },
+      "nodes": []
+    },
+    {
+      "id": "ext-sensore",
+      "text": "Sensore_IoT",
+      "type": "istar.Actor",
+      "x": 98,
+      "y": 486,
+      "customProperties": {
+        "Description": "Attore esterno"
+      },
+      "nodes": []
+    }
+  ],
+  "orphans": [],
+  "dependencies": [
+    {
+      "id": "dep-d1-trasporto",
+      "text": "Trasporto farmaci",
+      "type": "istar.Goal",
+      "x": 436,
+      "y": 28,
+      "customProperties": {
+        "Description": "D1: Trasporto catena freddo"
+      },
+      "source": "sr-mittente-main",
+      "target": "ext-corriere"
+    },
+    {
+      "id": "dep-d7-report",
+      "text": "Report evidenze E1...E5",
+      "type": "istar.Resource",
+      "x": 75,
+      "y": 298,
+      "customProperties": {
+        "Description": "D7: Dati sensori"
+      },
+      "source": "sr-mittente-main",
+      "target": "ext-sensore"
+    }
+  ],
+  "links": [
+    {
+      "id": "b93fac1d-14c9-4525-8784-f5271d31d3a1",
+      "type": "istar.DependencyLink",
+      "source": "dep-d7-report",
+      "target": "ext-sensore"
+    },
+    {
+      "id": "613f1ed7-d75c-4ad8-8f8c-82df2616fb0b",
+      "type": "istar.DependencyLink",
+      "source": "sr-mittente-main",
+      "target": "dep-d7-report"
+    },
+    {
+      "id": "2cea88f2-5490-45dc-aff6-3176f80340fc",
+      "type": "istar.DependencyLink",
+      "source": "dep-d1-trasporto",
+      "target": "ext-corriere"
+    },
+    {
+      "id": "e33dda93-23a1-4155-9c39-c32392875bc9",
+      "type": "istar.DependencyLink",
+      "source": "sr-mittente-main",
+      "target": "dep-d1-trasporto"
+    },
+    {
+      "id": "07da4af9-7c19-4727-ac30-5bc81172c8d9",
+      "type": "istar.AndRefinementLink",
+      "source": "g1-spedire-farmaci",
+      "target": "t1-selezionare-corriere"
+    },
+    {
+      "id": "73c48e25-0991-4214-ac05-057f24eb2426",
+      "type": "istar.AndRefinementLink",
+      "source": "g1-spedire-farmaci",
+      "target": "t3-installare-sensori"
+    },
+    {
+      "id": "30121bc4-c330-41c5-b5b6-50dc5e018924",
+      "type": "istar.AndRefinementLink",
+      "source": "g1-spedire-farmaci",
+      "target": "t4-depositare-fondi"
+    },
+    {
+      "id": "11dda6d6-11a3-4601-9a7d-01704191ac61",
+      "type": "istar.AndRefinementLink",
+      "source": "g1-spedire-farmaci",
+      "target": "g2-verificare-conformita"
+    },
+    {
+      "id": "d4e334db-c788-4417-801a-709f55c3b9ce",
+      "type": "istar.AndRefinementLink",
+      "source": "g1-spedire-farmaci",
+      "target": "g3-pagare-se-conforme"
+    },
+    {
+      "id": "3c7ba910-b517-4da9-8610-e45bac4e09d6",
+      "type": "istar.AndRefinementLink",
+      "source": "g2-verificare-conformita",
+      "target": "t5-richiedere-report"
+    },
+    {
+      "id": "04f881f0-2857-41f1-9809-c56cacaca0e8",
+      "type": "istar.AndRefinementLink",
+      "source": "g2-verificare-conformita",
+      "target": "t6-verificare-certificati"
+    },
+    {
+      "id": "de40302a-b4f8-44f8-b3c2-c4031739d39a",
+      "type": "istar.AndRefinementLink",
+      "source": "g3-pagare-se-conforme",
+      "target": "t10-attendere-decisione"
+    },
+    {
+      "id": "3b60071c-6255-4742-b547-a38acf8dda2c",
+      "type": "istar.AndRefinementLink",
+      "source": "g3-pagare-se-conforme",
+      "target": "t11-contestare"
+    },
+    {
+      "id": "72711f05-a219-4ebb-a983-eb2559c87718",
+      "type": "istar.ContributionLink",
+      "source": "t3-installare-sensori",
+      "target": "sg2-tracciabilita"
+    },
+    {
+      "id": "e64519f0-c463-4be1-b1cb-ce21c2c4d706",
+      "type": "istar.ContributionLink",
+      "source": "t4-depositare-fondi",
+      "target": "sg1-protezione-finanziaria"
+    },
+    {
+      "id": "27a92eda-d211-48cd-9920-319c5acae375",
+      "type": "istar.ContributionLink",
+      "source": "t10-attendere-decisione",
+      "target": "sg1-protezione-finanziaria"
+    },
+    {
+      "id": "99f21d84-47ba-4bf8-982d-308be0647888",
+      "type": "istar.ContributionLink",
+      "source": "t11-contestare",
+      "target": "sg3-minimizzare-rischio"
+    }
+  ],
+  "display": {
+    "g1-spedire-farmaci": {
+      "width": 93.88748168945312,
+      "height": 67.0250015258789
+    },
+    "t1-selezionare-corriere": {
+      "width": 105.88748168945312,
+      "height": 52.025001525878906
+    },
+    "g2-verificare-conformita": {
+      "width": 94.88748168945312,
+      "height": 46.81249237060547
+    },
+    "t5-richiedere-report": {
+      "width": 101.88748168945312,
+      "height": 46.224998474121094
+    },
+    "30121bc4-c330-41c5-b5b6-50dc5e018924": {
+      "vertices": [
+        {
+          "x": 767,
+          "y": 377
+        }
+      ]
+    },
+    "27a92eda-d211-48cd-9920-319c5acae375": {
+      "vertices": [
+        {
+          "x": 334,
+          "y": 545
+        }
+      ]
+    },
+    "ext-corriere": {
+      "collapsed": true
+    },
+    "ext-sensore": {
+      "collapsed": true
+    }
+  },
+  "tool": "pistar.2.1.0",
+  "istar": "2.0",
+  "saveDate": "Mon, 01 Dec 2025 15:03:24 GMT",
+  "diagram": {
+    "width": 1200,
+    "height": 943,
+    "customProperties": {
+      "Description": "Strategic Rationale Model - Mittente - Sistema SENZA Blockchain"
+    }
+  }
+}
