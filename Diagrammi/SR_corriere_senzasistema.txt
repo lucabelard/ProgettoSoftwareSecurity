@@ -1,0 +1,453 @@
+{
+  "actors": [
+    {
+      "id": "ext-sensore",
+      "text": "Sensore_IoT",
+      "type": "istar.Actor",
+      "x": 629,
+      "y": 80,
+      "customProperties": {
+        "Description": "Attore esterno"
+      },
+      "nodes": []
+    },
+    {
+      "id": "ext-mittente",
+      "text": "Mittente",
+      "type": "istar.Actor",
+      "x": 60,
+      "y": 432,
+      "customProperties": {
+        "Description": "Attore esterno"
+      },
+      "nodes": []
+    },
+    {
+      "id": "sr-corriere-main",
+      "text": "Corriere",
+      "type": "istar.Actor",
+      "x": 206,
+      "y": 181,
+      "customProperties": {
+        "Description": "Compagnia di trasporto farmaceutico"
+      },
+      "nodes": [
+        {
+          "id": "g1-consegnare-ricevere",
+          "text": "Consegnare Farmaci e Ricevere Pagamento",
+          "type": "istar.Goal",
+          "x": 688,
+          "y": 181,
+          "customProperties": {
+            "Description": "Goal principale del corriere"
+          }
+        },
+        {
+          "id": "t1-ritirare",
+          "text": "Ritirare spedizione",
+          "type": "istar.Task",
+          "x": 430,
+          "y": 202,
+          "customProperties": {
+            "Description": "T1: Ritirare pacco dal mittente"
+          }
+        },
+        {
+          "id": "t2-mantenere-temp",
+          "text": "Mantenere temperatura 2-8°C",
+          "type": "istar.Task",
+          "x": 360,
+          "y": 289,
+          "customProperties": {
+            "Description": "T2: Mantenere catena del freddo"
+          }
+        },
+        {
+          "id": "t3-evitare-shock",
+          "text": "Evitare shock fisici",
+          "type": "istar.Task",
+          "x": 928,
+          "y": 256,
+          "customProperties": {
+            "Description": "T3: Prevenire urti"
+          }
+        },
+        {
+          "id": "t4-garantire-sigillo",
+          "text": "Garantire sigillo intatto",
+          "type": "istar.Task",
+          "x": 1034,
+          "y": 203,
+          "customProperties": {
+            "Description": "T4: Mantenere sigillo"
+          }
+        },
+        {
+          "id": "t5-consegnare-deadline",
+          "text": "Consegnare entro deadline",
+          "type": "istar.Task",
+          "x": 567,
+          "y": 344,
+          "customProperties": {
+            "Description": "T5: Rispettare tempistiche"
+          }
+        },
+        {
+          "id": "g2-dimostrare-conformita",
+          "text": "Dimostrare Conformità",
+          "type": "istar.Goal",
+          "x": 673,
+          "y": 405,
+          "customProperties": {
+            "Description": "G2: Provare conformità trasporto"
+          }
+        },
+        {
+          "id": "g3-ottenere-sblocco",
+          "text": "Ottenere sblocco pagamento",
+          "type": "istar.Goal",
+          "x": 856,
+          "y": 321,
+          "customProperties": {
+            "Description": "G3: Ricevere pagamento"
+          }
+        },
+        {
+          "id": "t10-veicolo-refrigerato",
+          "text": "Usare Veicolo Refrigerato",
+          "type": "istar.Task",
+          "x": 263,
+          "y": 439,
+          "customProperties": {
+            "Description": "T10: Mezzi con refrigerazione"
+          }
+        },
+        {
+          "id": "t11-monitorare-temp",
+          "text": "Monitorare Continuamente",
+          "type": "istar.Task",
+          "x": 385,
+          "y": 456,
+          "customProperties": {
+            "Description": "T11: Controllo continuo temperatura"
+          }
+        },
+        {
+          "id": "t12-intervenire-anomalie",
+          "text": "Intervenire se anomalie",
+          "type": "istar.Task",
+          "x": 488,
+          "y": 402,
+          "customProperties": {
+            "Description": "T12: Azioni correttive"
+          }
+        },
+        {
+          "id": "t6-raccogliere-dati",
+          "text": "Raccogliere dati sensori",
+          "type": "istar.Task",
+          "x": 576,
+          "y": 475,
+          "customProperties": {
+            "Description": "T6: Ottenere dati IoT"
+          }
+        },
+        {
+          "id": "t8-firma-destinatario",
+          "text": "Ottenere firma destinatario",
+          "type": "istar.Task",
+          "x": 731,
+          "y": 476,
+          "customProperties": {
+            "Description": "T8: Prova consegna"
+          }
+        },
+        {
+          "id": "t13-fornire-evidenze",
+          "text": "Fornire evidenze complete",
+          "type": "istar.Task",
+          "x": 829,
+          "y": 406,
+          "customProperties": {
+            "Description": "T13: Tutte le prove"
+          }
+        },
+        {
+          "id": "t14-attendere-validazione",
+          "text": "Attendere validazione manuale",
+          "type": "istar.Task",
+          "x": 956,
+          "y": 403,
+          "customProperties": {
+            "Description": "T14: Processo manuale intermediario"
+          }
+        },
+        {
+          "id": "t15-rispondere-contestazioni",
+          "text": "Rispondere a contestazioni",
+          "type": "istar.Task",
+          "x": 1088,
+          "y": 408,
+          "customProperties": {
+            "Description": "T15: Gestire dispute"
+          }
+        },
+        {
+          "id": "sg1-certezza-pagamento",
+          "text": "Certezza di pagamento",
+          "type": "istar.Quality",
+          "x": 583,
+          "y": 567,
+          "customProperties": {
+            "Description": "SG1: Garanzia di ricevere pagamento"
+          }
+        },
+        {
+          "id": "sg2-reputazione",
+          "text": "Reputazione professionale",
+          "type": "istar.Quality",
+          "x": 224,
+          "y": 353,
+          "customProperties": {
+            "Description": "SG2: Mantenere buona reputazione"
+          }
+        },
+        {
+          "id": "sg3-ridurre-tempi",
+          "text": "Ridurre tempi di pagamento",
+          "type": "istar.Quality",
+          "x": 1033,
+          "y": 519,
+          "customProperties": {
+            "Description": "SG3: Ricevere pagamento rapidamente"
+          }
+        }
+      ]
+    }
+  ],
+  "orphans": [],
+  "dependencies": [
+    {
+      "id": "dep-d11-pagamento",
+      "text": "Pagamento servizio",
+      "type": "istar.Resource",
+      "x": 37,
+      "y": 274,
+      "customProperties": {
+        "Description": "D11: Ricevere compenso"
+      },
+      "source": "sr-corriere-main",
+      "target": "ext-mittente"
+    },
+    {
+      "id": "dep-d13-prova",
+      "text": "Prova oggettiva della conformità",
+      "type": "istar.Goal",
+      "x": 369,
+      "y": 71,
+      "customProperties": {
+        "Description": "D13: Evidenze oggettive"
+      },
+      "source": "sr-corriere-main",
+      "target": "ext-sensore"
+    }
+  ],
+  "links": [
+    {
+      "id": "3ad19a9d-1249-4904-ad32-028e1ca3628d",
+      "type": "istar.DependencyLink",
+      "source": "dep-d13-prova",
+      "target": "ext-sensore"
+    },
+    {
+      "id": "ddb4cb35-45c7-4ac4-9da1-856b74259aba",
+      "type": "istar.DependencyLink",
+      "source": "sr-corriere-main",
+      "target": "dep-d13-prova"
+    },
+    {
+      "id": "6ad66e87-c22b-4249-b86d-343b2418d725",
+      "type": "istar.DependencyLink",
+      "source": "dep-d11-pagamento",
+      "target": "ext-mittente"
+    },
+    {
+      "id": "0b079c94-4b56-4217-bf02-e5677ba86fd6",
+      "type": "istar.DependencyLink",
+      "source": "sr-corriere-main",
+      "target": "dep-d11-pagamento"
+    },
+    {
+      "id": "7e5960ce-b9e7-4d7e-9888-07e913f7b534",
+      "type": "istar.AndRefinementLink",
+      "source": "g1-consegnare-ricevere",
+      "target": "t1-ritirare"
+    },
+    {
+      "id": "24d7d687-072d-4d91-b953-e77bc332f091",
+      "type": "istar.AndRefinementLink",
+      "source": "g1-consegnare-ricevere",
+      "target": "t2-mantenere-temp"
+    },
+    {
+      "id": "4a06f82c-9acb-47dc-8fa2-348159badc53",
+      "type": "istar.AndRefinementLink",
+      "source": "g1-consegnare-ricevere",
+      "target": "t3-evitare-shock"
+    },
+    {
+      "id": "600f1a9a-9339-44b3-95a0-6c348f1b6f2e",
+      "type": "istar.AndRefinementLink",
+      "source": "g1-consegnare-ricevere",
+      "target": "t4-garantire-sigillo"
+    },
+    {
+      "id": "6a8e6ee7-98c0-4c87-8205-0ccbfd60b64c",
+      "type": "istar.AndRefinementLink",
+      "source": "g1-consegnare-ricevere",
+      "target": "t5-consegnare-deadline"
+    },
+    {
+      "id": "7211eb9b-ec71-4796-8c25-48e71de8cac8",
+      "type": "istar.AndRefinementLink",
+      "source": "g1-consegnare-ricevere",
+      "target": "g2-dimostrare-conformita"
+    },
+    {
+      "id": "14fc5412-da9f-40f5-a6a2-0377d56756ae",
+      "type": "istar.AndRefinementLink",
+      "source": "g1-consegnare-ricevere",
+      "target": "g3-ottenere-sblocco"
+    },
+    {
+      "id": "336663ae-0c2f-4275-91cf-b44b0daabddb",
+      "type": "istar.AndRefinementLink",
+      "source": "t2-mantenere-temp",
+      "target": "t10-veicolo-refrigerato"
+    },
+    {
+      "id": "85eb735c-3848-4f70-90e3-0eef2040320f",
+      "type": "istar.AndRefinementLink",
+      "source": "t2-mantenere-temp",
+      "target": "t11-monitorare-temp"
+    },
+    {
+      "id": "af9c2f26-8d75-4606-a015-f8f4077dffd7",
+      "type": "istar.AndRefinementLink",
+      "source": "t2-mantenere-temp",
+      "target": "t12-intervenire-anomalie"
+    },
+    {
+      "id": "b21b9deb-8ad9-47a9-a785-5aef958e5bd6",
+      "type": "istar.AndRefinementLink",
+      "source": "g2-dimostrare-conformita",
+      "target": "t6-raccogliere-dati"
+    },
+    {
+      "id": "ebf6e541-cc0e-49aa-be4e-a051923ccf39",
+      "type": "istar.AndRefinementLink",
+      "source": "g2-dimostrare-conformita",
+      "target": "t8-firma-destinatario"
+    },
+    {
+      "id": "d18f09dc-d20e-4f33-9904-508ec3798362",
+      "type": "istar.AndRefinementLink",
+      "source": "g3-ottenere-sblocco",
+      "target": "t13-fornire-evidenze"
+    },
+    {
+      "id": "0f29dac5-2c24-4f65-982e-933f9f58c75e",
+      "type": "istar.AndRefinementLink",
+      "source": "g3-ottenere-sblocco",
+      "target": "t14-attendere-validazione"
+    },
+    {
+      "id": "72e0c4b1-4453-43bf-8582-b333b289f49e",
+      "type": "istar.AndRefinementLink",
+      "source": "g3-ottenere-sblocco",
+      "target": "t15-rispondere-contestazioni"
+    },
+    {
+      "id": "6c3d7aac-20e3-4d9c-8ed2-88be07b213a9",
+      "type": "istar.ContributionLink",
+      "source": "t2-mantenere-temp",
+      "target": "sg2-reputazione"
+    },
+    {
+      "id": "98a76d4a-abd0-4e27-9946-8fdb249e0df1",
+      "type": "istar.ContributionLink",
+      "source": "t6-raccogliere-dati",
+      "target": "sg1-certezza-pagamento"
+    },
+    {
+      "id": "7c5a253e-5132-4d51-9f9b-57167085733b",
+      "type": "istar.ContributionLink",
+      "source": "t14-attendere-validazione",
+      "target": "sg3-ridurre-tempi"
+    },
+    {
+      "id": "9b29b1b0-b801-4128-a36f-d2362438e827",
+      "type": "istar.ContributionLink",
+      "source": "t15-rispondere-contestazioni",
+      "target": "sg3-ridurre-tempi"
+    }
+  ],
+  "display": {
+    "g1-consegnare-ricevere": {
+      "width": 106.88748168945312,
+      "height": 64.01248931884766
+    },
+    "t13-fornire-evidenze": {
+      "width": 101.68748474121094,
+      "height": 47.212501525878906
+    },
+    "t14-attendere-validazione": {
+      "width": 103.08748245239258,
+      "height": 48.81249237060547
+    },
+    "dep-d13-prova": {
+      "width": 95.88748168945312,
+      "height": 48.012489318847656
+    },
+    "ddb4cb35-45c7-4ac4-9da1-856b74259aba": {
+      "vertices": [
+        {
+          "x": 259,
+          "y": 103
+        }
+      ]
+    },
+    "0b079c94-4b56-4217-bf02-e5677ba86fd6": {
+      "vertices": [
+        {
+          "x": 103,
+          "y": 215
+        }
+      ]
+    },
+    "6c3d7aac-20e3-4d9c-8ed2-88be07b213a9": {
+      "vertices": [
+        {
+          "x": 287,
+          "y": 291
+        }
+      ]
+    },
+    "ext-sensore": {
+      "collapsed": true
+    },
+    "ext-mittente": {
+      "collapsed": true
+    }
+  },
+  "tool": "pistar.2.1.0",
+  "istar": "2.0",
+  "saveDate": "Mon, 01 Dec 2025 14:16:18 GMT",
+  "diagram": {
+    "width": 1499,
+    "height": 989,
+    "customProperties": {
+      "Description": "Strategic Rationale Model - Corriere - Sistema SENZA Blockchain"
+    }
+  }
+}
