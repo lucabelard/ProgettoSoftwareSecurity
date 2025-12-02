@@ -58,6 +58,8 @@ python -m http.server 8000
 - 📘 [**Guida Installazione e Troubleshooting**](./GUIDA_INSTALLAZIONE_E_TROUBLESHOOTING.md) - Setup completo e risoluzione problemi
 - 📖 [**Manuale Utente**](./MANUALE_UTENTE.md) - Guida all'utilizzo del sistema
 - 🎯 [**Analisi i* e Sicurezza**](./docs/istar_diagrams.md) - Diagrammi SD/SR e alberi di attacco
+- 🛡️ [**Analisi STRIDE-DUA**](./DUAL_STRIDE_ANALYSIS.md) - Analisi minacce estesa
+- 🏗️ [**Design Asset e Verifica Formale**](./docs/ASSET_DESIGN_AND_VERIFICATION.md) - Design asset (OWASP/Saltzer & Schroeder/Sommerville), Modello Markov Chain e Verifica PRISM (Safety/Guarantee)
 
 ## 🏗️ Architettura
 

@@ -1,0 +1,22 @@
+// ============================================================================
+// PRISM Properties: IoT Sensor System
+// ============================================================================
+// Proprietà PCTL per verificare Safety e Guarantee/Response del sistema
+// ============================================================================
+
+// ============================================================================
+// PROPRIETÀ DI SAFETY
+// ============================================================================
+
+// S1: Probabilità di NON essere mai compromessi entro 100 step
+// Interpretazione: Quanto è probabile che il sistema rimanga sicuro
+// per i primi 100 step?
+P=? [ G<=100 state!=3 ]
+
+// ============================================================================
+// PROPRIETÀ DI GUARANTEE/RESPONSE
+// ============================================================================
+
+// G1: Probabilità che il sistema EVENTUALMENTE venga compromesso
+// Interpretazione: È certo che il sistema sarà compromesso prima o poi?
+P=? [ F state=3 ]
