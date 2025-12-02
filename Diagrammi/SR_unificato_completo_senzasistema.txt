@@ -1,0 +1,1004 @@
+{
+  "actors": [
+    {
+      "id": "sr-mittente-main",
+      "text": "Mittente",
+      "type": "istar.Actor",
+      "x": 50,
+      "y": 400,
+      "customProperties": {
+        "Description": "Farmacia o produttore farmaceutico"
+      },
+      "nodes": [
+        {
+          "id": "g1-spedire-farmaci",
+          "text": "Spedizione farmaci in catena del freddo",
+          "type": "istar.Goal",
+          "x": 200,
+          "y": 430,
+          "customProperties": {
+            "Description": "Goal principale del mittente"
+          }
+        },
+        {
+          "id": "t1-selezionare-corriere",
+          "text": "Selezionare corriere certificato",
+          "type": "istar.Task",
+          "x": 220,
+          "y": 500,
+          "customProperties": {
+            "Description": "T1: Scegliere corriere affidabile"
+          }
+        },
+        {
+          "id": "t3-installare-sensori",
+          "text": "Installare sensori IoT",
+          "type": "istar.Task",
+          "x": 200,
+          "y": 300,
+          "customProperties": {
+            "Description": "T3: Montare dispositivi monitoraggio"
+          }
+        },
+        {
+          "id": "t4-depositare-fondi",
+          "text": "Depositare fondi in escrow",
+          "type": "istar.Task",
+          "x": 250,
+          "y": 570,
+          "customProperties": {
+            "Description": "T4: Pagamento anticipato"
+          }
+        },
+        {
+          "id": "g2-verificare-conformita",
+          "text": "Verificare conformità post-consegna",
+          "type": "istar.Goal",
+          "x": 340,
+          "y": 440,
+          "customProperties": {
+            "Description": "G2: Controllo dopo consegna"
+          }
+        },
+        {
+          "id": "g3-pagare-se-conforme",
+          "text": "Pagare solo se conforme",
+          "type": "istar.Goal",
+          "x": 330,
+          "y": 520,
+          "customProperties": {
+            "Description": "G3: Pagamento condizionale"
+          }
+        },
+        {
+          "id": "t5-richiedere-report",
+          "text": "Richiedere report sensori",
+          "type": "istar.Task",
+          "x": 430,
+          "y": 400,
+          "customProperties": {
+            "Description": "T5: Ottenere dati IoT"
+          }
+        },
+        {
+          "id": "t6-verificare-certificati",
+          "text": "Verificare certificati corriere",
+          "type": "istar.Task",
+          "x": 430,
+          "y": 470,
+          "customProperties": {
+            "Description": "T6: Controllare documenti"
+          }
+        },
+        {
+          "id": "t10-attendere-decisione",
+          "text": "Attendere decisione manuale",
+          "type": "istar.Task",
+          "x": 420,
+          "y": 540,
+          "customProperties": {
+            "Description": "T10: Processo manuale intermediario"
+          }
+        },
+        {
+          "id": "t11-contestare",
+          "text": "Contestare se non conforme",
+          "type": "istar.Task",
+          "x": 420,
+          "y": 600,
+          "customProperties": {
+            "Description": "T11: Aprire dispute"
+          }
+        },
+        {
+          "id": "sg1-protezione-finanziaria",
+          "text": "Protezione Finanziaria",
+          "type": "istar.Quality",
+          "x": 180,
+          "y": 630,
+          "customProperties": {
+            "Description": "SG1: Sicurezza pagamento"
+          }
+        },
+        {
+          "id": "sg2-tracciabilita",
+          "text": "Tracciabilità completa",
+          "type": "istar.Quality",
+          "x": 80,
+          "y": 320,
+          "customProperties": {
+            "Description": "SG2: Monitoraggio end-to-end"
+          }
+        },
+        {
+          "id": "sg3-minimizzare-rischio",
+          "text": "Minimizzare rischio perdita",
+          "type": "istar.Quality",
+          "x": 330,
+          "y": 650,
+          "customProperties": {
+            "Description": "SG3: Ridurre perdite farmaci"
+          }
+        }
+      ]
+    },
+    {
+      "id": "sr-corriere-main",
+      "text": "Corriere",
+      "type": "istar.Actor",
+      "x": 700,
+      "y": 400,
+      "customProperties": {
+        "Description": "Compagnia di trasporto farmaceutico"
+      },
+      "nodes": [
+        {
+          "id": "g1-consegnare-ricevere",
+          "text": "Consegnare Farmaci e Ricevere Pagamento",
+          "type": "istar.Goal",
+          "x": 950,
+          "y": 430,
+          "customProperties": {
+            "Description": "Goal principale del corriere"
+          }
+        },
+        {
+          "id": "t1-ritirare",
+          "text": "Ritirare spedizione",
+          "type": "istar.Task",
+          "x": 870,
+          "y": 350,
+          "customProperties": {
+            "Description": "T1: Ritirare pacco dal mittente"
+          }
+        },
+        {
+          "id": "t2-mantenere-temp",
+          "text": "Mantenere temperatura 2-8°C",
+          "type": "istar.Task",
+          "x": 850,
+          "y": 480,
+          "customProperties": {
+            "Description": "T2: Mantenere catena del freddo"
+          }
+        },
+        {
+          "id": "t3-evitare-shock",
+          "text": "Evitare shock fisici",
+          "type": "istar.Task",
+          "x": 1050,
+          "y": 360,
+          "customProperties": {
+            "Description": "T3: Prevenire urti"
+          }
+        },
+        {
+          "id": "t4-garantire-sigillo",
+          "text": "Garantire sigillo intatto",
+          "type": "istar.Task",
+          "x": 1050,
+          "y": 430,
+          "customProperties": {
+            "Description": "T4: Mantenere sigillo"
+          }
+        },
+        {
+          "id": "t5-consegnare-deadline",
+          "text": "Consegnare entro deadline",
+          "type": "istar.Task",
+          "x": 1050,
+          "y": 500,
+          "customProperties": {
+            "Description": "T5: Rispettare tempistiche"
+          }
+        },
+        {
+          "id": "g2-dimostrare-conformita",
+          "text": "Dimostrare Conformità",
+          "type": "istar.Goal",
+          "x": 870,
+          "y": 580,
+          "customProperties": {
+            "Description": "G2: Provare conformità trasporto"
+          }
+        },
+        {
+          "id": "g3-ottenere-sblocco",
+          "text": "Ottenere sblocco pagamento",
+          "type": "istar.Goal",
+          "x": 1050,
+          "y": 580,
+          "customProperties": {
+            "Description": "G3: Ricevere pagamento"
+          }
+        },
+        {
+          "id": "t10-veicolo-refrigerato",
+          "text": "Usare Veicolo Refrigerato",
+          "type": "istar.Task",
+          "x": 750,
+          "y": 550,
+          "customProperties": {
+            "Description": "T10: Mezzi con refrigerazione"
+          }
+        },
+        {
+          "id": "t11-monitorare-temp",
+          "text": "Monitorare Continuamente",
+          "type": "istar.Task",
+          "x": 850,
+          "y": 650,
+          "customProperties": {
+            "Description": "T11: Controllo continuo temperatura"
+          }
+        },
+        {
+          "id": "t12-intervenire-anomalie",
+          "text": "Intervenire se anomalie",
+          "type": "istar.Task",
+          "x": 950,
+          "y": 650,
+          "customProperties": {
+            "Description": "T12: Azioni correttive"
+          }
+        },
+        {
+          "id": "t6-raccogliere-dati",
+          "text": "Raccogliere dati sensori",
+          "type": "istar.Task",
+          "x": 760,
+          "y": 640,
+          "customProperties": {
+            "Description": "T6: Ottenere dati IoT"
+          }
+        },
+        {
+          "id": "t8-firma-destinatario",
+          "text": "Ottenere firma destinatario",
+          "type": "istar.Task",
+          "x": 980,
+          "y": 640,
+          "customProperties": {
+            "Description": "T8: Prova consegna"
+          }
+        },
+        {
+          "id": "t13-fornire-evidenze",
+          "text": "Fornire evidenze complete",
+          "type": "istar.Task",
+          "x": 1150,
+          "y": 530,
+          "customProperties": {
+            "Description": "T13: Tutte le prove"
+          }
+        },
+        {
+          "id": "t14-attendere-validazione",
+          "text": "Attendere validazione manuale",
+          "type": "istar.Task",
+          "x": 1150,
+          "y": 600,
+          "customProperties": {
+            "Description": "T14: Processo manuale intermediario"
+          }
+        },
+        {
+          "id": "t15-rispondere-contestazioni",
+          "text": "Rispondere a contestazioni",
+          "type": "istar.Task",
+          "x": 1150,
+          "y": 670,
+          "customProperties": {
+            "Description": "T15: Gestire dispute"
+          }
+        },
+        {
+          "id": "sg1-certezza-pagamento",
+          "text": "Certezza di pagamento",
+          "type": "istar.Quality",
+          "x": 720,
+          "y": 720,
+          "customProperties": {
+            "Description": "SG1: Garanzia di ricevere pagamento"
+          }
+        },
+        {
+          "id": "sg2-reputazione",
+          "text": "Reputazione professionale",
+          "type": "istar.Quality",
+          "x": 750,
+          "y": 470,
+          "customProperties": {
+            "Description": "SG2: Mantenere buona reputazione"
+          }
+        },
+        {
+          "id": "sg3-ridurre-tempi",
+          "text": "Ridurre tempi di pagamento",
+          "type": "istar.Quality",
+          "x": 1220,
+          "y": 720,
+          "customProperties": {
+            "Description": "SG3: Ricevere pagamento rapidamente"
+          }
+        }
+      ]
+    },
+    {
+      "id": "sr-sensore-main",
+      "text": "Sensore_IoT",
+      "type": "istar.Actor",
+      "x": 400,
+      "y": 50,
+      "customProperties": {
+        "Description": "Dispositivo IoT per monitoraggio condizioni trasporto"
+      },
+      "nodes": [
+        {
+          "id": "g1-monitorare-registrare",
+          "text": "Monitorare e registrare condizioni trasporto",
+          "type": "istar.Goal",
+          "x": 550,
+          "y": 90,
+          "customProperties": {
+            "Description": "Goal principale del sensore"
+          }
+        },
+        {
+          "id": "t1-rilevare-temperatura",
+          "text": "Rilevare temperatura E1",
+          "type": "istar.Task",
+          "x": 450,
+          "y": 160,
+          "customProperties": {
+            "Description": "T1: Sensore temperatura"
+          }
+        },
+        {
+          "id": "t2-rilevare-shock",
+          "text": "Rilevare shock E3",
+          "type": "istar.Task",
+          "x": 550,
+          "y": 160,
+          "customProperties": {
+            "Description": "T2: Accelerometro"
+          }
+        },
+        {
+          "id": "t3-rilevare-apertura",
+          "text": "Rilevare apertura/luce E4",
+          "type": "istar.Task",
+          "x": 650,
+          "y": 160,
+          "customProperties": {
+            "Description": "T3: Fotosensore"
+          }
+        },
+        {
+          "id": "t4-verificare-sigillo",
+          "text": "Verificare sigillo elettronico E2",
+          "type": "istar.Task",
+          "x": 750,
+          "y": 160,
+          "customProperties": {
+            "Description": "T4: Tamper detection"
+          }
+        },
+        {
+          "id": "t5-registrare-timestamp",
+          "text": "Registrare timestamp E5",
+          "type": "istar.Task",
+          "x": 850,
+          "y": 160,
+          "customProperties": {
+            "Description": "T5: Scan arrivo"
+          }
+        },
+        {
+          "id": "g2-trasmettere-dati",
+          "text": "Trasmettere dati",
+          "type": "istar.Goal",
+          "x": 650,
+          "y": 90,
+          "customProperties": {
+            "Description": "G2: Invio dati"
+          }
+        },
+        {
+          "id": "t6-campionare",
+          "text": "Campionare ogni 5 minuti",
+          "type": "istar.Task",
+          "x": 350,
+          "y": 220,
+          "customProperties": {
+            "Description": "T6: Frequenza campionamento"
+          }
+        },
+        {
+          "id": "t7-verificare-range",
+          "text": "Verificare range 2-8°C",
+          "type": "istar.Task",
+          "x": 450,
+          "y": 220,
+          "customProperties": {
+            "Description": "T7: Controllo soglie"
+          }
+        },
+        {
+          "id": "t9-salvare-memoria",
+          "text": "Salvare in memoria locale",
+          "type": "istar.Task",
+          "x": 650,
+          "y": 220,
+          "customProperties": {
+            "Description": "T9: Storage locale"
+          }
+        },
+        {
+          "id": "t10-inviare-bluetooth",
+          "text": "Inviare via Bluetooth",
+          "type": "istar.Task",
+          "x": 750,
+          "y": 220,
+          "customProperties": {
+            "Description": "T10: Trasmissione wireless"
+          }
+        },
+        {
+          "id": "t11-generare-report",
+          "text": "Generare report finale",
+          "type": "istar.Task",
+          "x": 850,
+          "y": 220,
+          "customProperties": {
+            "Description": "T11: Report E1-E5"
+          }
+        },
+        {
+          "id": "sg1-precisione",
+          "text": "Precisione misurazioni",
+          "type": "istar.Quality",
+          "x": 300,
+          "y": 280,
+          "customProperties": {
+            "Description": "SG1: Accuratezza dati"
+          }
+        },
+        {
+          "id": "sg2-integrita",
+          "text": "Integrità Dati",
+          "type": "istar.Quality",
+          "x": 650,
+          "y": 280,
+          "customProperties": {
+            "Description": "SG2: Dati non alterati"
+          }
+        },
+        {
+          "id": "sg3-autonomia",
+          "text": "Autonomia batteria",
+          "type": "istar.Quality",
+          "x": 450,
+          "y": 280,
+          "customProperties": {
+            "Description": "SG3: Durata batteria"
+          }
+        }
+      ]
+    }
+  ],
+  "orphans": [],
+  "dependencies": [
+    {
+      "id": "dep-d1-trasporto",
+      "text": "Merce a destinazione",
+      "type": "istar.Goal",
+      "x": 560,
+      "y": 360,
+      "customProperties": {
+        "Description": "D1: Trasporto catena freddo"
+      },
+      "source": "sr-mittente-main",
+      "target": "sr-corriere-main"
+    },
+    {
+      "id": "dep-d2-rispetto-catena",
+      "text": "Rispetto catena del freddo",
+      "type": "istar.Quality",
+      "x": 560,
+      "y": 440,
+      "customProperties": {
+        "Description": "D2: Qualità temperatura"
+      },
+      "source": "sr-mittente-main",
+      "target": "sr-corriere-main"
+    },
+    {
+      "id": "dep-d3-ottenere-dati",
+      "text": "Ottenimento dati sensori",
+      "type": "istar.Resource",
+      "x": 560,
+      "y": 520,
+      "customProperties": {
+        "Description": "D3: Dati IoT"
+      },
+      "source": "sr-mittente-main",
+      "target": "sr-corriere-main"
+    },
+    {
+      "id": "dep-d11-pagamento",
+      "text": "Pagamento servizio",
+      "type": "istar.Resource",
+      "x": 560,
+      "y": 600,
+      "customProperties": {
+        "Description": "D11: Ricevere compenso"
+      },
+      "source": "sr-corriere-main",
+      "target": "sr-mittente-main"
+    },
+    {
+      "id": "dep-d7-report",
+      "text": "Report evidenze E1...E5",
+      "type": "istar.Resource",
+      "x": 250,
+      "y": 230,
+      "customProperties": {
+        "Description": "D7: Dati sensori verso Mittente"
+      },
+      "source": "sr-sensore-main",
+      "target": "sr-mittente-main"
+    },
+    {
+      "id": "dep-d13-prova",
+      "text": "Prova oggettiva della conformità",
+      "type": "istar.Goal",
+      "x": 580,
+      "y": 230,
+      "customProperties": {
+        "Description": "D13: Evidenze oggettive verso Corriere"
+      },
+      "source": "sr-sensore-main",
+      "target": "sr-corriere-main"
+    },
+    {
+      "id": "dep-d17-config",
+      "text": "Configurazione parametri",
+      "type": "istar.Resource",
+      "x": 250,
+      "y": 300,
+      "customProperties": {
+        "Description": "D17: Parametri da Mittente"
+      },
+      "source": "sr-mittente-main",
+      "target": "sr-sensore-main"
+    },
+    {
+      "id": "dep-d18-protezione",
+      "text": "Protezione fisica",
+      "type": "istar.Quality",
+      "x": 580,
+      "y": 300,
+      "customProperties": {
+        "Description": "D18: Non manomettere sensore"
+      },
+      "source": "sr-corriere-main",
+      "target": "sr-sensore-main"
+    }
+  ],
+  "links": [
+    {
+      "id": "link-dep-d1-source",
+      "type": "istar.DependencyLink",
+      "source": "sr-mittente-main",
+      "target": "dep-d1-trasporto"
+    },
+    {
+      "id": "link-dep-d1-target",
+      "type": "istar.DependencyLink",
+      "source": "dep-d1-trasporto",
+      "target": "sr-corriere-main"
+    },
+    {
+      "id": "link-dep-d2-source",
+      "type": "istar.DependencyLink",
+      "source": "sr-mittente-main",
+      "target": "dep-d2-rispetto-catena"
+    },
+    {
+      "id": "link-dep-d2-target",
+      "type": "istar.DependencyLink",
+      "source": "dep-d2-rispetto-catena",
+      "target": "sr-corriere-main"
+    },
+    {
+      "id": "link-dep-d3-source",
+      "type": "istar.DependencyLink",
+      "source": "sr-mittente-main",
+      "target": "dep-d3-ottenere-dati"
+    },
+    {
+      "id": "link-dep-d3-target",
+      "type": "istar.DependencyLink",
+      "source": "dep-d3-ottenere-dati",
+      "target": "sr-corriere-main"
+    },
+    {
+      "id": "link-dep-d11-source",
+      "type": "istar.DependencyLink",
+      "source": "sr-corriere-main",
+      "target": "dep-d11-pagamento"
+    },
+    {
+      "id": "link-dep-d11-target",
+      "type": "istar.DependencyLink",
+      "source": "dep-d11-pagamento",
+      "target": "sr-mittente-main"
+    },
+    {
+      "id": "link-dep-d7-source",
+      "type": "istar.DependencyLink",
+      "source": "sr-sensore-main",
+      "target": "dep-d7-report"
+    },
+    {
+      "id": "link-dep-d7-target",
+      "type": "istar.DependencyLink",
+      "source": "dep-d7-report",
+      "target": "sr-mittente-main"
+    },
+    {
+      "id": "link-dep-d13-source",
+      "type": "istar.DependencyLink",
+      "source": "sr-sensore-main",
+      "target": "dep-d13-prova"
+    },
+    {
+      "id": "link-dep-d13-target",
+      "type": "istar.DependencyLink",
+      "source": "dep-d13-prova",
+      "target": "sr-corriere-main"
+    },
+    {
+      "id": "link-dep-d17-source",
+      "type": "istar.DependencyLink",
+      "source": "sr-mittente-main",
+      "target": "dep-d17-config"
+    },
+    {
+      "id": "link-dep-d17-target",
+      "type": "istar.DependencyLink",
+      "source": "dep-d17-config",
+      "target": "sr-sensore-main"
+    },
+    {
+      "id": "link-dep-d18-source",
+      "type": "istar.DependencyLink",
+      "source": "sr-corriere-main",
+      "target": "dep-d18-protezione"
+    },
+    {
+      "id": "link-dep-d18-target",
+      "type": "istar.DependencyLink",
+      "source": "dep-d18-protezione",
+      "target": "sr-sensore-main"
+    },
+    {
+      "id": "link-m-g1-t1",
+      "type": "istar.AndRefinementLink",
+      "source": "g1-spedire-farmaci",
+      "target": "t1-selezionare-corriere"
+    },
+    {
+      "id": "link-m-g1-t3",
+      "type": "istar.AndRefinementLink",
+      "source": "g1-spedire-farmaci",
+      "target": "t3-installare-sensori"
+    },
+    {
+      "id": "link-m-g1-t4",
+      "type": "istar.AndRefinementLink",
+      "source": "g1-spedire-farmaci",
+      "target": "t4-depositare-fondi"
+    },
+    {
+      "id": "link-m-g1-g2",
+      "type": "istar.AndRefinementLink",
+      "source": "g1-spedire-farmaci",
+      "target": "g2-verificare-conformita"
+    },
+    {
+      "id": "link-m-g1-g3",
+      "type": "istar.AndRefinementLink",
+      "source": "g1-spedire-farmaci",
+      "target": "g3-pagare-se-conforme"
+    },
+    {
+      "id": "link-m-g2-t5",
+      "type": "istar.AndRefinementLink",
+      "source": "g2-verificare-conformita",
+      "target": "t5-richiedere-report"
+    },
+    {
+      "id": "link-m-g2-t6",
+      "type": "istar.AndRefinementLink",
+      "source": "g2-verificare-conformita",
+      "target": "t6-verificare-certificati"
+    },
+    {
+      "id": "link-m-g3-t10",
+      "type": "istar.AndRefinementLink",
+      "source": "g3-pagare-se-conforme",
+      "target": "t10-attendere-decisione"
+    },
+    {
+      "id": "link-m-g3-t11",
+      "type": "istar.AndRefinementLink",
+      "source": "g3-pagare-se-conforme",
+      "target": "t11-contestare"
+    },
+    {
+      "id": "link-m-t3-sg2",
+      "type": "istar.ContributionLink",
+      "source": "t3-installare-sensori",
+      "target": "sg2-tracciabilita"
+    },
+    {
+      "id": "link-m-t4-sg1",
+      "type": "istar.ContributionLink",
+      "source": "t4-depositare-fondi",
+      "target": "sg1-protezione-finanziaria"
+    },
+    {
+      "id": "link-m-t10-sg1",
+      "type": "istar.ContributionLink",
+      "source": "t10-attendere-decisione",
+      "target": "sg1-protezione-finanziaria"
+    },
+    {
+      "id": "link-m-t11-sg3",
+      "type": "istar.ContributionLink",
+      "source": "t11-contestare",
+      "target": "sg3-minimizzare-rischio"
+    },
+    {
+      "id": "link-c-g1-t1",
+      "type": "istar.AndRefinementLink",
+      "source": "g1-consegnare-ricevere",
+      "target": "t1-ritirare"
+    },
+    {
+      "id": "link-c-g1-t2",
+      "type": "istar.AndRefinementLink",
+      "source": "g1-consegnare-ricevere",
+      "target": "t2-mantenere-temp"
+    },
+    {
+      "id": "link-c-g1-t3",
+      "type": "istar.AndRefinementLink",
+      "source": "g1-consegnare-ricevere",
+      "target": "t3-evitare-shock"
+    },
+    {
+      "id": "link-c-g1-t4",
+      "type": "istar.AndRefinementLink",
+      "source": "g1-consegnare-ricevere",
+      "target": "t4-garantire-sigillo"
+    },
+    {
+      "id": "link-c-g1-t5",
+      "type": "istar.AndRefinementLink",
+      "source": "g1-consegnare-ricevere",
+      "target": "t5-consegnare-deadline"
+    },
+    {
+      "id": "link-c-g1-g2",
+      "type": "istar.AndRefinementLink",
+      "source": "g1-consegnare-ricevere",
+      "target": "g2-dimostrare-conformita"
+    },
+    {
+      "id": "link-c-g1-g3",
+      "type": "istar.AndRefinementLink",
+      "source": "g1-consegnare-ricevere",
+      "target": "g3-ottenere-sblocco"
+    },
+    {
+      "id": "link-c-t2-t10",
+      "type": "istar.AndRefinementLink",
+      "source": "t2-mantenere-temp",
+      "target": "t10-veicolo-refrigerato"
+    },
+    {
+      "id": "link-c-t2-t11",
+      "type": "istar.AndRefinementLink",
+      "source": "t2-mantenere-temp",
+      "target": "t11-monitorare-temp"
+    },
+    {
+      "id": "link-c-t2-t12",
+      "type": "istar.AndRefinementLink",
+      "source": "t2-mantenere-temp",
+      "target": "t12-intervenire-anomalie"
+    },
+    {
+      "id": "link-c-g2-t6",
+      "type": "istar.AndRefinementLink",
+      "source": "g2-dimostrare-conformita",
+      "target": "t6-raccogliere-dati"
+    },
+    {
+      "id": "link-c-g2-t8",
+      "type": "istar.AndRefinementLink",
+      "source": "g2-dimostrare-conformita",
+      "target": "t8-firma-destinatario"
+    },
+    {
+      "id": "link-c-g3-t13",
+      "type": "istar.AndRefinementLink",
+      "source": "g3-ottenere-sblocco",
+      "target": "t13-fornire-evidenze"
+    },
+    {
+      "id": "link-c-g3-t14",
+      "type": "istar.AndRefinementLink",
+      "source": "g3-ottenere-sblocco",
+      "target": "t14-attendere-validazione"
+    },
+    {
+      "id": "link-c-g3-t15",
+      "type": "istar.AndRefinementLink",
+      "source": "g3-ottenere-sblocco",
+      "target": "t15-rispondere-contestazioni"
+    },
+    {
+      "id": "link-c-t2-sg2",
+      "type": "istar.ContributionLink",
+      "source": "t2-mantenere-temp",
+      "target": "sg2-reputazione"
+    },
+    {
+      "id": "link-c-t6-sg1",
+      "type": "istar.ContributionLink",
+      "source": "t6-raccogliere-dati",
+      "target": "sg1-certezza-pagamento"
+    },
+    {
+      "id": "link-c-t14-sg3",
+      "type": "istar.ContributionLink",
+      "source": "t14-attendere-validazione",
+      "target": "sg3-ridurre-tempi"
+    },
+    {
+      "id": "link-c-t15-sg3",
+      "type": "istar.ContributionLink",
+      "source": "t15-rispondere-contestazioni",
+      "target": "sg3-ridurre-tempi"
+    },
+    {
+      "id": "link-s-g1-t1",
+      "type": "istar.AndRefinementLink",
+      "source": "g1-monitorare-registrare",
+      "target": "t1-rilevare-temperatura"
+    },
+    {
+      "id": "link-s-g1-t2",
+      "type": "istar.AndRefinementLink",
+      "source": "g1-monitorare-registrare",
+      "target": "t2-rilevare-shock"
+    },
+    {
+      "id": "link-s-g1-t3",
+      "type": "istar.AndRefinementLink",
+      "source": "g1-monitorare-registrare",
+      "target": "t3-rilevare-apertura"
+    },
+    {
+      "id": "link-s-g1-t4",
+      "type": "istar.AndRefinementLink",
+      "source": "g1-monitorare-registrare",
+      "target": "t4-verificare-sigillo"
+    },
+    {
+      "id": "link-s-g1-t5",
+      "type": "istar.AndRefinementLink",
+      "source": "g1-monitorare-registrare",
+      "target": "t5-registrare-timestamp"
+    },
+    {
+      "id": "link-s-g1-g2",
+      "type": "istar.AndRefinementLink",
+      "source": "g1-monitorare-registrare",
+      "target": "g2-trasmettere-dati"
+    },
+    {
+      "id": "link-s-t1-t6",
+      "type": "istar.AndRefinementLink",
+      "source": "t1-rilevare-temperatura",
+      "target": "t6-campionare"
+    },
+    {
+      "id": "link-s-t1-t7",
+      "type": "istar.AndRefinementLink",
+      "source": "t1-rilevare-temperatura",
+      "target": "t7-verificare-range"
+    },
+    {
+      "id": "link-s-g2-t9",
+      "type": "istar.AndRefinementLink",
+      "source": "g2-trasmettere-dati",
+      "target": "t9-salvare-memoria"
+    },
+    {
+      "id": "link-s-g2-t10",
+      "type": "istar.AndRefinementLink",
+      "source": "g2-trasmettere-dati",
+      "target": "t10-inviare-bluetooth"
+    },
+    {
+      "id": "link-s-g2-t11",
+      "type": "istar.AndRefinementLink",
+      "source": "g2-trasmettere-dati",
+      "target": "t11-generare-report"
+    },
+    {
+      "id": "link-s-t6-sg1",
+      "type": "istar.ContributionLink",
+      "source": "t6-campionare",
+      "target": "sg1-precisione"
+    },
+    {
+      "id": "link-s-t9-sg2",
+      "type": "istar.ContributionLink",
+      "source": "t9-salvare-memoria",
+      "target": "sg2-integrita"
+    },
+    {
+      "id": "link-s-t6-sg3",
+      "type": "istar.ContributionLink",
+      "source": "t6-campionare",
+      "target": "sg3-autonomia"
+    }
+  ],
+  "display": {
+    "sr-mittente-main": {
+      "collapsed": false
+    },
+    "sr-corriere-main": {
+      "collapsed": false
+    },
+    "sr-sensore-main": {
+      "collapsed": false
+    }
+  },
+  "tool": "pistar.2.1.0",
+  "istar": "2.0",
+  "saveDate": "Mon, 01 Dec 2025 15:19:00 GMT",
+  "diagram": {
+    "width": 1600,
+    "height": 1000,
+    "customProperties": {
+      "Description": "Strategic Rationale Unificato - Mittente, Corriere, Sensore - Sistema SENZA Blockchain - Con tutte le dipendenze dal SD"
+    }
+  }
+}

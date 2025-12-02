@@ -1,0 +1,359 @@
+{
+  "actors": [
+    {
+      "id": "sr-sensore-main",
+      "text": "Sensore_IoT",
+      "type": "istar.Actor",
+      "x": 216,
+      "y": 203,
+      "customProperties": {
+        "Description": "Dispositivo IoT per monitoraggio condizioni trasporto"
+      },
+      "nodes": [
+        {
+          "id": "g1-monitorare-registrare",
+          "text": "Monitorare e registrare condizioni trasporto",
+          "type": "istar.Goal",
+          "x": 594,
+          "y": 221,
+          "customProperties": {
+            "Description": "Goal principale del sensore"
+          }
+        },
+        {
+          "id": "t1-rilevare-temperatura",
+          "text": "Rilevare temperatura E1",
+          "type": "istar.Task",
+          "x": 329,
+          "y": 288,
+          "customProperties": {
+            "Description": "T1: Sensore temperatura"
+          }
+        },
+        {
+          "id": "t2-rilevare-shock",
+          "text": "Rilevare shock E3",
+          "type": "istar.Task",
+          "x": 610,
+          "y": 329,
+          "customProperties": {
+            "Description": "T2: Accelerometro"
+          }
+        },
+        {
+          "id": "t3-rilevare-apertura",
+          "text": "Rilevare apertura/luce E4",
+          "type": "istar.Task",
+          "x": 751,
+          "y": 323,
+          "customProperties": {
+            "Description": "T3: Fotosensore"
+          }
+        },
+        {
+          "id": "t4-verificare-sigillo",
+          "text": "Verificare sigillo elettronico E2",
+          "type": "istar.Task",
+          "x": 474,
+          "y": 311,
+          "customProperties": {
+            "Description": "T4: Tamper detection"
+          }
+        },
+        {
+          "id": "t5-registrare-timestamp",
+          "text": "Registrare timestamp E5",
+          "type": "istar.Task",
+          "x": 838,
+          "y": 255,
+          "customProperties": {
+            "Description": "T5: Scan arrivo"
+          }
+        },
+        {
+          "id": "g2-trasmettere-dati",
+          "text": "Trasmettere dati",
+          "type": "istar.Goal",
+          "x": 769,
+          "y": 459,
+          "customProperties": {
+            "Description": "G2: Invio dati"
+          }
+        },
+        {
+          "id": "t6-campionare",
+          "text": "Campionare ogni 5 minuti",
+          "type": "istar.Task",
+          "x": 261,
+          "y": 399,
+          "customProperties": {
+            "Description": "T6: Frequenza campionamento"
+          }
+        },
+        {
+          "id": "t7-verificare-range",
+          "text": "Verificare range 2-8°C",
+          "type": "istar.Task",
+          "x": 390,
+          "y": 395,
+          "customProperties": {
+            "Description": "T7: Controllo soglie"
+          }
+        },
+        {
+          "id": "t9-salvare-memoria",
+          "text": "Salvare ",
+          "type": "istar.Task",
+          "x": 645,
+          "y": 585,
+          "customProperties": {
+            "Description": "T9: Storage locale"
+          }
+        },
+        {
+          "id": "t10-inviare-bluetooth",
+          "text": "Inviare ",
+          "type": "istar.Task",
+          "x": 763,
+          "y": 590,
+          "customProperties": {
+            "Description": "T10: Trasmissione wireless"
+          }
+        },
+        {
+          "id": "t11-generare-report",
+          "text": "Generare report finale",
+          "type": "istar.Task",
+          "x": 905,
+          "y": 568,
+          "customProperties": {
+            "Description": "T11: Report E1-E5"
+          }
+        },
+        {
+          "id": "sg1-precisione",
+          "text": "Precisione misurazioni",
+          "type": "istar.Quality",
+          "x": 216,
+          "y": 514,
+          "customProperties": {
+            "Description": "SG1: Accuratezza dati"
+          }
+        },
+        {
+          "id": "sg2-integrita",
+          "text": "Integrità Dati",
+          "type": "istar.Quality",
+          "x": 648,
+          "y": 685,
+          "customProperties": {
+            "Description": "SG2: Dati non alterati"
+          }
+        },
+        {
+          "id": "sg3-autonomia",
+          "text": "Autonomia batteria",
+          "type": "istar.Quality",
+          "x": 388,
+          "y": 515,
+          "customProperties": {
+            "Description": "SG3: Durata batteria"
+          }
+        }
+      ]
+    },
+    {
+      "id": "ext-mittente",
+      "text": "Mittente",
+      "type": "istar.Actor",
+      "x": 55,
+      "y": 399,
+      "customProperties": {
+        "Description": "Attore esterno"
+      },
+      "nodes": []
+    },
+    {
+      "id": "ext-corriere",
+      "text": "Corriere",
+      "type": "istar.Actor",
+      "x": 823,
+      "y": 69,
+      "customProperties": {
+        "Description": "Attore esterno"
+      },
+      "nodes": []
+    }
+  ],
+  "orphans": [],
+  "dependencies": [
+    {
+      "id": "dep-d17-config",
+      "text": "Configurazione parametri",
+      "type": "istar.Resource",
+      "x": 68,
+      "y": 243,
+      "customProperties": {
+        "Description": "D17: Parametri da Mittente"
+      },
+      "source": "ext-mittente",
+      "target": "sr-sensore-main"
+    },
+    {
+      "id": "dep-d18-protezione",
+      "text": "Protezione fisica",
+      "type": "istar.Quality",
+      "x": 468,
+      "y": 18,
+      "customProperties": {
+        "Description": "D18: Non manomettere sensore"
+      },
+      "source": "ext-corriere",
+      "target": "sr-sensore-main"
+    }
+  ],
+  "links": [
+    {
+      "id": "4f2bc963-07a2-4485-8108-9c28d1167342",
+      "type": "istar.DependencyLink",
+      "source": "dep-d18-protezione",
+      "target": "sr-sensore-main"
+    },
+    {
+      "id": "af7149da-bf2d-4292-bba1-f7e9b6a492de",
+      "type": "istar.DependencyLink",
+      "source": "ext-corriere",
+      "target": "dep-d18-protezione"
+    },
+    {
+      "id": "8c0b62ac-072c-4125-b2aa-e7310050485c",
+      "type": "istar.DependencyLink",
+      "source": "dep-d17-config",
+      "target": "sr-sensore-main"
+    },
+    {
+      "id": "efa30377-fd91-4333-9f43-fb6169d1cde9",
+      "type": "istar.DependencyLink",
+      "source": "ext-mittente",
+      "target": "dep-d17-config"
+    },
+    {
+      "id": "c18a3a03-e9f5-405a-8fc3-ba7bc88c67b1",
+      "type": "istar.AndRefinementLink",
+      "source": "g1-monitorare-registrare",
+      "target": "t1-rilevare-temperatura"
+    },
+    {
+      "id": "f3c3cb22-dec6-487e-8af4-5a3619309f04",
+      "type": "istar.AndRefinementLink",
+      "source": "g1-monitorare-registrare",
+      "target": "t2-rilevare-shock"
+    },
+    {
+      "id": "536c8ccb-db77-4d3a-a4f7-d963b4675ac0",
+      "type": "istar.AndRefinementLink",
+      "source": "g1-monitorare-registrare",
+      "target": "t3-rilevare-apertura"
+    },
+    {
+      "id": "b15d4c3b-fc59-455d-b089-d9d308066ddf",
+      "type": "istar.AndRefinementLink",
+      "source": "g1-monitorare-registrare",
+      "target": "t4-verificare-sigillo"
+    },
+    {
+      "id": "838c76bf-15b1-4942-b2a3-c92584e86eb6",
+      "type": "istar.AndRefinementLink",
+      "source": "g1-monitorare-registrare",
+      "target": "t5-registrare-timestamp"
+    },
+    {
+      "id": "a4994b4c-8b11-476b-b677-01faf0708c11",
+      "type": "istar.AndRefinementLink",
+      "source": "g1-monitorare-registrare",
+      "target": "g2-trasmettere-dati"
+    },
+    {
+      "id": "f8066f2c-ddd9-417f-b75b-48167858a43b",
+      "type": "istar.AndRefinementLink",
+      "source": "t1-rilevare-temperatura",
+      "target": "t6-campionare"
+    },
+    {
+      "id": "15f7bc9b-7e93-47ac-a7d3-374050a8376d",
+      "type": "istar.AndRefinementLink",
+      "source": "t1-rilevare-temperatura",
+      "target": "t7-verificare-range"
+    },
+    {
+      "id": "f27151a5-1f5b-418e-9450-2f331b71ace1",
+      "type": "istar.AndRefinementLink",
+      "source": "g2-trasmettere-dati",
+      "target": "t9-salvare-memoria"
+    },
+    {
+      "id": "471f2afb-abbc-46e0-acb4-92b656994198",
+      "type": "istar.AndRefinementLink",
+      "source": "g2-trasmettere-dati",
+      "target": "t10-inviare-bluetooth"
+    },
+    {
+      "id": "87d05924-1c1c-4d65-aa47-e30c0f8464f3",
+      "type": "istar.AndRefinementLink",
+      "source": "g2-trasmettere-dati",
+      "target": "t11-generare-report"
+    },
+    {
+      "id": "11791b32-fb9b-4a14-a801-81aa5a8d0907",
+      "type": "istar.ContributionLink",
+      "source": "t6-campionare",
+      "target": "sg1-precisione"
+    },
+    {
+      "id": "9592acce-ba3f-4a69-a887-9113546fba8e",
+      "type": "istar.ContributionLink",
+      "source": "t9-salvare-memoria",
+      "target": "sg2-integrita"
+    },
+    {
+      "id": "b0d928eb-2675-404a-a096-b4762af57442",
+      "type": "istar.ContributionLink",
+      "source": "t6-campionare",
+      "target": "sg3-autonomia"
+    }
+  ],
+  "display": {
+    "g1-monitorare-registrare": {
+      "width": 115.88748168945312,
+      "height": 48.912498474121094
+    },
+    "t1-rilevare-temperatura": {
+      "width": 104.88748168945312,
+      "height": 43.61249542236328
+    },
+    "t2-rilevare-shock": {
+      "width": 95.88748168945312,
+      "height": 46.61249542236328
+    },
+    "t4-verificare-sigillo": {
+      "width": 104.88748168945312,
+      "height": 41.61249542236328
+    },
+    "ext-mittente": {
+      "collapsed": true
+    },
+    "ext-corriere": {
+      "collapsed": true
+    }
+  },
+  "tool": "pistar.2.1.0",
+  "istar": "2.0",
+  "saveDate": "Mon, 01 Dec 2025 15:10:56 GMT",
+  "diagram": {
+    "width": 1200,
+    "height": 800,
+    "customProperties": {
+      "Description": "Strategic Rationale Model - Sensore IoT - Sistema SENZA Blockchain"
+    }
+  }
+}
