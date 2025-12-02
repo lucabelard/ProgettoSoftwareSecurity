@@ -164,7 +164,7 @@ P = | 0.85  0.10  0.00  0.05 |
 
 ### 4.1 Modello PRISM
 
-**File**: [`prism/sensor_system.prism`](file:///c:/Users/lilpi/Desktop/ProgettoSoftwareSecurity/prism/sensor_system.prism)
+**File**: [`sensor_system.prism`](./sensor_system.prism)
 
 - **Tipo**: DTMC (Discrete-Time Markov Chain)
 - **Stati**: 4 (OPERATIONAL, DEGRADED, FAILED, COMPROMISED)
@@ -172,7 +172,7 @@ P = | 0.85  0.10  0.00  0.05 |
 
 ### 4.2 Proprietà Verificate
 
-**File**: [`prism/sensor_properties.pctl`](file:///c:/Users/lilpi/Desktop/ProgettoSoftwareSecurity/prism/sensor_properties.pctl)
+**File**: [`sensor_properties.pctl`](./sensor_properties.pctl)
 
 #### Proprietà di Safety (S1)
 
