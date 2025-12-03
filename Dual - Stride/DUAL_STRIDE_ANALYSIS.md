@@ -32,7 +32,6 @@ Questo documento presenta un'analisi di sicurezza **DUAL-STRIDE-DUA** del Sistem
 - **DUAL**: Analisi separata per attaccanti intenzionali e utenti maldestri
 - **CAPEC/ATT&CK**: Mappatura a pattern di attacco noti
 
-h
 
 ### 1.3 STRIDE-DUA Framework
 
