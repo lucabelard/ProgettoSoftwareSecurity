@@ -14,7 +14,8 @@ module sensor_system
     // 2 = FAILED        (0-2 sensori funzionanti)
     // 3 = COMPROMISED   (≥1 sensore sotto attacco)
     state : [0..3] init 0;
-    
+    // la init va cambiata a seconda della proprietà se S1 init=0 se G1 init=1
+
     // Contatore temporale
     time : [0..200] init 0;
     

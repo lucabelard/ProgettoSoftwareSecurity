@@ -136,62 +136,19 @@ P=? [ G<=100 state!=3 ]
 #### Proprietà di Guarantee/Response (G1)
 
 ```
-P=? [ F state=3 ]
+P=? [ F<=20 state=0 ]
 ```
 
-**Significato**: Qual è la probabilità che il sistema venga eventualmente compromesso?
+**Significato**: Partendo da stato DEGRADED, qual è la probabilità che il sistema risponda tornando a OPERATIONAL entro 20 step?
 
-**Risultato PRISM**: `0.99876420119516162` (**99.87%**)
+**Risultato PRISM**: `0.631152961496128` (**63.12%**) - *Verificato con `init state=1`*
 
-**Interpretazione**: Il sistema sarà inevitabilmente compromesso con probabilità 99.87% (praticamente certezza). Questo conferma che COMPROMISED è uno stato assorbente raggiungibile da qualsiasi stato iniziale.
-
-### 3.3 Implicazioni di Sicurezza (DUAL-STRIDE)
-
-I risultati della verifica formale confermano le minacce identificate nell'analisi DUAL-STRIDE:
-
-#### Minaccia D+1.1: Deterioramento Prodotto Farmaceutico (CRITICO)
-
-**Risultato PRISM**: Probabilità di compromissione eventuale = **99.87%**
-
-**Implicazione Safety-Critical**: 
-- Senza contromisure, il sistema di sensori IoT sarà quasi certamente compromesso nel lungo periodo
-- Questo espone i prodotti farmaceutici a rischio di deterioramento non rilevato
-- **Rischio per la salute umana**: Vaccini/farmaci deteriorati potrebbero essere distribuiti a pazienti
-
-**Contromisure Raccomandate** (da DUAL-STRIDE):
-1. **Sensor Redundancy con Voting**: 3 sensori per parametro critico, maggioranza 2/3
-2. **Anomaly Detection ML**: Rilevare pattern anomali nelle evidenze
-3. **Certificazione Hardware**: Sensori con certificazione SIL 2/3 per safety-critical
-
-#### Minaccia U1.1: Failure Sensore IoT (ALTO)
-
-**Risultato PRISM**: Probabilità di rimanere sicuro per 100 step = **3.17%**
-
-**Implicazione Unreliability**:
-- Il sistema ha bassa affidabilità nel lungo periodo
-- Guasti hardware naturali (DEGRADED → FAILED) contribuiscono significativamente
-- **Impatto economico**: Spedizioni legittime potrebbero essere bloccate per evidenze incomplete
-
-**Contromisure Raccomandate** (da DUAL-STRIDE):
-1. **Timeout per Recupero Fondi**: Permettere al mittente di recuperare ETH dopo 7 giorni se evidenze incomplete
-2. **Sostituzione Preventiva**: Sostituire sensori ogni 40-50 step (prima del MTBF)
-3. **Evidenze Parziali**: Permettere validazione con 4/5 evidenze (con penalità sul pagamento)
-
-#### Minacce S2.1 + T2.1: Sensore Falso + Manomissione (CRITICO)
-
-**Risultato PRISM**: Probabilità OPERATIONAL → COMPROMISED = **5%** per step
-
-**Implicazione Spoofing + Tampering**:
-- Attaccanti intenzionali possono compromettere sensori
-- Sistemi degradati sono più vulnerabili (DEGRADED → COMPROMISED = 10%)
-- **Rischio frode**: Corrieri disonesti potrebbero manipolare evidenze per ricevere pagamenti immeritati
-
-**Contromisure Raccomandate** (da DUAL-STRIDE):
-1. **Firma Digitale Evidenze**: Autenticare sensori con chiavi crittografiche
-2. **Device Attestation**: Certificati hardware (TPM) per sensori
-3. **Tamper-Evident Seals**: Sigilli anti-manomissione fisica
+**Interpretazione**: Questa proprietà misura la capacità di risposta (response) del sistema a una condizione di degrado. Il risultato del 63.12% indica che:
+- ✅ Il sistema ha una **buona capacità di recupero** da situazioni degradate
+- ✅ La manutenzione (DEGRADED → OPERATIONAL con p=0.30) è **efficace** nel ripristinare la funzionalità
+- ⚠️ Tuttavia, c'è un **36.88% di probabilità** che il sistema non recuperi entro 20 step, potenzialmente peggiorando verso FAILED (p=0.60) o COMPROMISED (p=0.10)
+- 💡 **Raccomandazione**: Implementare manutenzione preventiva entro 15-20 step dal rilevamento dello stato DEGRADED
 
 ---
-
 
 **Fine del documento**
