@@ -1,0 +1,105 @@
+{
+  "actors": [
+    {
+      "id": "A1",
+      "text": "Mittente",
+      "type": "istar.Actor",
+      "x": 40,
+      "y": 250,
+      "nodes": [
+
+        { "id": "G1", "text": "Pagare solo se spedizione conforme", "type": "istar.Goal", "x": 80, "y": 120 },
+
+        { "id": "G1_1", "text": "Ottenere evidenze affidabili", "type": "istar.Goal", "x": 40, "y": 170 },
+        { "id": "G1_2", "text": "Valutare conformità spedizione", "type": "istar.Goal", "x": 160, "y": 170 },
+        { "id": "G1_3", "text": "Determinare rischio non conformità", "type": "istar.Goal", "x": 80, "y": 210 },
+        { "id": "G1_4", "text": "Decidere sblocco pagamento", "type": "istar.Goal", "x": 80, "y": 250 },
+
+        { "id": "T1", "text": "Richiedere evidenze E1..E5", "type": "istar.Task", "x": 40, "y": 290 },
+        { "id": "T2", "text": "Aggregare evidenze ricevute", "type": "istar.Task", "x": 160, "y": 290 },
+        { "id": "T3", "text": "Analizzare integrità temperatura", "type": "istar.Task", "x": 40, "y": 330 },
+        { "id": "T4", "text": "Analizzare integrità imballaggio", "type": "istar.Task", "x": 160, "y": 330 },
+        { "id": "T5", "text": "Calcolare probabilità di conformità", "type": "istar.Task", "x": 40, "y": 370 },
+        { "id": "T6", "text": "Confrontare evidenze con parametri", "type": "istar.Task", "x": 160, "y": 370 },
+        { "id": "T7", "text": "Determinare esito spedizione", "type": "istar.Task", "x": 40, "y": 410 },
+        { "id": "T8", "text": "Autorizzare pagamento", "type": "istar.Task", "x": 160, "y": 410 },
+
+        { "id": "R_E1", "text": "E1 - Temperatura", "type": "istar.Resource", "x": 260, "y": 300 },
+        { "id": "R_E2", "text": "E2 - Sigillo", "type": "istar.Resource", "x": 260, "y": 340 },
+        { "id": "R_E3", "text": "E3 - Shock", "type": "istar.Resource", "x": 260, "y": 380 },
+        { "id": "R_E4", "text": "E4 - Luce", "type": "istar.Resource", "x": 260, "y": 420 },
+        { "id": "R_E5", "text": "E5 - Timestamp arrivo", "type": "istar.Resource", "x": 260, "y": 460 },
+
+        { "id": "SG1", "text": "Minimizzare dispute", "type": "istar.Quality", "x": 20, "y": 90 }
+      ]
+    },
+
+    {
+      "id": "A2",
+      "text": "Corriere",
+      "type": "istar.Actor",
+      "x": 900,
+      "y": 250,
+      "nodes": [
+
+        { "id": "G2", "text": "Effettuare consegna conforme", "type": "istar.Goal", "x": 940, "y": 120 },
+
+        { "id": "G2_1", "text": "Mantenere integrità temperatura (F1)", "type": "istar.Goal", "x": 880, "y": 170 },
+        { "id": "G2_2", "text": "Mantenere integrità imballaggio (F2)", "type": "istar.Goal", "x": 1040, "y": 170 },
+        { "id": "G2_3", "text": "Minimizzare shock durante trasporto", "type": "istar.Goal", "x": 880, "y": 210 },
+        { "id": "G2_4", "text": "Evitare aperture o manomissioni", "type": "istar.Goal", "x": 1040, "y": 210 },
+        { "id": "G2_5", "text": "Mantenere condizioni di trasporto corrette", "type": "istar.Goal", "x": 940, "y": 250 },
+
+        { "id": "T20", "text": "Preparare carico", "type": "istar.Task", "x": 880, "y": 290 },
+        { "id": "T21", "text": "Monitorare condizioni in transito", "type": "istar.Task", "x": 1040, "y": 290 },
+        { "id": "T22", "text": "Gestire controllo temperatura", "type": "istar.Task", "x": 880, "y": 330 },
+        { "id": "T23", "text": "Mantenere sigillo intatto", "type": "istar.Task", "x": 1040, "y": 330 },
+        { "id": "T24", "text": "Evitare urti e cadute", "type": "istar.Task", "x": 880, "y": 370 },
+        { "id": "T25", "text": "Garantire stabilità imballaggio", "type": "istar.Task", "x": 1040, "y": 370 },
+        { "id": "T26", "text": "Consegnare spedizione", "type": "istar.Task", "x": 940, "y": 410 },
+        { "id": "T27", "text": "Gestire imprevisti", "type": "istar.Task", "x": 940, "y": 450 },
+
+        { "id": "R_S1", "text": "Sensor E1 - Temperatura", "type": "istar.Resource", "x": 1140, "y": 300 },
+        { "id": "R_S2", "text": "Sensor E2 - Sigillo", "type": "istar.Resource", "x": 1140, "y": 340 },
+        { "id": "R_S3", "text": "Sensor E3 - Shock", "type": "istar.Resource", "x": 1140, "y": 380 },
+        { "id": "R_S4", "text": "Sensor E4 - Luce", "type": "istar.Resource", "x": 1140, "y": 420 },
+        { "id": "R_S5", "text": "Sensor E5 - Timestamp", "type": "istar.Resource", "x": 1140, "y": 460 }
+      ]
+    }
+  ],
+
+  "dependencies": [
+
+    { "id": "D1", "text": "E1 - Temperatura", "type": "istar.Resource", "source": "A2", "target": "A1", "x": 520, "y": 280 },
+    { "id": "D2", "text": "E2 - Sigillo", "type": "istar.Resource", "source": "A2", "target": "A1", "x": 520, "y": 320 },
+    { "id": "D3", "text": "E3 - Shock", "type": "istar.Resource", "source": "A2", "target": "A1", "x": 520, "y": 360 },
+    { "id": "D4", "text": "E4 - Luce", "type": "istar.Resource", "source": "A2", "target": "A1", "x": 520, "y": 400 },
+    { "id": "D5", "text": "E5 - Timestamp arrivo", "type": "istar.Resource", "source": "A2", "target": "A1", "x": 520, "y": 440 },
+
+    { "id": "D6", "text": "Pagamento", "type": "istar.Resource", "source": "A1", "target": "A2", "x": 520, "y": 500 }
+  ],
+
+  "links": [
+
+    { "id": "L1", "type": "istar.DependencyLink", "source": "A2", "target": "D1" },
+    { "id": "L2", "type": "istar.DependencyLink", "source": "D1", "target": "A1" },
+
+    { "id": "L3", "type": "istar.DependencyLink", "source": "A2", "target": "D2" },
+    { "id": "L4", "type": "istar.DependencyLink", "source": "D2", "target": "A1" },
+
+    { "id": "L5", "type": "istar.DependencyLink", "source": "A2", "target": "D3" },
+    { "id": "L6", "type": "istar.DependencyLink", "source": "D3", "target": "A1" },
+
+    { "id": "L7", "type": "istar.DependencyLink", "source": "A2", "target": "D4" },
+    { "id": "L8", "type": "istar.DependencyLink", "source": "D4", "target": "A1" },
+
+    { "id": "L9", "type": "istar.DependencyLink", "source": "A2", "target": "D5" },
+    { "id": "L10", "type": "istar.DependencyLink", "source": "D5", "target": "A1" },
+
+    { "id": "L11", "type": "istar.DependencyLink", "source": "A1", "target": "D6" },
+    { "id": "L12", "type": "istar.DependencyLink", "source": "D6", "target": "A2" }
+  ],
+
+  "istar": "2.0",
+  "tool": "pistar.2.1.0"
+}
