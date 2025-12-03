@@ -17,6 +17,8 @@ P=? [ G<=100 state!=3 ]
 // PROPRIETÀ DI GUARANTEE/RESPONSE
 // ============================================================================
 
-// G1: Probabilità che il sistema EVENTUALMENTE venga compromesso
-// Interpretazione: È certo che il sistema sarà compromesso prima o poi?
-P=? [ F state=3 ]
+// G1: Probabilità di recovery da DEGRADED a OPERATIONAL entro 20 step
+// Interpretazione: Se il sistema è degradato (condizione iniziale),
+// quanto è probabile che risponda tornando operativo entro 20 step?
+// NOTA: Questa proprietà va valutata con init state=1 (DEGRADED)
+P=? [ F<=20 state=0 ]
