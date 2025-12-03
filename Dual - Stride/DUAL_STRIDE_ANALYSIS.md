@@ -21,7 +21,7 @@
 
 ## 1. Introduzione
 
-### 1.1 Scopo del Documento
+### 1.1 Scopo del documento
 
 Questo documento presenta un'analisi di sicurezza **DUAL-STRIDE-DUA** del Sistema Oracolo Bayesiano, identificando minacce per ogni asset del sistema considerando sia **attaccanti intenzionali** che **utenti maldestri**. L'analisi include riferimenti a **CAPEC** (Common Attack Pattern Enumeration and Classification) e **ATT&CK** (Adversarial Tactics, Techniques, and Common Knowledge).
 
@@ -31,6 +31,8 @@ Questo documento presenta un'analisi di sicurezza **DUAL-STRIDE-DUA** del Sistem
 - **DUA Extension**: Estensioni per sistemi critici (Danger, Unreliability, Absence of resilience)
 - **DUAL**: Analisi separata per attaccanti intenzionali e utenti maldestri
 - **CAPEC/ATT&CK**: Mappatura a pattern di attacco noti
+
+h
 
 ### 1.3 STRIDE-DUA Framework
 
