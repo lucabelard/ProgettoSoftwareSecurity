@@ -1,0 +1,617 @@
+{
+  "actors": [
+    {
+      "id": "d5280be3-7f65-4715-a3bd-b8da3df833ca",
+      "text": "Mittente",
+      "type": "istar.Role",
+      "x": 40,
+      "y": 144,
+      "customProperties": {
+        "Description": "Farmacia o produttore farmaceutico"
+      },
+      "nodes": [
+        {
+          "id": "m-g1",
+          "text": "Spedire farmaci in catena del freddo",
+          "type": "istar.Goal",
+          "x": 105,
+          "y": 274,
+          "customProperties": {
+            "Description": "Goal principale"
+          }
+        },
+        {
+          "id": "m-t1",
+          "text": "Selezionare corriere",
+          "type": "istar.Task",
+          "x": 210,
+          "y": 445,
+          "customProperties": {}
+        },
+        {
+          "id": "m-t2",
+          "text": "Preparare Imballaggio",
+          "type": "istar.Task",
+          "x": 118,
+          "y": 154,
+          "customProperties": {}
+        },
+        {
+          "id": "m-t3",
+          "text": "Installare sensori",
+          "type": "istar.Task",
+          "x": 59,
+          "y": 458,
+          "customProperties": {}
+        },
+        {
+          "id": "m-t-pagare",
+          "text": "Pagare corriere",
+          "type": "istar.Task",
+          "x": 366,
+          "y": 284,
+          "customProperties": {}
+        },
+        {
+          "id": "m-sg1",
+          "text": "Protezione finanziaria",
+          "type": "istar.Quality",
+          "x": 368,
+          "y": 154,
+          "customProperties": {}
+        },
+        {
+          "id": "m-sg2",
+          "text": "Tracciabilità",
+          "type": "istar.Quality",
+          "x": 63,
+          "y": 589,
+          "customProperties": {}
+        },
+        {
+          "id": "9cad54cf-a77c-4a35-bb07-08caf4aa571b",
+          "text": "Verificare conformità",
+          "type": "istar.Task",
+          "x": 374,
+          "y": 399,
+          "customProperties": {}
+        }
+      ]
+    },
+    {
+      "id": "e40cf7a8-1bce-476d-a0f7-24bb85f3622e",
+      "text": "Corriere",
+      "type": "istar.Role",
+      "x": 898,
+      "y": 155,
+      "customProperties": {
+        "Description": "Compagnia trasporto"
+      },
+      "nodes": [
+        {
+          "id": "c-g1",
+          "text": "Effettuare consegna",
+          "type": "istar.Goal",
+          "x": 1222,
+          "y": 264,
+          "customProperties": {}
+        },
+        {
+          "id": "c-t1",
+          "text": "Ritirare Spedizione",
+          "type": "istar.Task",
+          "x": 1225,
+          "y": 172,
+          "customProperties": {}
+        },
+        {
+          "id": "c-t-consegnare",
+          "text": "Consegnare in tempo",
+          "type": "istar.Task",
+          "x": 1442,
+          "y": 265,
+          "customProperties": {}
+        },
+        {
+          "id": "c-g2",
+          "text": "Dimostrare integrità del pacco",
+          "type": "istar.Goal",
+          "x": 1222,
+          "y": 349,
+          "customProperties": {}
+        },
+        {
+          "id": "c-t2",
+          "text": "Rispettare le specifiche di temperatura",
+          "type": "istar.Task",
+          "x": 1440,
+          "y": 359,
+          "customProperties": {}
+        },
+        {
+          "id": "c-t3",
+          "text": "Evitare shock",
+          "type": "istar.Task",
+          "x": 1449,
+          "y": 437,
+          "customProperties": {}
+        },
+        {
+          "id": "25244393-b132-493f-b866-0f491af21670",
+          "text": "Garantire integrità sigillo",
+          "type": "istar.Task",
+          "x": 1009,
+          "y": 371,
+          "customProperties": {}
+        },
+        {
+          "id": "91a743b0-2506-4a44-a651-194f6e155323",
+          "text": "Evitare aperture del pacco",
+          "type": "istar.Task",
+          "x": 1012,
+          "y": 450,
+          "customProperties": {}
+        },
+        {
+          "id": "c-g3",
+          "text": "Ottenere sblocco pagamento",
+          "type": "istar.Goal",
+          "x": 1017,
+          "y": 260,
+          "customProperties": {}
+        }
+      ]
+    },
+    {
+      "id": "982996e3-cfc3-475a-8f6e-11e70b575b36",
+      "text": "Sensore_IoT",
+      "type": "istar.Role",
+      "x": 839,
+      "y": 617,
+      "customProperties": {
+        "Description": "Sistema dispositivi IoT per monitoraggio condizioni trasporto"
+      },
+      "nodes": [
+        {
+          "id": "s-g1",
+          "text": "Monitorare condizioni di trasporto",
+          "type": "istar.Goal",
+          "x": 1099,
+          "y": 679,
+          "customProperties": {}
+        },
+        {
+          "id": "s-t1",
+          "text": "Rilevare parametri ambientali",
+          "type": "istar.Task",
+          "x": 1214,
+          "y": 754,
+          "customProperties": {}
+        },
+        {
+          "id": "s-t2",
+          "text": "Trasmettere dati rilevati",
+          "type": "istar.Task",
+          "x": 984,
+          "y": 754,
+          "customProperties": {}
+        },
+        {
+          "id": "s-sg1",
+          "text": "Precisione",
+          "type": "istar.Quality",
+          "x": 916,
+          "y": 847,
+          "customProperties": {}
+        },
+        {
+          "id": "s-sg2",
+          "text": "Affidabilità",
+          "type": "istar.Quality",
+          "x": 1274,
+          "y": 847,
+          "customProperties": {}
+        }
+      ]
+    }
+  ],
+  "orphans": [],
+  "dependencies": [
+    {
+      "id": "d11",
+      "text": "Pagamento servizio",
+      "type": "istar.Resource",
+      "x": 648,
+      "y": 257,
+      "customProperties": {
+        "Description": "Ottenere sblocco dipende da pagamento mittente"
+      },
+      "source": "c-g3",
+      "target": "m-t-pagare"
+    },
+    {
+      "id": "d12",
+      "text": "Specifiche spedizione",
+      "type": "istar.Resource",
+      "x": 859,
+      "y": 30,
+      "customProperties": {
+        "Description": "Ritirare spedizione richiede specifiche da mittente"
+      },
+      "source": "c-t1",
+      "target": "m-t2"
+    },
+    {
+      "id": "d13",
+      "text": "Prova oggettiva conformità",
+      "type": "istar.Goal",
+      "x": 1230,
+      "y": 504,
+      "customProperties": {
+        "Description": "Dimostrare conformità dipende da monitoraggio sensori"
+      },
+      "source": "c-g2",
+      "target": "s-g1"
+    },
+    {
+      "id": "b668b508-f762-4cfd-968f-4787bcbeb673",
+      "text": "Rispetto condizioni di trasporto",
+      "type": "istar.Quality",
+      "x": 695,
+      "y": 394,
+      "customProperties": {
+        "Description": "Verificare conformità richiede rispetto condizioni da corriere"
+      },
+      "source": "9cad54cf-a77c-4a35-bb07-08caf4aa571b",
+      "target": "e40cf7a8-1bce-476d-a0f7-24bb85f3622e"
+    },
+    {
+      "id": "05a3d1fc-98d6-4963-8bda-627792dd80e1",
+      "text": "Dati affidabili",
+      "type": "istar.Quality",
+      "x": 445,
+      "y": 842,
+      "customProperties": {
+        "Description": "Verificare conformità richiede dati precisi da sensori"
+      },
+      "source": "9cad54cf-a77c-4a35-bb07-08caf4aa571b",
+      "target": "s-sg1"
+    },
+    {
+      "id": "ee2ae634-b80e-49fa-a0c0-11cc75f63098",
+      "text": "Report evidenze",
+      "type": "istar.Resource",
+      "x": 679,
+      "y": 496,
+      "customProperties": {
+        "Description": "Verificare conformità richiede report dati da sensori"
+      },
+      "source": "9cad54cf-a77c-4a35-bb07-08caf4aa571b",
+      "target": "s-t2"
+    },
+    {
+      "id": "d97925bc-a323-4f96-928e-831d2651c385",
+      "text": "Configurazione parametri",
+      "type": "istar.Resource",
+      "x": 550,
+      "y": 685,
+      "customProperties": {
+        "Description": "Sensore richiede configurazione da mittente"
+      },
+      "source": "s-g1",
+      "target": "m-t3"
+    }
+  ],
+  "links": [
+    {
+      "id": "94769d23-90c8-4504-9e5f-2bf481d4d80b",
+      "type": "istar.DependencyLink",
+      "source": "d97925bc-a323-4f96-928e-831d2651c385",
+      "target": "m-t3"
+    },
+    {
+      "id": "4297ae2d-35f4-493d-857b-103f27d77c1f",
+      "type": "istar.DependencyLink",
+      "source": "s-g1",
+      "target": "d97925bc-a323-4f96-928e-831d2651c385"
+    },
+    {
+      "id": "54d5483a-7a98-4e1e-944e-1b338bb14332",
+      "type": "istar.DependencyLink",
+      "source": "ee2ae634-b80e-49fa-a0c0-11cc75f63098",
+      "target": "s-t2"
+    },
+    {
+      "id": "b20c410b-da0b-4f8e-be2f-f22695a41077",
+      "type": "istar.DependencyLink",
+      "source": "9cad54cf-a77c-4a35-bb07-08caf4aa571b",
+      "target": "ee2ae634-b80e-49fa-a0c0-11cc75f63098"
+    },
+    {
+      "id": "2f609d98-761d-4421-92fc-48614e074bb0",
+      "type": "istar.DependencyLink",
+      "source": "05a3d1fc-98d6-4963-8bda-627792dd80e1",
+      "target": "s-sg1"
+    },
+    {
+      "id": "3996a8f3-2763-4a42-beda-5440c2bd433c",
+      "type": "istar.DependencyLink",
+      "source": "9cad54cf-a77c-4a35-bb07-08caf4aa571b",
+      "target": "05a3d1fc-98d6-4963-8bda-627792dd80e1"
+    },
+    {
+      "id": "049a8c2c-f63f-437d-b892-c98696cb578a",
+      "type": "istar.DependencyLink",
+      "source": "b668b508-f762-4cfd-968f-4787bcbeb673",
+      "target": "e40cf7a8-1bce-476d-a0f7-24bb85f3622e"
+    },
+    {
+      "id": "83f11c43-62fe-4f2b-b410-cd14e886ffee",
+      "type": "istar.DependencyLink",
+      "source": "9cad54cf-a77c-4a35-bb07-08caf4aa571b",
+      "target": "b668b508-f762-4cfd-968f-4787bcbeb673"
+    },
+    {
+      "id": "6654d28c-3e85-42db-a5a6-369db06a02e2",
+      "type": "istar.DependencyLink",
+      "source": "d13",
+      "target": "s-g1"
+    },
+    {
+      "id": "58f676a8-3d29-4244-945f-aacde105bdb3",
+      "type": "istar.DependencyLink",
+      "source": "c-g2",
+      "target": "d13"
+    },
+    {
+      "id": "93f3785a-4b55-4c17-8fb4-b6156f8ec73f",
+      "type": "istar.DependencyLink",
+      "source": "d12",
+      "target": "m-t2"
+    },
+    {
+      "id": "244f2181-867a-438f-8929-536789b4e02c",
+      "type": "istar.DependencyLink",
+      "source": "c-t1",
+      "target": "d12"
+    },
+    {
+      "id": "d4a31ad9-7344-4f89-9f46-470b5f35b200",
+      "type": "istar.DependencyLink",
+      "source": "d11",
+      "target": "m-t-pagare"
+    },
+    {
+      "id": "54b446eb-a2d8-4c06-8f73-85eda7178840",
+      "type": "istar.DependencyLink",
+      "source": "c-g3",
+      "target": "d11"
+    },
+    {
+      "id": "2a389aed-6e38-4918-8d64-55827a602ee0",
+      "type": "istar.AndRefinementLink",
+      "source": "m-g1",
+      "target": "m-t1"
+    },
+    {
+      "id": "6f3adf18-10db-4931-b3ed-0020124a3f99",
+      "type": "istar.AndRefinementLink",
+      "source": "m-g1",
+      "target": "m-t2"
+    },
+    {
+      "id": "202796d7-f69e-46f7-aae1-938596e5b7e5",
+      "type": "istar.AndRefinementLink",
+      "source": "m-g1",
+      "target": "m-t3"
+    },
+    {
+      "id": "c840226b-6505-42f1-9e93-9f995aa8a16a",
+      "type": "istar.AndRefinementLink",
+      "source": "m-g1",
+      "target": "m-t-pagare"
+    },
+    {
+      "id": "6a4b0bba-5f65-4fee-80b6-8b1b9ab2c79b",
+      "type": "istar.AndRefinementLink",
+      "source": "m-g1",
+      "target": "9cad54cf-a77c-4a35-bb07-08caf4aa571b"
+    },
+    {
+      "id": "121e10c1-0ec6-4d5a-abe7-2fdbb73cf5c0",
+      "type": "istar.ContributionLink",
+      "source": "m-t3",
+      "target": "m-sg2"
+    },
+    {
+      "id": "79f6422e-cc95-459e-9ab0-08045db6698b",
+      "type": "istar.ContributionLink",
+      "source": "m-t-pagare",
+      "target": "m-sg1"
+    },
+    {
+      "id": "3807b4fb-8385-41de-9c1b-d47043b4d339",
+      "type": "istar.AndRefinementLink",
+      "source": "c-g1",
+      "target": "c-t1"
+    },
+    {
+      "id": "5c73d776-69ec-4510-8b97-9390006267f4",
+      "type": "istar.AndRefinementLink",
+      "source": "c-g1",
+      "target": "c-t-consegnare"
+    },
+    {
+      "id": "f0c30ad5-645e-4b91-8f50-16d09d1eff02",
+      "type": "istar.AndRefinementLink",
+      "source": "c-g1",
+      "target": "c-g2"
+    },
+    {
+      "id": "65be3f9f-b44a-414c-8af8-47b17a6d7960",
+      "type": "istar.AndRefinementLink",
+      "source": "c-g1",
+      "target": "c-g3"
+    },
+    {
+      "id": "66c73791-0f79-4d0b-8e4c-4bc1d9a91706",
+      "type": "istar.AndRefinementLink",
+      "source": "c-g2",
+      "target": "c-t2"
+    },
+    {
+      "id": "bff9a1d9-8959-455c-a49f-39845c287c14",
+      "type": "istar.AndRefinementLink",
+      "source": "c-g2",
+      "target": "c-t3"
+    },
+    {
+      "id": "7a1fe5fe-7c23-4cf1-8365-e343ff5b1d2f",
+      "type": "istar.AndRefinementLink",
+      "source": "c-g2",
+      "target": "25244393-b132-493f-b866-0f491af21670"
+    },
+    {
+      "id": "34bcc183-2cb7-4d07-968e-43d20227b611",
+      "type": "istar.AndRefinementLink",
+      "source": "c-g2",
+      "target": "91a743b0-2506-4a44-a651-194f6e155323"
+    },
+    {
+      "id": "eeaf93c3-f880-4051-ac73-ecc2fb7acaae",
+      "type": "istar.AndRefinementLink",
+      "source": "s-g1",
+      "target": "s-t1"
+    },
+    {
+      "id": "86c3cf38-fe70-4d84-bdc0-e85b9f66843c",
+      "type": "istar.AndRefinementLink",
+      "source": "s-g1",
+      "target": "s-t2"
+    },
+    {
+      "id": "52178acf-777c-41ce-8b9a-63d1237a26e0",
+      "type": "istar.ContributionLink",
+      "source": "s-t1",
+      "target": "s-sg1"
+    },
+    {
+      "id": "d020afb3-59b0-4abc-bb39-1a587f5fbbc8",
+      "type": "istar.ContributionLink",
+      "source": "s-t2",
+      "target": "s-sg1"
+    },
+    {
+      "id": "96e2113e-7816-472a-be5f-c8b9cece798f",
+      "type": "istar.ContributionLink",
+      "source": "s-t1",
+      "target": "s-sg2"
+    },
+    {
+      "id": "4809fe84-19e2-4566-bd2d-9948f9a12bd8",
+      "type": "istar.ContributionLink",
+      "source": "s-t2",
+      "target": "s-sg2"
+    }
+  ],
+  "display": {
+    "m-g1": {
+      "width": 110.88748168945312,
+      "height": 57.41249543428421
+    },
+    "c-g1": {
+      "width": 100.2874755859375,
+      "height": 41.61249542236328
+    },
+    "c-g2": {
+      "width": 97.88748168945312,
+      "height": 41.025001525878906
+    },
+    "c-g3": {
+      "width": 105.08747863769531,
+      "height": 49.01249694824219
+    },
+    "s-g1": {
+      "width": 116.28750610351562,
+      "height": 44.81250762939453
+    },
+    "d13": {
+      "width": 94.28750610351562,
+      "height": 40.81250762939453
+    },
+    "94769d23-90c8-4504-9e5f-2bf481d4d80b": {
+      "vertices": [
+        {
+          "x": 342,
+          "y": 675
+        }
+      ]
+    },
+    "4297ae2d-35f4-493d-857b-103f27d77c1f": {
+      "vertices": [
+        {
+          "x": 1005,
+          "y": 699
+        }
+      ]
+    },
+    "54d5483a-7a98-4e1e-944e-1b338bb14332": {
+      "vertices": [
+        {
+          "x": 990,
+          "y": 578
+        }
+      ]
+    },
+    "3996a8f3-2763-4a42-beda-5440c2bd433c": {
+      "vertices": [
+        {
+          "x": 397,
+          "y": 808
+        }
+      ]
+    },
+    "049a8c2c-f63f-437d-b892-c98696cb578a": {
+      "vertices": [
+        {
+          "x": 851,
+          "y": 375
+        }
+      ]
+    },
+    "93f3785a-4b55-4c17-8fb4-b6156f8ec73f": {
+      "vertices": [
+        {
+          "x": 578,
+          "y": 49
+        },
+        {
+          "x": 371,
+          "y": 58
+        },
+        {
+          "x": 209,
+          "y": 94
+        }
+      ]
+    },
+    "244f2181-867a-438f-8929-536789b4e02c": {
+      "vertices": [
+        {
+          "x": 1206,
+          "y": 63
+        }
+      ]
+    }
+  },
+  "tool": "pistar.2.1.0",
+  "istar": "2.0",
+  "saveDate": "Wed, 03 Dec 2025 14:51:50 GMT",
+  "diagram": {
+    "width": 1828,
+    "height": 1307,
+    "customProperties": {
+      "Description": "SR UNIFICATO - Sistema SENZA Blockchain (supply chain tradizionale)"
+    }
+  }
+}
