@@ -108,6 +108,29 @@ Ripeti con evidenze sbagliate:
 
 Risultato: ❌ "Requisiti di conformità non superati"
 
+### 🚀 Testing su Hyperledger Besu (Enterprise)
+
+Il progetto include supporto completo per **Hyperledger Besu**, una blockchain Ethereum enterprise-grade.
+
+**Test automatici su Besu:**
+```bash
+./test-besu.sh
+```
+
+Questo script:
+- ✅ Avvia blockchain privata Besu
+- ✅ Deploya il contratto
+- ✅ Esegue 24 test automatici
+- ✅ Genera report dettagliato (`BESU_TEST_REPORT.md`)
+
+**Documentazione completa**: [besu-config/BESU_TESTING_COMPLETO.md](./besu-config/BESU_TESTING_COMPLETO.md)
+
+**Vantaggi Besu**:
+- ✅ Production-ready (usato in ambienti enterprise)
+- ✅ Consenso configurabile (IBFT 2.0, QBFT, PoW)
+- ✅ Privacy e permissioning
+- ✅ Monitoraggio avanzato
+
 ## 🔧 Troubleshooting
 
 ### "Contract not deployed"

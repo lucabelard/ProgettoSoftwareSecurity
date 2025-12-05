@@ -2,7 +2,7 @@
 const BNCalcolatoreOnChain = artifacts.require("BNCalcolatoreOnChain");
 
 module.exports = async function (deployer, network, accounts) {
-  
+
   // Definiamo gli attori (come nei test)
   const admin = accounts[0]; // Chi fa il deploy
   const indirizzoOracolo = accounts[0]; // Per semplicità, chi deploya è anche l'Oracolo
@@ -27,49 +27,38 @@ module.exports = async function (deployer, network, accounts) {
 
 
   // --- 2. SETUP DELLE PROBABILITÀ (Come da PDF, pag. 17-18) ---
-  
+
   // Useremo valori (0-100) per rappresentare le probabilità (0.0 - 1.0)
   const PRECISIONE = 100;
 
   console.log("Inizio setup probabilità (CPT)...");
 
-  // 2a. Imposta probabilità a priori: P(F1=T)=90%, P(F2=T)=90%
-  await instance.impostaProbabilitaAPriori(90, 90, { from: indirizzoOracolo });
-  console.log("Probabilità a priori impostate (P(F1)=90, P(F2)=90)");
+  // 2a. Imposta probabilità a priori: P(F1=T)=99%, P(F2=T)=99%
+  await instance.impostaProbabilitaAPriori(99, 99, { from: indirizzoOracolo });
+  console.log("Probabilità a priori impostate (P(F1)=99, P(F2)=99)");
 
   // 2b. Imposta le CPT (Tabelle di Probabilità Condizionale)
-  // Creiamo delle tabelle di esempio realistiche
-  // { p_FF, p_FT, p_TF, p_TT }
+  // Per evidenze POSITIVE (T=good): E1, E2, E5
+  const cptPositiva = { p_FF: 5, p_FT: 30, p_TF: 50, p_TT: 99 };
 
-  // E1 (Temperatura): Dipende da F1
-  // Se F1=T, E1=T (sensore OK) al 98%
-  // Se F1=F, E1=T (falso positivo) al 5%
-  // (Ignoriamo F2, quindi p_FT = p_FF e p_TT = p_TF)
-  const cpt_E1 = { p_FF: 5, p_FT: 5, p_TF: 98, p_TT: 98 };
-  await instance.impostaCPT(1, cpt_E1, { from: indirizzoOracolo });
+  // Per evidenze NEGATIVE (F=good): E3, E4
+  // Invertiamo la logica: quando tutto è OK (TT), E=F con prob alta
+  const cptNegativa = { p_FF: 95, p_FT: 70, p_TF: 50, p_TT: 1 };
 
-  // E2 (Sigillo): Dipende da F2
-  // Se F2=T, E2=T (sigillo intatto) al 99%
-  // Se F2=F, E2=T (falso positivo) al 1%
-  const cpt_E2 = { p_FF: 1, p_FT: 99, p_TF: 1, p_TT: 99 };
-  await instance.impostaCPT(2, cpt_E2, { from: indirizzoOracolo });
+  // E1 (Temperatura): T=good
+  await instance.impostaCPT(1, cptPositiva, { from: indirizzoOracolo });
 
-  // E3 (Shock): Dipende da F2
-  // Se F2=T, E3=T (falso shock) al 10%
-  // Se F2=F, E3=T (shock vero) al 70%
-  const cpt_E3 = { p_FF: 70, p_FT: 10, p_TF: 70, p_TT: 10 };
-  await instance.impostaCPT(3, cpt_E3, { from: indirizzoOracolo });
+  // E2 (Sigillo): T=good
+  await instance.impostaCPT(2, cptPositiva, { from: indirizzoOracolo });
 
-  // E4 (Luce): Dipende da F2
-  // Se F2=T, E4=T (falso allarme luce) al 2%
-  // Se F2=F, E4=T (pacco aperto) al 95%
-  const cpt_E4 = { p_FF: 95, p_FT: 2, p_TF: 95, p_TT: 2 };
-  await instance.impostaCPT(4, cpt_E4, { from: indirizzoOracolo });
+  // E3 (Shock): F=good (no shock)
+  await instance.impostaCPT(3, cptNegativa, { from: indirizzoOracolo });
 
-  // E5 (Scan): Dipende da F1 e F2 (ipotizziamo)
-  // (Logica inventata: se tutto OK (TT) 99%, se tutto KO (FF) 20%)
-  const cpt_E5 = { p_FF: 20, p_FT: 80, p_TF: 80, p_TT: 99 };
-  await instance.impostaCPT(5, cpt_E5, { from: indirizzoOracolo });
+  // E4 (Luce): F=good (no apertura)
+  await instance.impostaCPT(4, cptNegativa, { from: indirizzoOracolo });
+
+  // E5 (Scan): T=good
+  await instance.impostaCPT(5, cptPositiva, { from: indirizzoOracolo });
 
   console.log("Setup delle CPT per E1-E5 completato.");
   console.log("----------------------------------------------------");
