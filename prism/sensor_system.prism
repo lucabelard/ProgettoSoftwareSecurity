@@ -1,0 +1,55 @@
+// ============================================================================
+// PRISM Model: IoT Sensor System
+// ============================================================================
+// Sistema Oracolo Bayesiano - Modello DTMC del sistema di sensori IoT
+// ============================================================================
+
+dtmc
+
+module sensor_system
+    
+    // Stati del sistema:
+    // 0 = OPERATIONAL   (tutti i 5 sensori funzionanti)
+    // 1 = DEGRADED      (3-4 sensori funzionanti)
+    // 2 = FAILED        (0-2 sensori funzionanti)
+    // 3 = COMPROMISED   (≥1 sensore sotto attacco)
+    state : [0..3] init 0;
+    // la init va cambiata a seconda della proprietà se S1 init=0 se G1 init=1
+
+    // Contatore temporale
+    time : [0..200] init 0;
+    
+    // Transizioni da OPERATIONAL
+    [] state=0 & time<200 -> 
+        0.85 : (state'=0) & (time'=time+1) +
+        0.10 : (state'=1) & (time'=time+1) +
+        0.05 : (state'=3) & (time'=time+1);
+    
+    // Transizioni da DEGRADED
+    [] state=1 & time<200 -> 
+        0.30 : (state'=0) & (time'=time+1) +
+        0.60 : (state'=2) & (time'=time+1) +
+        0.10 : (state'=3) & (time'=time+1);
+    
+    // Transizioni da FAILED
+    [] state=2 & time<200 -> 
+        0.20 : (state'=1) & (time'=time+1) +
+        0.80 : (state'=2) & (time'=time+1);
+    
+    // Transizioni da COMPROMISED (stato assorbente)
+    [] state=3 & time<200 -> 
+        1.00 : (state'=3) & (time'=time+1);
+    
+    [] time=200 -> 
+        1.00 : (state'=state) & (time'=time);
+    
+endmodule
+
+// Rewards
+rewards "time"
+    true : 1;
+endrewards
+
+// Labels
+label "operational" = state=0;
+label "compromised" = state=3;
