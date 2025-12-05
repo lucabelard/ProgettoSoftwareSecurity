@@ -1,7 +1,18 @@
 /*
  * Truffle configuration file
- * Configura la connessione a Ganache e il compilatore Solidity
+ * Configura la connessione a Ganache, Besu e il compilatore Solidity
  */
+
+const HDWalletProvider = require('@truffle/hdwallet-provider');
+
+// Chiavi private degli account precaricati nel genesis di Besu
+// ATTENZIONE: Questi sono account di TEST pubblici - NON usare in produzione!
+const besuPrivateKeys = [
+  '0x8f2a55949038a9610f50fb23b5883af3b4ecb3c3bb792cbcefbd1542c692be63', // Account 0
+  '0xc87509a1c067bbde78beb793e6fa76530b6382a4c0241e5e4a9ec0a0f44dc0d3', // Account 1
+  '0xae6ae8e5ccbfb04590405997ee2d52d2b330726137b875053c36d94e974d162f', // Account 2
+  '0x0dbbe8e4ae425a6d2687f1a7e3ba17bc98c673636790f1b8ad91193c05875ef1'  // Account 3
+];
 
 module.exports = {
   paths: {
@@ -20,6 +31,19 @@ module.exports = {
       websockets: true,
       networkCheckTimeout: 10000,
       timeoutBlocks: 200
+    },
+    besu: {
+      provider: () => new HDWalletProvider({
+        privateKeys: besuPrivateKeys,
+        providerOrUrl: "http://127.0.0.1:8545",
+        numberOfAddresses: 4
+      }),
+      network_id: "1337",
+      gas: 10000000,
+      gasPrice: 0,
+      networkCheckTimeout: 10000,
+      timeoutBlocks: 200,
+      deploymentPollingInterval: 1000
     },
   },
 
