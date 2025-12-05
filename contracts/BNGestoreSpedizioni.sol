@@ -34,6 +34,9 @@ contract BNGestoreSpedizioni is BNCore {
     event SpedizioneCreata(uint256 indexed id, address indexed mittente, address indexed corriere, uint256 importo);
     event EvidenzaInviata(uint256 indexed id, uint8 indexed evidenza, bool valore, address indexed sensore);
     
+    // === EVENTI DI RUNTIME MONITORING ===
+    event EvidenceReceived(uint256 indexed shipmentId, uint8 indexed evidenceId, bool value);
+    
     constructor() {
         _grantRole(RUOLO_MITTENTE, msg.sender);
         _grantRole(RUOLO_SENSORE, msg.sender);
@@ -85,18 +88,23 @@ contract BNGestoreSpedizioni is BNCore {
         if (_idEvidenza == 1) {
             s.evidenze.E1_ricevuta = true;
             s.evidenze.E1_valore = _valore;
+            emit EvidenceReceived(_idSpedizione, 1, _valore);
         } else if (_idEvidenza == 2) {
             s.evidenze.E2_ricevuta = true;
             s.evidenze.E2_valore = _valore;
+            emit EvidenceReceived(_idSpedizione, 2, _valore);
         } else if (_idEvidenza == 3) {
             s.evidenze.E3_ricevuta = true;
             s.evidenze.E3_valore = _valore;
+            emit EvidenceReceived(_idSpedizione, 3, _valore);
         } else if (_idEvidenza == 4) {
             s.evidenze.E4_ricevuta = true;
             s.evidenze.E4_valore = _valore;
+            emit EvidenceReceived(_idSpedizione, 4, _valore);
         } else if (_idEvidenza == 5) {
             s.evidenze.E5_ricevuta = true;
             s.evidenze.E5_valore = _valore;
+            emit EvidenceReceived(_idSpedizione, 5, _valore);
         } else revert("ID evidenza non valido (1-5)");
         
         emit EvidenzaInviata(_idSpedizione, _idEvidenza, _valore, msg.sender);
