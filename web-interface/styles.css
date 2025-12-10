@@ -148,6 +148,63 @@ body::before {
     font-weight: 500;
 }
 
+/* ===== ROLE BADGES ===== */
+.role-badges {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.role-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 4px 12px;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: 600;
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    transition: var(--transition);
+}
+
+.role-badge.role-admin {
+    background: rgba(251, 191, 36, 0.15);
+    border-color: rgba(251, 191, 36, 0.4);
+    color: #fbbf24;
+}
+
+.role-badge.role-oracolo {
+    background: rgba(139, 92, 246, 0.15);
+    border-color: rgba(139, 92, 246, 0.4);
+    color: #8b5cf6;
+}
+
+.role-badge.role-mittente {
+    background: rgba(59, 130, 246, 0.15);
+    border-color: rgba(59, 130, 246, 0.4);
+    color: #3b82f6;
+}
+
+.role-badge.role-sensore {
+    background: rgba(16, 185, 129, 0.15);
+    border-color: rgba(16, 185, 129, 0.4);
+    color: #10b981;
+}
+
+.role-badge.role-corriere {
+    background: rgba(236, 72, 153, 0.15);
+    border-color: rgba(236, 72, 153, 0.4);
+    color: #ec4899;
+}
+
+.role-badge.no-role {
+    background: rgba(107, 114, 128, 0.15);
+    border-color: rgba(107, 114, 128, 0.4);
+    color: #6b7280;
+}
+
+
 /* ===== BUTTONS ===== */
 .btn {
     display: inline-flex;
@@ -477,6 +534,48 @@ body::before {
     border-color: #6b7280;
     color: #6b7280;
 }
+
+/* ===== REFUND INDICATORS ===== */
+.refund-indicator {
+    margin-top: 12px;
+    padding: 8px 12px;
+    border-radius: var(--radius-sm);
+    font-size: 12px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.refund-indicator.available {
+    background: rgba(16, 185, 129, 0.2);
+    border: 1px solid #10b981;
+    color: #10b981;
+}
+
+.refund-indicator.unavailable {
+    background: rgba(239, 68, 68, 0.2);
+    border: 1px solid #ef4444;
+    color: #ef4444;
+}
+
+.failed-attempts-badge {
+    margin-top: 8px;
+    padding: 6px 10px;
+    border-radius: var(--radius-sm);
+    font-size: 11px;
+    font-weight: 600;
+    background: rgba(251, 191, 36, 0.2);
+    border: 1px solid #fbbf24;
+    color: #fbbf24;
+    display: inline-block;
+}
+
+.info-value.warning {
+    color: #fbbf24;
+    font-weight: 700;
+}
+
 
 .empty-state {
     grid-column: 1 / -1;

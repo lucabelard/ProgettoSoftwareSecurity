@@ -15,7 +15,15 @@ contract BNGestoreSpedizioni is BNCore {
     bytes32 public constant RUOLO_SENSORE = keccak256("RUOLO_SENSORE");
     
     // === STATI ===
-    enum StatoSpedizione { InAttesa, Pagata }
+    enum StatoSpedizione { 
+        InAttesa,      // 0 - In attesa di completamento
+        Pagata,        // 1 - Pagamento completato al corriere
+        Annullata,     // 2 - Annullata dal mittente
+        Rimborsata     // 3 - Rimborsata al mittente per validazione fallita
+    }
+    
+    // === COSTANTI PER TIMEOUT ===
+    uint256 public constant TIMEOUT_RIMBORSO = 7 days; // Dopo 7 giorni senza evidenze, rimborso possibile
     
     // === STRUTTURE ===
     struct Spedizione {
@@ -24,6 +32,8 @@ contract BNGestoreSpedizioni is BNCore {
         uint256 importoPagamento;
         StatoSpedizione stato;
         StatoEvidenze evidenze;
+        uint256 timestampCreazione; // Timestamp creazione per timeout
+        uint256 tentativiValidazioneFalliti; // Contatore tentativi falliti
     }
     
     // === STORAGE ===
@@ -33,9 +43,13 @@ contract BNGestoreSpedizioni is BNCore {
     // === EVENTI ===
     event SpedizioneCreata(uint256 indexed id, address indexed mittente, address indexed corriere, uint256 importo);
     event EvidenzaInviata(uint256 indexed id, uint8 indexed evidenza, bool valore, address indexed sensore);
+    event SpedizioneAnnullata(uint256 indexed id, address indexed mittente, uint256 importoRimborsato);
+    event RimborsoEffettuato(uint256 indexed id, address indexed mittente, uint256 importo, string motivo);
+    event TentativoValidazioneFallito(uint256 indexed id, uint256 numeroTentativi);
     
     // === EVENTI DI RUNTIME MONITORING ===
     event EvidenceReceived(uint256 indexed shipmentId, uint8 indexed evidenceId, bool value);
+    event MonitorRefundRequest(uint256 indexed shipmentId, address indexed requester, string reason);
     
     constructor() {
         _grantRole(RUOLO_MITTENTE, msg.sender);
@@ -64,7 +78,9 @@ contract BNGestoreSpedizioni is BNCore {
             corriere: _corriere,
             importoPagamento: msg.value,
             stato: StatoSpedizione.InAttesa,
-            evidenze: StatoEvidenze(false,false,false,false,false,false,false,false,false,false)
+            evidenze: StatoEvidenze(false,false,false,false,false,false,false,false,false,false),
+            timestampCreazione: block.timestamp,
+            tentativiValidazioneFalliti: 0
         });
 
         emit SpedizioneCreata(id, msg.sender, _corriere, msg.value);
@@ -119,5 +135,97 @@ contract BNGestoreSpedizioni is BNCore {
         StatoEvidenze memory e = spedizioni[_id].evidenze;
         return e.E1_ricevuta && e.E2_ricevuta && e.E3_ricevuta && 
                e.E4_ricevuta && e.E5_ricevuta;
+    }
+    
+    /**
+     * @notice Permette al mittente di annullare una spedizione prima che le evidenze siano inviate
+     * @param _id ID della spedizione
+     * @dev Solo il mittente può annullare e solo se non ci sono evidenze ancora
+     */
+    function annullaSpedizione(uint256 _id) external {
+        Spedizione storage s = spedizioni[_id];
+        
+        // SAFETY MONITOR: Solo mittente può annullare
+        require(s.mittente == msg.sender, "Solo il mittente puo annullare");
+        
+        // SAFETY MONITOR: Solo spedizioni in attesa
+        require(s.stato == StatoSpedizione.InAttesa, "Spedizione non in attesa");
+        
+        // SAFETY MONITOR: Solo se nessuna evidenza è stata inviata
+        bool nessunaEvidenza = !s.evidenze.E1_ricevuta && !s.evidenze.E2_ricevuta && 
+                                !s.evidenze.E3_ricevuta && !s.evidenze.E4_ricevuta && 
+                                !s.evidenze.E5_ricevuta;
+        require(nessunaEvidenza, "Impossibile annullare: evidenze gia inviate");
+        
+        uint256 importo = s.importoPagamento;
+        s.stato = StatoSpedizione.Annullata;
+        
+        emit MonitorRefundRequest(_id, msg.sender, "Annullamento spedizione");
+        emit SpedizioneAnnullata(_id, msg.sender, importo);
+        
+        // Rimborsa il mittente
+        (bool success, ) = s.mittente.call{value: importo}("");
+        require(success, "Rimborso fallito");
+    }
+    
+    /**
+     * @notice Permette al mittente di richiedere un rimborso dopo validazione fallita o timeout
+     * @param _id ID della spedizione
+     * @dev Rimborso possibile se:
+     *      1. Validazione fallita più volte (tentativiValidazioneFalliti >= 3)
+     *      2. Timeout scaduto senza tutte le evidenze
+     */
+    function richiediRimborso(uint256 _id) external {
+        Spedizione storage s = spedizioni[_id];
+        
+        // SAFETY MONITOR S1: Solo mittente può richiedere rimborso
+        require(s.mittente == msg.sender, "Solo il mittente puo richiedere rimborso");
+        emit MonitorRefundRequest(_id, msg.sender, "Richiesta rimborso");
+        
+        // SAFETY MONITOR S2: Solo spedizioni in attesa
+        require(s.stato == StatoSpedizione.InAttesa, "Spedizione non in attesa");
+        
+        bool rimborsoValido = false;
+        string memory motivo;
+        
+        // Condizione 1: Tentativi validazione falliti >= 3
+        if (s.tentativiValidazioneFalliti >= 3) {
+            rimborsoValido = true;
+            motivo = "Validazione fallita 3+ volte";
+        }
+        
+        // Condizione 2: Timeout scaduto senza tutte le evidenze
+        if (block.timestamp >= s.timestampCreazione + TIMEOUT_RIMBORSO && !_tutteEvidenzeRicevute(_id)) {
+            rimborsoValido = true;
+            motivo = "Timeout scaduto senza evidenze complete";
+        }
+        
+        // Condizione 3: Tutte le evidenze ricevute ma validazione non tentata e timeout scaduto
+        if (_tutteEvidenzeRicevute(_id) && 
+            s.tentativiValidazioneFalliti == 0 && 
+            block.timestamp >= s.timestampCreazione + TIMEOUT_RIMBORSO * 2) {
+            rimborsoValido = true;
+            motivo = "Evidenze ricevute ma corriere non ha validato";
+        }
+        
+        require(rimborsoValido, "Condizioni per rimborso non soddisfatte");
+        
+        uint256 importo = s.importoPagamento;
+        s.stato = StatoSpedizione.Rimborsata;
+        
+        emit RimborsoEffettuato(_id, msg.sender, importo, motivo);
+        
+        // Rimborsa il mittente
+        (bool success, ) = s.mittente.call{value: importo}("");
+        require(success, "Rimborso fallito");
+    }
+    
+    /**
+     * @notice Incrementa il contatore di tentativi falliti (chiamato da BNPagamenti)
+     * @param _id ID della spedizione
+     */
+    function _registraTentativoFallito(uint256 _id) internal {
+        spedizioni[_id].tentativiValidazioneFalliti++;
+        emit TentativoValidazioneFallito(_id, spedizioni[_id].tentativiValidazioneFalliti);
     }
 }

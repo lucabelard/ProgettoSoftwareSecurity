@@ -56,10 +56,15 @@ contract BNPagamenti is BNGestoreSpedizioni {
         
         // SAFETY MONITOR S4: Probability Threshold
         if (probF1 < SOGLIA_PROBABILITA || probF2 < SOGLIA_PROBABILITA) {
+            // Registra tentativo fallito per permettere rimborso dopo 3 tentativi
+            _registraTentativoFallito(_id);
+            
             emit MonitorSafetyViolation("ProbabilityThreshold", _id, msg.sender, "Requisiti di conformita non superati");
             emit SogliaValidazioneNonSuperata(_id, probF1, probF2);
             emit TentativoPagamentoFallito(_id, msg.sender, "Requisiti di conformita non superati");
-            revert("Requisiti di conformita non superati");
+            
+            // IMPORTANT: Return instead of revert to allow counter increment to persist
+            return;
         }
         
         // GUARANTEE MONITOR G1: Payment Upon Valid Evidence

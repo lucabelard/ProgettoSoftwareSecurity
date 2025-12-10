@@ -38,6 +38,7 @@
                         <span class="account-label">Account:</span>
                         <span class="account-address" id="accountAddress">Not Connected</span>
                     </div>
+                    <div class="role-badges" id="roleBadges"></div>
                     <button class="btn btn-primary" id="connectWallet">
                         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                             <rect x="2" y="5" width="20" height="14" rx="2"/>
@@ -65,7 +66,7 @@
                     <div class="role-card" data-role="mittente">
                         <div class="role-icon">📦</div>
                         <h3>Mittente</h3>
-                        <p>Crea nuove spedizioni</p>
+                        <p>Crea e gestisci spedizioni</p>
                     </div>
                     <div class="role-card" data-role="sensore">
                         <div class="role-icon">📊</div>
@@ -90,6 +91,8 @@
                             <option value="all">Tutti gli stati</option>
                             <option value="InAttesa">In Attesa</option>
                             <option value="Pagata">Pagata</option>
+                            <option value="Annullata">Annullata</option>
+                            <option value="Rimborsata">Rimborsata</option>
                         </select>
                     </div>
                 </div>
@@ -102,7 +105,7 @@
                 </div>
             </section>
 
-            <!-- Admin Panel -->
+            <!-- Admin Panel (unchanged) -->
             <section class="panel admin-panel" id="adminPanel" style="display: none;">
                 <div class="panel-header">
                     <h2>⚙️ Pannello Amministratore</h2>
@@ -156,13 +159,14 @@
                 </div>
             </section>
 
-            <!-- Create Shipment Panel -->
-            <section class="panel create-panel" id="createPanel" style="display: none;">
+            <!-- NEW: Mittente Panel with Refund Features -->
+            <section class="panel mittente-panel" id="mittentePanel" style="display: none;">
                 <div class="panel-header">
-                    <h2>📦 Crea Nuova Spedizione</h2>
-                    <p>Inserisci i dettagli della spedizione e invia il pagamento</p>
+                    <h2>📦 Pannello Mittente</h2>
+                    <p>Crea nuove spedizioni e gestisci rimborsi</p>
                 </div>
                 <div class="panel-content">
+                    <h3>Crea Nuova Spedizione</h3>
                     <div class="form-group">
                         <label for="corriereAddress">Indirizzo Corriere</label>
                         <input type="text" id="corriereAddress" class="form-input" placeholder="0x...">
@@ -177,10 +181,36 @@
                         </svg>
                         Crea Spedizione
                     </button>
+
+                    <div class="divider"></div>
+
+                    <h3>Gestione Rimborsi</h3>
+                    <div class="form-group">
+                        <label for="refundShipmentId">ID Spedizione</label>
+                        <input type="number" id="refundShipmentId" class="form-input" min="1" placeholder="1">
+                    </div>
+                    <div class="refund-actions">
+                        <button class="btn btn-warning btn-large" id="cancelShipmentBtn">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M18 6L6 18M6 6l12 12"/>
+                            </svg>
+                            Annulla Spedizione
+                        </button>
+                        <button class="btn btn-secondary btn-large" id="requestRefundBtn">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3v-8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"/>
+                            </svg>
+                            Richiedi Rimborso
+                        </button>
+                    </div>
+                    <div class="info-box">
+                        <strong>ℹ️ Annullamento:</strong> Possibile solo se nessuna evidenza è stata inviata.<br>
+                        <strong>💰 Rimborso:</strong> Possibile dopo 3 tentativi falliti, timeout 7 giorni, o corriere inattivo (14 giorni).
+                    </div>
                 </div>
             </section>
 
-            <!-- Sensor Panel -->
+            <!-- Sensor Panel (un changed, keeping existing) -->
             <section class="panel sensor-panel" id="sensorPanel" style="display: none;">
                 <div class="panel-header">
                     <h2>📊 Invia Evidenze Sensori</h2>
@@ -249,16 +279,11 @@
                         </div>
                     </div>
                     <div class="divider"></div>
-                    <button class="btn btn-primary btn-large" id="sendAllEvidencesBtn">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/>
-                        </svg>
-                        Invia Tutte le Evidenze (E1-E5)
-                    </button>
+                    <button class="btn btn-primary btn-large" id="sendAllEvidencesBtn">Invia Tutte le Evidenze (E1-E5)</button>
                 </div>
             </section>
 
-            <!-- Courier Panel -->
+            <!-- Courier Panel (unchanged, keeping existing) -->
             <section class="panel courier-panel" id="courierPanel" style="display: none;">
                 <div class="panel-header">
                     <h2>🚚 Valida e Ricevi Pagamento</h2>
@@ -269,12 +294,7 @@
                         <label for="shipmentIdCourier">ID Spedizione</label>
                         <input type="number" id="shipmentIdCourier" class="form-input" min="1" placeholder="1">
                     </div>
-                    <button class="btn btn-primary btn-large" id="validatePaymentBtn">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M20 6L9 17l-5-5"/>
-                        </svg>
-                        Valida e Ricevi Pagamento
-                    </button>
+                    <button class="btn btn-primary btn-large" id="validatePaymentBtn">Valida e Ricevi Pagamento</button>
                     <div class="info-box">
                         <strong>ℹ️ Nota:</strong> Il pagamento sarà effettuato solo se tutte le evidenze sono state ricevute e le probabilità F1 e F2 superano la soglia del 95%.
                     </div>
@@ -294,6 +314,6 @@
 
     <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/web3@4.16.0/dist/web3.min.js"></script>
-    <script src="app.js?v=2"></script>
+    <script type="module" src="./js/main.js"></script>
 </body>
 </html>
