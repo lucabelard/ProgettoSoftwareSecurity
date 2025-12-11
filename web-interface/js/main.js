@@ -385,33 +385,24 @@ async function handleSendAllEvidences() {
             return;
         }
         
-        showLoading('Invio tutte le evidenze...');
+        showLoading('Invio tutte le evidenze in una transazione...');
         
-        const evidences = [
-            { id: 1, value: document.getElementById('e1Value')?.checked ?? true },
-            { id: 2, value: document.getElementById('e2Value')?.checked ?? true },
-            { id: 3, value: document.getElementById('e3Value')?.checked ?? false },
-            { id: 4, value: document.getElementById('e4Value')?.checked ?? false },
-            { id: 5, value: document.getElementById('e5Value')?.checked ?? true }
+        // Gather all evidence values
+        const values = [
+            document.getElementById('e1Value')?.checked ?? true,  // E1
+            document.getElementById('e2Value')?.checked ?? true,  // E2
+            document.getElementById('e3Value')?.checked ?? false, // E3
+            document.getElementById('e4Value')?.checked ?? false, // E4
+            document.getElementById('e5Value')?.checked ?? true   // E5
         ];
         
-        let successCount = 0;
+        // Import the new batch function
+        const { sendAllEvidencesBatch } = await import('./contract-interaction.js');
         
-        for (const evidence of evidences) {
-            // Check if already sent
-            const evidenceField = `E${evidence.id}_ricevuta`;
-            if (shipment.evidenze[evidenceField]) {
-                console.log(`E${evidence.id} già inviata, skip`);
-                successCount++;
-                continue;
-            }
-            
-            await sendEvidence(shipmentId, evidence.id, evidence.value);
-            successCount++;
-            showLoading(`Evidenze inviate: ${successCount}/5...`);
-        }
+        // Send all evidences in ONE transaction
+        await sendAllEvidencesBatch(shipmentId, values);
         
-        showToast('✅ Tutte le evidenze inviate!', 'success');
+        showToast('✅ Tutte le evidenze inviate in una sola transazione!', 'success');
         await loadShipments();
         hideLoading();
     } catch (error) {

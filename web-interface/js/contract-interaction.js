@@ -94,6 +94,18 @@ export async function sendEvidence(shipmentId, evidenceId, value) {
         .send({ from: account, gas: 150000 });
 }
 
+/**
+ * Send all evidences in a single batch transaction
+ * @param {number} shipmentId - The shipment ID
+ * @param {Array<boolean>} values - Array of 5 boolean values for E1-E5
+ * @returns {Promise} Transaction receipt
+ */
+export async function sendAllEvidencesBatch(shipmentId, values) {
+    const account = getCurrentAccount();
+    return await contract.methods.inviaTutteEvidenze(shipmentId, values)
+        .send({ from: account, gas: 400000 }); // Higher gas for batch operation
+}
+
 // ===== COURIER FUNCTIONS =====
 export async function validateAndPay(shipmentId) {
     const account = getCurrentAccount();

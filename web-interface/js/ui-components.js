@@ -279,11 +279,13 @@ export function filterPanelsByRole(roles) {
         if (sensoreCard) sensoreCard.style.display = 'block';
     }
     
-    
-    // Corriere is always shown because it's not a contract role
-    // It's an address assigned to shipments, so anyone could be a courier
-    const corriereCard = document.querySelector('.role-card[data-role="corriere"]');
-    if (corriereCard) corriereCard.style.display = 'block';
+    // Show Corriere card ONLY if user has no specific roles
+    // (i.e., they are just a courier without Mittente/Sensore roles)
+    const hasSpecificRole = roles.includes('mittente') || roles.includes('sensore');
+    if (!hasSpecificRole) {
+        const corriereCard = document.querySelector('.role-card[data-role="corriere"]');
+        if (corriereCard) corriereCard.style.display = 'block';
+    }
 }
 
 

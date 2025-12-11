@@ -127,6 +127,51 @@ contract BNGestoreSpedizioni is BNCore {
     }
     
     /**
+     * @notice Invia tutte le evidenze (E1-E5) in una sola transazione
+     * @param _idSpedizione ID della spedizione
+     * @param _valori Array di 5 valori booleani per E1, E2, E3, E4, E5
+     * @dev Questa funzione permette di inviare tutte le evidenze con una sola conferma MetaMask
+     */
+    function inviaTutteEvidenze(uint256 _idSpedizione, bool[5] calldata _valori)
+        external
+        onlyRole(RUOLO_SENSORE)
+    {
+        Spedizione storage s = spedizioni[_idSpedizione];
+        require(s.mittente != address(0), "Spedizione non esistente");
+        require(s.stato == StatoSpedizione.InAttesa, "Spedizione non in attesa");
+        
+        // Invia E1
+        s.evidenze.E1_ricevuta = true;
+        s.evidenze.E1_valore = _valori[0];
+        emit EvidenceReceived(_idSpedizione, 1, _valori[0]);
+        emit EvidenzaInviata(_idSpedizione, 1, _valori[0], msg.sender);
+        
+        // Invia E2
+        s.evidenze.E2_ricevuta = true;
+        s.evidenze.E2_valore = _valori[1];
+        emit EvidenceReceived(_idSpedizione, 2, _valori[1]);
+        emit EvidenzaInviata(_idSpedizione, 2, _valori[1], msg.sender);
+        
+        // Invia E3
+        s.evidenze.E3_ricevuta = true;
+        s.evidenze.E3_valore = _valori[2];
+        emit EvidenceReceived(_idSpedizione, 3, _valori[2]);
+        emit EvidenzaInviata(_idSpedizione, 3, _valori[2], msg.sender);
+        
+        // Invia E4
+        s.evidenze.E4_ricevuta = true;
+        s.evidenze.E4_valore = _valori[3];
+        emit EvidenceReceived(_idSpedizione, 4, _valori[3]);
+        emit EvidenzaInviata(_idSpedizione, 4, _valori[3], msg.sender);
+        
+        // Invia E5
+        s.evidenze.E5_ricevuta = true;
+        s.evidenze.E5_valore = _valori[4];
+        emit EvidenceReceived(_idSpedizione, 5, _valori[4]);
+        emit EvidenzaInviata(_idSpedizione, 5, _valori[4], msg.sender);
+    }
+    
+    /**
      * @notice Verifica se tutte le evidenze sono state ricevute
      * @param _id ID della spedizione
      * @return true se tutte le evidenze sono presenti
