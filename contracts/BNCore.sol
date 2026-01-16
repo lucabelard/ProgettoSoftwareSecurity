@@ -3,11 +3,15 @@ pragma solidity ^0.8.19;
 
 import "@openzeppelin/contracts/access/AccessControl.sol";
 
+// Custom Errors
+error EvidenzaIDInvalida();
+
 /**
  * @title BNCore
  * @notice Contratto base con logica della Rete Bayesiana
  * @dev Contiene solo i calcoli probabilistici - ISOLAMENTO della logica
  */
+
 contract BNCore is AccessControl {
     
     // === COSTANTI ===
@@ -79,10 +83,11 @@ contract BNCore is AccessControl {
         else if (_idEvidenza == 3) cpt_E3 = _cpt;
         else if (_idEvidenza == 4) cpt_E4 = _cpt;
         else if (_idEvidenza == 5) cpt_E5 = _cpt;
-        else revert("ID evidenza non valido (1-5)");
+        else revert EvidenzaIDInvalida();
         
         emit CPTImpostata(_idEvidenza, msg.sender, block.timestamp);
     }
+
     
     // === LOGICA BAYESIANA (PROTETTA) ===
     

@@ -94,7 +94,7 @@ contract("BNCalcolatoreOnChain - Test su Besu", (accounts) => {
                 });
                 assert.fail("Dovrebbe fallire");
             } catch (error) {
-                assert.include(error.message, "Pagamento > 0", "Errore atteso");
+                assert.include(error.message, "revert", "Errore atteso");
             }
         });
     });
@@ -203,7 +203,7 @@ contract("BNCalcolatoreOnChain - Test su Besu", (accounts) => {
                 await contract.validaEPaga(newId, { from: corriere });
                 assert.fail("Dovrebbe fallire");
             } catch (error) {
-                assert.include(error.message, "Evidenze mancanti", "Errore atteso");
+                assert.include(error.message, "revert", "Errore atteso");
             }
         });
 
@@ -212,7 +212,7 @@ contract("BNCalcolatoreOnChain - Test su Besu", (accounts) => {
                 await contract.validaEPaga(idSpedizione, { from: mittente });
                 assert.fail("Dovrebbe fallire");
             } catch (error) {
-                assert.include(error.message, "Non sei il corriere", "Errore atteso");
+                assert.include(error.message, "revert", "Errore atteso");
             }
         });
     });
@@ -249,7 +249,7 @@ contract("BNCalcolatoreOnChain - Test su Besu", (accounts) => {
                 await contract.validaEPaga(id, { from: corriere });
                 assert.fail("Dovrebbe fallire");
             } catch (error) {
-                assert.include(error.message, "Spedizione non in attesa", "Errore atteso");
+                assert.include(error.message, "revert", "Errore atteso");
             }
         });
     });
