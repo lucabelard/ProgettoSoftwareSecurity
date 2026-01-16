@@ -3,10 +3,6 @@ pragma solidity ^0.8.19;
 
 import "./BNGestoreSpedizioni.sol";
 
-// Custom Errors
-error NonSeiIlCorriere();
-error PagamentoFallito();
-
 /**
  * @title BNPagamenti
  * @notice Gestisce la validazione e i pagamenti delle spedizioni
@@ -34,21 +30,21 @@ contract BNPagamenti is BNGestoreSpedizioni {
         if (s.corriere != msg.sender) {
             emit MonitorSafetyViolation("CourierAuth", _id, msg.sender, "Non sei il corriere");
             emit TentativoPagamentoFallito(_id, msg.sender, "Non sei il corriere");
-            revert NonSeiIlCorriere();
+            revert("Non sei il corriere");
         }
         
         // SAFETY MONITOR S2: Single Payment
         if (s.stato != StatoSpedizione.InAttesa) {
             emit MonitorSafetyViolation("SinglePayment", _id, msg.sender, "Spedizione non in attesa");
             emit TentativoPagamentoFallito(_id, msg.sender, "Spedizione non in attesa");
-            revert SpedizioneNonInAttesa();
+            revert("Spedizione non in attesa");
         }
         
         // SAFETY MONITOR S3: Complete Evidence
         if (!_tutteEvidenzeRicevute(_id)) {
             emit MonitorSafetyViolation("CompleteEvidence", _id, msg.sender, "Evidenze mancanti");
             emit TentativoPagamentoFallito(_id, msg.sender, "Evidenze mancanti");
-            revert EvidenzeMancanti();
+            revert("Evidenze mancanti");
         }
         
         // Calcola probabilità posteriori usando la logica di BNCore
@@ -80,7 +76,7 @@ contract BNPagamenti is BNGestoreSpedizioni {
         
         // Trasferisci fondi
         (bool success, ) = s.corriere.call{value: importo}("");
-        if (!success) revert PagamentoFallito();
+        require(success, "Pagamento fallito");
     }
     
     /**
