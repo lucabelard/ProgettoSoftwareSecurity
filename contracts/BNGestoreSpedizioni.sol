@@ -55,13 +55,13 @@ contract BNGestoreSpedizioni is BNCore {
     
     // === EVENTI ===
     event SpedizioneCreata(uint256 indexed id, address indexed mittente, address indexed corriere, uint256 importo);
-    event EvidenzaInviata(uint256 indexed id, uint8 indexed evidenza, bool valore, address indexed sensore);
+    event EvidenzaInviata(uint256 indexed id, uint8 indexed evidenza, bool indexed valore, address sensore);
     event SpedizioneAnnullata(uint256 indexed id, address indexed mittente, uint256 importoRimborsato);
     event RimborsoEffettuato(uint256 indexed id, address indexed mittente, uint256 importo, string motivo);
     event TentativoValidazioneFallito(uint256 indexed id, uint256 numeroTentativi);
     
     // === EVENTI DI RUNTIME MONITORING ===
-    event EvidenceReceived(uint256 indexed shipmentId, uint8 indexed evidenceId, bool value);
+    event EvidenceReceived(uint256 indexed shipmentId, uint8 indexed evidenceId, bool indexed value);
     event MonitorRefundRequest(uint256 indexed shipmentId, address indexed requester, string reason);
     
     constructor() {
@@ -107,6 +107,7 @@ contract BNGestoreSpedizioni is BNCore {
      * @param _valore Valore booleano dell'evidenza
      */
     function inviaEvidenza(uint256 _idSpedizione, uint8 _idEvidenza, bool _valore)
+
         public
         onlyRole(RUOLO_SENSORE)
     {
@@ -185,9 +186,10 @@ contract BNGestoreSpedizioni is BNCore {
     }
     
     /**
-     * @notice Verifica se tutte le evidenze sono state ricevute
-     * @param _id ID della spedizione
-     * @return true se tutte le evidenze sono presenti
+     * @notice Verifica se tutte le 5 evidenze sono state ricevute per una spedizione
+     * @param _id ID della spedizione da verificare
+     * @return true se tutte le evidenze E1-E5 sono presenti, false altrimenti
+     * @dev Controlla i flag E1_ricevuta through E5_ricevuta nello struct evidenze
      */
     function _tutteEvidenzeRicevute(uint256 _id) internal view returns (bool) {
         StatoEvidenze memory e = spedizioni[_id].evidenze;
@@ -279,8 +281,10 @@ contract BNGestoreSpedizioni is BNCore {
     }
     
     /**
-     * @notice Incrementa il contatore di tentativi falliti (chiamato da BNPagamenti)
+     * @notice Registra un tentativo di validazione fallito per una spedizione
      * @param _id ID della spedizione
+     * @dev Incrementa il contatore tentativiValidazioneFalliti
+     * @dev Dopo 3 tentativi falliti, il mittente può richiedere rimborso
      */
     function _registraTentativoFallito(uint256 _id) internal {
         spedizioni[_id].tentativiValidazioneFalliti++;

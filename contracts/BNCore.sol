@@ -39,10 +39,10 @@ contract BNCore is AccessControl {
     CPT public cpt_E5;
     
     // === EVENTI DI MONITORAGGIO ===
-    event ProbabilitaAPrioriImpostate(uint256 p_F1_T, uint256 p_F2_T, address indexed admin);
-    event CPTImpostata(uint8 indexed evidenza, address indexed admin, uint256 timestamp);
-    event ProbabilitaValidazione(uint256 indexed id, uint256 probF1, uint256 probF2);
-    event SogliaValidazioneNonSuperata(uint256 indexed id, uint256 probF1, uint256 probF2);
+    event ProbabilitaAPrioriImpostate(uint256 indexed p_F1_T, uint256 indexed p_F2_T, address indexed admin);
+    event CPTImpostata(uint8 indexed evidenza, address indexed admin, uint256 indexed timestamp);
+    event ProbabilitaValidazione(uint256 indexed id, uint256 indexed probF1, uint256 probF2);
+    event SogliaValidazioneNonSuperata(uint256 indexed id, uint256 indexed probF1, uint256 probF2);
     
     // === STRUTTURE DATI ===
     struct StatoEvidenze {
@@ -64,6 +64,11 @@ contract BNCore is AccessControl {
     }
     
     // === FUNZIONI AMMINISTRATIVE ===
+    /**
+     * @notice Imposta le probabilità a priori per i fatti F1 e F2
+     * @param _p_F1_T Probabilità che F1 sia vero (0-100)
+     * @param _p_F2_T Probabilità che F2 sia vero (0-100)
+     */
     function impostaProbabilitaAPriori(uint256 _p_F1_T, uint256 _p_F2_T)
         external
         onlyRole(RUOLO_ORACOLO)
@@ -73,6 +78,11 @@ contract BNCore is AccessControl {
         emit ProbabilitaAPrioriImpostate(_p_F1_T, _p_F2_T, msg.sender);
     }
     
+    /**
+     * @notice Imposta la tabella di probabilità condizionata per un'evidenza
+     * @param _idEvidenza ID dell'evidenza (1-5)
+     * @param _cpt Struttura CPT con probabilità condizionate
+     */
     function impostaCPT(uint8 _idEvidenza, CPT calldata _cpt)
         external
         onlyRole(RUOLO_ORACOLO)
@@ -89,6 +99,13 @@ contract BNCore is AccessControl {
     
     // === LOGICA BAYESIANA (PROTETTA) ===
     
+    /**
+     * @notice Legge il valore della CPT in base all'evidenza osservata
+     * @param _valEvidenza Valore booleano dell'evidenza (true/false)
+     * @param _p_T Probabilità che l'evidenza sia vera dato lo stato dei fatti
+     * @return Probabilità corrispondente al valore dell'evidenza
+     * @dev Se evidenza è true ritorna _p_T, altrimenti ritorna (100 - _p_T)
+     */
     function _leggiValoreCPT(bool _valEvidenza, uint256 _p_T) internal pure returns (uint256) {
         if (_valEvidenza == true) {
             return _p_T;
@@ -97,6 +114,14 @@ contract BNCore is AccessControl {
         }
     }
     
+    /**
+     * @notice Calcola la probabilità combinata di osservare tutte le evidenze
+     * @param _evidenze Struttura contenente stato e valori di tutte le evidenze E1-E5
+     * @param _f1 Ipotesi per il fatto F1 (true se F1 è considerato vero)
+     * @param _f2 Ipotesi per il fatto F2 (true se F2 è considerato vero)
+     * @return Probabilità combinata normalizzata (0-100)
+     * @dev Implementa il prodotto delle probabilità condizionate P(E1,..,E5|F1,F2)
+     */
     function _calcolaProbabilitaCombinata(StatoEvidenze memory _evidenze, bool _f1, bool _f2) 
         internal view returns (uint256) 
     {
@@ -157,6 +182,14 @@ contract BNCore is AccessControl {
         return probCombinata;
     }
     
+    /**
+     * @notice Calcola le probabilità posteriori di F1 e F2 usando inferenza Bayesiana
+     * @param evidenze Struttura contenente tutte le evidenze osservate
+     * @return probF1 Probabilità che F1 sia vero date le evidenze (0-100)
+     * @return probF2 Probabilità che F2 sia vero date le evidenze (0-100)
+     * @dev Applica la formula di Bayes: P(F|E) = P(E|F)*P(F) / P(E)
+     * @dev Considera tutti e 4 i casi: (F1=T,F2=T), (F1=T,F2=F), (F1=F,F2=T), (F1=F,F2=F)
+     */
     function _calcolaProbabilitaPosteriori(StatoEvidenze memory evidenze) 
         internal view 
         returns (uint256, uint256) 

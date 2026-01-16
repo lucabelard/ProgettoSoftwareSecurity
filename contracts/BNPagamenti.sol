@@ -19,13 +19,18 @@ contract BNPagamenti is BNGestoreSpedizioni {
     event TentativoPagamentoFallito(uint256 indexed id, address indexed richiedente, string motivo);
     
     // === EVENTI DI RUNTIME MONITORING ===
-    event MonitorSafetyViolation(string indexed property, uint256 indexed shipmentId, address caller, string reason);
+    event MonitorSafetyViolation(string indexed property, uint256 indexed shipmentId, address indexed caller, string reason);
     event MonitorGuaranteeSuccess(string indexed property, uint256 indexed shipmentId);
-    event ProbabilityCalculated(uint256 indexed shipmentId, uint256 probF1, uint256 probF2);
+    event ProbabilityCalculated(uint256 indexed shipmentId, uint256 indexed probF1, uint256 probF2);
     
     /**
      * @notice Valida le evidenze e paga il corriere se i requisiti sono soddisfatti
      * @param _id ID della spedizione
+     */
+    /**
+     * @notice Valida le evidenze e paga il corriere se conformi
+     * @param _id ID della spedizione da validare
+     * @dev Verifica tutte le evidenze, calcola probabilità Bayesiane e paga se >= 95%
      */
     function validaEPaga(uint256 _id) external {
         Spedizione storage s = spedizioni[_id];
