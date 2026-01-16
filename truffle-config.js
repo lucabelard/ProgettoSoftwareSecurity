@@ -36,14 +36,28 @@ module.exports = {
       provider: () => new HDWalletProvider({
         privateKeys: besuPrivateKeys,
         providerOrUrl: "http://127.0.0.1:8545",
-        numberOfAddresses: 4
+        numberOfAddresses: 4,
+        pollingInterval: 1000
       }),
-      network_id: "1337",
-      gas: 10000000,
+      network_id: "2018",  // BESU dev mode uses 2018, not 1337
+      gas: 8000000,
       gasPrice: 0,
-      networkCheckTimeout: 10000,
-      timeoutBlocks: 200,
-      deploymentPollingInterval: 1000
+      networkCheckTimeout: 60000,
+      timeoutBlocks: 500,
+      deploymentPollingInterval: 2000,
+      skipDryRun: true,
+      disableConfirmationListener: true
+    },
+    // Alternative: BESU con account diretto (senza HDWalletProvider)
+    besu_dev: {
+      host: "127.0.0.1",
+      port: 8545,
+      network_id: "2018",  // Dev mode network ID
+      gas: 8000000,
+      gasPrice: 0,
+      from: "0xfe3b557e8fb62b89f4916b721be55ceb828dbd73",
+      networkCheckTimeout: 60000,
+      timeoutBlocks: 500
     },
   },
 
