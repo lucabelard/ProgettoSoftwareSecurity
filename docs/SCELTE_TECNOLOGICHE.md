@@ -903,6 +903,52 @@ contract BNCalcolatoreOnChain is AccessControl, Pausable {
 
 ---
 
+### 5.4 Architettura Sicura e Pattern
+
+Questa sezione analizza come l'architettura soddisfa i requisiti di sicurezza specifici richiesti.
+
+#### A1: Architetture Distribuite, Ridondanti e Diversificate
+
+1. **Distribuita**:
+   - **Implementazione**: Utilizzo di **Hyperledger Besu** su rete privata.
+   - **Motivazione**: Elimina il single point of failure (SPOF) del server centrale. Ogni nodo della rete (es. Nodo A presso Produzione, Nodo B presso Logistica) mantiene una copia sincronizzata del ledger.
+   - **Verifica**: Testato su rete Besu (Chain ID 1337) con consenso PoA/Clique.
+
+2. **Ridondante**:
+   - **Implementazione**: Replica integrale dello stato e dello storage su tutti i nodi validatori.
+   - **Motivazione**: Garantisce la disponibilità del sistema (Availability) anche se n-1 nodi vanno offline. I dati delle spedizioni sono replicati su ogni peer connesso.
+
+3. **Diversificata**:
+   - **Implementazione**: Testing dual-stack su client diversi.
+     - Sviluppo: **Ganache** (EthereumJS VM)
+     - Staging/Prod: **Hyperledger Besu** (Java-based EVM)
+   - **Motivazione**: Mitiga il rischio di bug specifici del client (client diversity). Se un exploit colpisce Geth/Ganache, la rete Besu rimane operativa e viceversa.
+
+#### A2: Monitoraggio, Isolamento e Offuscamento
+
+1. **Monitoraggio (Runtime Enforcement)**:
+   - **Implementazione**: Eventi Solidity ed emissione logs per ogni transizione di stato critica.
+   - **Codice**:
+     ```solidity
+     event MonitorSafetyViolation(...);
+     event MonitorGuaranteeSuccess(...);
+     ```
+   - **Motivazione**: Permette la verifica continua delle proprietà di sicurezza (S1-S5, G1-G2) definite nei requisiti, rilevando violazioni in tempo reale.
+
+2. **Isolamento (Modularity)**:
+   - **Implementazione**: Separazione netta della logica in contratti distinti.
+     - `BNCore.sol`: Logica matematica pura (isolata dallo storage spedizioni).
+     - `BNPagamenti.sol`: Logica finanziaria (isolata dalla logica di business).
+   - **Motivazione**: Riduce la superficie d'attacco (Attack Surface Reduction). Un bug nella gestione spedizioni non compromette la logica di calcolo bayesiano.
+
+3. **Offuscamento**:
+   - **Implementazione**: Compilazione in **EVM Bytecode**.
+   - **Motivazione**: Il codice sorgente non è esposto sulla blockchain, solo il bytecode binario. Sebbene il bytecode sia reversibile (decompilazione), rende l'analisi statica banale molto più complessa per un attaccante generico ("Security by Obscurity" come livello di difesa aggiuntivo, non primario).
+   - **Note**: Per dati sensibili business-critical, l'architettura supporta future estensioni con **Zero-Knowledge Proofs (ZK-SNARKs)** o **Private Transactions** (Orion su Besu) per un offuscamento crittografico forte.
+
+---
+
+
 ## 6. Decisioni Architetturali
 
 ### 6.1 Architettura Modulare

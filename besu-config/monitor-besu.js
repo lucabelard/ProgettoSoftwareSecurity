@@ -14,7 +14,11 @@ let lastBlockProcessed = 0;
 async function monitor() {
     try {
         // Ottieni l'ultimo blocco minato
-        const currentBlockNumber = await web3.eth.getBlockNumber();
+        let currentBlockNumber = await web3.eth.getBlockNumber();
+        // Converti BigInt in Number se necessario (Web3 4.x restituisce BigInt)
+        if (typeof currentBlockNumber === 'bigint') {
+            currentBlockNumber = Number(currentBlockNumber);
+        }
 
         // Se è la prima esecuzione, inizia dall'attuale meno 5 blocchi per vedere subito qualcosa
         if (lastBlockProcessed === 0) {
