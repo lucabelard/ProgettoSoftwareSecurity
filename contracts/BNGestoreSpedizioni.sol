@@ -3,6 +3,19 @@ pragma solidity ^0.8.19;
 
 import "./BNCore.sol";
 
+// Custom Errors
+error PagamentoNullo();
+error CorriereNonValido();
+error SpedizioneNonEsistente();
+error SpedizioneNonInAttesa();
+error EvidenzaGiaInviata();
+error EvidenzeMancanti();
+error SoloMittenteAnnullare();
+error EvidenzeGiaInviate();
+error RimborsoFallito();
+error SoloMittenteRimborso();
+error CondizioniRimborsoNonSoddisfatte();
+
 /**
  * @title BNGestoreSpedizioni
  * @notice Gestisce la creazione e tracciamento delle spedizioni
@@ -67,8 +80,8 @@ contract BNGestoreSpedizioni is BNCore {
         onlyRole(RUOLO_MITTENTE)
         returns (uint256)
     {
-        require(msg.value > 0, "Pagamento > 0");
-        require(_corriere != address(0), "Corriere non valido");
+        if (msg.value == 0) revert PagamentoNullo();
+        if (_corriere == address(0)) revert CorriereNonValido();
         
         _contatoreIdSpedizione++;
         uint256 id = _contatoreIdSpedizione;
@@ -98,8 +111,8 @@ contract BNGestoreSpedizioni is BNCore {
         onlyRole(RUOLO_SENSORE)
     {
         Spedizione storage s = spedizioni[_idSpedizione];
-        require(s.mittente != address(0), "Spedizione non esistente");
-        require(s.stato == StatoSpedizione.InAttesa, "Spedizione non in attesa");
+        if (s.mittente == address(0)) revert SpedizioneNonEsistente();
+        if (s.stato != StatoSpedizione.InAttesa) revert SpedizioneNonInAttesa();
         
         if (_idEvidenza == 1) {
             s.evidenze.E1_ricevuta = true;
@@ -121,7 +134,7 @@ contract BNGestoreSpedizioni is BNCore {
             s.evidenze.E5_ricevuta = true;
             s.evidenze.E5_valore = _valore;
             emit EvidenceReceived(_idSpedizione, 5, _valore);
-        } else revert("ID evidenza non valido (1-5)");
+        } else revert EvidenzaIDInvalida();
         
         emit EvidenzaInviata(_idSpedizione, _idEvidenza, _valore, msg.sender);
     }
@@ -137,8 +150,8 @@ contract BNGestoreSpedizioni is BNCore {
         onlyRole(RUOLO_SENSORE)
     {
         Spedizione storage s = spedizioni[_idSpedizione];
-        require(s.mittente != address(0), "Spedizione non esistente");
-        require(s.stato == StatoSpedizione.InAttesa, "Spedizione non in attesa");
+        if (s.mittente == address(0)) revert SpedizioneNonEsistente();
+        if (s.stato != StatoSpedizione.InAttesa) revert SpedizioneNonInAttesa();
         
         // Invia E1
         s.evidenze.E1_ricevuta = true;
@@ -191,16 +204,16 @@ contract BNGestoreSpedizioni is BNCore {
         Spedizione storage s = spedizioni[_id];
         
         // SAFETY MONITOR: Solo mittente può annullare
-        require(s.mittente == msg.sender, "Solo il mittente puo annullare");
+        if (s.mittente != msg.sender) revert SoloMittenteAnnullare();
         
         // SAFETY MONITOR: Solo spedizioni in attesa
-        require(s.stato == StatoSpedizione.InAttesa, "Spedizione non in attesa");
+        if (s.stato != StatoSpedizione.InAttesa) revert SpedizioneNonInAttesa();
         
         // SAFETY MONITOR: Solo se nessuna evidenza è stata inviata
         bool nessunaEvidenza = !s.evidenze.E1_ricevuta && !s.evidenze.E2_ricevuta && 
                                 !s.evidenze.E3_ricevuta && !s.evidenze.E4_ricevuta && 
                                 !s.evidenze.E5_ricevuta;
-        require(nessunaEvidenza, "Impossibile annullare: evidenze gia inviate");
+        if (!nessunaEvidenza) revert EvidenzeGiaInviate();
         
         uint256 importo = s.importoPagamento;
         s.stato = StatoSpedizione.Annullata;
@@ -210,7 +223,7 @@ contract BNGestoreSpedizioni is BNCore {
         
         // Rimborsa il mittente
         (bool success, ) = s.mittente.call{value: importo}("");
-        require(success, "Rimborso fallito");
+        if (!success) revert RimborsoFallito();
     }
     
     /**
@@ -224,11 +237,11 @@ contract BNGestoreSpedizioni is BNCore {
         Spedizione storage s = spedizioni[_id];
         
         // SAFETY MONITOR S1: Solo mittente può richiedere rimborso
-        require(s.mittente == msg.sender, "Solo il mittente puo richiedere rimborso");
+        if (s.mittente != msg.sender) revert SoloMittenteRimborso();
         emit MonitorRefundRequest(_id, msg.sender, "Richiesta rimborso");
         
         // SAFETY MONITOR S2: Solo spedizioni in attesa
-        require(s.stato == StatoSpedizione.InAttesa, "Spedizione non in attesa");
+        if (s.stato != StatoSpedizione.InAttesa) revert SpedizioneNonInAttesa();
         
         bool rimborsoValido = false;
         string memory motivo;
@@ -253,7 +266,7 @@ contract BNGestoreSpedizioni is BNCore {
             motivo = "Evidenze ricevute ma corriere non ha validato";
         }
         
-        require(rimborsoValido, "Condizioni per rimborso non soddisfatte");
+        if (!rimborsoValido) revert CondizioniRimborsoNonSoddisfatte();
         
         uint256 importo = s.importoPagamento;
         s.stato = StatoSpedizione.Rimborsata;
@@ -262,7 +275,7 @@ contract BNGestoreSpedizioni is BNCore {
         
         // Rimborsa il mittente
         (bool success, ) = s.mittente.call{value: importo}("");
-        require(success, "Rimborso fallito");
+        if (!success) revert RimborsoFallito();
     }
     
     /**
