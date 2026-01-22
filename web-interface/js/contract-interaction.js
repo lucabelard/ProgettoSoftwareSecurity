@@ -55,13 +55,13 @@ export async function loadContract() {
 export async function setPriorProbabilities(pF1T, pF2T) {
     const account = getCurrentAccount();
     return await contract.methods.impostaProbabilitaAPriori(pF1T, pF2T)
-        .send({ from: account, gas: 200000 });
+        .send({ from: account, gas: 200000, type: '0x0' });
 }
 
 export async function setCPT(evidenceId, cpt) {
     const account = getCurrentAccount();
     return await contract.methods.impostaCPT(evidenceId, cpt)
-        .send({ from: account, gas: 200000 });
+        .send({ from: account, gas: 200000, type: '0x0' });
 }
 
 // ===== MITTENTE FUNCTIONS =====
@@ -71,27 +71,27 @@ export async function createShipment(courierAddress, paymentAmount) {
     const weiAmount = web3.utils.toWei(paymentAmount, 'ether');
     
     return await contract.methods.creaSpedizione(courierAddress)
-        .send({ from: account, value: weiAmount, gas: 500000 });
+        .send({ from: account, value: weiAmount, gas: 500000, type: '0x0' });
 }
 
 // ===== NEW REFUND FUNCTIONS =====
 export async function cancelShipment(shipmentId) {
     const account = getCurrentAccount();
     return await contract.methods.annullaSpedizione(shipmentId)
-        .send({ from: account, gas: 200000 });
+        .send({ from: account, gas: 200000, type: '0x0' });
 }
 
 export async function requestRefund(shipmentId) {
     const account = getCurrentAccount();
     return await contract.methods.richiediRimborso(shipmentId)
-        .send({ from: account, gas: 300000 });
+        .send({ from: account, gas: 300000, type: '0x0' });
 }
 
 // ===== SENSOR FUNCTIONS =====
 export async function sendEvidence(shipmentId, evidenceId, value) {
     const account = getCurrentAccount();
     return await contract.methods.inviaEvidenza(shipmentId, evidenceId, value)
-        .send({ from: account, gas: 150000 });
+        .send({ from: account, gas: 150000, type: '0x0' });
 }
 
 /**
@@ -103,14 +103,14 @@ export async function sendEvidence(shipmentId, evidenceId, value) {
 export async function sendAllEvidencesBatch(shipmentId, values) {
     const account = getCurrentAccount();
     return await contract.methods.inviaTutteEvidenze(shipmentId, values)
-        .send({ from: account, gas: 400000 }); // Higher gas for batch operation
+        .send({ from: account, gas: 400000, type: '0x0' }); // Higher gas for batch operation
 }
 
 // ===== COURIER FUNCTIONS =====
 export async function validateAndPay(shipmentId) {
     const account = getCurrentAccount();
     return await contract.methods.validaEPaga(shipmentId)
-        .send({ from: account, gas: 800000 }); // Increased from 500000
+        .send({ from: account, gas: 800000, type: '0x0' }); // Increased from 500000
 }
 
 export async function checkValidity(shipmentId) {
