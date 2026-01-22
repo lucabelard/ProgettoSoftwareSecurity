@@ -9,7 +9,7 @@ echo "🚀 Starting Besu Node 4 (Validator)..."
 
 besu --data-path=node4/data \
   --genesis-file=genesis-ibft.json \
-  --node-private-key-file=node4/data/key \
+  --node-private-key-file=networkFiles/keys/0xd211d619bde1991e23849a16188722e40c0cf334/key \
   --rpc-http-enabled \
   --rpc-http-api=ETH,NET,WEB3,IBFT,ADMIN,TXPOOL,MINER \
   --rpc-http-host=127.0.0.1 \

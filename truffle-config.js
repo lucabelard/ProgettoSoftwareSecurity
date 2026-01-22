@@ -39,7 +39,7 @@ module.exports = {
         numberOfAddresses: 4,
         pollingInterval: 1000
       }),
-      network_id: "2018",  // BESU dev mode uses 2018, not 1337
+      network_id: "2024",  // BESU IBFT network uses 2024
       gas: 8000000,
       gasPrice: 0,
       networkCheckTimeout: 60000,
@@ -52,7 +52,7 @@ module.exports = {
     besu_dev: {
       host: "127.0.0.1",
       port: 8545,
-      network_id: "2018",  // Dev mode network ID
+      network_id: "2024",  // IBFT network ID
       gas: 8000000,
       gasPrice: 0,
       from: "0xfe3b557e8fb62b89f4916b721be55ceb828dbd73",
