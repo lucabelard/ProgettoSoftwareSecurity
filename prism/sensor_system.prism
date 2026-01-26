@@ -1,127 +1,89 @@
-// ============================================================================
-// PRISM Model: IoT Sensor System with Countermeasures
-// ============================================================================
-// Sistema Oracolo Bayesiano - Modello DTMC con contromisure implementate
-// 
+
 // CONTROMISURE IMPLEMENTATE (da DUAL-STRIDE Analysis):
-// 1. Device Attestation (TPM) + Mutual TLS + Whitelist → Blocca Spoofing
-// 2. Sensor Redundancy + Anomaly Detection → Blocca Tampering
-// 3. TLS/HTTPS per comunicazioni sicure → Blocca Intercettazione
-// 4. Auto-Failover → Garantisce recovery al 95%
-//
-// MODELLAZIONE ATTACCHI:
-// Gli attacchi ESISTONO come minacce potenziali, ma hanno probabilità 0%
-// grazie alle contromisure. Questo NON è una semplificazione, ma dimostra
-// l'efficacia delle contromisure nel bloccare completamente gli attacchi.
+// 1. Device Attestation (TPM) + Mutual TLS -> Blocca Spoofing
+// 2. Sensor Redundancy -> Blocca Tampering
+// 3. ACTIVE DEFENSE: IDS + Rate Limiting + System Lock
+//    - Rileva tentativi di attacco (IDS)
+//    - Conta i fallimenti (Rate Limiting)
+//    - Blocca permanentemente il sensore dopo 3 tentativi (System Lock)
 //
 // RISULTATO: 
-// - Vulnerabilità = 0% (attacchi bloccati al 100%)
-// - Recovery = 95-97% (failover altamente affidabile)
-// ============================================================================
+// - Vulnerabilità = 0% 
+// - Active Defense attivata in caso di attacco persistente
+
 
 dtmc
 
-module sensor_system
+module sensor_system_active_defense
     
     // ========================================================================
-    // MODELLO A 32 STATI (2^5 sensori)
+    // MODELLO SENSORE E1 (Temperatura) CON ACTIVE DEFENSE
     // ========================================================================
-    // Ogni sensore è modellato individualmente per catturare ridondanza
-    // e contromisure specifiche implementate.
-    // 
-    // Ogni sensore può essere: 0=OPERATIONAL, 1=FAILED
-    // Spazio degli stati: 2^5 = 32 stati possibili
     
-    e1 : [0..1] init 0;  // Sensore E1: Temperatura (PARTE GUASTO per test G1)
-    e2 : [0..1] init 0;  // Sensore E2: Sigillo
-    e3 : [0..1] init 0;  // Sensore E3: Shock
-    e4 : [0..1] init 0;  // Sensore E4: Luce
-    e5 : [0..1] init 0;  // Sensore E5: Scan Arrivo
+    e1 : [0..2] init 1;           // 0=OK, 1=FAILED, 2=COMPROMISED 
+    e1_attempts : [0..3] init 0;  // Contatore tentativi di attacco
+    e1_locked : bool init false;  // Stato di blocco difensivo
+    
+    // Altri sensori (semplificati qui per focalizzarci sulla logica di E1)
+    e2 : [0..2] init 0;
+    e3 : [0..2] init 0;
+    e4 : [0..2] init 0;
+    e5 : [0..2] init 0;
     
     // Contatore temporale
     time : [0..200] init 0;
     
     // ========================================================================
-    // CONTROMISURE IMPLEMENTATE
-    // ========================================================================
-    // Le seguenti contromisure (da DUAL-STRIDE) eliminano la compromissione:
-    //
-    // 1. TPM + MUTUAL TLS + WHITELIST (DUAL-STRIDE linee 670-672):
-    //    → Elimina minaccia S2.1 (Sensore Falso)
-    //    → Solo sensori certificati possono inviare dati
-    //
-    // 2. SENSOR REDUNDANCY + ANOMALY DETECTION (DUAL-STRIDE linee 702-703):
-    //    → Elimina minaccia T2.1 (Manomissione Fisica)
-    //    → Multipli sensori cross-validano letture
-    //
-    // 3. TLS/HTTPS (DUAL-STRIDE linee 732-733):
-    //    → Elimina minaccia I2.1 (Intercettazione)
-    //    → Comunicazioni crittografate end-to-end
-    //
-    // RISULTATO: Transizioni verso stato COMPROMISED = 0%
+    // TRANSIZIONI - SENSORE E1 (Active Defense Logic)
     // ========================================================================
     
+    // CASO 1: SENSORE NORMALE (OK, Non Bloccato)
+    // Se l'attaccante prova (10% probabilità di tentativo nello scenario), 
+    // il sistema lo blocca e incrementa il contatore.
+    [] e1=0 & !e1_locked & e1_attempts < 3 & time<200 -> 
+        0.90 : (e1'=0) & (time'=time+1) +                                     // Nessun evento
+        0.05 : (e1'=1) & (time'=time+1) +                                     // Guasto naturale
+        0.05 : (e1'=0) & (e1_attempts'=e1_attempts+1) & (time'=time+1);      // ATTACCO RILEVATO: Incrementa contatore
+    
+    // CASO 2: SYSTEM LOCK (Dopo 3 tentativi)
+    // Se i tentativi raggiungono 3, il sistema va in LOCK.
+    // L'attaccante non può più nemmeno provare.
+    [] e1=0 & !e1_locked & e1_attempts = 3 & time<200 ->
+        1.00 : (e1_locked'=true) & (time'=time+1);                            // ATTIVA BLOCCO (Active Defense)
+        
+    // CASO 3: STATO LOCKED (Bloccato - Safe)
+    // In questo stato, il sensore è "blindato".
+    [] e1=0 & e1_locked & time<200 ->
+        1.00 : (e1'=0) & (time'=time+1);                                      // Rimane sicuro in Lock
+        
+    // CASO 4: SENSORE GUASTO (FAILED)
+    [] e1=1 & !e1_locked & time<200 -> 
+        0.95 : (e1'=0) & (time'=time+1) +                                     // Auto-failover repair
+        0.05 : (e1'=1) & (time'=time+1);                                      // Rimane guasto
+
+    // CASO 5: COMPROMISED (Stato teorico irraggiungibile)
+    [] e1=2 & time<200 -> 
+        1.00 : (e1'=2) & (time'=time+1);
+
     // ========================================================================
-    // TRANSIZIONI - SENSORE E1 (Temperatura)
-    // ========================================================================
-    
-    // E1: OPERATIONAL → OPERATIONAL o FAILED (solo failure naturale)
-    [] e1=0 & time<200 -> 
-        0.95 : (e1'=0) & (time'=time+1) +
-        0.05 : (e1'=1) & (time'=time+1);  // Failure hardware (NO attacchi)
-    
-    // E1: FAILED → Recovery con ridondanza (95% successo)
-    [] e1=1 & time<200 -> 
-        0.95 : (e1'=0) & (time'=time+1) +
-        0.05 : (e1'=1) & (time'=time+1);
-    
-    // ========================================================================
-    // TRANSIZIONI - SENSORE E2 (Sigillo)
-    // ========================================================================
-    
-    [] e2=0 & time<200 -> 
-        0.95 : (e2'=0) & (time'=time+1) +
-        0.05 : (e2'=1) & (time'=time+1);
-    
-    [] e2=1 & time<200 -> 
-        0.95 : (e2'=0) & (time'=time+1) +
-        0.05 : (e2'=1) & (time'=time+1);
-    
-    // ========================================================================
-    // TRANSIZIONI - SENSORE E3 (Shock)
-    // ========================================================================
-    
-    [] e3=0 & time<200 -> 
-        0.95 : (e3'=0) & (time'=time+1) +
-        0.05 : (e3'=1) & (time'=time+1);
-    
-    [] e3=1 & time<200 -> 
-        0.95 : (e3'=0) & (time'=time+1) +
-        0.05 : (e3'=1) & (time'=time+1);
-    
-    // ========================================================================
-    // TRANSIZIONI - SENSORE E4 (Luce)
+    // ALTRI SENSORI (Logica standard semplificata)
     // ========================================================================
     
-    [] e4=0 & time<200 -> 
-        0.95 : (e4'=0) & (time'=time+1) +
-        0.05 : (e4'=1) & (time'=time+1);
+    [] e2=0 & time<200 -> 0.95:(e2'=0)&(time'=time+1) + 0.05:(e2'=1)&(time'=time+1);
+    [] e2=1 & time<200 -> 0.95:(e2'=0)&(time'=time+1) + 0.05:(e2'=1)&(time'=time+1);
+    [] e2=2 & time<200 -> 1.00:(e2'=2)&(time'=time+1);
     
-    [] e4=1 & time<200 -> 
-        0.95 : (e4'=0) & (time'=time+1) +
-        0.05 : (e4'=1) & (time'=time+1);
+    [] e3=0 & time<200 -> 0.95:(e3'=0)&(time'=time+1) + 0.05:(e3'=1)&(time'=time+1);
+    [] e3=1 & time<200 -> 0.95:(e3'=0)&(time'=time+1) + 0.05:(e3'=1)&(time'=time+1);
+    [] e3=2 & time<200 -> 1.00:(e3'=2)&(time'=time+1);
     
-    // ========================================================================
-    // TRANSIZIONI - SENSORE E5 (Scan Arrivo)
-    // ========================================================================
+    [] e4=0 & time<200 -> 0.95:(e4'=0)&(time'=time+1) + 0.05:(e4'=1)&(time'=time+1);
+    [] e4=1 & time<200 -> 0.95:(e4'=0)&(time'=time+1) + 0.05:(e4'=1)&(time'=time+1);
+    [] e4=2 & time<200 -> 1.00:(e4'=2)&(time'=time+1);
     
-    [] e5=0 & time<200 -> 
-        0.95 : (e5'=0) & (time'=time+1) +
-        0.05 : (e5'=1) & (time'=time+1);
-    
-    [] e5=1 & time<200 -> 
-        0.95 : (e5'=0) & (time'=time+1) +
-        0.05 : (e5'=1) & (time'=time+1);
+    [] e5=0 & time<200 -> 0.95:(e5'=0)&(time'=time+1) + 0.05:(e5'=1)&(time'=time+1);
+    [] e5=1 & time<200 -> 0.95:(e5'=0)&(time'=time+1) + 0.05:(e5'=1)&(time'=time+1);
+    [] e5=2 & time<200 -> 1.00:(e5'=2)&(time'=time+1);
     
     // ========================================================================
     // STATO FINALE
@@ -136,27 +98,21 @@ endmodule
 // FORMULE DERIVATE 
 // ============================================================================
 
-// Numero di sensori guasti
-formula num_failed = e1+e2+e3+e4+e5;
+formula num_ok = (e1=0?1:0) + (e2=0?1:0) + (e3=0?1:0) + (e4=0?1:0) + (e5=0?1:0);
+formula num_failed = (e1=1?1:0) + (e2=1?1:0) + (e3=1?1:0) + (e4=1?1:0) + (e5=1?1:0);
+formula num_compromised = (e1=2?1:0) + (e2=2?1:0) + (e3=2?1:0) + (e4=2?1:0) + (e5=2?1:0);
 
-// Classificazione stato aggregato
-formula is_operational = (num_failed = 0);
-formula is_degraded = (num_failed >= 1) & (num_failed <= 2);
-formula is_failed = (num_failed > 2);
-
-// ============================================================================
-// REWARDS
-// ============================================================================
-
-rewards "time"
-    true : 1;
-endrewards
+formula is_system_compromised = (num_compromised >= 1);
+formula is_operational = (num_ok = 5);
+formula is_degraded = (num_failed >= 1) & !is_system_compromised;
+formula is_safe = !is_system_compromised;
 
 // ============================================================================
-// LABELS
+// REWARDS-LABELS
 // ============================================================================
 
+rewards "time" true : 1; endrewards
 label "operational" = is_operational;
 label "degraded" = is_degraded;
-label "failed" = is_failed;
-label "safe" = true;  // Sistema sempre sicuro (no COMPROMISED state)
+label "compromised" = is_system_compromised;
+label "safe" = is_safe;
