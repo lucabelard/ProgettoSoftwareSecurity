@@ -32,11 +32,12 @@ contract BNCore is AccessControl {
         uint256 p_TT; // P(E=T | F1=T, F2=T)
     }
     
-    CPT public cpt_E1;
-    CPT public cpt_E2;
-    CPT public cpt_E3;
-    CPT public cpt_E4;
-    CPT public cpt_E5;
+    // OFFUSCAMENTO: CPT private - solo auditor autorizzati possono leggerle
+    CPT private cpt_E1;
+    CPT private cpt_E2;
+    CPT private cpt_E3;
+    CPT private cpt_E4;
+    CPT private cpt_E5;
     
     // === EVENTI DI MONITORAGGIO ===
     event ProbabilitaAPrioriImpostate(uint256 indexed p_F1_T, uint256 indexed p_F2_T, address indexed admin);
@@ -95,6 +96,47 @@ contract BNCore is AccessControl {
         else revert EvidenzaIDInvalida();
         
         emit CPTImpostata(_idEvidenza, msg.sender, block.timestamp);
+    }
+    
+    // === GETTER CPT CON ACCESS CONTROL (OFFUSCAMENTO) ===
+    /**
+     * @notice Legge CPT per evidenza E1 - solo admin
+     * @return Struttura CPT per E1
+     */
+    function getCPT_E1() external view onlyRole(DEFAULT_ADMIN_ROLE) returns (CPT memory) {
+        return cpt_E1;
+    }
+    
+    /**
+     * @notice Legge CPT per evidenza E2 - solo admin
+     * @return Struttura CPT per E2
+     */
+    function getCPT_E2() external view onlyRole(DEFAULT_ADMIN_ROLE) returns (CPT memory) {
+        return cpt_E2;
+    }
+    
+    /**
+     * @notice Legge CPT per evidenza E3 - solo admin
+     * @return Struttura CPT per E3
+     */
+    function getCPT_E3() external view onlyRole(DEFAULT_ADMIN_ROLE) returns (CPT memory) {
+        return cpt_E3;
+    }
+    
+    /**
+     * @notice Legge CPT per evidenza E4 - solo admin
+     * @return Struttura CPT per E4
+     */
+    function getCPT_E4() external view onlyRole(DEFAULT_ADMIN_ROLE) returns (CPT memory) {
+        return cpt_E4;
+    }
+    
+    /**
+     * @notice Legge CPT per evidenza E5 - solo admin
+     * @return Struttura CPT per E5
+     */
+    function getCPT_E5() external view onlyRole(DEFAULT_ADMIN_ROLE) returns (CPT memory) {
+        return cpt_E5;
     }
     
     // === LOGICA BAYESIANA (PROTETTA) ===

@@ -47,6 +47,7 @@ contract BNGestoreSpedizioni is BNCore {
         StatoEvidenze evidenze;
         uint256 timestampCreazione; // Timestamp creazione per timeout
         uint256 tentativiValidazioneFalliti; // Contatore tentativi falliti
+        bytes32 hashedDetails; // OFFUSCAMENTO: Hash dei dettagli sensibili (salvati off-chain)
     }
     
     // === STORAGE ===
@@ -59,6 +60,7 @@ contract BNGestoreSpedizioni is BNCore {
     event SpedizioneAnnullata(uint256 indexed id, address indexed mittente, uint256 importoRimborsato);
     event RimborsoEffettuato(uint256 indexed id, address indexed mittente, uint256 importo, string motivo);
     event TentativoValidazioneFallito(uint256 indexed id, uint256 numeroTentativi);
+    event DettagliHashatiSalvati(uint256 indexed id, bytes32 indexed hashedDetails); // OFFUSCAMENTO
     
     // === EVENTI DI RUNTIME MONITORING ===
     event EvidenceReceived(uint256 indexed shipmentId, uint8 indexed evidenceId, bool indexed value);
@@ -93,11 +95,66 @@ contract BNGestoreSpedizioni is BNCore {
             stato: StatoSpedizione.InAttesa,
             evidenze: StatoEvidenze(false,false,false,false,false,false,false,false,false,false),
             timestampCreazione: block.timestamp,
-            tentativiValidazioneFalliti: 0
+            tentativiValidazioneFalliti: 0,
+            hashedDetails: bytes32(0) // Nessun hash per questa versione
         });
 
         emit SpedizioneCreata(id, msg.sender, _corriere, msg.value);
         return id;
+    }
+    
+    /**
+     * @notice Crea spedizione con hash dei dettagli sensibili (OFFUSCAMENTO)
+     * @param _corriere Indirizzo del corriere responsabile
+     * @param _hashedDetails Hash dei dettagli sensibili (calcolato off-chain)
+     * @return id ID della spedizione creata
+     * @dev I dettagli in chiaro NON vengono salvati on-chain, solo il loro hash
+     */
+    function creaSpedizioneConHash(address _corriere, bytes32 _hashedDetails)
+        external
+        payable
+        onlyRole(RUOLO_MITTENTE)
+        returns (uint256)
+    {
+        if (msg.value == 0) revert PagamentoNullo();
+        if (_corriere == address(0)) revert CorriereNonValido();
+        require(_hashedDetails != bytes32(0), "Hash dettagli non valido");
+        
+        _contatoreIdSpedizione++;
+        uint256 id = _contatoreIdSpedizione;
+        
+        spedizioni[id] = Spedizione({
+            mittente: msg.sender,
+            corriere: _corriere,
+            importoPagamento: msg.value,
+            stato: StatoSpedizione.InAttesa,
+            evidenze: StatoEvidenze(false,false,false,false,false,false,false,false,false,false),
+            timestampCreazione: block.timestamp,
+            tentativiValidazioneFalliti: 0,
+            hashedDetails: _hashedDetails // OFFUSCAMENTO: salva solo hash
+        });
+
+        emit SpedizioneCreata(id, msg.sender, _corriere, msg.value);
+        emit DettagliHashatiSalvati(id, _hashedDetails);
+        return id;
+    }
+    
+    /**
+     * @notice Verifica se i dettagli forniti corrispondono all'hash salvato
+     * @param _id ID della spedizione
+     * @param _dettagli Dettagli in chiaro da verificare
+     * @return true se l'hash corrisponde, false altrimenti
+     * @dev Funzione view - chiunque può verificare se conosce i dettagli originali
+     */
+    function verificaDettagli(uint256 _id, string memory _dettagli) 
+        public 
+        view 
+        returns (bool) 
+    {
+        if (spedizioni[_id].mittente == address(0)) revert SpedizioneNonEsistente();
+        
+        bytes32 computedHash = keccak256(abi.encodePacked(_dettagli));
+        return spedizioni[_id].hashedDetails == computedHash;
     }
     
     /**
