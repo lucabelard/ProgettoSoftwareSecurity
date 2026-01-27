@@ -19,9 +19,9 @@
 \setlength{\parindent}{0pt}
 \setlength{\parskip}{0.5em}
 
-% Configurazione listings per Solidity
+% Configurazione listings
 \lstdefinelanguage{Solidity}{
-    keywords={contract, function, mapping, struct, event, modifier, require, revert, emit, if, else, for, return, uint256, address, bool, string, public, private, internal, external, view, pure, memory, storage, calldata},
+    keywords={contract, function, event, modifier, require, revert, emit, if, else, return, uint256, address, bool, public, internal, external, view, pure, memory, storage},
     keywordstyle=\color{blue}\bfseries,
     comment=[l]{//},
     commentstyle=\color{gray}\itshape,
@@ -31,7 +31,6 @@
     showstringspaces=false
 }
 
-% Configurazione listings per Bash
 \lstset{
     basicstyle=\ttfamily\small,
     breaklines=true,
@@ -39,18 +38,16 @@
     backgroundcolor=\color{gray!10}
 }
 
-% Hyperref setup
+% Hyperref
 \hypersetup{
     colorlinks=true,
     linkcolor=blue,
-    filecolor=magenta,      
     urlcolor=cyan,
-    pdftitle={Analisi Solhint - Bayesian Network Smart Contract},
-    pdfauthor={Your Name},
+    pdftitle={Analisi Solhint},
 }
 
 \title{\textbf{Analisi della Qualit\`a del Codice mediante Solhint}\\
-\large{Progetto: Bayesian Network Smart Contract per Supply Chain}}
+\large{Progetto: Bayesian Network Smart Contract}}
 \author{Corso di Software Security}
 \date{\today}
 
@@ -66,139 +63,60 @@
 \section{Introduzione}
 %===========================================
 
-L'analisi della qualità del codice rappresenta un aspetto fondamentale nello sviluppo di smart contract su blockchain Ethereum. Data la natura immutabile e critica di tali applicazioni, dove errori possono portare a perdite economiche significative o vulnerabilità di sicurezza, l'adozione di strumenti di analisi statica diventa non solo consigliabile, ma necessaria.
+L'analisi della qualità del codice rappresenta un aspetto fondamentale nello sviluppo di smart contract su blockchain Ethereum. Data la natura immutabile di tali applicazioni, dove errori possono portare a perdite economiche significative, l'adozione di strumenti di analisi statica è necessaria.
 
-Nel contesto del presente progetto si è proceduto ad un'analisi approfondita del codice utilizzando \textbf{Solhint}, uno dei principali linter per smart contract Ethereum.
-
-\subsection{Obiettivi dell'Analisi}
-
-Gli obiettivi primari dell'analisi Solhint condotta sul presente progetto sono stati:
-
-\begin{enumerate}
-    \item \textbf{Identificazione di problematiche di qualità}: Rilevare warning ed errori che potrebbero compromettere la leggibilità, manutenibilità o sicurezza del codice.
-    
-    \item \textbf{Conformità alle best practices}: Verificare l'aderenza agli standard consolidati della comunità Ethereum e Solidity.
-    
-    \item \textbf{Ottimizzazione del gas}: Identificare opportunità di ottimizzazione per ridurre i costi di deployment ed esecuzione.
-    
-    \item \textbf{Miglioramento della documentazione}: Assicurare una documentazione completa attraverso commenti NatSpec.
-    
-    \item \textbf{Riduzione del debito tecnico}: Eliminare code smell e anti-pattern prima del deployment in produzione.
-\end{enumerate}
+Nel presente progetto si è utilizzato \textbf{Solhint}, uno dei principali linter per smart contract Ethereum, per garantire conformità alle best practices e ridurre il debito tecnico.
 
 %===========================================
-\section{Metodologia e Strumenti}
+\section{Metodologia}
 %===========================================
 
-\subsection{Solhint: Caratteristiche e Funzionalità}
+\subsection{Solhint: Caratteristiche}
 
-Solhint è un linter open-source per Solidity che esegue analisi statica del codice per identificare problemi di stile, sicurezza e best practices. Lo strumento è configurabile attraverso un file \texttt{.solhint.json} che permette di abilitare, disabilitare o personalizzare regole specifiche.
+Solhint è un linter open-source per Solidity che esegue analisi statica del codice, configurabile tramite file \texttt{.solhint.json}. Le categorie principali di regole includono: \textbf{Best Practices}, \textbf{Gas Optimization}, \textbf{Security}, e \textbf{Style Guide}.
 
-Le principali categorie di regole implementate da Solhint includono:
+\subsection{Installazione ed Esecuzione}
 
-\begin{itemize}
-    \item \textbf{Best Practices}: Convenzioni di naming, visibilità delle funzioni, uso di modificatori.
-    \item \textbf{Gas Optimization}: Suggerimenti per ridurre il consumo di gas.
-    \item \textbf{Security}: Identificazione di pattern potenzialmente vulnerabili.
-    \item \textbf{Style Guide}: Conformità allo style guide ufficiale di Solidity.
-\end{itemize}
-
-\subsection{Installazione e Configurazione}
-
-L'installazione di Solhint nel progetto è stata effettuata utilizzando npm, il package manager di Node.js:
-
-\begin{lstlisting}[language=bash, caption={Installazione di Solhint}]
-# Installazione come dipendenza di sviluppo
+\begin{lstlisting}[language=bash, caption={Comandi principali Solhint}]
+# Installazione
 npm install --save-dev solhint
-
-# Inizializzazione configurazione
 npx solhint --init
-\end{lstlisting}
 
-Il comando di inizializzazione genera un file \texttt{.solhint.json} con configurazione di default, successivamente personalizzato per le esigenze specifiche del progetto.
-
-\subsection{Esecuzione dell'Analisi}
-
-L'analisi Solhint può essere eseguita tramite diversi comandi, a seconda del livello di dettaglio richiesto:
-
-\begin{lstlisting}[language=bash, caption={Comandi principali per l'analisi Solhint}]
-# Analisi di tutti i contratti nella directory contracts/
+# Esecuzione analisi
 npx solhint 'contracts/**/*.sol'
-
-# Analisi di un singolo file
 npx solhint contracts/BNCore.sol
 
-# Salvataggio output in file
-npx solhint 'contracts/**/*.sol' > solhint-report.txt
-
-# Visualizzazione solo errori critici
-npx solhint 'contracts/**/*.sol' | grep "error"
-
-# Conteggio warning
+# Output e utility
+npx solhint 'contracts/**/*.sol' > report.txt
 npx solhint 'contracts/**/*.sol' 2>&1 | grep -c "warning"
-\end{lstlisting}
 
-Per integrazione in processi di continuous integration, Solhint può essere configurato come script npm nel file \texttt{package.json}:
-
-\begin{lstlisting}[language=json, caption={Configurazione script npm}]
+# Script npm (in package.json)
 {
   "scripts": {
-    "lint": "solhint 'contracts/**/*.sol'",
-    "lint:fix": "solhint 'contracts/**/*.sol' --fix"
+    "lint": "solhint 'contracts/**/*.sol'"
   }
 }
-\end{lstlisting}
-
-Successivamente, l'analisi può essere eseguita semplicemente con:
-
-\begin{lstlisting}[language=bash]
 npm run lint
 \end{lstlisting}
 
 %===========================================
-\section{Risultati dell'Analisi Iniziale}
+\section{Risultati Iniziali}
 %===========================================
 
-\subsection{Baseline: 137 Warning}
-
-L'esecuzione iniziale di Solhint sul codebase ha evidenziato un totale di \textbf{137 warning}, distribuiti come segue:
+L'esecuzione iniziale ha evidenziato \textbf{137 warning} (0 errori), confermando la correttezza sintattica del codice.
 
 \begin{table}[H]
 \centering
-\caption{Distribuzione warning iniziale per contratto}
+\caption{Categorizzazione warning iniziali}
 \begin{tabular}{lcc}
 \toprule
-\textbf{Contratto} & \textbf{Warning} & \textbf{Percentuale} \\
+\textbf{Categoria} & \textbf{Count} & \textbf{\%} \\
 \midrule
-BNCore.sol & 56 & 41\% \\
-BNGestoreSpedizioni.sol & 61 & 45\% \\
-BNPagamenti.sol & 19 & 14\% \\
-BNCalcolatoreOnChain.sol & 1 & <1\% \\
-\midrule
-\textbf{Totale} & \textbf{137} & \textbf{100\%} \\
-\bottomrule
-\end{tabular}
-\end{table}
-
-È fondamentale sottolineare che \textbf{non sono stati rilevati errori critici} (0 errors), confermando la correttezza sintattica e semantica del codice. I warning identificati riguardano principalmente aspetti di stile, documentazione e ottimizzazione.
-
-\subsection{Categorizzazione dei Warning}
-
-L'analisi dettagliata ha permesso di categorizzare i 137 warning iniziali nelle seguenti tipologie:
-
-\begin{table}[H]
-\centering
-\caption{Breakdown warning iniziali per categoria}
-\begin{tabular}{lcc}
-\toprule
-\textbf{Categoria} & \textbf{Count} & \textbf{Percentuale} \\
-\midrule
-Naming Conventions & 48 & 35\% \\
 NatSpec Documentation & 57 & 42\% \\
+Naming Conventions & 48 & 35\% \\
 Gas Optimizations & 25 & 18\% \\
 Function Complexity & 3 & 2\% \\
 Import Style & 3 & 2\% \\
-Altri & 1 & <1\% \\
 \midrule
 \textbf{Totale} & \textbf{137} & \textbf{100\%} \\
 \bottomrule
@@ -209,24 +127,19 @@ Altri & 1 & <1\% \\
 \section{Processo di Ottimizzazione}
 %===========================================
 
-Il processo di ottimizzazione è stato condotto in quattro fasi successive, ciascuna mirata a specifiche categorie di warning. Tale approccio incrementale ha permesso di monitorare l'impatto di ogni intervento e di evitare modifiche che potessero compromettere la funzionalità del sistema.
+Il processo è stato condotto in tre fasi successive.
 
-\subsection{Fase 1: Miglioramenti al Codice (56 warning eliminati)}
-
-La prima fase ha coinvolto modifiche dirette al codice sorgente, focalizzandosi su:
+\subsection{Fase 1: Miglioramenti al Codice (-56 warning)}
 
 \subsubsection{Documentazione NatSpec (31 warning)}
 
-Sono stati documentati 17 eventi attraverso l'aggiunta di commenti NatSpec completi, includendo tag \texttt{@notice} e \texttt{@param}. Un esempio rappresentativo:
+Documentati 17 eventi con commenti NatSpec completi (\texttt{@notice}, \texttt{@param}):
 
-\begin{lstlisting}[language=Solidity, caption={Esempio documentazione NatSpec}]
-/// @notice Emesso quando le probabilita' a priori 
-///         vengono impostate dall'oracolo
-/// @param p_F1_T Probabilita' a priori che F1 
-///         sia vero (0-100)
-/// @param p_F2_T Probabilita' a priori che F2 
-///         sia vero (0-100)
-/// @param admin Indirizzo dell'amministratore
+\begin{lstlisting}[language=Solidity, caption={Esempio NatSpec}]
+/// @notice Emesso quando le probabilita' vengono impostate
+/// @param p_F1_T Probabilita' F1 (0-100)
+/// @param p_F2_T Probabilita' F2 (0-100)
+/// @param admin Indirizzo amministratore
 event ProbabilitaAPrioriImpostate(
     uint256 indexed p_F1_T, 
     uint256 indexed p_F2_T, 
@@ -234,33 +147,18 @@ event ProbabilitaAPrioriImpostate(
 );
 \end{lstlisting}
 
-La documentazione NatSpec non è un semplice esercizio stilistico, ma fornisce informazioni essenziali per:
-\begin{itemize}
-    \item Generazione automatica di documentazione API
-    \item Facilitazione dell'audit di sicurezza
-    \item Miglioramento dell'esperienza sviluppatore
-\end{itemize}
-
 \subsubsection{Ottimizzazioni Gas (3 warning)}
 
-Sono state implementate due categorie di ottimizzazioni:
-
-\textbf{1. Pre-increment operator}: Conversione da post-increment a pre-increment in 2 occorrenze.
-
-\begin{lstlisting}[language=Solidity, caption={Ottimizzazione increment operator}]
-// Prima (post-increment)
-_contatoreIdSpedizione++;
-
-// Dopo (pre-increment - risparmio ~5 gas)
-++_contatoreIdSpedizione;
+\textbf{Pre-increment} (risparmio ~5 gas):
+\begin{lstlisting}[language=Solidity]
+// Prima: _contatoreIdSpedizione++;
+// Dopo:  ++_contatoreIdSpedizione;
 \end{lstlisting}
 
-\textbf{2. Custom errors}: Conversione di una stringa di errore in custom error.
-
-\begin{lstlisting}[language=Solidity, caption={Conversione a custom error}]
+\textbf{Custom errors} (risparmio ~1000 gas on revert, ~200 bytes bytecode):
+\begin{lstlisting}[language=Solidity]
 // Prima
-require(_hashedDetails != bytes32(0), 
-    "Hash dettagli non valido");
+require(_hashedDetails != bytes32(0), "Hash non valido");
 
 // Dopo
 error HashDettagliNonValido();
@@ -268,48 +166,32 @@ if (_hashedDetails == bytes32(0))
     revert HashDettagliNonValido();
 \end{lstlisting}
 
-Questa modifica riduce significativamente il bytecode del contratto (~200 bytes) e il gas consumato in caso di revert (~1000 gas).
+\subsubsection{Refactoring Funzioni (2 warning)}
 
-\subsubsection{Refactoring Funzioni Complesse (2 warning)}
+Funzione \texttt{\_calcolaProbabilitaCombinata} ridotta da 66 a 13 linee estraendo helper \texttt{\_applicaCPT}:
 
-La funzione \texttt{\_calcolaProbabilitaCombinata} in BNCore.sol presentava 66 linee, superando il limite raccomandato di 50. È stata estratta una helper function \texttt{\_applicaCPT}:
-
-\begin{lstlisting}[language=Solidity, caption={Refactoring con helper function}]
+\begin{lstlisting}[language=Solidity, caption={Helper function}]
 function _applicaCPT(
-    bool _ricevuta,
-    bool _valore,
-    bool _f1,
-    bool _f2,
-    CPT memory _cpt
+    bool _ricevuta, bool _valore,
+    bool _f1, bool _f2, CPT memory _cpt
 ) internal pure returns (uint256) {
     if (!_ricevuta) return PRECISIONE;
-    
     uint256 p_T;
-    if (_f1 == false && _f2 == false) 
-        p_T = _cpt.p_FF;
-    else if (_f1 == false && _f2 == true) 
-        p_T = _cpt.p_FT;
-    else if (_f1 == true && _f2 == false) 
-        p_T = _cpt.p_TF;
-    else if (_f1 == true && _f2 == true) 
-        p_T = _cpt.p_TT;
-    
+    if (_f1 == false && _f2 == false) p_T = _cpt.p_FF;
+    else if (_f1 == false && _f2 == true) p_T = _cpt.p_FT;
+    else if (_f1 == true && _f2 == false) p_T = _cpt.p_TF;
+    else p_T = _cpt.p_TT;
     return _leggiValoreCPT(_valore, p_T);
 }
 \end{lstlisting}
 
-La funzione principale è stata quindi semplificata a 13 linee. Questo refactoring migliora significativamente:
-\begin{itemize}
-    \item \textbf{Modularità}: La logica CPT è isolata e riutilizzabile
-    \item \textbf{Testabilità}: La helper function può essere testata indipendentemente
-    \item \textbf{Leggibilità}: Il flusso principale è più chiaro
-\end{itemize}
+Benefici: \textbf{modularità}, \textbf{testabilità}, \textbf{leggibilità}.
 
-\subsection{Fase 2: Configurazione Naming (42 warning eliminati)}
+\subsection{Fase 2: Configurazione Naming (-42 warning)}
 
-La seconda fase ha affrontato le naming conventions. Il progetto utilizza convenzioni specifiche che sono state escluse dalla configurazione Solhint:
+Disabilitate regole naming per compatibilità con convenzioni domain-specific:
 
-\begin{lstlisting}[language=json, caption={Configurazione naming}]
+\begin{lstlisting}[language=json]
 {
     "var-name-mixedcase": "off",
     "func-name-mixedcase": "off",
@@ -317,73 +199,38 @@ La seconda fase ha affrontato le naming conventions. Il progetto utilizza conven
 }
 \end{lstlisting}
 
-\subsection{Fase 3: Configurazione Gas Optimizations (18 warning eliminati)}
+\subsection{Fase 3: Configurazione Gas (-18 warning)}
 
-La terza fase ha riguardato i warning relativi a ottimizzazioni gas. Dopo attenta valutazione, si è optato per disabilitare queste regole per i seguenti motivi:
+Analisi costi-benefici ha evidenziato risparmio totale < 100 gas/tx (~\$0.0001), non proporzionale alla riduzione di leggibilità. Regole disabilitate:
 
-\subsubsection{Analisi Costi-Benefici}
-
-\begin{table}[H]
-\centering
-\caption{Trade-off ottimizzazioni gas}
-\begin{tabular}{lcc}
-\toprule
-\textbf{Ottimizzazione} & \textbf{Gas Saved} & \textbf{Impatto Leggibilità} \\
-\midrule
-Strict inequalities & ~3 gas/call & Alto \\
-Indexed events & Variabile & Medio \\
-Calldata vs memory & ~10 gas/call & Basso \\
-Small strings & ~50 gas & Medio \\
-\bottomrule
-\end{tabular}
-\end{table}
-
-Il risparmio totalizzato sarebbe stato inferiore a 100 gas per transazione, corrispondente a ~\$0.0001 al prezzo di 50 gwei. Tale beneficio è stato giudicato non proporzionale alla riduzione di leggibilità.
-
-\subsubsection{Esempio: Strict Inequalities}
-
-\begin{lstlisting}[language=Solidity, caption={Comparazione strict inequalities}]
-// Versione leggibile (mantenuta)
-if (probF1 >= SOGLIA_PROBABILITA && 
-    probF2 >= SOGLIA_PROBABILITA)
-
-// Versione ottimizzata (~3 gas saved)
-if (probF1 > SOGLIA_PROBABILITA - 1 && 
-    probF2 > SOGLIA_PROBABILITA - 1)
+\begin{lstlisting}[language=json]
+{
+    "gas-strict-inequalities": "off",
+    "gas-indexed-events": "off",
+    "gas-calldata-parameters": "off",
+    "gas-small-strings": "off"
+}
 \end{lstlisting}
 
-La versione ottimizzata introduce ambiguità semantica e potenziali errori in caso di modifiche future.
-
-\subsubsection{Configurazione Finale}
-
-\begin{lstlisting}[language=json, caption={Disabilitazione gas rules}]
-{
-    "rules": {
-        "gas-strict-inequalities": "off",
-        "gas-indexed-events": "off",
-        "gas-calldata-parameters": "off",
-        "gas-small-strings": "off",
-        "gas-increment-by-one": "off",
-        "gas-custom-errors": "off"
-    }
-}
+\textbf{Esempio strict inequalities}:
+\begin{lstlisting}[language=Solidity]
+// Mantenuto (chiaro)
+if (probF1 >= SOGLIA_PROBABILITA)
+// Non implementato (~3 gas, meno chiaro)
+if (probF1 > SOGLIA_PROBABILITA - 1)
 \end{lstlisting}
 
 %===========================================
 \section{Configurazione Finale}
 %===========================================
 
-Il file \texttt{.solhint.json} nella sua configurazione finale rappresenta un equilibrio tra rigore delle regole e flessibilità necessaria per progetti domain-specific:
-
-\begin{lstlisting}[language=json, caption={Configurazione .solhint.json completa}]
+\begin{lstlisting}[language=json, caption={.solhint.json completo}]
 {
     "extends": "solhint:recommended",
     "rules": {
         "compiler-version": ["error", "^0.8.0"],
-        "func-visibility": [
-            "warn",
-            {"ignoreConstructors": true}
-        ],
+        "func-visibility": ["warn", 
+            {"ignoreConstructors": true}],
         "no-unused-vars": "warn",
         
         // Naming - OFF
@@ -391,18 +238,14 @@ Il file \texttt{.solhint.json} nella sua configurazione finale rappresenta un eq
         "func-name-mixedcase": "off",
         "var-name-mixedcase": "off",
         
-        // Gas optimizations - OFF
+        // Gas - OFF per leggibilita'
         "gas-strict-inequalities": "off",
         "gas-indexed-events": "off",
         "gas-calldata-parameters": "off",
-        "gas-small-strings": "off",
-        "gas-increment-by-one": "off",
-        "gas-custom-errors": "off",
         
         // Style - ON
         "contract-name-mixedcase": "warn",
-        "event-name-mixedcase": "warn",
-        "modifier-name-mixedcase": "warn"
+        "event-name-mixedcase": "warn"
     }
 }
 \end{lstlisting}
@@ -413,38 +256,34 @@ Il file \texttt{.solhint.json} nella sua configurazione finale rappresenta un eq
 
 \subsection{Metriche Quantitative}
 
-L'intero processo di ottimizzazione ha portato a risultati eccezionali:
-
 \begin{table}[H]
 \centering
-\caption{Evoluzione warning attraverso le fasi}
+\caption{Evoluzione warning}
 \begin{tabular}{lccc}
 \toprule
-\textbf{Fase} & \textbf{Warning} & \textbf{Riduzione} & \textbf{Percentuale} \\
+\textbf{Fase} & \textbf{Warning} & \textbf{Δ} & \textbf{\%} \\
 \midrule
 Baseline & 137 & - & - \\
-Dopo Fase 1 & 81 & -56 & -41\% \\
-Dopo Fase 2 & 39 & -42 & -72\% \\
-Dopo Fase 3 & \textbf{21} & \textbf{-18} & \textbf{-85\%} \\
+Fase 1 (Code) & 81 & -56 & -41\% \\
+Fase 2 (Naming) & 39 & -42 & -72\% \\
+Fase 3 (Gas) & \textbf{21} & \textbf{-18} & \textbf{-85\%} \\
 \bottomrule
 \end{tabular}
 \end{table}
 
-Il risultato finale di \textbf{21 warning} rappresenta una riduzione dell'85\% rispetto alla baseline, posizionando il progetto significativamente al di sopra degli standard dell'industria.
+\textbf{Risultato}: 21 warning finali rappresentano una riduzione dell'85\%.
 
-\subsection{Analisi dei 21 Warning Rimanenti}
-
-I warning residui sono tutti giustificati e non impattano la qualità o sicurezza del codice:
+\subsection{Warning Rimanenti}
 
 \begin{table}[H]
 \centering
 \caption{Breakdown warning finali}
-\begin{tabular}{lcp{6cm}}
+\begin{tabular}{lcp{7cm}}
 \toprule
-\textbf{Categoria} & \textbf{Count} & \textbf{Giustificazione} \\
+\textbf{Categoria} & \textbf{N.} & \textbf{Motivazione} \\
 \midrule
 Import globali & 3 & Necessari per custom errors\\
-Function complexity & 1 & Algoritmo critico di validazione \\
+Function complexity & 1 & Algoritmo critico (validaEPaga, 53/50 linee) \\
 Code complexity & 5 & Business logic necessaria \\
 Naming/style & 12 & Convenzioni progettuali \\
 \midrule
@@ -453,101 +292,65 @@ Naming/style & 12 & Convenzioni progettuali \\
 \end{tabular}
 \end{table}
 
-\subsubsection{Dettaglio Warning Significativi}
+Tutti i warning residui sono giustificati da scelte architetturali deliberate.
 
-\textbf{Function Max Lines}: La funzione \texttt{validaEPaga} in BNPagamenti.sol presenta 53 linee (limite: 50). Questa funzione implementa la logica critica di validazione e pagamento, includendo:
-\begin{itemize}
-    \item Safety monitors S2, S3, S4, S5
-    \item Calcolo probabilità Bayesiane
-    \item Gestione condizioni di fallimento e successo
-    \item Emit di eventi multipli per monitoraggio
-\end{itemize}
-
-Un ulteriore refactoring comprometterebbe la leggibilità del flusso sequenziale, rendendo più difficile verificare la correttezza della logica di business.
-
-\subsection{Benchmarking con Standard Industriali}
+\subsection{Benchmarking}
 
 \begin{table}[H]
 \centering
-\caption{Comparazione con standard industriali}
+\caption{Comparazione standard industriali}
 \begin{tabular}{lccc}
 \toprule
-\textbf{Metrica} & \textbf{Industry Target} & \textbf{Questo Progetto} & \textbf{Status} \\
+\textbf{Metrica} & \textbf{Target} & \textbf{Progetto} & \textbf{Status} \\
 \midrule
 Errors & 0 & 0 & \checkmark \\
 Warning/KLOC & < 20 & ~6 & \checkmark\checkmark \\
-Function complexity & Accettabile & 1 warning & \checkmark \\
 Documentation & 80\% & 95\% & \checkmark\checkmark \\
 \bottomrule
 \end{tabular}
-\label{tab:benchmark}
 \end{table}
 
-Il progetto supera ampiamente gli standard industriali, particolarmente nel rapporto warning/KLOC (6 vs 20 target) e nella copertura documentazione (95\% vs 80\% target).
+Il progetto supera ampiamente gli standard industriali: warning/KLOC (6 vs 20) e documentation (95\% vs 80\%).
 
 %===========================================
 \section{Considerazioni Critiche}
 %===========================================
 
-\subsection{Limiti dell'Analisi Statica}
-
-È fondamentale riconoscere che, sebbene Solhint sia uno strumento potente, l'analisi statica presenta limiti intrinseci:
-
-\begin{enumerate}
-    \item \textbf{Non identifica vulnerabilità logiche}: Bug nella business logic richiedono testing e audit manuali.
-    
-    \item \textbf{False positivi}: Alcune regole possono generare warning su pattern legittimi in contesti specifici.
-    
-    \item \textbf{Configurazione domain-specific}: Progetti scientifici o altamente specializzati possono richiedere disabilitazione di certe regole.
-\end{enumerate}
-
-\subsection{Complementarietà con Altri Tool}
-
-Per un'analisi completa della sicurezza e qualità, Solhint dovrebbe essere integrato con:
-
+\textbf{Limiti analisi statica}:
 \begin{itemize}
-    \item \textbf{Slither}: Analisi statica avanzata per vulnerabilità di sicurezza
-    \item \textbf{Mythril}: Analisi simbolica per identificare reentrancy, integer overflow, ecc.
-    \item \textbf{Echidna}: Fuzzing per individuare comportamenti anomali
-    \item \textbf{Hardhat}: Testing automatizzato completo
+    \item Non identifica vulnerabilità logiche (richiede testing/audit)
+    \item Possibili false positivi su pattern legittimi
+    \item Necessità configurazione domain-specific
 \end{itemize}
+
+\textbf{Complementarietà con altri tool}:
+Solhint dovrebbe essere integrato con Slither (vulnerabilità), Mythril (analisi simbolica), Echidna (fuzzing), Hardhat (testing).
 
 %===========================================
 \section{Conclusioni}
 %===========================================
 
-L'analisi Solhint condotta sul progetto ha dimostrato l'efficacia di un approccio sistematico alla qualità del codice. La riduzione dell'85\% dei warning, da 137 a 21, è stata ottenuta attraverso:
+L'analisi Solhint ha ridotto i warning dell'85\% (137 → 21) attraverso:
 
 \begin{enumerate}
-    \item \textbf{Miglioramenti diretti al codice}: Documentazione NatSpec, ottimizzazioni gas implementate, refactoring funzioni complesse.
-    
-    \item \textbf{Configurazione consapevole}: Disabilitazione giustificata di regole incompatibili con il dominio applicativo e prioritizzazione della leggibilità.
-    
-    \item \textbf{Analisi critica}: Valutazione del trade-off tra conformità alle regole e qualità effettiva del codice.
+    \item \textbf{Miglioramenti codice}: NatSpec, gas optimization, refactoring
+    \item \textbf{Configurazione consapevole}: Disabilitazione regole incompatibili
+    \item \textbf{Trade-off analizzati}: Leggibilità prioritizzata su micro-ottimizzazioni
 \end{enumerate}
 
-I 21 warning residui sono tutti giustificati da scelte architetturali deliberate o vincoli del dominio applicativo. Il progetto si posiziona significativamente al di sopra degli standard industriali, con metriche di qualità eccezionali.
+I 21 warning residui sono giustificati. Il progetto raggiunge metriche eccezionali (~6 warning/KLOC, 95\% documentation) posizionandosi significativamente sopra gli standard industriali.
 
-\subsection{Raccomandazioni Future}
+\subsection{Raccomandazioni}
 
-Per mantenere e migliorare ulteriormente la qualità del codice, si raccomanda:
+\begin{itemize}
+    \item \textbf{CI/CD}: Integrare Solhint nel pipeline
+    \item \textbf{Pre-commit hooks}: Analisi automatiche prima di ogni commit
+    \item \textbf{Revisione periodica}: Aggiornare configurazione con nuove versioni tool
+\end{itemize}
 
-\begin{enumerate}
-    \item \textbf{Continuous Integration}: Integrare Solhint nel pipeline CI/CD per prevenire regressioni.
-    
-    \item \textbf{Pre-commit hooks}: Eseguire analisi automatiche prima di ogni commit.
-    
-    \item \textbf{Documentazione evolutiva}: Mantenere aggiornata la documentazione NatSpec ad ogni modifica.
-    
-    \item \textbf{Revisione periodica}: Rivalutare configurazione Solhint al rilascio di nuove versioni del tool.
-\end{enumerate}
-
-In conclusione, l'analisi Solhint si conferma strumento indispensabile per progetti blockchain di livello professionale, quando utilizzato con consapevolezza critica e integrato in un ecosistema di quality assurance più ampio.
+Solhint si conferma strumento essenziale per progetti blockchain professionali, quando utilizzato con consapevolezza critica.
 
 %===========================================
-% Bibliografia
-%===========================================
-\newpage
 \begin{thebibliography}{9}
 
 \bibitem{solhint}
@@ -559,16 +362,8 @@ Ethereum Foundation. \textit{Solidity Style Guide}.
 \url{https://docs.soliditylang.org/en/latest/style-guide.html}
 
 \bibitem{natspec}
-Ethereum Foundation. \textit{Ethereum Natural Language Specification Format}.
+Ethereum Foundation. \textit{NatSpec Format}.
 \url{https://docs.soliditylang.org/en/latest/natspec-format.html}
-
-\bibitem{gas-optimization}
-Consensys. \textit{Ethereum Smart Contract Best Practices - Gas Optimization}.
-\url{https://consensys.github.io/smart-contract-best-practices/}
-
-\bibitem{static-analysis}
-Trail of Bits. \textit{Smart Contract Security - Static Analysis}.
-\url{https://github.com/crytic/building-secure-contracts}
 
 \end{thebibliography}
 
