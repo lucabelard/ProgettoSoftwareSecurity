@@ -185,7 +185,7 @@ function _applicaCPT(
 }
 \end{lstlisting}
 
-Benefici: \textbf{modularità}, \textbf{testabilità}, \textbf{leggibilità}.
+Benefici: \textbf{modularità}, \textbf{testabilità}.
 
 \subsection{Fase 2: Configurazione Naming (-42 warning)}
 
@@ -294,23 +294,6 @@ Naming/style & 12 & Convenzioni progettuali \\
 
 Tutti i warning residui sono giustificati da scelte architetturali deliberate.
 
-\subsection{Benchmarking}
-
-\begin{table}[H]
-\centering
-\caption{Comparazione standard industriali}
-\begin{tabular}{lccc}
-\toprule
-\textbf{Metrica} & \textbf{Target} & \textbf{Progetto} & \textbf{Status} \\
-\midrule
-Errors & 0 & 0 & \checkmark \\
-Warning/KLOC & < 20 & ~6 & \checkmark\checkmark \\
-Documentation & 80\% & 95\% & \checkmark\checkmark \\
-\bottomrule
-\end{tabular}
-\end{table}
-
-Il progetto supera ampiamente gli standard industriali: warning/KLOC (6 vs 20) e documentation (95\% vs 80\%).
 
 %===========================================
 \section{Considerazioni Critiche}
@@ -349,22 +332,5 @@ I 21 warning residui sono giustificati. Il progetto raggiunge metriche ecceziona
 \end{itemize}
 
 Solhint si conferma strumento essenziale per progetti blockchain professionali, quando utilizzato con consapevolezza critica.
-
-%===========================================
-\begin{thebibliography}{9}
-
-\bibitem{solhint}
-Protofire. \textit{Solhint - Solidity Linter}.
-\url{https://github.com/protofire/solhint}
-
-\bibitem{solidity-style}
-Ethereum Foundation. \textit{Solidity Style Guide}.
-\url{https://docs.soliditylang.org/en/latest/style-guide.html}
-
-\bibitem{natspec}
-Ethereum Foundation. \textit{NatSpec Format}.
-\url{https://docs.soliditylang.org/en/latest/natspec-format.html}
-
-\end{thebibliography}
 
 \end{document}
