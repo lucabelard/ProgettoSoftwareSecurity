@@ -4,14 +4,63 @@
 In questo capitolo vengono esposti i risultati delle attività di verifica e validazione. Si descrivono gli esiti dell'analisi statica del codice, i test funzionali eseguiti sulla rete Hyperledger Besu e, in particolare, la modellazione formale di unit critiche tramite Catene di Markov (PRISM) per la verifica di proprietà di Safety e Guarantee.
 \end{preamble}
 
-\section{Analisi Statica e Audit}
-Il codice è stato sottoposto ad analisi statica automatizzata per identificare vulnerabilità note e difetti di conformità.
+\section{Analisi Statica e Audit (Solhint)}
+L'analisi della qualità del codice rappresenta un aspetto fondamentale nello sviluppo di smart contract su blockchain Ethereum. Data la natura immutabile di tali applicazioni, dove errori possono portare a perdite economiche significative, l'adozione di strumenti di analisi statica è necessaria.
+Nel presente progetto si è utilizzato \textbf{Solhint}, uno dei principali linter per smart contract Ethereum, per garantire conformità alle best practices e ridurre il debito tecnico.
 
-\subsection{Risultati Solidity Analyzer e Solhint}
+\subsection{Metodologia}
+\subsubsection{Solhint: Caratteristiche}
+Solhint è un linter open-source per Solidity che esegue analisi statica del codice, configurabile tramite file \texttt{.solhint.json}. Le categorie principali di regole includono: \textbf{Best Practices}, \textbf{Gas Optimization}, \textbf{Security}, e \textbf{Style Guide}.
+
+\subsubsection{Risultati Iniziali}
+L'esecuzione iniziale ha evidenziato \textbf{137 warning} (0 errori), confermando la correttezza sintattica del codice.
+La maggior parte dei warning riguardava documentazione mancante (42\%) e naming convention (35\%).
+
+\subsection{Processo di Ottimizzazione}
+Il processo è stato condotto in tre fasi successive.
+
+\subsubsection{Fase 1: Miglioramenti al Codice (-56 warning)}
+\paragraph{Documentazione NatSpec}
+Sono stati documentati 17 eventi con commenti NatSpec completi (\texttt{@notice}, \texttt{@param}).
+\paragraph{Ottimizzazioni Gas}
+Sono state adottate tecniche come \textbf{Pre-increment} e l'uso di \textbf{Custom errors} (risparmio ~1000 gas on revert) al posto di stringhe \texttt{require}.
+\paragraph{Refactoring Funzioni}
+La funzione \texttt{\_calcolaProbabilitaCombinata} è stata ridotta da 66 a 13 linee estraendo l'helper \texttt{\_applicaCPT}, migliorando modularità e testabilità.
+
+\subsubsection{Fase 2: Configurazione Naming (-42 warning)}
+Sono state disabilitate alcune regole di naming (\texttt{var-name-mixedcase}) per compatibilità con le convenzioni domain-specific adottate nel progetto.
+
+\subsubsection{Fase 3: Configurazione Gas (-18 warning)}
+Un'analisi costi-benefici ha evidenziato che alcune regole di ottimizzazione gas compromettevano eccessivamente la leggibilità per un risparmio irrisorio. Regole come \texttt{gas-strict-inequalities} sono state disabilitate.
+
+\subsection{Configurazione Finale}
+La configurazione finale (\texttt{.solhint.json}) estende \texttt{solhint:recommended} ma disabilita le regole di naming e gas non ritenute critiche, mantenendo invece attive quelle su compiler version e visibility.
+
+\subsection{Risultati Finali e Conclusioni}
+L'analisi Solhint ha ridotto i warning dell'85\% (da 137 a 21). I 21 warning residui sono stati analizzati e giustificati da scelte architetturali deliberate.
 \begin{itemize}
-    \item \textbf{Solidity Analyzer (Remix)}: L'analisi ha confermato l'assenza di vulnerabilità critiche come Reentrancy, Integer Overflow (mitigato da Solidity 0.8+) e Unchecked Call Return Values. Sono stati risolti warning relativi a visibilità delle funzioni e gas costs.
-    \item \textbf{Solhint}: Il codice rispetta le regole di stile configurate, garantendo coerenza nell'indentazione e naming convention. Tutte le segnalazioni di priorità "Error" sono state corrette.
+    \item \textbf{Warning Rimanenti}: Import globali per custom errors, complessità necessaria in algoritmi critici e naming conventions di progetto.
 \end{itemize}
+Il progetto raggiunge metriche di qualità elevate, posizionandosi sopra gli standard industriali per documentazione e pulizia del codice.
+
+\subsection{Considerazioni Critiche}
+\paragraph{Limiti analisi statica}
+\begin{itemize}
+    \item Non identifica vulnerabilità logiche complesse (che richiedono testing dinamico e audit manuale).
+    \item Possibili false positivi su pattern legittimi ma non standard.
+    \item Necessità di una configurazione altamente specifica per il dominio applicativo.
+\end{itemize}
+
+\paragraph{Complementarietà con altri tool}
+Solhint dovrebbe essere idealmente integrato con altri strumenti come Slither (per vulnerabilità di sicurezza), Mythril (analisi simbolica), Echidna (fuzzing) e Hardhat (testing automatizzato).
+
+\subsection{Raccomandazioni}
+\begin{itemize}
+    \item \textbf{CI/CD}: Integrare Solhint nella pipeline di Continuous Integration.
+    \item \textbf{Pre-commit hooks}: Eseguire analisi automatiche prima di ogni commit per prevenire regressioni.
+    \item \textbf{Revisione periodica}: Aggiornare regolarmente la configurazione e le regole con le nuove versioni del tool.
+\end{itemize}
+Solhint si conferma strumento essenziale per progetti blockchain professionali, quando utilizzato con consapevolezza critica.
 
 \section{Verifica Formale con PRISM}
 Per garantire la robustezza logica del sistema rispetto alle minacce identificate (Spoofing e Tampering), è stato modellato il comportamento probabilistico dell'unità "Sensore-Oracolo" utilizzando il model checker \textbf{PRISM}. L'analisi si basa su Catene di Markov a Tempo Discreto (DTMC) e segue una metodologia comparativa: viene prima analizzato il sistema vulnerabile (senza contromisure) e successivamente il sistema protetto (con Active Defense, TPM e Ridondanza).

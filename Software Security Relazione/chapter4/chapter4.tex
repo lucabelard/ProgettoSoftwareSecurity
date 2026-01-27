@@ -26,7 +26,7 @@ Questo contratto estende \texttt{BNGestoreSpedizioni} per isolare la logica crit
     \item \textbf{Sicurezza}: Implementa \texttt{ReentrancyGuard} per prevenire attacchi durante il trasferimento di Ether.
 \end{itemize}
 
-\begin{lstlisting}[language=C, caption=Runtime Monitor in BNPagamenti (validaEPaga)]
+\begin{lstlisting}[language=Solidity, caption=Runtime Monitor in BNPagamenti (validaEPaga)]
 function validaEPaga(uint256 _id) external nonReentrant {
     // ... checks ...
     (uint256 pF1, uint256 pF2) = _calcolaProbabilitaPosteriori(s.evidenze);
