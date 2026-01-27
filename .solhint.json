@@ -12,11 +12,17 @@
             }
         ],
         "no-unused-vars": "warn",
-        "const-name-snakecase": "warn",
-        "contract-name-camelcase": "warn",
-        "event-name-camelcase": "warn",
-        "func-name-mixedcase": "warn",
+        "const-name-snakecase": "off",
+        "contract-name-mixedcase": "warn",
+        "event-name-mixedcase": "warn",
+        "func-name-mixedcase": "off",
         "modifier-name-mixedcase": "warn",
-        "var-name-mixedcase": "warn"
+        "var-name-mixedcase": "off",
+        "gas-strict-inequalities": "off",
+        "gas-indexed-events": "off",
+        "gas-calldata-parameters": "off",
+        "gas-small-strings": "off",
+        "gas-increment-by-one": "off",
+        "gas-custom-errors": "off"
     }
 }

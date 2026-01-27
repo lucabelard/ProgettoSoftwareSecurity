@@ -40,9 +40,29 @@ contract BNCore is AccessControl {
     CPT private cpt_E5;
     
     // === EVENTI DI MONITORAGGIO ===
+    
+    /// @notice Emesso quando le probabilità a priori vengono impostate dall'oracolo
+    /// @param p_F1_T Probabilità a priori che F1 sia vero (0-100)
+    /// @param p_F2_T Probabilità a priori che F2 sia vero (0-100)
+    /// @param admin Indirizzo dell'amministratore che ha impostato le probabilità
     event ProbabilitaAPrioriImpostate(uint256 indexed p_F1_T, uint256 indexed p_F2_T, address indexed admin);
+    
+    /// @notice Emesso quando una CPT viene configurata per un'evidenza
+    /// @param evidenza ID dell'evidenza (1-5)
+    /// @param admin Indirizzo dell'amministratore che ha impostato la CPT
+    /// @param timestamp Timestamp dell'operazione
     event CPTImpostata(uint8 indexed evidenza, address indexed admin, uint256 indexed timestamp);
+    
+    /// @notice Emesso durante la validazione con le probabilità calcolate
+    /// @param id ID della spedizione
+    /// @param probF1 Probabilità calcolata per F1 (0-100)
+    /// @param probF2 Probabilità calcolata per F2 (0-100)
     event ProbabilitaValidazione(uint256 indexed id, uint256 indexed probF1, uint256 probF2);
+    
+    /// @notice Emesso quando le probabilità non superano la soglia di validazione
+    /// @param id ID della spedizione
+    /// @param probF1 Probabilità calcolata per F1 (sotto soglia)
+    /// @param probF2 Probabilità calcolata per F2 (sotto soglia)
     event SogliaValidazioneNonSuperata(uint256 indexed id, uint256 indexed probF1, uint256 probF2);
     
     // === STRUTTURE DATI ===
@@ -157,6 +177,33 @@ contract BNCore is AccessControl {
     }
     
     /**
+     * @notice Applica CPT per una singola evidenza
+     * @param _ricevuta Se l'evidenza è stata ricevuta
+     * @param _valore Valore dell'evidenza
+     * @param _f1 Stato ipotizzato di F1
+     * @param _f2 Stato ipotizzato di F2
+     * @param _cpt Tabella CPT per questa evidenza
+     * @return Probabilità dell'evidenza dato lo stato dei fatti
+     */
+    function _applicaCPT(
+        bool _ricevuta,
+        bool _valore,
+        bool _f1,
+        bool _f2,
+        CPT memory _cpt
+    ) internal pure returns (uint256) {
+        if (!_ricevuta) return PRECISIONE;
+        
+        uint256 p_T;
+        if (_f1 == false && _f2 == false) p_T = _cpt.p_FF;
+        else if (_f1 == false && _f2 == true) p_T = _cpt.p_FT;
+        else if (_f1 == true && _f2 == false) p_T = _cpt.p_TF;
+        else if (_f1 == true && _f2 == true) p_T = _cpt.p_TT;
+        
+        return _leggiValoreCPT(_valore, p_T);
+    }
+    
+    /**
      * @notice Calcola la probabilità combinata di osservare tutte le evidenze
      * @param _evidenze Struttura contenente stato e valori di tutte le evidenze E1-E5
      * @param _f1 Ipotesi per il fatto F1 (true se F1 è considerato vero)
@@ -167,59 +214,14 @@ contract BNCore is AccessControl {
     function _calcolaProbabilitaCombinata(StatoEvidenze memory _evidenze, bool _f1, bool _f2) 
         internal view returns (uint256) 
     {
-        uint256 probCombinata = PRECISIONE; 
-        uint256 p_T;
-        uint256 p_e;
-
-        // --- E1 ---
-        if (_evidenze.E1_ricevuta) {
-            if (_f1 == false && _f2 == false) p_T = cpt_E1.p_FF;
-            else if (_f1 == false && _f2 == true)  p_T = cpt_E1.p_FT;
-            else if (_f1 == true  && _f2 == false) p_T = cpt_E1.p_TF;
-            else if (_f1 == true  && _f2 == true)  p_T = cpt_E1.p_TT;
-            p_e = _leggiValoreCPT(_evidenze.E1_valore, p_T);
-            probCombinata = (probCombinata * p_e) / PRECISIONE;
-        }
+        uint256 probCombinata = PRECISIONE;
         
-        // --- E2 ---
-        if (_evidenze.E2_ricevuta) {
-            if (_f1 == false && _f2 == false) p_T = cpt_E2.p_FF;
-            else if (_f1 == false && _f2 == true)  p_T = cpt_E2.p_FT;
-            else if (_f1 == true  && _f2 == false) p_T = cpt_E2.p_TF;
-            else if (_f1 == true  && _f2 == true)  p_T = cpt_E2.p_TT;
-            p_e = _leggiValoreCPT(_evidenze.E2_valore, p_T);
-            probCombinata = (probCombinata * p_e) / PRECISIONE;
-        }
-        
-        // --- E3 ---
-        if (_evidenze.E3_ricevuta) {
-            if (_f1 == false && _f2 == false) p_T = cpt_E3.p_FF;
-            else if (_f1 == false && _f2 == true)  p_T = cpt_E3.p_FT;
-            else if (_f1 == true  && _f2 == false) p_T = cpt_E3.p_TF;
-            else if (_f1 == true  && _f2 == true)  p_T = cpt_E3.p_TT;
-            p_e = _leggiValoreCPT(_evidenze.E3_valore, p_T);
-            probCombinata = (probCombinata * p_e) / PRECISIONE;
-        }
-        
-        // --- E4 ---
-        if (_evidenze.E4_ricevuta) {
-            if (_f1 == false && _f2 == false) p_T = cpt_E4.p_FF;
-            else if (_f1 == false && _f2 == true)  p_T = cpt_E4.p_FT;
-            else if (_f1 == true  && _f2 == false) p_T = cpt_E4.p_TF;
-            else if (_f1 == true  && _f2 == true)  p_T = cpt_E4.p_TT;
-            p_e = _leggiValoreCPT(_evidenze.E4_valore, p_T);
-            probCombinata = (probCombinata * p_e) / PRECISIONE;
-        }
-        
-        // --- E5 ---
-        if (_evidenze.E5_ricevuta) {
-            if (_f1 == false && _f2 == false) p_T = cpt_E5.p_FF;
-            else if (_f1 == false && _f2 == true)  p_T = cpt_E5.p_FT;
-            else if (_f1 == true  && _f2 == false) p_T = cpt_E5.p_TF;
-            else if (_f1 == true  && _f2 == true)  p_T = cpt_E5.p_TT;
-            p_e = _leggiValoreCPT(_evidenze.E5_valore, p_T);
-            probCombinata = (probCombinata * p_e) / PRECISIONE;
-        }
+        // Applica CPT per ogni evidenza
+        probCombinata = (probCombinata * _applicaCPT(_evidenze.E1_ricevuta, _evidenze.E1_valore, _f1, _f2, cpt_E1)) / PRECISIONE;
+        probCombinata = (probCombinata * _applicaCPT(_evidenze.E2_ricevuta, _evidenze.E2_valore, _f1, _f2, cpt_E2)) / PRECISIONE;
+        probCombinata = (probCombinata * _applicaCPT(_evidenze.E3_ricevuta, _evidenze.E3_valore, _f1, _f2, cpt_E3)) / PRECISIONE;
+        probCombinata = (probCombinata * _applicaCPT(_evidenze.E4_ricevuta, _evidenze.E4_valore, _f1, _f2, cpt_E4)) / PRECISIONE;
+        probCombinata = (probCombinata * _applicaCPT(_evidenze.E5_ricevuta, _evidenze.E5_valore, _f1, _f2, cpt_E5)) / PRECISIONE;
 
         return probCombinata;
     }
