@@ -1,0 +1,340 @@
+% ===== ABUSE/MISUSE CASES =====
+% Questo file richiede i pacchetti: xcolor, colortbl, enumitem, float
+% Se incluso in Relazione_DUAL_STRIDE.tex questi pacchetti sono già caricati
+
+\newpage
+\section{Abuse Case e Misuse Case}
+
+Questa sezione presenta una documentazione strutturata dei casi d'uso malevoli (abuse case) e degli errori d'uso (misuse case), seguendo la specifica di Ivor Jacobson. Gli abuse case descrivono scenari in cui attaccanti intenzionali tentano di compromettere il sistema, mentre i misuse case documentano errori non intenzionali da parte di utenti legittimi.
+
+\subsection{Abuse Cases}
+
+\subsubsection{Abuse Case AC-01: Manipolazione Evidenze tramite Sensore Compromesso}
+
+\begin{table}[H]
+\small
+\begin{tabular}{|p{4cm}|p{10cm}|}
+\hline
+\rowcolor{red!70}
+\multicolumn{2}{|c|}{\textbf{\textcolor{white}{Abuse Case ID: AC-01}}} \\
+\hline
+\rowcolor{red!60}
+\multicolumn{2}{|c|}{\textbf{\textcolor{white}{Abuse Case Name: Manipolazione Evidenze Sensore}}} \\
+\hline
+\textbf{Actors} & Attaccante Esterno, Sensore Compromesso, Corriere Complice \\
+\hline
+\textbf{Description} & Un attaccante compromette un sensore IoT e invia evidenze falsificate per far approvare una spedizione non conforme, permettendo al corriere complice di ricevere il pagamento nonostante violazioni della catena del freddo. \\
+\hline
+\textbf{Data} & Chiave privata sensore, Evidenze E1-E5 (falsificate), ID spedizione, indirizzo corriere \\
+\hline
+\textbf{Stimulus and Preconditions} & 
+\textbf{Precondizioni}: Sensore ha ruolo RUOLO\_SENSORE, spedizione esistente in stato InAttesa. 
+\textbf{Stimulus}: Attaccante ottiene chiave privata sensore tramite phishing/compromissione fisica. \\
+\hline
+\textbf{Basic Flow} & 
+\begin{enumerate}[leftmargin=0.5cm,noitemsep,topsep=2pt]
+    \item Attaccante identifica indirizzo Ethereum di sensore legittimo
+    \item Ottiene chiave privata tramite social engineering o exploit firmware
+    \item Crea spedizione con corriere complice depositando ETH
+    \item Usa sensore compromesso per inviare evidenze false (E1, E2 = true mentre erano false)
+    \item Sistema calcola $P(F_1|E) \geq 95\%$ e $P(F_2|E) \geq 95\%$
+    \item Corriere invoca \code{validaEPaga()}
+    \item Pagamento trasferito al corriere complice
+\end{enumerate} \\
+\hline
+\textbf{Alternative Flow} & 
+\textbf{ALT-1}: Attaccante esegue attacco man-in-the-middle intercettando comunicazione sensore-blockchain.
+\textbf{ALT-2}: Attaccante compromette multiple sensori per coverage completa. \\
+\hline
+\textbf{Exception Flow} & 
+\textbf{EXC-1}: Sensore viene revocato prima invio evidenze $\rightarrow$ transazione fallisce.
+\textbf{EXC-2}: Admin rileva anomalia e blocca spedizione. \\
+\hline
+\textbf{Response and Postconditions} & 
+\textbf{Successo Attacco}: Prodotti farmaceutici deteriorati distribuiti, pagamento fraudolento eseguito, perdita economica mittente.
+\textbf{Postcondizioni}: Stato spedizione = Pagata, fondi trasferiti, danni reputazionali. \\
+\hline
+\textbf{Non Functional Requirements} & 
+Sicurezza: Autenticazione forte sensori (TPM). Auditabilità: Eventi MonitorSafetyViolation per anomalie. Integrità: Firma digitale evidenze. \\
+\hline
+\textbf{Comments} & Questo è uno scenario critico con impatto su salute pubblica. Contromisure attuali: controllo ruolo. Raccomandato: device attestation con TPM, whitelist sensori revocabili. \\
+\hline
+\end{tabular}
+\caption{Abuse Case AC-01: Manipolazione Evidenze Sensore}
+\end{table}
+
+\subsubsection{Abuse Case AC-02: Reverse Engineering Parametri Bayesiani}
+
+\begin{table}[H]
+\small
+\begin{tabular}{|p{4cm}|p{10cm}|}
+\hline
+\rowcolor{red!70}
+\multicolumn{2}{|c|}{\textbf{\textcolor{white}{Abuse Case ID: AC-02}}} \\
+\hline
+\rowcolor{red!60}
+\multicolumn{2}{|c|}{\textbf{\textcolor{white}{Abuse Case Name: Reverse Engineering CPT}}} \\
+\hline
+\textbf{Actors} & Attaccante Esterno con competenze tecniche \\
+\hline
+\textbf{Description} & Attaccante analizza le CPT (Conditional Probability Tables) per determinare le combinazioni minime di evidenze necessarie a superare la soglia di validazione, permettendo di aggirare sistematicamente i controlli. \\
+\hline
+\textbf{Data} & CPT per E1-E5 (se pubbliche), probabilità a priori P(F1), P(F2), SOGLIA\_PROBABILITA \\
+\hline
+\textbf{Stimulus and Preconditions} & 
+\textbf{Precondizioni}: Attaccante ha accesso lettura blockchain.
+\textbf{Stimulus}: Desiderio di identificare configurazione minima evidenze per validazione. \\
+\hline
+\textbf{Basic Flow} & 
+\begin{enumerate}[leftmargin=0.5cm,noitemsep,topsep=2pt]
+    \item Attaccante legge CPT dalla blockchain (se public)
+    \item Implementa algoritmo bayesiano identico off-chain
+    \item Simula tutte le $2^5 = 32$ combinazioni possibili di evidenze
+    \item Identifica combinazioni con $P(F_1) \geq 95\%$ e $P(F_2) \geq 95\%$
+    \item Programma sensori per inviare esattamente quelle evidenze
+    \item Esegue spedizioni con garanzia di approvazione
+\end{enumerate} \\
+\hline
+\textbf{Alternative Flow} & 
+\textbf{ALT-1}: Attaccante usa machine learning per inferire CPT osservando pattern approvazioni.
+\textbf{ALT-2}: Insider con accesso admin condivide CPT con attaccante. \\
+\hline
+\textbf{Exception Flow} & 
+\textbf{EXC-1}: CPT sono private $\rightarrow$ attacco bloccato.
+\textbf{EXC-2}: Admin modifica CPT periodicamente $\rightarrow$ simulazioni non più valide. \\
+\hline
+\textbf{Response and Postconditions} & 
+\textbf{Successo Attacco}: Aggiramento sistematico validazione, compromissione integrità sistema.
+\textbf{Postcondizioni}: Multiple spedizioni non conformi approvate. \\
+\hline
+\textbf{Non Functional Requirements} & 
+Confidenzialità: CPT private con accesso controllato. Offuscamento: Impossibilità di simulare offline. \\
+\hline
+\textbf{Comments} & \textbf{MITIGATO}: Implementate CPT private accessibili solo da DEFAULT\_ADMIN\_ROLE. Attacco ora significativamente più difficile. \\
+\hline
+\end{tabular}
+\caption{Abuse Case AC-02: Reverse Engineering Parametri Bayesiani}
+\end{table}
+
+\subsubsection{Abuse Case AC-03: Denial of Service tramite Blocco Fondi}
+
+\begin{table}[H]
+\small
+\begin{tabular}{|p{4cm}|p{10cm}|}
+\hline
+\rowcolor{red!70}
+\multicolumn{2}{|c|}{\textbf{\textcolor{white}{Abuse Case ID: AC-03}}} \\
+\hline
+\rowcolor{red!60}
+\multicolumn{2}{|c|}{\textbf{\textcolor{white}{Abuse Case Name: DoS via Evidenze Mancanti}}} \\
+\hline
+\textbf{Actors} & Sensore Malevolo, Insider con accesso RUOLO\_SENSORE \\
+\hline
+\textbf{Description} & Un sensore malevolo deliberatamente non invia tutte le evidenze richieste, causando il blocco indefinito della spedizione e dei fondi in escrow, rendendo il sistema inutilizzabile. \\
+\hline
+\textbf{Data} & ID spedizione, evidenze parziali E1-E4, importo ETH bloccato \\
+\hline
+\textbf{Stimulus and Preconditions} & 
+\textbf{Precondizioni}: Spedizione creata con ETH in escrow, sensore ha RUOLO\_SENSORE.
+\textbf{Stimulus}: Intent malevolo di sabotaggio o estorsione. \\
+\hline
+\textbf{Basic Flow} & 
+\begin{enumerate}[leftmargin=0.5cm,noitemsep,topsep=2pt]
+    \item Mittente crea spedizione depositando 10 ETH
+    \item Sensore invia E1, E2, E3, E4 normalmente
+    \item Sensore deliberatamente NON invia E5
+    \item Corriere tenta \code{validaEPaga()}
+    \item Require fallisce: "Evidenze mancanti"
+    \item Mittente non può recuperare fondi (senza sistema rimborso)
+    \item 10 ETH bloccati indefinitamente
+    \item Sistema perde credibilità
+\end{enumerate} \\
+\hline
+\textbf{Alternative Flow} & 
+\textbf{ALT-1}: Attaccante blocca multiple spedizioni contemporaneamente (DoS amplificato).
+\textbf{ALT-2}: Attaccante richiede riscatto per sbloccare evidenze. \\
+\hline
+\textbf{Exception Flow} & 
+\textbf{EXC-1}: Sistema timeout attivato $\rightarrow$ rimborso automatico dopo 7 giorni.
+\textbf{EXC-2}: Mittente annulla spedizione prima invio evidenze. \\
+\hline
+\textbf{Response and Postconditions} & 
+\textbf{Senza Contromisure}: Perdita permanente fondi, sistema inutilizzabile.
+\textbf{Con Contromisure}: Rimborso automatico, impatto limitato. \\
+\hline
+\textbf{Non Functional Requirements} & 
+Resilienza: Sistema di timeout e rimborso. Availability: Prevenzione blocchi permanenti. \\
+\hline
+\textbf{Comments} & \textbf{RISOLTO}: Implementato sistema triplo di rimborso (annullamento, timeout 7 giorni, validazione fallita 3x). Problema critico completamente mitigato. \\
+\hline
+\end{tabular}
+\caption{Abuse Case AC-03: Denial of Service tramite Blocco Fondi}
+\end{table}
+
+\subsection{Misuse Cases}
+
+\subsubsection{Misuse Case MC-01: Perdita Chiavi Private}
+
+\begin{table}[H]
+\small
+\begin{tabular}{|p{4cm}|p{10cm}|}
+\hline
+\rowcolor{orange!70}
+\multicolumn{2}{|c|}{\textbf{\textcolor{white}{Misuse Case ID: MC-01}}} \\
+\hline
+\rowcolor{orange!60}
+\multicolumn{2}{|c|}{\textbf{\textcolor{white}{Misuse Case Name: Smarrimento Chiavi Private}}} \\
+\hline
+\textbf{Actors} & Mittente inesperto, Corriere, Sensore \\
+\hline
+\textbf{Description} & Un utente legittimo perde accesso alla propria chiave privata MetaMask, risultando nell'impossibilità di interagire con spedizioni create, richiedere rimborsi, o validare evidenze. Non è un attacco intenzionale ma un errore d'uso. \\
+\hline
+\textbf{Data} & Chiave privata MetaMask, seed phrase, indirizzo Ethereum, ETH depositati \\
+\hline
+\textbf{Stimulus and Preconditions} & 
+\textbf{Precondizioni}: Utente ha creato wallet MetaMask, ha ruolo nel sistema.
+\textbf{Stimulus}: Errore umano - cancellazione accidentale wallet, perdita seed phrase, crash computer senza backup. \\
+\hline
+\textbf{Basic Flow} & 
+\begin{enumerate}[leftmargin=0.5cm,noitemsep,topsep=2pt]
+    \item Mittente crea spedizione depositando 5 ETH
+    \item Mittente perde accesso chiave privata (HD crash, seed phrase persa)
+    \item Spedizione procede normalmente
+    \item Validazione fallisce (prodotto danneggiato)
+    \item Mittente vuole richiedere rimborso
+    \item \code{richiediRimborso()} richiede firma dal wallet mittente
+    \item Mittente non può firmare transazione
+    \item 5 ETH persi permanentemente
+\end{enumerate} \\
+\hline
+\textbf{Alternative Flow} & 
+\textbf{ALT-1}: Corriere perde chiave $\rightarrow$ non può invocare \code{validaEPaga()}.
+\textbf{ALT-2}: Sensore perde chiave $\rightarrow$ non può inviare evidenze. \\
+\hline
+\textbf{Exception Flow} & 
+\textbf{EXC-1}: Utente aveva configurato recovery tramite multisig $\rightarrow$ recupero possibile.
+\textbf{EXC-2}: Sistema timeout attiva rimborso automatico a indirizzo alternativo (se implementato). \\
+\hline
+\textbf{Response and Postconditions} & 
+\textbf{Impatto}: Perdita permanente accesso fondi, spedizione bloccata.
+\textbf{Postcondizioni}: Fondi irrecuperabili, utente escluso da interazioni. \\
+\hline
+\textbf{Non Functional Requirements} & 
+Usabilità: Interfaccia con warning chiari su backup seed phrase. Recovery: Supporto per recovery sociale o multi-sig. Educazione: Documentazione per utenti su gestione chiavi. \\
+\hline
+\textbf{Comments} & Problema intrinseco blockchain. Raccomandazioni: implementare recovery multi-firma, interface warnings, educational material. Considerare account abstraction (ERC-4337). \\
+\hline
+\end{tabular}
+\caption{Misuse Case MC-01: Perdita Chiavi Private}
+\end{table}
+
+\subsubsection{Misuse Case MC-02: Configurazione Errata CPT}
+
+\begin{table}[H]
+\small
+\begin{tabular}{|p{4cm}|p{10cm}|}
+\hline
+\rowcolor{orange!70}
+\multicolumn{2}{|c|}{\textbf{\textcolor{white}{Misuse Case ID: MC-02}}} \\
+\hline
+\rowcolor{orange!60}
+\multicolumn{2}{|c|}{\textbf{\textcolor{white}{Misuse Case Name: Errore Configurazione Parametri Bayesiani}}} \\
+\hline
+\textbf{Actors} & Oracolo/Amministratore inesperto \\
+\hline
+\textbf{Description} & Un amministratore con RUOLO\_ORACOLO configura erroneamente le CPT inserendo valori non validi o semanticamente scorretti, causando malfunzionamento del sistema di validazione senza intento malevolo. \\
+\hline
+\textbf{Data} & CPT struttura, probabilità condizionate p\_FF, p\_FT, p\_TF, p\_TT \\
+\hline
+\textbf{Stimulus and Preconditions} & 
+\textbf{Precond izioni}: Admin ha RUOLO\_ORACOLO, interfaccia per \code{impostaCPT()}.
+\textbf{Stimulus}: Incomprensione semantica CPT, typo, confusione unità misura. \\
+\hline
+\textbf{Basic Flow} & 
+\begin{enumerate}[leftmargin=0.5cm,noitemsep,topsep=2pt]
+    \item Admin decide di aggiornare CPT per E1 (temperatura)
+    \item Inserisce erroneamente \code{p\_FF = 150} (intendeva 15\%)
+    \item Sistema accetta valore senza validazione
+    \item Calcoli bayesiani producono risultati nonsense
+    \item Spedizioni conformi vengono respinte
+    \item Spedizioni non conformi vengono approvate
+    \item Sistema inutilizzabile fino a fix admin
+\end{enumerate} \\
+\hline
+\textbf{Alternative Flow} & 
+\textbf{ALT-1}: Admin inverte p\_TT con p\_FF $\rightarrow$ logica bayesiana invertita.
+\textbf{ALT-2}: Admin imposta tutti valori a 0 $\rightarrow$ impossibile validare. \\
+\hline
+\textbf{Exception Flow} & 
+\textbf{EXC-1}: Validazione input rileva valore \textgreater{} 100 $\rightarrow$ transazione revert.
+\textbf{EXC-2}: Interface fornisce esempio valori corretti $\rightarrow$ errore evitato. \\
+\hline
+\textbf{Response and Postconditions} & 
+\textbf{Senza Validazione}: Sistema compromesso fino a correzione manuale.
+\textbf{Con Validazione}: Transazione fallisce, errore evitato. \\
+\hline
+\textbf{Non Functional Requirements} & 
+Validazione: Range check (0-100) per tutti parametri. Usabilità: Interface con validazione client-side. Auditabilità: Eventi dettagliati per modifiche CPT. \\
+\hline
+\textbf{Comments} & \textbf{IMPLEMENTATO}: Aggiunti require per validazione range in \code{impostaCPT()}. Raccomandato: interface web con validazione preventiva e esempi. \\
+\hline
+\end{tabular}
+\caption{Misuse Case MC-02: Configurazione Errata CPT}
+\end{table}
+
+\subsubsection{Misuse Case MC-03: Invio ETH Indirizzo Errato}
+
+\begin{table}[H]
+\small
+\begin{tabular}{|p{4cm}|p{10cm}|}
+\hline
+\rowcolor{orange!70}
+\multicolumn{2}{|c|}{\textbf{\textcolor{white}{Misuse Case ID: MC-03}}} \\
+\hline
+\rowcolor{orange!60}
+\multicolumn{2}{|c|}{\textbf{\textcolor{white}{Misuse Case Name: Creazione Spedizione con Corriere Errato}}} \\
+\hline
+\textbf{Actors} & Mittente inesperto \\
+\hline
+\textbf{Description} & Mittente crea spedizione specificando indirizzo Ethereum errato per il corriere (typo, copia-incolla incompleto), risultando in pagamento a destinatario sbagliato se spedizione viene validata. \\
+\hline
+\textbf{Data} & Indirizzo corriere, importo pagamento ETH \\
+\hline
+\textbf{Stimulus and Preconditions} & 
+\textbf{Precondizioni}: Mittente ha fondi ETH, interfaccia per \code{creaSpedizione()}.
+\textbf{Stimulus}: Errore digitazione, copia-incolla parziale, confusione indirizzi. \\
+\hline
+\textbf{Basic Flow} & 
+\begin{enumerate}[leftmargin=0.5cm,noitemsep,topsep=2pt]
+    \item Mittente vuole creare spedizione per corriere A (0xABC...)
+    \item Copia indirizzo da fonte non verificata
+    \item Incolla indirizzo con typo: 0xABD... (corriere B)
+    \item Invoca \code{creaSpedizione(0xABD..., \{value: 10 ETH\})}
+    \item Spedizione creata con corriere B invece di A
+    \item Corriere A trasporta prodotto
+    \item Validazione ha successo
+    \item 10 ETH pagati a corriere B (sbagliato)
+    \item Corriere A non riceve pagamento
+    \item Disputa irrisolvibile on-chain
+\end{enumerate} \\
+\hline
+\textbf{Alternative Flow} & 
+\textbf{ALT-1}: Indirizzo copiato è EOA senza corriere $\rightarrow$ fondi a indirizzo casuale.
+\textbf{ALT-2}: Mittente si accorge prima validazione e annulla spedizione. \\
+\hline
+\textbf{Exception Flow} & 
+\textbf{EXC-1}: Interface web con whitelist corrieri verificati $\rightarrow$ errore prevenuto.
+\textbf{EXC-2}: Checksum validation fallisce $\rightarrow$ warning mostrato. \\
+\hline
+\textbf{Response and Postconditions} & 
+\textbf{Impatto}: Perdita economica mittente, corriere legittimo non pagato.
+\textbf{Postcondizioni}: Fondi a destinazione errata, impossibile recovery. \\
+\hline
+\textbf{Non Functional Requirements} & 
+Usabilità: Interface con dropdown corrieri pre-verificati. Validazione: Checksum Ethereum address (EIP-55). Conferma: Modal di conferma con recap parametri. \\
+\hline
+\textbf{Comments} & Raccomandazioni: implementare UI con registry corrieri certificati, validazione EIP-55, confirmation step con recap visuale. Considerare grace period per annullamento. \\
+\hline
+\end{tabular}
+\caption{Misuse Case MC-03: Invio ETH Indirizzo Errato}
+\end{table}
