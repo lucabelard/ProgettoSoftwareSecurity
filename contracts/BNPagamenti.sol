@@ -16,18 +16,39 @@ error PagamentoFallito();
 contract BNPagamenti is BNGestoreSpedizioni, ReentrancyGuard {
     
     // === EVENTI ===
+    
+    /// @notice Emesso quando una spedizione viene pagata al corriere
+    /// @param id ID della spedizione pagata
+    /// @param corriere Indirizzo del corriere che ha ricevuto il pagamento
+    /// @param importo Importo pagato in wei
     event SpedizionePagata(uint256 indexed id, address indexed corriere, uint256 importo);
+    
+    /// @notice Emesso quando un tentativo di pagamento fallisce
+    /// @param id ID della spedizione
+    /// @param richiedente Indirizzo che ha tentato il pagamento
+    /// @param motivo Motivo del fallimento
     event TentativoPagamentoFallito(uint256 indexed id, address indexed richiedente, string motivo);
     
     // === EVENTI DI RUNTIME MONITORING ===
+    
+    /// @notice Evento di monitoraggio per violazioni di safety properties
+    /// @param property Nome della property violata
+    /// @param shipmentId ID della spedizione
+    /// @param caller Indirizzo che ha causato la violazione
+    /// @param reason Motivo della violazione
     event MonitorSafetyViolation(string indexed property, uint256 indexed shipmentId, address indexed caller, string reason);
+    
+    /// @notice Evento di monitoraggio per guarantee properties soddisfatte
+    /// @param property Nome della property garantita
+    /// @param shipmentId ID della spedizione
     event MonitorGuaranteeSuccess(string indexed property, uint256 indexed shipmentId);
+    
+    /// @notice Evento di tracking per probabilità calcolate
+    /// @param shipmentId ID della spedizione
+    /// @param probF1 Probabilità calcolata per F1
+    /// @param probF2 Probabilità calcolata per F2
     event ProbabilityCalculated(uint256 indexed shipmentId, uint256 indexed probF1, uint256 probF2);
     
-    /**
-     * @notice Valida le evidenze e paga il corriere se i requisiti sono soddisfatti
-     * @param _id ID della spedizione
-     */
     /**
      * @notice Valida le evidenze e paga il corriere se conformi
      * @param _id ID della spedizione da validare

@@ -15,6 +15,7 @@ error EvidenzeGiaInviate();
 error RimborsoFallito();
 error SoloMittenteRimborso();
 error CondizioniRimborsoNonSoddisfatte();
+error HashDettagliNonValido();
 
 /**
  * @title BNGestoreSpedizioni
@@ -55,15 +56,56 @@ contract BNGestoreSpedizioni is BNCore {
     uint256 public _contatoreIdSpedizione;
     
     // === EVENTI ===
+    
+    /// @notice Emesso quando viene creata una nuova spedizione
+    /// @param id ID univoco della spedizione
+    /// @param mittente Indirizzo del mittente che ha creato la spedizione
+    /// @param corriere Indirizzo del corriere assegnato
+    /// @param importo Importo in wei depositato in escrow
     event SpedizioneCreata(uint256 indexed id, address indexed mittente, address indexed corriere, uint256 importo);
+    
+    /// @notice Emesso quando un sensore invia un'evidenza
+    /// @param id ID della spedizione
+    /// @param evidenza ID dell'evidenza inviata (1-5)
+    /// @param valore Valore booleano dell'evidenza
+    /// @param sensore Indirizzo del sensore che ha inviato l'evidenza
     event EvidenzaInviata(uint256 indexed id, uint8 indexed evidenza, bool indexed valore, address sensore);
+    
+    /// @notice Emesso quando una spedizione viene annullata dal mittente
+    /// @param id ID della spedizione annullata
+    /// @param mittente Indirizzo del mittente che ha annullato
+    /// @param importoRimborsato Importo rimborsato al mittente
     event SpedizioneAnnullata(uint256 indexed id, address indexed mittente, uint256 importoRimborsato);
+    
+    /// @notice Emesso quando viene effettuato un rimborso al mittente
+    /// @param id ID della spedizione
+    /// @param mittente Indirizzo del mittente rimborsato
+    /// @param importo Importo rimborsato in wei
+    /// @param motivo Motivo del rimborso
     event RimborsoEffettuato(uint256 indexed id, address indexed mittente, uint256 importo, string motivo);
+    
+    /// @notice Emesso quando un tentativo di validazione fallisce
+    /// @param id ID della spedizione
+    /// @param numeroTentativi Numero totale di tentativi falliti
     event TentativoValidazioneFallito(uint256 indexed id, uint256 numeroTentativi);
-    event DettagliHashatiSalvati(uint256 indexed id, bytes32 indexed hashedDetails); // OFFUSCAMENTO
+    
+    /// @notice Emesso quando vengono salvati dettagli con hash (offuscamento)
+    /// @param id ID della spedizione
+    /// @param hashedDetails Hash dei dettagli sensibili
+    event DettagliHashatiSalvati(uint256 indexed id, bytes32 indexed hashedDetails);
     
     // === EVENTI DI RUNTIME MONITORING ===
+    
+    /// @notice Evento di monitoraggio per ricezione evidenza
+    /// @param shipmentId ID della spedizione
+    /// @param evidenceId ID dell'evidenza ricevuta
+    /// @param value Valore dell'evidenza
     event EvidenceReceived(uint256 indexed shipmentId, uint8 indexed evidenceId, bool indexed value);
+    
+    /// @notice Evento di monitoraggio per richieste di rimborso
+    /// @param shipmentId ID della spedizione
+    /// @param requester Indirizzo del richiedente
+    /// @param reason Motivo della richiesta
     event MonitorRefundRequest(uint256 indexed shipmentId, address indexed requester, string reason);
     
     constructor() {
@@ -85,7 +127,7 @@ contract BNGestoreSpedizioni is BNCore {
         if (msg.value == 0) revert PagamentoNullo();
         if (_corriere == address(0)) revert CorriereNonValido();
         
-        _contatoreIdSpedizione++;
+        ++_contatoreIdSpedizione;
         uint256 id = _contatoreIdSpedizione;
         
         spedizioni[id] = Spedizione({
@@ -118,9 +160,9 @@ contract BNGestoreSpedizioni is BNCore {
     {
         if (msg.value == 0) revert PagamentoNullo();
         if (_corriere == address(0)) revert CorriereNonValido();
-        require(_hashedDetails != bytes32(0), "Hash dettagli non valido");
+        if (_hashedDetails == bytes32(0)) revert HashDettagliNonValido();
         
-        _contatoreIdSpedizione++;
+        ++_contatoreIdSpedizione;
         uint256 id = _contatoreIdSpedizione;
         
         spedizioni[id] = Spedizione({

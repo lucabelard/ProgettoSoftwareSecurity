@@ -5,6 +5,7 @@ import "./BNPagamenti.sol";
 
 /**
  * @title BNCalcolatoreOnChain
+ * @author Blockchain Shipment Tracking Team
  * @notice Contratto principale che unifica tutti i moduli
  * @dev Architettura modulare per sicurezza e manutenibilità:
  *      - BNCore: Logica Bayesiana
