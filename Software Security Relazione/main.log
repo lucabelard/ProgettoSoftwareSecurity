@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2024) (preloaded format=pdflatex 2024.11.25)  27 JAN 2026 14:31
+This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2024) (preloaded format=pdflatex 2024.11.25)  27 JAN 2026 14:43
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1762,7 +1762,7 @@ Capitolo 5.
 
 
 
-])
+]
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
@@ -1771,17 +1771,21 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
-[14]
-\openout2 = `chapter6/chapter6.aux'.
+[14] (/usr/local/texlive/2024/texmf-dist/tex/latex/listings/lstlang1.sty
+File: lstlang1.sty 2024/02/21 1.10 listings language file
+)
+(/usr/local/texlive/2024/texmf-dist/tex/latex/listings/lstlang2.sty
+File: lstlang2.sty 2024/02/21 1.10 listings language file
+)
 
- (./chapter6/chapter6.tex
-Capitolo 6.
-[15
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 13.59999pt, for example:
+(fancyhdr)                \setlength{\headheight}{13.59999pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
 
+(fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
-
-
-])
+[15])
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
@@ -1791,6 +1795,25 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
 [16]
+\openout2 = `chapter6/chapter6.aux'.
+
+ (./chapter6/chapter6.tex
+Capitolo 6.
+[17
+
+
+
+
+])
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 13.59999pt, for example:
+(fancyhdr)                \setlength{\headheight}{13.59999pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+
+(fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
+
+[18]
 \openout2 = `backmatter/appendixA.aux'.
 
  (./backmatter/appendixA.tex
@@ -1831,7 +1854,7 @@ pdfTeX warning (ext4): destination with the same identifier (name{subsection.1.
 <to be read again> 
                    \relax 
 l.23 \subsection{Installazione Dipendenze}
-                                           [17
+                                           [19
 
 
 
@@ -1845,7 +1868,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
-[18]
+[20]
 
 Package glossaries Warning: No \printglossary or \printglossaries found. 
 (Remove \makeglossaries if you don't want any glossaries.) 
@@ -1861,11 +1884,11 @@ L3 programming layer <2024-02-20>
  ***********
  ) 
 Here is how much of TeX's memory you used:
- 38912 strings out of 474116
- 718574 string characters out of 5743681
+ 39053 strings out of 474116
+ 720304 string characters out of 5743681
  2136187 words of memory out of 5000000
- 59872 multiletter control sequences out of 15000+600000
- 645123 words of font info for 427 fonts, out of 8000000 for 9000
+ 59966 multiletter control sequences out of 15000+600000
+ 649041 words of font info for 447 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  111i,14n,131p,2339b,2045s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb
@@ -1878,10 +1901,10 @@ ve/2024/texmf-dist/fonts/type1/urw/helvetic/uhvr8a.pfb></usr/local/texlive/2024
 dist/fonts/type1/urw/palatino/uplr8a.pfb></usr/local/texlive/2024/texmf-dist/fo
 nts/type1/urw/palatino/uplr8a.pfb></usr/local/texlive/2024/texmf-dist/fonts/typ
 e1/urw/palatino/uplri8a.pfb>
-Output written on main.pdf (22 pages, 230506 bytes).
+Output written on main.pdf (24 pages, 240938 bytes).
 PDF statistics:
- 595 PDF objects out of 1000 (max. 8388607)
- 543 compressed objects within 6 object streams
- 152 named destinations out of 1000 (max. 500000)
- 127026 words of extra memory for PDF output out of 128383 (max. 10000000)
+ 636 PDF objects out of 1000 (max. 8388607)
+ 582 compressed objects within 6 object streams
+ 175 named destinations out of 1000 (max. 500000)
+ 129602 words of extra memory for PDF output out of 154059 (max. 10000000)
 

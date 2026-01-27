@@ -46,26 +46,32 @@
 \contentsline {section}{\numberline {5.1}Analisi Statica e Audit}{13}{section.5.1}%
 \contentsline {subsection}{\numberline {5.1.1}Risultati Solidity Analyzer e Solhint}{13}{subsection.5.1.1}%
 \contentsline {section}{\numberline {5.2}Verifica Formale con PRISM}{13}{section.5.2}%
-\contentsline {subsection}{\numberline {5.2.1}Modellazione Markov Chain}{13}{subsection.5.2.1}%
-\contentsline {subsection}{\numberline {5.2.2}Proprietà Verificate}{14}{subsection.5.2.2}%
-\contentsline {section}{\numberline {5.3}Testing su Blockchain Privata (Besu)}{14}{section.5.3}%
-\contentsline {subsection}{\numberline {5.3.1}Ambienti di Test}{14}{subsection.5.3.1}%
-\contentsline {subsection}{\numberline {5.3.2}Simulazione con Oracolo Scriptato}{14}{subsection.5.3.2}%
-\contentsline {subsection}{\numberline {5.3.3}Risultati}{14}{subsection.5.3.3}%
-\contentsline {chapter}{\numberline {6}Conclusioni e Sviluppi Futuri}{15}{chapter.6}%
-\contentsline {section}{\numberline {6.1}Sintesi dei Risultati}{15}{section.6.1}%
-\contentsline {section}{\numberline {6.2}Limitazioni Attuali}{15}{section.6.2}%
-\contentsline {section}{\numberline {6.3}Sviluppi Futuri}{16}{section.6.3}%
-\contentsline {subsection}{\numberline {6.3.1}Integrazione zk-SNARKs (Privacy)}{16}{subsection.6.3.1}%
-\contentsline {subsection}{\numberline {6.3.2}Oracle Feed decentralizzati (Chainlink)}{16}{subsection.6.3.2}%
-\contentsline {subsection}{\numberline {6.3.3}Hardware Security Module (HSM)}{16}{subsection.6.3.3}%
-\contentsline {chapter}{\numberline {A}Guida al Deployment e Management}{17}{chapter.1}%
-\contentsline {section}{\numberline {A.1}Requisiti di Sistema (Prerequisiti)}{17}{section.1.1}%
-\contentsline {section}{\numberline {A.2}Installazione e Setup}{17}{section.1.2}%
-\contentsline {subsection}{\numberline {A.2.1}Clonazione del Repository}{17}{subsection.1.2.1}%
-\contentsline {subsection}{\numberline {A.2.2}Installazione Dipendenze}{17}{subsection.1.2.2}%
-\contentsline {section}{\numberline {A.3}Avvio della Rete Blockchain}{18}{section.1.3}%
-\contentsline {subsection}{\numberline {A.3.1}Modalità Sviluppo (Ganache)}{18}{subsection.1.3.1}%
-\contentsline {subsection}{\numberline {A.3.2}Modalità Produzione (Hyperledger Besu)}{18}{subsection.1.3.2}%
-\contentsline {section}{\numberline {A.4}Esecuzione degli Script di Simulazione}{18}{section.1.4}%
-\contentsline {section}{\numberline {A.5}Interfaccia Web}{18}{section.1.5}%
+\contentsline {subsection}{\numberline {5.2.1}Obiettivi e Minacce Modellate}{13}{subsection.5.2.1}%
+\contentsline {subsection}{\numberline {5.2.2}Analisi 1: Sistema Vulnerabile (Senza Contromisure)}{14}{subsection.5.2.2}%
+\contentsline {subsubsection}{Matrice di Transizione (Vulnerabile)}{14}{section*.4}%
+\contentsline {subsubsection}{Risultati Verifica Formale (Vulnerabile)}{14}{section*.6}%
+\contentsline {subsection}{\numberline {5.2.3}Analisi 2: Sistema Protetto (Con Contromisure)}{14}{subsection.5.2.3}%
+\contentsline {subsubsection}{Matrice di Transizione (Protetto)}{15}{section*.7}%
+\contentsline {subsubsection}{Risultati Verifica Formale (Protetto)}{15}{section*.9}%
+\contentsline {subsection}{\numberline {5.2.4}Confronto Quantitativo Finale}{15}{subsection.5.2.4}%
+\contentsline {section}{\numberline {5.3}Testing su Blockchain Privata (Besu)}{16}{section.5.3}%
+\contentsline {subsection}{\numberline {5.3.1}Ambienti di Test}{16}{subsection.5.3.1}%
+\contentsline {subsection}{\numberline {5.3.2}Simulazione con Oracolo Scriptato}{16}{subsection.5.3.2}%
+\contentsline {subsection}{\numberline {5.3.3}Risultati}{16}{subsection.5.3.3}%
+\contentsline {chapter}{\numberline {6}Conclusioni e Sviluppi Futuri}{17}{chapter.6}%
+\contentsline {section}{\numberline {6.1}Sintesi dei Risultati}{17}{section.6.1}%
+\contentsline {section}{\numberline {6.2}Limitazioni Attuali}{17}{section.6.2}%
+\contentsline {section}{\numberline {6.3}Sviluppi Futuri}{18}{section.6.3}%
+\contentsline {subsection}{\numberline {6.3.1}Integrazione zk-SNARKs (Privacy)}{18}{subsection.6.3.1}%
+\contentsline {subsection}{\numberline {6.3.2}Oracle Feed decentralizzati (Chainlink)}{18}{subsection.6.3.2}%
+\contentsline {subsection}{\numberline {6.3.3}Hardware Security Module (HSM)}{18}{subsection.6.3.3}%
+\contentsline {chapter}{\numberline {A}Guida al Deployment e Management}{19}{chapter.1}%
+\contentsline {section}{\numberline {A.1}Requisiti di Sistema (Prerequisiti)}{19}{section.1.1}%
+\contentsline {section}{\numberline {A.2}Installazione e Setup}{19}{section.1.2}%
+\contentsline {subsection}{\numberline {A.2.1}Clonazione del Repository}{19}{subsection.1.2.1}%
+\contentsline {subsection}{\numberline {A.2.2}Installazione Dipendenze}{19}{subsection.1.2.2}%
+\contentsline {section}{\numberline {A.3}Avvio della Rete Blockchain}{20}{section.1.3}%
+\contentsline {subsection}{\numberline {A.3.1}Modalità Sviluppo (Ganache)}{20}{subsection.1.3.1}%
+\contentsline {subsection}{\numberline {A.3.2}Modalità Produzione (Hyperledger Besu)}{20}{subsection.1.3.2}%
+\contentsline {section}{\numberline {A.4}Esecuzione degli Script di Simulazione}{20}{section.1.4}%
+\contentsline {section}{\numberline {A.5}Interfaccia Web}{20}{section.1.5}%
