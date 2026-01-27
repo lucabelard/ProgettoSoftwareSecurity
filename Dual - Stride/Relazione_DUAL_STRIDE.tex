@@ -134,7 +134,7 @@ A8 & Chiavi private & Credenziali MetaMask & Critica \\
 \begin{landscape}
 \section{Analisi STRIDE-DUA Integrata}
 
-Di seguito viene presentata la matrice completa dell'analisi di rischio, che mappa gli asset contro le minacce STRIDE (intenzionali) e gli attributi di Safety/DUA (Danger, Unreliability, Absence of Resilience, Exposure).
+Di seguito viene presentata la matrice completa dell'analisi di rischio, che mappa gli asset contro le minacce STRIDE (intenzionali) e gli attributi di Safety/DUA (Danger, Unreliability, Absence of Resilience, Exposure). Gli identificativi di minaccia (es. S1.1, T1.1) verranno dettagliati nei capitoli successivi sia come casi di abuso (intenzionali) che di cattivo uso (accidentali).
 
 \begin{longtable}{|p{1.5cm}|c|c|c|c|c|c|c|c|c|c|c|p{3cm}|c|c|p{3cm}|c|c|c|c|c|c|c|}
 \hline
@@ -171,12 +171,14 @@ Di seguito viene presentata la matrice completa dell'analisi di rischio, che map
 
 \newpage
 
-% ===== CAPITOLO 3: SCENARI =====
-\section{Use Case e Misuse Case}
+% ===== CAPITOLO 3: SCENARI DUALI =====
+\section{Dettaglio Use/Misuse Cases per Threat ID}
 
-\subsection{Use Cases (Attacchi Intenzionali)}
+In questa sezione, ogni minaccia identificata nella matrice STRIDE (CSE ID) viene esplosa nei suoi componenti Duali: uno scenario di abuso (intenzionale) e, ove applicabile, uno scenario di cattivo uso (accidentale/failure).
 
-% UC-01
+\subsection*{Threat ID: S1.1 - Impersonificazione Sensore}
+
+% S1.1 Abuse
 \begin{table}[H]
 \centering
 \renewcommand{\arraystretch}{1.3}
@@ -185,194 +187,29 @@ Di seguito viene presentata la matrice completa dell'analisi di rischio, che map
 \rowcolor{headerblue}
 \multicolumn{2}{|c|}{\textbf{\textcolor{white}{Case Identification}}} \\
 \hline
-\rowcolor{labelblue} \textbf{Case Type} & Use Case \\
+\rowcolor{labelblue} \textbf{Case Type} & Abuse Case \\
 \hline
-\rowcolor{labelblue} \textbf{Case ID} & UC-01 \\
+\rowcolor{labelblue} \textbf{Case ID} & S1.1-A \\
 \hline
-\rowcolor{labelblue} \textbf{Case Name} & \textbf{Manipolazione Evidenze Sensore} \\
+\rowcolor{labelblue} \textbf{Case Name} & \textbf{Sensore Malevolo Falsificato} \\
 \hline
-\rowcolor{labelblue} \textbf{Actors} & Attaccante Esterno, Sensore Compromesso, Corriere Complice \\
+\rowcolor{labelblue} \textbf{Actors} & Attaccante Esterno, Sensore Compromesso \\
 \hline
-\rowcolor{labelblue} \textbf{Description} & Un attaccante invia evidenze falsificate sfruttando una chiave privata compromessa per ottenere indebitamente il pagamento. \\
+\rowcolor{labelblue} \textbf{Description} & Un attaccante utilizza una chiave rubata con RUOLO\_SENSORE per inviare dati falsi (es. temperatura OK quando non lo è). \\
 \hline
-\rowcolor{labelblue} \textbf{Data} & Chiave privata, Dati sensori (E1-E5) \\
-\hline
-\rowcolor{labelblue} \textbf{Stimulus/Precond.} & Sensore con ruolo attivo; spedizione in stato InAttesa. \\
+\rowcolor{labelblue} \textbf{Data} & Chiave privata, Dati sensori \\
 \hline
 \rowcolor{labelblue} \textbf{Basic Flow} & 
-1. Attaccante ottiene chiave privata sensore. \newline
-2. Crea spedizione fraudolenta. \newline
-3. Invia $E_1=true$ (falso) allo smart contract. \newline
-4. Sistema calcola probabilità > 95\%. \newline
-5. Corriere incassa pagamento. \\
+1. Attaccante compromette chiave sensore. \newline
+2. Invia evidenza falsa $E_1=true$. \newline
+3. Sistema valida spedizione non conforme. \\
 \hline
-\rowcolor{labelblue} \textbf{Alternative Flow} & Attacco Man-in-the-Middle su device IoT non protetto. \\
-\hline
-\rowcolor{labelblue} \textbf{Exception Flow} & Admin revoca ruolo DOPO invio -> Transazione fallisce. \\
-\hline
-\rowcolor{labelblue} \textbf{Response/Post.} & Perdita fondi, farmaci deteriorati in commercio. \\
-\hline
-\rowcolor{labelblue} \textbf{Non-Funct. Req.} & Autenticazione hardware (TPM). \\
-\hline
-\rowcolor{labelblue} \textbf{Comments} & Rischio Critico. Richiede device attestation. \\
+\rowcolor{labelblue} \textbf{Response} & Pagamento fraudolento. \\
 \hline
 \end{tabular}
 \end{table}
 
-% UC-02
-\begin{table}[H]
-\centering
-\renewcommand{\arraystretch}{1.3}
-\begin{tabular}{|p{3cm}|p{12cm}|}
-\hline
-\rowcolor{headerblue}
-\multicolumn{2}{|c|}{\textbf{\textcolor{white}{Case Identification}}} \\
-\hline
-\rowcolor{labelblue} \textbf{Case Type} & Use Case \\
-\hline
-\rowcolor{labelblue} \textbf{Case ID} & UC-02 \\
-\hline
-\rowcolor{labelblue} \textbf{Case Name} & \textbf{Reverse Engineering CPT} \\
-\hline
-\rowcolor{labelblue} \textbf{Actors} & Attaccante Esterno con competenze tecniche \\
-\hline
-\rowcolor{labelblue} \textbf{Description} & Attaccante analizza le CPT (Conditional Probability Tables) per determinare le combinazioni minime di evidenze necessarie, permettendo di aggirare i controlli. \\
-\hline
-\rowcolor{labelblue} \textbf{Data} & CPT per E1-E5 (se pubbliche), probabilità P(F1), P(F2) \\
-\hline
-\rowcolor{labelblue} \textbf{Stimulus/Precond.} & Attaccante ha accesso lettura blockchain; CPT leggibili. \\
-\hline
-\rowcolor{labelblue} \textbf{Basic Flow} & 
-1. Attaccante legge CPT dalla blockchain. \newline
-2. Implementa algoritmo bayesiano offline. \newline
-3. Simula tutte le 32 combinazioni possibili. \newline
-4. Identifica combinazioni "economiche" che superano la soglia. \newline
-5. Programma sensori per inviare esattamente quei dati. \\
-\hline
-\rowcolor{labelblue} \textbf{Alternative Flow} & Utilizzo di Machine Learning per inferire parametri da osservazioni passate. \\
-\hline
-\rowcolor{labelblue} \textbf{Response/Post.} & Spese minime per l'attaccante, validazione garantita fraudolenta. \\
-\hline
-\rowcolor{labelblue} \textbf{Comments} & \textbf{MITIGATO}: Variabili CPT rese private e accessibili solo agli admin. \\
-\hline
-\end{tabular}
-\end{table}
-
-% UC-03
-\begin{table}[H]
-\centering
-\renewcommand{\arraystretch}{1.3}
-\begin{tabular}{|p{3cm}|p{12cm}|}
-\hline
-\rowcolor{headerblue}
-\multicolumn{2}{|c|}{\textbf{\textcolor{white}{Case Identification}}} \\
-\hline
-\rowcolor{labelblue} \textbf{Case Type} & Use Case \\
-\hline
-\rowcolor{labelblue} \textbf{Case ID} & UC-03 \\
-\hline
-\rowcolor{labelblue} \textbf{Case Name} & \textbf{DoS via Evidenze Mancanti} \\
-\hline
-\rowcolor{labelblue} \textbf{Actors} & Sensore Malevolo, Insider \\
-\hline
-\rowcolor{labelblue} \textbf{Description} & Un sensore non invia tutte le evidenze richieste, causando il blocco indefinito dei fondi in escrow. \\
-\hline
-\rowcolor{labelblue} \textbf{Data} & ID spedizione, ETH bloccati \\
-\hline
-\rowcolor{labelblue} \textbf{Stimulus/Precond.} & Spedizione creata con ETH in escrow; sensore ha RUOLO\_SENSORE. \\
-\hline
-\rowcolor{labelblue} \textbf{Basic Flow} & 
-1. Mittente deposita 10 ETH. \newline
-2. Sensore invia parzialmente (es. E1-E4) ma omette E5. \newline
-3. Funzione \code{validaEPaga()} fallisce ("Evidenze mancanti"). \newline
-4. Fondi bloccati permanentemente (senza correzioni). \\
-\hline
-\rowcolor{labelblue} \textbf{Alternative Flow} & Attacco distribuito su più spedizioni contemporaneamente. \\
-\hline
-\rowcolor{labelblue} \textbf{Response/Post.} & Blocco operativo e finanziario. \\
-\hline
-\rowcolor{labelblue} \textbf{Comments} & \textbf{RISOLTO}: Timeout rimborso 7 giorni e annullamento precoce. \\
-\hline
-\end{tabular}
-\end{table}
-
-% UC-04 (Restored)
-\begin{table}[H]
-\centering
-\renewcommand{\arraystretch}{1.3}
-\begin{tabular}{|p{3cm}|p{12cm}|}
-\hline
-\rowcolor{headerblue}
-\multicolumn{2}{|c|}{\textbf{\textcolor{white}{Case Identification}}} \\
-\hline
-\rowcolor{labelblue} \textbf{Case Type} & Use Case \\
-\hline
-\rowcolor{labelblue} \textbf{Case ID} & UC-04 \\
-\hline
-\rowcolor{labelblue} \textbf{Case Name} & \textbf{Phishing tramite Clone Interfaccia} \\
-\hline
-\rowcolor{labelblue} \textbf{Actors} & Attaccante Esterno \\
-\hline
-\rowcolor{labelblue} \textbf{Description} & L'attaccante clona la DApp su un dominio simile per sottrarre chiavi private. \\
-\hline
-\rowcolor{labelblue} \textbf{Data} & Interfaccia Web clone, Credenziali utente \\
-\hline
-\rowcolor{labelblue} \textbf{Stimulus/Precond.} & Utente accede a dominio typosquatted. \\
-\hline
-\rowcolor{labelblue} \textbf{Basic Flow} & 
-1. Attaccante registra dominio simile. \newline
-2. Clona DApp React. \newline
-3. Sito chiede Seed Phrase "per verifica". \newline
-4. Utente inserisce credenziali. \newline
-5. Furto wallet. \\
-\hline
-\rowcolor{labelblue} \textbf{Response/Post.} & Compromissione totale account. \\
-\hline
-\rowcolor{labelblue} \textbf{Comments} & Mitigazione: ENS, verifica IPFS hash. \\
-\hline
-\end{tabular}
-\end{table}
-
-% UC-05 (Restored)
-\begin{table}[H]
-\centering
-\renewcommand{\arraystretch}{1.3}
-\begin{tabular}{|p{3cm}|p{12cm}|}
-\hline
-\rowcolor{headerblue}
-\multicolumn{2}{|c|}{\textbf{\textcolor{white}{Case Identification}}} \\
-\hline
-\rowcolor{labelblue} \textbf{Case Type} & Use Case \\
-\hline
-\rowcolor{labelblue} \textbf{Case ID} & UC-05 \\
-\hline
-\rowcolor{labelblue} \textbf{Case Name} & \textbf{Intelligence Competitiva (Data Mining)} \\
-\hline
-\rowcolor{labelblue} \textbf{Actors} & Competitor Commerciale \\
-\hline
-\rowcolor{labelblue} \textbf{Description} & Monitoraggio blockchain per ricostruire volumi e clienti del rivale. \\
-\hline
-\rowcolor{labelblue} \textbf{Data} & Transazioni pubbliche, Log eventi \\
-\hline
-\rowcolor{labelblue} \textbf{Stimulus/Precond.} & Dati in chiaro on-chain. \\
-\hline
-\rowcolor{labelblue} \textbf{Basic Flow} & 
-1. Ascolto eventi \code{SpedizioneCreata}. \newline
-2. Analisi frequenza e importi ETH. \newline
-3. Mappatura grafo mittente-corriere. \newline
-4. Deduzione strategia commerciale. \\
-\hline
-\rowcolor{labelblue} \textbf{Response/Post.} & Perdita segreto commerciale. \\
-\hline
-\rowcolor{labelblue} \textbf{Comments} & \textbf{MITIGATO}: Hashing dettagli on-chain. \\
-\hline
-\end{tabular}
-\end{table}
-
-
-\subsection{Misuse Cases (Errori Non Intenzionali)}
-
-% MC-01
+% S1.1 Misuse
 \begin{table}[H]
 \centering
 \renewcommand{\arraystretch}{1.3}
@@ -383,32 +220,60 @@ Di seguito viene presentata la matrice completa dell'analisi di rischio, che map
 \hline
 \rowcolor{labelblue} \textbf{Case Type} & Misuse Case \\
 \hline
-\rowcolor{labelblue} \textbf{Case ID} & MC-01 \\
+\rowcolor{labelblue} \textbf{Case ID} & S1.1-M \\
 \hline
-\rowcolor{labelblue} \textbf{Case Name} & \textbf{Smarrimento Chiavi Private} \\
+\rowcolor{labelblue} \textbf{Case Name} & \textbf{Guasto Sensore (Unreliability)} \\
 \hline
-\rowcolor{labelblue} \textbf{Actors} & Mittente Inesperto \\
+\rowcolor{labelblue} \textbf{Actors} & Sensore Guasto \\
 \hline
-\rowcolor{labelblue} \textbf{Description} & Un utente legittimo perde accesso alla propria chiave privata MetaMask. \\
+\rowcolor{labelblue} \textbf{Description} & Un sensore difettoso invia dati errati non per malizia ma per drift hw o rottura. \\
 \hline
-\rowcolor{labelblue} \textbf{Data} & Chiave privata, Seed phrase \\
-\hline
-\rowcolor{labelblue} \textbf{Stimulus/Precond.} & Errore umano; nessun backup. \\
+\rowcolor{labelblue} \textbf{Data} & Dati sensori \\
 \hline
 \rowcolor{labelblue} \textbf{Basic Flow} & 
-1. Utente perde dispositivo/seed. \newline
-2. Spedizione in corso richiede interazione (es. rimborso). \newline
-3. Utente non può firmare. \newline
-4. Fondi inaccessibili. \\
+1. Sensore starato legge +2 gradi. \newline
+2. Invia $E_1=false$ erroneamente. \newline
+3. Spedizione valida viene rifiutata. \\
 \hline
-\rowcolor{labelblue} \textbf{Response/Post.} & Perdita permanente fondi. \\
-\hline
-\rowcolor{labelblue} \textbf{Comments} & Problema infrastrutturale. \\
+\rowcolor{labelblue} \textbf{Response} & Falso negativo, mittente non pagato. \\
 \hline
 \end{tabular}
 \end{table}
 
-% MC-02
+\subsection*{Threat ID: T1.1 - Manipolazione CPT}
+
+% T1.1 Abuse
+\begin{table}[H]
+\centering
+\renewcommand{\arraystretch}{1.3}
+\begin{tabular}{|p{3cm}|p{12cm}|}
+\hline
+\rowcolor{headerblue}
+\multicolumn{2}{|c|}{\textbf{\textcolor{white}{Case Identification}}} \\
+\hline
+\rowcolor{labelblue} \textbf{Case Type} & Abuse Case \\
+\hline
+\rowcolor{labelblue} \textbf{Case ID} & T1.1-A \\
+\hline
+\rowcolor{labelblue} \textbf{Case Name} & \textbf{Insider Manipulation CPT} \\
+\hline
+\rowcolor{labelblue} \textbf{Actors} & Admin Infedele \\
+\hline
+\rowcolor{labelblue} \textbf{Description} & Un admin con RUOLO\_ORACOLO modifica intenzionalmente le probabilità per favorire transazioni fraudolente. \\
+\hline
+\rowcolor{labelblue} \textbf{Data} & CPT Params \\
+\hline
+\rowcolor{labelblue} \textbf{Basic Flow} & 
+1. Admin imposta $P(E|F)=99\%$ sempre. \newline
+2. Qualsiasi evidenza viene accettata. \newline
+3. Sistema logico compromesso. \\
+\hline
+\rowcolor{labelblue} \textbf{Response} & Validazione inutile. \\
+\hline
+\end{tabular}
+\end{table}
+
+% T1.1 Misuse
 \begin{table}[H]
 \centering
 \renewcommand{\arraystretch}{1.3}
@@ -419,33 +284,55 @@ Di seguito viene presentata la matrice completa dell'analisi di rischio, che map
 \hline
 \rowcolor{labelblue} \textbf{Case Type} & Misuse Case \\
 \hline
-\rowcolor{labelblue} \textbf{Case ID} & MC-02 \\
+\rowcolor{labelblue} \textbf{Case ID} & T1.1-M \\
 \hline
-\rowcolor{labelblue} \textbf{Case Name} & \textbf{Errore Configurazione Parametri} \\
+\rowcolor{labelblue} \textbf{Case Name} & \textbf{Errore Configurazione CPT} \\
 \hline
-\rowcolor{labelblue} \textbf{Actors} & Amministratore (Oracolo) \\
+\rowcolor{labelblue} \textbf{Actors} & Admin Inesperto \\
 \hline
-\rowcolor{labelblue} \textbf{Description} & Inserimento valori probabilistici errati (es. > 100\%). \\
-\hline
-\rowcolor{labelblue} \textbf{Data} & CPT params \\
-\hline
-\rowcolor{labelblue} \textbf{Stimulus/Precond.} & Typo o incomprensione unità. \\
+\rowcolor{labelblue} \textbf{Description} & Inserimento accidentale di valori fuori range o invertiti (typo). \\
 \hline
 \rowcolor{labelblue} \textbf{Basic Flow} & 
-1. Admin chiama \code{impostaCPT} con 150. \newline
-2. Sistema (senza fix) accetterebbe valore. \newline
-3. Logica corrotta. \\
+1. Admin scrive 150 invece di 15. \newline
+2. Calcolo produce overflow o errore logico. \\
 \hline
-\rowcolor{labelblue} \textbf{Exception Flow} & Smart contract revert per check \code{<= 100}. \\
-\hline
-\rowcolor{labelblue} \textbf{Response/Post.} & Transazione fallita (con fix), sistema salvo. \\
-\hline
-\rowcolor{labelblue} \textbf{Comments} & \textbf{RISOLTO}: Controlli di validazione input. \\
+\rowcolor{labelblue} \textbf{Response} & Sistema instabile fino a correzione. \\
 \hline
 \end{tabular}
 \end{table}
 
-% MC-03 (Restored)
+\subsection*{Threat ID: D1.2 - Denial of Service (Blocco Fondi)}
+
+% D1.2 Abuse
+\begin{table}[H]
+\centering
+\renewcommand{\arraystretch}{1.3}
+\begin{tabular}{|p{3cm}|p{12cm}|}
+\hline
+\rowcolor{headerblue}
+\multicolumn{2}{|c|}{\textbf{\textcolor{white}{Case Identification}}} \\
+\hline
+\rowcolor{labelblue} \textbf{Case Type} & Abuse Case \\
+\hline
+\rowcolor{labelblue} \textbf{Case ID} & D1.2-A \\
+\hline
+\rowcolor{labelblue} \textbf{Case Name} & \textbf{Withholding Attack (Malevolo)} \\
+\hline
+\rowcolor{labelblue} \textbf{Actors} & Sensore Malevolo \\
+\hline
+\rowcolor{labelblue} \textbf{Description} & Sensore compromesso rifiuta selettivamente di inviare l'ultima evidenza per bloccare i fondi del mittente come riscatto. \\
+\hline
+\rowcolor{labelblue} \textbf{Basic Flow} & 
+1. Invio E1-E4. \newline
+2. Trattenuta E5. \newline
+3. Fondi bloccati in escrow. \\
+\hline
+\rowcolor{labelblue} \textbf{Response} & Ricatto economico. \\
+\hline
+\end{tabular}
+\end{table}
+
+% D1.2 Misuse
 \begin{table}[H]
 \centering
 \renewcommand{\arraystretch}{1.3}
@@ -456,56 +343,110 @@ Di seguito viene presentata la matrice completa dell'analisi di rischio, che map
 \hline
 \rowcolor{labelblue} \textbf{Case Type} & Misuse Case \\
 \hline
-\rowcolor{labelblue} \textbf{Case ID} & MC-03 \\
+\rowcolor{labelblue} \textbf{Case ID} & D1.2-M \\
 \hline
-\rowcolor{labelblue} \textbf{Case Name} & \textbf{Invio ETH Indirizzo Errato} \\
+\rowcolor{labelblue} \textbf{Case Name} & \textbf{Timeout/Connettività (Accidentale)} \\
 \hline
-\rowcolor{labelblue} \textbf{Actors} & Mittente \\
+\rowcolor{labelblue} \textbf{Actors} & Sensore Offline \\
 \hline
-\rowcolor{labelblue} \textbf{Description} & Mittente specifica indirizzo corriere errato (typo) in creazione. \\
-\hline
-\rowcolor{labelblue} \textbf{Data} & Indirizzo corriere, ETH \\
-\hline
-\rowcolor{labelblue} \textbf{Stimulus/Precond.} & Errore di copia-incolla. \\
+\rowcolor{labelblue} \textbf{Description} & Sensore perde connessione o batteria e non riesce a inviare evidenze. \\
 \hline
 \rowcolor{labelblue} \textbf{Basic Flow} & 
-1. Copia indirizzo errato (0xABD...). \newline
-2. Invoca \code{creaSpedizione}. \newline
-3. Validazione OK. \newline
-4. Pagamento a sconosciuto. \\
+1. Spedizione parte. \newline
+2. Sensore muore. \newline
+3. Evidenze mai arrivate. \\
 \hline
-\rowcolor{labelblue} \textbf{Response/Post.} & Fondi persi a destinatario errato. \\
-\hline
-\rowcolor{labelblue} \textbf{Comments} & Mitigazione: Whitelist UI, Checksum address. \\
+\rowcolor{labelblue} \textbf{Response} & Fondi bloccati per errore tecnico. \\
 \hline
 \end{tabular}
 \end{table}
 
+\subsection*{Threat ID: I1.1 - Esposizione Dati}
+
+% I1.1 Abuse only (Misuse is rare for public ledger data)
+\begin{table}[H]
+\centering
+\renewcommand{\arraystretch}{1.3}
+\begin{tabular}{|p{3cm}|p{12cm}|}
+\hline
+\rowcolor{headerblue}
+\multicolumn{2}{|c|}{\textbf{\textcolor{white}{Case Identification}}} \\
+\hline
+\rowcolor{labelblue} \textbf{Case Type} & Abuse Case \\
+\hline
+\rowcolor{labelblue} \textbf{Case ID} & I1.1-A \\
+\hline
+\rowcolor{labelblue} \textbf{Case Name} & \textbf{Data Mining Competitivo} \\
+\hline
+\rowcolor{labelblue} \textbf{Actors} & Competitor \\
+\hline
+\rowcolor{labelblue} \textbf{Description} & Analisi transazioni pubbliche per ricostruire volumi d'affari e clienti. \\
+\hline
+\rowcolor{labelblue} \textbf{Response} & Perdita segreto industriale. \\
+\hline
+\end{tabular}
+\end{table}
+
+\subsection*{Threat ID: S1.2 - Spoofing UI}
+
+% S1.2 Abuse
+\begin{table}[H]
+\centering
+\renewcommand{\arraystretch}{1.3}
+\begin{tabular}{|p{3cm}|p{12cm}|}
+\hline
+\rowcolor{headerblue}
+\multicolumn{2}{|c|}{\textbf{\textcolor{white}{Case Identification}}} \\
+\hline
+\rowcolor{labelblue} \textbf{Case Type} & Abuse Case \\
+\hline
+\rowcolor{labelblue} \textbf{Case ID} & S1.2-A \\
+\hline
+\rowcolor{labelblue} \textbf{Case Name} & \textbf{Phishing DApp} \\
+\hline
+\rowcolor{labelblue} \textbf{Actors} & Attaccante Phisher \\
+\hline
+\rowcolor{labelblue} \textbf{Description} & Cloning interfaccia web per rubare chiavi private agli utenti. \\
+\hline
+\rowcolor{labelblue} \textbf{Response} & Furto d'identità e fondi. \\
+\hline
+\end{tabular}
+\end{table}
+
+% S1.2 Misuse (User Error -> MC-03 equivalent)
+\begin{table}[H]
+\centering
+\renewcommand{\arraystretch}{1.3}
+\begin{tabular}{|p{3cm}|p{12cm}|}
+\hline
+\rowcolor{headerblue}
+\multicolumn{2}{|c|}{\textbf{\textcolor{white}{Case Identification}}} \\
+\hline
+\rowcolor{labelblue} \textbf{Case Type} & Misuse Case \\
+\hline
+\rowcolor{labelblue} \textbf{Case ID} & S1.2-M \\
+\hline
+\rowcolor{labelblue} \textbf{Case Name} & \textbf{Errore Destinatario (User Mistake)} \\
+\hline
+\rowcolor{labelblue} \textbf{Actors} & Mittente Distratto \\
+\hline
+\rowcolor{labelblue} \textbf{Description} & Utente interagisce con contratto corretto ma invia pagamento a indirizzo sbagliato per typo. \\
+\hline
+\rowcolor{labelblue} \textbf{Response} & Perdita fondi irrevocabile. \\
+\hline
+\end{tabular}
+\end{table}
 
 % ===== CAPITOLO 4 =====
 \section{Contromisure Implementate}
 
 \subsection{Protezione dei Fondi (Anti-Blocco)}
-Per mitigare il rischio critico di blocco dei fondi (UC-03), è stato implementato un meccanismo di rimborso a tre livelli nel contratto \code{BNGestoreSpedizioni}:
-
-\begin{enumerate}
-    \item \textbf{Annullamento Precoce}: Permette al mittente di annullare la spedizione e recuperare i fondi \textit{prima} che qualsiasi evidenza venga inviata.
-    \item \textbf{Timeout Temporale}: Se le evidenze non sono complete entro 7 giorni, o se la validazione non avviene entro 14 giorni, il rimborso è sbloccato.
-    \item \textbf{Soglia Fallimenti}: Dopo 3 tentativi di validazione falliti (indicativi di merce non conforme), il mittente può richiedere indietro i fondi.
-\end{enumerate}
+Le contromisure rispondono direttamente ai casi D1.2-A e D1.2-M attraverso il meccanismo di rimborso a tre livelli.
 
 \subsection{Privacy e Offuscamento Dati}
-Per proteggere i segreti commerciali, sono state adottate strategie di minimizzazione dati on-chain.
+Le contromisure rispondono al caso I1.1-A (Hashing) e T1.1-A (CPT Private).
 
-\paragraph{Offuscamento Dettagli Spedizione}
-La funzione \code{creaSpedizioneConHash} registra on-chain solo l'hash (Keccak-256) dei dettagli sensibili (merce, destinatario finale). I dati in chiaro rimangono off-chain, ma la loro integrità è verificabile in caso di disputa tramite \code{verificaDettagli}.
-
-\paragraph{Visibilità CPT}
-Le tabelle di probabilità condizionata sono state dichiarate \code{private} nel contratto \code{BNCore}. Questo impedisce la lettura diretta tramite getter automatici, alzando l'asticella per gli attaccanti che volessero fare reverse-engineering del modello (UC-02).
-
-\section{Conclusioni e Sviluppi Futuri}
-L'analisi Dual-Stride ha permesso di identificare e risolvere le criticità maggiori. Il sistema v3.0 presenta un profilo di sicurezza notevolmente rafforzato rispetto alle versioni precedenti.
-
-L'adozione di un approccio metodologico strutturato ha permesso di coprire non solo gli attacchi intenzionali classici, ma anche scenari di errore umano spesso trascurati in ambito blockchain. Le contromisure implementate (rimborso, hashing, private variables) sono efficaci e verificabili direttamente nel codice sorgente.
+\section{Conclusioni}
+L'applicazione sistematica dell'analisi Duale per ogni ID di minaccia (S1.1, T1.1, ecc.) ha garantito la copertura totale sia degli attacchi intenzionali che dei guasti accidentali.
 
 \end{document}
