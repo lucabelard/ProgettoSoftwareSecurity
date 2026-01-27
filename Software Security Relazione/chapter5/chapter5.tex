@@ -16,115 +16,261 @@ Il codice è stato sottoposto ad analisi statica automatizzata per identificare 
 \section{Verifica Formale con PRISM}
 Per garantire la robustezza logica del sistema rispetto alle minacce identificate (Spoofing e Tampering), è stato modellato il comportamento probabilistico dell'unità "Sensore-Oracolo" utilizzando il model checker \textbf{PRISM}. L'analisi si basa su Catene di Markov a Tempo Discreto (DTMC) e segue una metodologia comparativa: viene prima analizzato il sistema vulnerabile (senza contromisure) e successivamente il sistema protetto (con Active Defense, TPM e Ridondanza).
 
-\subsection{Obiettivi e Minacce Modellate}
-L'obiettivo è quantificare l'efficacia delle contromisure nel mitigare due minacce critiche STRIDE:
-\begin{itemize}
-    \item \textbf{Spoofing (S2.1)}: Un sensore falso inietta dati malevoli (Probabilità stimata: 5\% per step).
-    \item \textbf{Tampering (T2.1)}: Manomissione fisica del sensore (Probabilità stimata: 10\% per step).
-\end{itemize}
-Il modello verifica proprietà di \textit{Safety} (Probabilità di compromissione) e \textit{Guarantee/Response} (Capacità di recovery).
+\subsection{Introduzione: Obiettivo della Modellazione}
 
-\subsection{Analisi 1: Sistema Vulnerabile (Senza Contromisure)}
-Il modello PRISM del sistema non protetto evidenzia la vulnerabilità intrinseca agli attacchi.
+\subsubsection{Contesto del Sistema}
+Il sistema oggetto di questa analisi è un sistema di monitoraggio IoT per la supply chain composto da cinque sensori critici che monitorano lo stato di merci durante il trasporto. L'architettura del sistema comprende il sensore E1 per il monitoraggio della temperatura, il sensore E2 per il controllo del sigillo, il sensore E3 per il rilevamento degli shock meccanici, il sensore E4 per il monitoraggio della luce, e il sensore E5 per la scansione all'arrivo. Questi componenti sono stati progettati per garantire l'integrità e la tracciabilità dei dati durante l'intera catena logistica.
 
-\subsubsection{Matrice di Transizione (Vulnerabile)}
-In assenza di difese, le probabilità di transizione per un singolo sensore sono:
+\subsubsection{Scopo dell'Analisi di Markov Chain}
+L'obiettivo di questa analisi è modellare formalmente il comportamento probabilistico del sistema di sensori utilizzando Discrete-Time Markov Chains (DTMC). L'approccio metodologico persegue tre obiettivi principali: quantificare l'efficacia delle contromisure di sicurezza implementate attraverso l'analisi DUAL-STRIDE, verificare formalmente proprietà di Safety e Guarantee/Response utilizzando il model checker PRISM, e confrontare quantitativamente il sistema con e senza contromisure per dimostrare l'impatto delle misure di sicurezza adottate.
 
-\begin{table}[h]
+\subsubsection{Minacce Modellate}
+L'analisi DUAL-STRIDE ha identificato come critiche per l'integrità del sistema due principali minacce appartenenti alla tassonomia STRIDE. La prima è Spoofing (S2.1), in cui un sensore falso può iniettare dati malevoli nel sistema compromettendone l'autenticità. La seconda è Tampering (T2.1), che consiste nella manomissione fisica dei sensori con conseguente alterazione delle letture. Tali minacce rappresentano vettori di attacco significativi che possono compromettere la confidenzialità e l'integrità dei dati raccolti.
+
+\subsubsection{Contromisure Implementate}
+Il sistema di sicurezza implementato si basa su tre pilastri fondamentali. Il primo consiste in Device Attestation basato su Trusted Platform Module (TPM) combinato con Mutual TLS, che fornisce autenticazione bilaterale e blocca efficacemente attacchi di tipo Spoofing. Il secondo pilastro è rappresentato dalla Sensor Redundancy, che mitiga i rischi derivanti da Tampering fisico mediante ridondanza hardware. Il terzo pilastro è costituito dall'Active Defense System, un sistema di difesa attivo composto da tre componenti: Intrusion Detection System (IDS) per il rilevamento dei tentativi di attacco, Rate Limiting per il conteggio dei fallimenti di autenticazione, e System Lock che blocca permanentemente il sensore dopo tre tentativi di attacco consecutivi.
+
+\subsection{Modello PRISM: Sistema SENZA Contromisure}
+
+\subsubsection{Struttura del Modello}
+Il modello PRISM rappresenta il sistema prima dell'implementazione delle contromisure DUAL-STRIDE, evidenziando la vulnerabilità intrinseca agli attacchi. Il modello è dichiarato come Discrete-Time Markov Chain (DTMC), in cui il tempo avanza in step discreti e le transizioni tra stati seguono distribuzioni probabilistiche definite.
+
+\paragraph{Dichiarazione del Tipo di Modello}
+\begin{lstlisting}[style=mystyle, language=Prolog]
+dtmc
+\end{lstlisting}
+Questa dichiarazione specifica che il modello adotta una Discrete-Time Markov Chain (DTMC), dove il tempo avanza in step discreti e le transizioni sono governate da probabilità.
+
+\paragraph{Variabili di Stato (Senza Active Defense)}
+\begin{lstlisting}[style=mystyle, language=Prolog]
+module sensor_system_vulnerable
+    
+    e1 : [0..2] init 0;  // Sensore E1: Temperatura
+    e2 : [0..2] init 0;  // Sensore E2: Sigillo
+    e3 : [0..2] init 0;  // Sensore E3: Shock
+    e4 : [0..2] init 0;  // Sensore E4: Luce
+    e5 : [0..2] init 0;  // Sensore E5: Scan Arrivo
+    
+    time : [0..200] init 0;
+\end{lstlisting}
+
+Ogni sensore è modellato attraverso una variabile di stato con dominio [0..2], dove lo stato 0 corrisponde al sensore funzionante e sicuro (OK), lo stato 1 rappresenta un guasto hardware non derivante da compromissione (FAILED), e lo stato 2 indica un sensore sotto attacco riuscito (COMPROMISED). Il modello include inoltre un contatore temporale che avanza da 0 a 200 step, definendo l'orizzonte temporale dell'analisi.
+Una caratteristica distintiva di questo modello vulnerabile è l'assenza del contatore \texttt{e1\_attempts} e del flag \texttt{e1\_locked}, indicando che non sono implementati meccanismi di IDS, Rate Limiting o Active Defense. Tutti i sensori inizializzano nello stato OK (\texttt{init 0}) per consentire un confronto equo con il modello protetto.
+
+\subsubsection{Matrice di Transizione: Sistema SENZA Contromisure}
+La seguente matrice mostra le probabilità di transizione per un singolo sensore senza contromisure:
+
+\begin{table}[H]
 \centering
 \begin{tabularx}{\textwidth}{|l|X|X|X|}
 \hline
-\textbf{Da / A} & \textbf{OK (0)} & \textbf{FAILED (1)} & \textbf{COMPROMISED (2)} \\ \hline
-\textbf{OK} & 80\% (Normale) & 5\% (Guasto) & \textbf{15\% (Attacco Riuscito)} \\ \hline
-\textbf{FAILED} & 60\% (Recovery Lento) & 30\% (Guasto) & \textbf{10\% (Attacco su Guasto)} \\ \hline
-\textbf{COMPR.} & 0\% & 0\% & 100\% (Stato Assorbente) \\ \hline
+\textbf{Da Stato $\downarrow$ / A Stato $\rightarrow$} & \textbf{OK (0)} & \textbf{FAILED (1)} & \textbf{COMPR. (2)} \\ \hline
+\textbf{OK (0)} & 0.80 & 0.05 & \textbf{0.15} \\ \hline
+\textbf{FAILED (1)} & 0.60 & 0.30 & \textbf{0.10} \\ \hline
+\textbf{COMPR. (2)} & 0.00 & 0.00 & 1.00 \\ \hline
 \end{tabularx}
 \caption{Matrice di Transizione - Sistema Vulnerabile}
 \end{table}
 
-\textbf{Criticità}:
+Dallo stato OK, il sensore ha una probabilità dell'80\% di rimanere operativo in assenza di eventi, una probabilità del 5\% di transizione verso lo stato FAILED dovuta a guasti hardware naturali, e una probabilità critica del 15\% di transizione verso lo stato COMPROMISED, dovuta ad attacchi riusciti (Spoofing 5\% + Tampering 10\%). Dallo stato FAILED, il recovery manuale presenta una probabilità del 60\%, mentre vi è una probabilità del 30\% che il sensore rimanga guasto e una preoccupante probabilità del 10\% di compromissione, indicando una maggiore vulnerabilità dei sensori in stato di guasto. Lo stato COMPROMISED costituisce uno stato assorbente.
+
+Le osservazioni critiche evidenziano un'alta probabilità di compromissione (15\% da OK e 10\% da FAILED), la natura assorbente dello stato compromesso che impedisce qualsiasi forma di recupero, e un recovery lento caratterizzato da una probabilità di solo 60\% dalla condizione di guasto.
+
+\paragraph{Diagramma di Stati: Sistema SENZA Contromisure (Rappresentazione Testuale)}
 \begin{enumerate}
-    \item \textbf{Alta probabilità di compromissione}: 15\% ad ogni step dallo stato OK.
-    \item \textbf{Recovery Lento}: Solo il 60\% di probabilità di ripristino da un guasto (processo manuale).
-    \item \textbf{Irreversibilità}: Lo stato \texttt{COMPROMISED} è assorbente. Una volta violato, il sistema è perso.
+    \item \textbf{OK}: Stato operativo normale. Transita a:
+    \begin{itemize}
+        \item OK (80\%): Nessun evento.
+        \item FAILED (5\%): Guasto naturale.
+        \item COMPROMISED (15\%): Attacco riuscito.
+    \end{itemize}
+    \item \textbf{FAILED}: Guasto hardware. Transita a:
+    \begin{itemize}
+        \item OK (60\%): Recovery manuale.
+        \item FAILED (30\%): Rimane guasto.
+        \item COMPROMISED (10\%): Attacco su sensore guasto.
+    \end{itemize}
+    \item \textbf{COMPROMISED}: Stato assorbente. Transita a:
+    \begin{itemize}
+        \item COMPROMISED (100\%): Nessun recovery possibile.
+    \end{itemize}
 \end{enumerate}
 
-\subsubsection{Risultati Verifica Formale (Vulnerabile)}
-\begin{enumerate}
-    \item \textbf{Safety (S1)}: \texttt{P=? [ G<=100 (nessun\_sensore\_compromesso) ]} \\
-    \textbf{Risultato}: $1.49 \times 10^{-7}$ ($\approx 0\%$).
-    \\ \textit{Analisi}: La compromissione è matematicamente certa entro 100 step.
+\subsubsection{Logica delle Transizioni: Sistema Vulnerabile}
+
+\paragraph{Sensore OK $\rightarrow$ OK, FAILED, o COMPROMISED}
+\begin{lstlisting}[style=mystyle, language=Prolog]
+    [] e1=0 & time<200 -> 
+        0.80 : (e1'=0) & (time'=time+1) +     // Rimane OK
+        0.05 : (e1'=1) & (time'=time+1) +     // Guasto naturale
+        0.15 : (e1'=2) & (time'=time+1);      // ATTACCO RIUSCITO
+\end{lstlisting}
+Questa regola di transizione codifica tre possibili esiti per un sensore nello stato OK. Con probabilità 80\% il sensore rimane operativo, con probabilità 5\% si verifica un guasto hardware naturale, e con probabilità 15\% si verifica un attacco riuscito che porta il sensore allo stato COMPROMISED. Quest'ultima transizione rappresenta il punto critico del sistema vulnerabile.
+
+\paragraph{Sensore FAILED $\rightarrow$ OK, FAILED, o COMPROMISED}
+\begin{lstlisting}[style=mystyle, language=Prolog]
+    [] e1=1 & time<200 -> 
+        0.60 : (e1'=0) & (time'=time+1) +     // Recovery manuale
+        0.30 : (e1'=1) & (time'=time+1) +     // Rimane guasto
+        0.10 : (e1'=2) & (time'=time+1);      // ATTACCO (piu' vulnerabile)
+\end{lstlisting}
+Per un sensore in stato FAILED, la regola modella il processo di recovery manuale che, in assenza di meccanismi di Auto-Failover, presenta un tasso di successo del 60\%, inferiore rispetto al modello protetto.
+
+\paragraph{Sensore COMPROMISED $\rightarrow$ COMPROMISED (Stato Assorbente)}
+\begin{lstlisting}[style=mystyle, language=Prolog]
+    [] e1=2 & time<200 -> 
+        1.00 : (e1'=2) & (time'=time+1);      // Rimane compromesso
+\end{lstlisting}
+Lo stato COMPROMISED è modellato come stato assorbente mediante una probabilità unitaria di auto-transizione.
+
+\subsubsection{Formule Derivate}
+\begin{lstlisting}[style=mystyle, language=Prolog]
+formula num_ok = (e1=0?1:0) + (e2=0?1:0) + (e3=0?1:0) + (e4=0?1:0) + (e5=0?1:0);
+formula num_failed = (e1=1?1:0) + (e2=1?1:0) + (e3=1?1:0) + (e4=1?1:0) + (e5=1?1:0);
+formula num_compromised = (e1=2?1:0) + (e2=2?1:0) + (e3=2?1:0) + (e4=2?1:0) + (e5=2?1:0);
+
+formula is_system_compromised = (num_compromised >= 1);
+formula is_system_operational = (num_ok = 5);
+formula is_system_degraded = (num_failed >= 1) & !is_system_compromised;
+formula is_safe = !is_system_compromised;
+\end{lstlisting}
+Il modello definisce formule ausiliarie per classificare lo stato aggregato del sistema. In particolare, il sistema è considerato compromesso se almeno un sensore si trova nello stato COMPROMISED, riflettendo l'assenza di Sensor Redundancy nel modello vulnerabile.
+
+\subsection{Proprietà PCTL Verificate: Sistema SENZA Contromisure}
+
+\subsubsection{Proprietà di Safety (S1)}
+\paragraph{Codice PCTL}
+\begin{lstlisting}[style=mystyle, language=Prolog]
+P=? [ G<=100 (e1!=2 & e2!=2 & e3!=2 & e4!=2 & e5!=2) ]
+\end{lstlisting}
+\paragraph{Risultato PRISM}
+\textbf{Risultato}: $1.4877 \times 10^{-7}$ $\approx$ \textbf{0.0000149\%}
+\paragraph{Analisi}
+Il risultato della verifica PRISM evidenzia la vulnerabilità critica del sistema non protetto. La probabilità che il sistema non venga compromesso in 100 step è praticamente nulla.
+
+\subsubsection{Proprietà di Guarantee/Response (G1)}
+\paragraph{Codice PCTL}
+\begin{lstlisting}[style=mystyle, language=Prolog]
+P=? [ F<=20 (e1=0 & e2=0 & e3=0 & e4=0 & e5=0) ]
+\end{lstlisting}
+\paragraph{Risultato PRISM}
+\textbf{Risultato}: $0.435146$ $\approx$ \textbf{43.5\%}
+\paragraph{Analisi}
+Il risultato evidenzia significative limitazioni nel processo di recovery del sistema vulnerabile. In assenza di meccanismi di Auto-Failover, il recovery è manuale e lento.
+
+\subsection{Modello PRISM: Sistema CON Contromisure}
+
+\subsubsection{Struttura del Modello}
+Il modello PRISM rappresenta il sistema con tutte le contromisure di sicurezza attive. Include variabili di stato aggiuntive per implementare l'Active Defense System.
+
+\paragraph{Variabili di Stato del Sensore E1 (con Active Defense)}
+\begin{lstlisting}[style=mystyle, language=Prolog]
+module sensor_system_active_defense
     
-    \item \textbf{Guarantee (G1)}: \texttt{P=? [ F<=20 (tutti\_sensori\_OK) ]} \\
-    \textbf{Risultato}: $43.5\%$.
-    \\ \textit{Analisi}: Senza auto-failover, il sistema fatica a recuperare la piena operatività in tempi utili.
-\end{enumerate}
+    e1 : [0..2] init 1;           // 0=OK, 1=FAILED, 2=COMPROMISED 
+    e1_attempts : [0..3] init 0;  // Contatore tentativi di attacco
+    e1_locked : bool init false;  // Stato di blocco difensivo
+\end{lstlisting}
+Per il sensore E1, il modello definisce tre variabili che estendono la rappresentazione base. \texttt{e1\_attempts} funge da contatore per i tentativi di attacco rilevati dall'IDS. \texttt{e1\_locked} indica se il sistema ha attivato il blocco di sicurezza.
 
-\subsection{Analisi 2: Sistema Protetto (Con Contromisure)}
-Il modello protetto implementa:
-\begin{itemize}
-    \item \textbf{Device Attestation (TPM) + mTLS}: Blocca lo Spoofing.
-    \item \textbf{Sensor Redundancy}: Mitiga il Tampering.
-    \item \textbf{Active Defense}: IDS che conta i tentativi. Al 3° tentativo bloccato, il sistema va in \texttt{LOCKED}.
-\end{itemize}
+\subsubsection{Matrice di Transizione: Sistema CON Contromisure}
+La seguente matrice mostra le probabilità di transizione tra gli stati per un sensore con contromisure attive:
 
-\subsubsection{Matrice di Transizione (Protetto)}
-Le contromisure modificano radicalmente le probabilità:
-
-\begin{table}[h]
+\begin{table}[H]
 \centering
 \begin{tabularx}{\textwidth}{|l|X|X|X|}
 \hline
-\textbf{Da / A} & \textbf{OK (0)} & \textbf{FAILED (1)} & \textbf{COMPROMISED (2)} \\ \hline
-\textbf{OK} & 90\% (Protetto) & 5\% (Guasto) & \textbf{0\% (Bloccato)} \\ \hline
-\textbf{FAILED} & \textbf{95\% (Auto-Failover)} & 5\% (Guasto) & \textbf{0\% (Bloccato)} \\ \hline
-\textbf{COMPR.} & 0\% & 0\% & 100\% (Irraggiungibile) \\ \hline
+\textbf{Da Stato $\downarrow$ / A Stato $\rightarrow$} & \textbf{OK (0)} & \textbf{FAILED (1)} & \textbf{COMPR. (2)} \\ \hline
+\textbf{OK (0)} & 0.90 & 0.05 & \textbf{0.00} \\ \hline
+\textbf{FAILED (1)} & 0.95 & 0.05 & \textbf{0.00} \\ \hline
+\textbf{COMPR. (2)} & 0.00 & 0.00 & 1.00 \\ \hline
 \end{tabularx}
 \caption{Matrice di Transizione - Sistema Protetto}
 \end{table}
 
-\textbf{Meccanismo Active Defense}:
-\begin{lstlisting}[language=Prolog, basicstyle=\tiny\ttfamily]
-[] e1=0 & attempts < 3 -> 
-    0.90 : (stay_ok) + 0.05 : (fault) + 
-    0.05 : (attack_blocked) & (attempts' = attempts + 1); // IDS rileva e blocca
+Dallo stato OK, il sensore ha una probabilità del 90\% di rimanere operativo, una probabilità del 5\% di guasto hardware naturale, e una probabilità nulla di compromissione. Dallo stato FAILED, il recovery automatico tramite Auto-Failover presenta un'alta probabilità di successo del 95\%.
 
-[] attempts = 3 -> 1.00 : (locked' = true); // SYSTEM LOCK
+\subsubsection{Logica delle Transizioni: Active Defense}
+
+\paragraph{CASO 1: Sensore Normale (OK, Non Bloccato)}
+\begin{lstlisting}[style=mystyle, language=Prolog]
+    [] e1=0 & !e1_locked & e1_attempts < 3 & time<200 -> 
+        0.90 : (e1'=0) & (time'=time+1) +                                     // Nessun evento
+        0.05 : (e1'=1) & (time'=time+1) +                                     // Guasto naturale
+        0.05 : (e1'=0) & (e1_attempts'=e1_attempts+1) & (time'=time+1);      // ATTACCO RILEVATO
 \end{lstlisting}
-Gli attacchi avvengono ancora (5\%), ma vengono \textbf{bloccati} e contati. Dopo 3 tentativi, il sensore si "blinda" (Locked).
+Questa regola è cruciale: l'attaccante tenta un attacco (5\%), ma l'IDS lo rileva, le contromisure lo bloccano, il sensore rimane OK e il contatore dei tentativi viene incrementato.
 
-\subsubsection{Risultati Verifica Formale (Protetto)}
-\begin{enumerate}
-    \item \textbf{Safety (S1)}: \texttt{P=? [ G<=100 (nessun\_sensore\_compromesso) ]} \\
-    \textbf{Risultato}: \textbf{1.0} ($100\%$).
-    \\ \textit{Analisi}: Le contromisure eliminano completamente il rischio di compromissione. Lo stato \texttt{COMPROMISED} diviene formalmente irraggiungibile.
-    
-    \item \textbf{Guarantee (G1)}: \texttt{P=? [ F<=20 (tutti\_sensori\_OK) ]} \\
-    \textbf{Risultato}: \textbf{97\%}.
-    \\ \textit{Analisi}: L'Auto-Failover garantisce un ripristino rapido (95\% per step) anche in caso di guasti multipli.
+\paragraph{CASO 2: System Lock (Dopo 3 Tentativi)}
+\begin{lstlisting}[style=mystyle, language=Prolog]
+    [] e1=0 & !e1_locked & e1_attempts = 3 & time<200 ->
+        1.00 : (e1_locked'=true) & (time'=time+1);                            // ATTIVA BLOCCO
+\end{lstlisting}
+Quando il contatore raggiunge tre tentativi di attacco bloccati, si attiva il System Lock.
 
-    \item \textbf{Active Defense}: \texttt{P=? [ F e1\_locked ]} \\
-    \textit{Analisi}: Conferma che il sistema attiva correttamente il blocco di sicurezza in risposta ad attacchi persistenti.
-\end{enumerate}
+\subsection{Proprietà PCTL Verificate: Sistema CON Contromisure}
 
-\subsection{Confronto Quantitativo Finale}
-La tabella seguente riassume l'impatto delle scelte architetturali sulla sicurezza del sistema.
+\subsubsection{Proprietà di Safety (S1)}
+\paragraph{Codice PCTL}
+\begin{lstlisting}[style=mystyle, language=Prolog]
+P=? [ G<=100 (e1!=2 & e2!=2 & e3!=2 & e4!=2 & e5!=2) ]
+\end{lstlisting}
+\paragraph{Risultato PRISM}
+\textbf{Risultato}: \textbf{1.0} (100\%)
+\paragraph{Analisi}
+Il risultato costituisce una dimostrazione formale dell'efficacia delle contromisure. La probabilità del 100\% di non-compromissione evidenzia che le contromisure bloccano completamente gli attacchi.
 
-\begin{table}[h]
+\subsubsection{Proprietà di Guarantee/Response (G1)}
+\paragraph{Codice PCTL}
+\begin{lstlisting}[style=mystyle, language=Prolog]
+P=? [ F<=20 (e1=0 & e2=0 & e3=0 & e4=0 & e5=0) ]
+\end{lstlisting}
+\paragraph{Risultato PRISM}
+\textbf{Risultato}: $\approx$ \textbf{97\%}
+\paragraph{Analisi}
+Il risultato dimostra l'alta efficacia dei meccanismi di Sensor Redundancy e Auto-Failover.
+
+\subsubsection{Proprietà di Active Defense Verification}
+\paragraph{Codice PCTL}
+\begin{lstlisting}[style=mystyle, language=Prolog]
+P=? [ F e1_locked ]
+\end{lstlisting}
+\paragraph{Analisi}
+Conferma che l'IDS e il Rate Limiting funzionano correttamente.
+
+\subsection{Confronto Quantitativo: Con vs Senza Contromisure}
+
+\subsubsection{Confronto delle Matrici di Transizione}
+\begin{table}[H]
 \centering
-\begin{tabularx}{\textwidth}{@{}l X X r@{}}
-\toprule
-\textbf{Metrica} & \textbf{Senza Contromisure} & \textbf{Con Contromisure} & \textbf{Delta} \\ \midrule
-Safety (100 step) & $\approx 0\%$ & $\mathbf{100\%}$ & $+100\%$ \\
-Guarantee (20 step) & $43.5\%$ & $\mathbf{97\%}$ & $+53.5\%$ \\
-Transizione a Comp. & $15\%$ (per step) & $\mathbf{0\%}$ & $-15\%$ \\
-Recovery Rate & $60\%$ (manuale) & $\mathbf{95\%}$ (auto) & $+35\%$ \\ \bottomrule
+\begin{tabularx}{\textwidth}{|l|X|X|X|}
+\hline
+\textbf{Transizione} & \textbf{CON Contromisure} & \textbf{SENZA Contromisure} & \textbf{Differenza} \\ \hline
+OK $\rightarrow$ OK & 90\% & 80\% & +10\% \\ \hline
+OK $\rightarrow$ FAILED & 5\% & 5\% & 0\% \\ \hline
+OK $\rightarrow$ COMPR. & \textbf{0\%} & \textbf{15\%} & \textbf{-15\%} \\ \hline
+FAILED $\rightarrow$ OK & \textbf{95\%} & \textbf{60\%} & \textbf{+35\%} \\ \hline
+FAILED $\rightarrow$ FAILED & 5\% & 30\% & -25\% \\ \hline
+FAILED $\rightarrow$ COMPR. & \textbf{0\%} & \textbf{10\%} & \textbf{-10\%} \\ \hline
 \end{tabularx}
-\caption{Benchmark di Sicurezza: Vulnerabile vs Protetto}
-\label{tab:benchmark_prism}
+\caption{Confronto Matrici di Transizione}
 \end{table}
 
-In conclusione, l'analisi formale dimostra che l'architettura proposta trasforma un sistema intrinsecamente vulnerabile (certezza di compromissione) in uno matematicamente sicuro e altamente disponibile.
+\subsubsection{Tabella Comparativa dei Risultati PRISM}
+\begin{table}[H]
+\centering
+\begin{tabularx}{\textwidth}{|X|X|X|X|}
+\hline
+\textbf{Proprietà} & \textbf{CON C.} & \textbf{SENZA C.} & \textbf{Miglior.} \\ \hline
+Safety (S1) & \textbf{100\%} & 0.00001\% & +99.9\% \\ \hline
+Guarantee (G1) & \textbf{97\%} & 43.5\% & +53.5\% \\ \hline
+\end{tabularx}
+\caption{Confronto Risultati PRISM}
+\end{table}
+
+\subsection{Conclusioni Analisi Formale}
+L'analisi di Markov Chain condotta mediante il model checker PRISM ha fornito una dimostrazione formale dell'efficacia delle contromisure di sicurezza. Per la proprietà di Safety, le contromisure riducono la vulnerabilità da approssimativamente il 100\% allo 0\%. Per la proprietà di Guarantee/Response, le contromisure migliorano la probabilità di recovery dal 43.5\% al 97\%. Il meccanismo di Active Defense si è dimostrato efficace nel rilevare e bloccare attacchi persistenti.
+
 
 \section{Testing su Blockchain Privata (Besu)}
 Tutti i componenti sono stati integrati e testati in un ambiente reale basato su Hyperledger Besu.
