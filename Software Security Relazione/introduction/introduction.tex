@@ -1,0 +1,24 @@
+\phantomsection
+\addcontentsline{toc}{chapter}{Introduzione}
+\chapter*{Introduzione}
+\markboth{Introduzione}{}
+
+La crescente digitalizzazione dei processi aziendali, istituzionali e personali ha portato a un aumento esponenziale della dipendenza da sistemi informatici interconnessi, i quali, se da un lato sono un motore di innovazione e sviluppo, dall'altro rappresentano un terreno fertile per minacce sempre più studiate al dettaglio. Le cronache recenti hanno dimostrato come attacchi mirati, campagne di ransomware, furti di dati sensibili e vulnerabilità critiche possano compromettere la continuità operativa e la fiducia degli utenti, con conseguenze devastanti sul piano economico, reputazionale e sociale. In questo contesto, emerge la necessità di adottare strumenti e metodologie in grado di anticipare le mosse degli attaccanti, simulando in modo controllato scenari reali di compromissione.
+
+Il penetration testing nasce proprio con questo obiettivo: trasformare la prospettiva difensiva da passiva a proattiva, permettendo di identificare e correggere debolezze prima che esse vengano sfruttate da attori malevoli.
+
+Il lavoro che presentiamo si colloca all’interno di questa cornice, con l'intento di esplorare il ruolo strategico del penetration testing, di analizzarne le radici storiche, le metodologie operative e le potenzialità applicative. La scelta di tale tematica è motivata non solo dalla sua rilevanza accademica e tecnica, ma anche dal crescente interesse che il mondo professionale e le normative di settore dedicano a pratiche di ethical hacking e valutazione preventiva della sicurezza, rendendole imprescindibili per qualsiasi organizzazione che gestisca infrastrutture digitali.
+
+In questa tesi approfondiamo il concetto di penetration testing, evidenziandone la funzione all’interno del più ampio contesto della cybersecurity, presentiamo gli strumenti più diffusi e applichiamo i principi a casi di studio concreti, al fine di dimostrare l’impatto che vulnerabilità apparentemente circoscritte possono avere sull’intero sistema informatico. Analizziamo, quindi, le piattaforme utilizzate dai professionisti per allenarsi su scenari realistici, come Hack The Box, e descriviamo i principali software impiegati in ciascuna fase del test: dalla ricognizione con Nmap, Gobuster e Burp Suite, fino allo sfruttamento delle vulnerabilità con Metasploit o Searchsploit. La parte centrale del lavoro è dedicata a tre casi pratici: le macchine PermX ed Editorial, che riproducono ambienti Linux vulnerabili a errori di configurazione e debolezze applicative, e la macchina Solarlab, che offre un contesto Windows caratterizzato da criticità sia a livello applicativo sia infrastrutturale. Ciascuno di questi casi viene affrontato attraverso tutte le fasi di compromissione: accesso iniziale, privilege escalation e acquisizione di flag, con particolare attenzione agli strumenti e alle tecniche adottate. L'obiettivo è dimostrare come, anche partendo da piccole vulnerabilità, un attaccante determinato possa raggiungere privilegi di amministrazione completi, evidenziando, così, l'importanza di un approccio proattivo alla sicurezza.
+
+Questa tesi è strutturata come di seguito specificato:
+
+\begin{itemize}
+    \item Nel primo capitolo vengono analizzati definizione, origini e sviluppo dei penetration test, vengono descritti i principali obiettivi e benefici, viene presentata un’ampia panoramica delle minacce informatiche e delle tipologie di attacco, per poi illustrare le diverse modalità operative che compongono un test di intrusione.
+    \item Nel secondo capitolo vengono esaminati i sistemi operativi, le piattaforme di simulazione e i tool specifici impiegati nelle varie fasi del penetration testing, evidenziando il ruolo di ciascuno e le relative applicazioni pratiche.
+    \item Nel terzo capitolo viene studiata la macchina Hack The Box PermX, descrivendo l’intero percorso di compromissione che, attraverso l’identificazione di vulnerabilità in Chamilo LMS e l’abuso di symlink, conduce all’escalation dei privilegi fino a root.
+    \item Nel quarto capitolo si analizza la macchina Editorial, compromessa tramite una vulnerabilità di upload file e di configurazioni errate di sudo, mettendo in luce le criticità legate alla gestione delle credenziali e delle autorizzazioni.
+    \item Nel quinto capitolo si affronta un contesto Windows caratterizzato da vulnerabilità applicative e infrastrutturali, che consentono dapprima l’ottenimento di una shell remota e successivamente l’elevazione dei privilegi attraverso un exploit su Openfire, concludendo con la compromissione totale del sistema.
+    \item Infine, nel sesto capitolo, vengono presentate alcune considerazioni finali sul lavoro svolto, vengono sottolineati i risultati raggiunti e vengono proposti possibili sviluppi futuri in termini di tecniche, metodologie e prospettive di ricerca.
+  \end{itemize}
+  
