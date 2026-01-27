@@ -1,38 +1,63 @@
-\chapter{Conclusioni e Sviluppi Futuri}
+\chapter{Analisi della Qualità del Codice (Solhint)}
 
 \begin{preamble}
-Questo capitolo conclude il lavoro sintetizzando i risultati ottenuti rispetto agli obiettivi di sicurezza e integrità del dato. Vengono inoltre analizzate criticamente le limitazioni dell'attuale implementazione e proposti scenari di evoluzione futura.
+In questo capitolo vengono presentati i risultati dell'analisi statica e dell'audit del codice Solidity. Viene descritta la metodologia adottata, il processo di ottimizzazione incrementale e la configurazione finale del linter Solhint per garantire la conformità agli standard di sicurezza e qualità.
 \end{preamble}
 
-\section{Sintesi dei Risultati}
-Il progetto ha dimostrato la fattibilità tecnica di un sistema di tracciabilità farmaceutica che non si limita alla semplice registrazione passiva dei dati, ma implementa una logica decisionale attiva e decentralizzata.
+\section{Analisi Statica e Audit (Solhint)}
+L'analisi della qualità del codice rappresenta un aspetto fondamentale nello sviluppo di smart contract su blockchain Ethereum. Data la natura immutabile di tali applicazioni, dove errori possono portare a perdite economiche significative, l'adozione di strumenti di analisi statica è necessaria.
+Nel presente progetto si è utilizzato \textbf{Solhint}, uno dei principali linter per smart contract Ethereum, per garantire conformità alle best practices e ridurre il debito tecnico.
 
-I principali traguardi raggiunti includono:
-\begin{enumerate}
-    \item \textbf{Integrità Bayesiana}: L'implementazione on-chain della Rete Bayesiana (\texttt{BNCore}) ha permesso di validare la coerenza delle letture multisensoriali, riducendo drasticamente il rischio di accettare lotti compromessi a causa di falsi negativi dei singoli sensori.
-    \item \textbf{Resilienza Architetturale}: L'adozione di Hyperledger Besu con consenso IBFT 2.0 ha garantito la continuità del servizio e l'immutabilità dei dati anche in presenza di guasti o attacchi a un nodo validatore (fino a $f=1$ su $N=4$).
-    \item \textbf{Sicurezza Difensiva}: L'applicazione rigorosa dei principi di Secure Programming (Monitor Runtime, Checks-Effects-Interactions) ha prevenuto vulnerabilità comuni come la Reentrancy e l'accesso non autorizzato ai fondi in escrow.
-    \item \textbf{Verifica Formale}: L'utilizzo di PRISM ha fornito una garanzia matematica sul rispetto delle proprietà di Safety (probabilità di errore $<0.1\%$) e Guarantee.
-\end{enumerate}
+\subsection{Metodologia}
+\subsubsection{Solhint: Caratteristiche}
+Solhint è un linter open-source per Solidity che esegue analisi statica del codice, configurabile tramite file \texttt{.solhint.json}. Le categorie principali di regole includono: \textbf{Best Practices}, \textbf{Gas Optimization}, \textbf{Security}, e \textbf{Style Guide}.
 
-\section{Limitazioni Attuali}
-Nonostante il successo del prototipo, esistono limitazioni che devono essere considerate per un deployment in produzione:
+\subsubsection{Risultati Iniziali}
+L'esecuzione iniziale ha evidenziato \textbf{137 warning} (0 errori), confermando la correttezza sintattica del codice.
+La maggior parte dei warning riguardava documentazione mancante (42\%) e naming convention (35\%).
+
+\subsection{Processo di Ottimizzazione}
+Il processo è stato condotto in tre fasi successive.
+
+\subsubsection{Fase 1: Miglioramenti al Codice (-56 warning)}
+\paragraph{Documentazione NatSpec}
+Sono stati documentati 17 eventi con commenti NatSpec completi (\texttt{@notice}, \texttt{@param}).
+\paragraph{Ottimizzazioni Gas}
+Sono state adottate tecniche come \textbf{Pre-increment} e l'uso di \textbf{Custom errors} (risparmio ~1000 gas on revert) al posto di stringhe \texttt{require}.
+\paragraph{Refactoring Funzioni}
+La funzione \texttt{\_calcolaProbabilitaCombinata} è stata ridotta da 66 a 13 linee estraendo l'helper \texttt{\_applicaCPT}, migliorando modularità e testabilità.
+
+\subsubsection{Fase 2: Configurazione Naming (-42 warning)}
+Sono state disabilitate alcune regole di naming (\texttt{var-name-mixedcase}) per compatibilità con le convenzioni domain-specific adottate nel progetto.
+
+\subsubsection{Fase 3: Configurazione Gas (-18 warning)}
+Un'analisi costi-benefici ha evidenziato che alcune regole di ottimizzazione gas compromettevano eccessivamente la leggibilità per un risparmio irrisorio. Regole come \texttt{gas-strict-inequalities} sono state disabilitate.
+
+\subsection{Configurazione Finale}
+La configurazione finale (\texttt{.solhint.json}) estende \texttt{solhint:recommended} ma disabilita le regole di naming e gas non ritenute critiche, mantenendo invece attive quelle su compiler version e visibility.
+
+\subsection{Risultati Finali e Conclusioni}
+L'analisi Solhint ha ridotto i warning dell'85\% (da 137 a 21). I 21 warning residui sono stati analizzati e giustificati da scelte architetturali deliberate.
 \begin{itemize}
-    \item \textbf{Scalabilità On-Chain}: Il calcolo bayesiano in Solidity, sebbene ottimizzato, consuma una quantità di Gas non trascurabile. Su una mainnet pubblica (es. Ethereum) i costi operativi potrebbero essere proibitivi; su una rete privata Besu (dove il Gas è gratuito o calmierato) il problema è ridotto al tempo di esecuzione.
-    \item \textbf{Privacy dei Dati}: Sebbene sia stato implementato un meccanismo di hashing per offuscare i dettagli del carico (es. nome farmaco), i metadati delle transazioni e i valori grezzi dei sensori rimangono visibili ai nodi validatori. La privacy ottenuta è parziale (pseudonimato); una riservatezza totale richiederebbe tecnologie Zero-Knowledge (es. zk-SNARKs).
-    \item \textbf{Simulazione IoT}: L'hardware IoT è attualmente simulato. La sicurezza fisica del sensore ("Hardware Root of Trust") esula dallo scopo di questo progetto software, ma rappresenta un vettore di attacco critico nel mondo reale.
+    \item \textbf{Warning Rimanenti}: Import globali per custom errors, complessità necessaria in algoritmi critici e naming conventions di progetto.
+\end{itemize}
+Il progetto raggiunge metriche di qualità elevate, posizionandosi sopra gli standard industriali per documentazione e pulizia del codice.
+
+\subsection{Considerazioni Critiche}
+\paragraph{Limiti analisi statica}
+\begin{itemize}
+    \item Non identifica vulnerabilità logiche complesse (che richiedono testing dinamico e audit manuale).
+    \item Possibili false positivi su pattern legittimi ma non standard.
+    \item Necessità di una configurazione altamente specifica per il dominio applicativo.
 \end{itemize}
 
-\section{Sviluppi Futuri}
-Per superare le limitazioni identificate e aumentare il livello di maturità del sistema (TRL), si propongono le seguenti evoluzioni:
+\paragraph{Complementarietà con altri tool}
+Solhint dovrebbe essere idealmente integrato con altri strumenti come Slither (per vulnerabilità di sicurezza), Mythril (analisi simbolica), Echidna (fuzzing) e Hardhat (testing automatizzato).
 
-\subsection{Integrazione zk-SNARKs (Privacy)}
-L'adozione di protocolli a conoscenza zero (Zero-Knowledge Proofs) permetterebbe al corriere di dimostrare la conformità della spedizione ("La temperatura è rimasta nel range") senza rivelare i valori esatti o i dettagli del tragitto, garantendo privacy commerciale e conformità GDPR.
-
-\subsection{Oracle Feed decentralizzati (Chainlink)}
-Sostituire lo script di simulazione centralizzato con una rete di oracoli decentralizzati (es. Chainlink) per leggere i dati dai dispositivi IoT. Questo eliminerebbe il singolo punto di fallimento rappresentato dallo script Node.js.
-
-\subsection{Hardware Security Module (HSM)}
-Integrazione con sensori dotati di Secure Element per la firma delle transazioni direttamente "at the edge". Questo garantirebbe che il dato firmato provenga fisicamente dal dispositivo e non sia stato iniettato via software.
-
-In conclusione, il lavoro svolto pone basi solide per una logistica 4.0 più sicura, dimostrando come l'intersezione tra Blockchain, Metodi Formali e IoT possa generare valore reale in contesti critici per la salute pubblica.
+\subsection{Raccomandazioni}
+\begin{itemize}
+    \item \textbf{CI/CD}: Integrare Solhint nella pipeline di Continuous Integration.
+    \item \textbf{Pre-commit hooks}: Eseguire analisi automatiche prima di ogni commit per prevenire regressioni.
+    \item \textbf{Revisione periodica}: Aggiornare regolarmente la configurazione e le regole con le nuove versioni del tool.
+\end{itemize}
+Solhint si conferma strumento essenziale per progetti blockchain professionali, quando utilizzato con consapevolezza critica.

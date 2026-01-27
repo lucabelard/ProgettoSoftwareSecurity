@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2024) (preloaded format=pdflatex 2024.11.25)  27 JAN 2026 15:36
+This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2024) (preloaded format=pdflatex 2024.11.25)  27 JAN 2026 15:42
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -934,7 +934,7 @@ File: t1ppl.fd 2001/06/04 font definitions for T1/ppl.
 File: l3backend-pdftex.def 2024-02-20 L3 backend support: PDF output (pdfTeX)
 \l__color_backend_stack_int=\count392
 \l__pdf_internal_box=\box84
-) (./main.aux (./frontmatter/abstract.aux) (./frontmatter/tocs.aux) (./introduction/introduction.aux) (./chapter1/chapter1.aux) (./chapter2/chapter2.aux) (./chapter3/chapter3.aux) (./chapter4/chapter4.aux) (./chapter5/chapter5.aux) (./chapter6/chapter6.aux) (./backmatter/appendixA.aux))
+) (./main.aux (./frontmatter/abstract.aux) (./frontmatter/tocs.aux) (./introduction/introduction.aux) (./chapter1/chapter1.aux) (./chapter2/chapter2.aux) (./chapter3/chapter3.aux) (./chapter4/chapter4.aux) (./chapter5/chapter5.aux) (./chapter6/chapter6.aux) (./chapter7/chapter7.aux) (./backmatter/appendixA.aux))
 \openout1 = `main.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 51.
@@ -1335,11 +1335,11 @@ Capitolo 5.
 
 
 
-]
-Overfull \hbox (83.75244pt too wide) in paragraph at lines 34--35
-\T1/ppl/m/n/10.95 (-20) met-te-va-no ec-ces-si-va-men-te la leg-gi-bi-li-tà per un ri-spar-mio ir-ri-so-rio. Re-go-le co-me \T1/pcr/m/n/10.95 gas-strict-inequalities
- []
-
+] (/usr/local/texlive/2024/texmf-dist/tex/latex/listings/lstlang1.sty
+File: lstlang1.sty 2024/02/21 1.10 listings language file
+) (/usr/local/texlive/2024/texmf-dist/tex/latex/listings/lstlang2.sty
+File: lstlang2.sty 2024/02/21 1.10 listings language file
+)
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
@@ -1355,11 +1355,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller to compensate:
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
-[15] (/usr/local/texlive/2024/texmf-dist/tex/latex/listings/lstlang1.sty
-File: lstlang1.sty 2024/02/21 1.10 listings language file
-) (/usr/local/texlive/2024/texmf-dist/tex/latex/listings/lstlang2.sty
-File: lstlang2.sty 2024/02/21 1.10 listings language file
-)
+[15]
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
@@ -1376,6 +1372,10 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
 [17]
+Underfull \hbox (badness 1783) in paragraph at lines 246--246
+[]|\T1/ppl/b/n/10.95 (+20) SENZA Con-tro-mi-
+ []
+
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
@@ -1391,9 +1391,27 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller to compensate:
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
-[19]
-Underfull \hbox (badness 1783) in paragraph at lines 304--304
-[]|\T1/ppl/b/n/10.95 (+20) SENZA Con-tro-mi-
+[19])
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 13.59999pt, for example:
+(fancyhdr)                \setlength{\headheight}{13.59999pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+(fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
+
+[20]
+\openout2 = `chapter6/chapter6.aux'.
+
+ (./chapter6/chapter6.tex
+Capitolo 6.
+[21
+
+
+
+
+]
+Overfull \hbox (83.75244pt too wide) in paragraph at lines 34--35
+\T1/ppl/m/n/10.95 (-20) met-te-va-no ec-ces-si-va-men-te la leg-gi-bi-li-tà per un ri-spar-mio ir-ri-so-rio. Re-go-le co-me \T1/pcr/m/n/10.95 gas-strict-inequalities
  []
 
 
@@ -1403,7 +1421,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller to compensate:
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
-[20]
+[22])
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
@@ -1411,20 +1429,12 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller to compensate:
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
-[21])
+[23]
+\openout2 = `chapter7/chapter7.aux'.
 
-Package fancyhdr Warning: \headheight is too small (12.0pt): 
-(fancyhdr)                Make it at least 13.59999pt, for example:
-(fancyhdr)                \setlength{\headheight}{13.59999pt}.
-(fancyhdr)                You might also make \topmargin smaller to compensate:
-(fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
-
-[22]
-\openout2 = `chapter6/chapter6.aux'.
-
- (./chapter6/chapter6.tex
-Capitolo 6.
-[23
+ (./chapter7/chapter7.tex
+Capitolo 7.
+[24
 
 
 
@@ -1437,7 +1447,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller to compensate:
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
-[24]
+[25]
 \openout2 = `backmatter/appendixA.aux'.
 
  (./backmatter/appendixA.tex
@@ -1446,7 +1456,7 @@ Appendice A.
 File: lstlang1.sty 2024/02/21 1.10 listings language file
 ) (/usr/local/texlive/2024/texmf-dist/tex/latex/listings/lstlang1.sty
 File: lstlang1.sty 2024/02/21 1.10 listings language file
-) [25
+) [26
 
 
 
@@ -1459,31 +1469,31 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller to compensate:
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
-[26]
+[27]
 
 Package glossaries Warning: No \printglossary or \printglossaries found. 
 (Remove \makeglossaries if you don't want any glossaries.) 
 This document will not have a glossary.
 
-(./main.aux (./frontmatter/abstract.aux) (./frontmatter/tocs.aux) (./introduction/introduction.aux) (./chapter1/chapter1.aux) (./chapter2/chapter2.aux) (./chapter3/chapter3.aux) (./chapter4/chapter4.aux) (./chapter5/chapter5.aux) (./chapter6/chapter6.aux) (./backmatter/appendixA.aux))
+(./main.aux (./frontmatter/abstract.aux) (./frontmatter/tocs.aux) (./introduction/introduction.aux) (./chapter1/chapter1.aux) (./chapter2/chapter2.aux) (./chapter3/chapter3.aux) (./chapter4/chapter4.aux) (./chapter5/chapter5.aux) (./chapter6/chapter6.aux) (./chapter7/chapter7.aux) (./backmatter/appendixA.aux))
  ***********
 LaTeX2e <2023-11-01> patch level 1
 L3 programming layer <2024-02-20>
  ***********
  ) 
 Here is how much of TeX's memory you used:
- 39315 strings out of 474116
- 722914 string characters out of 5743681
- 2164187 words of memory out of 5000000
- 60126 multiletter control sequences out of 15000+600000
+ 39344 strings out of 474116
+ 723734 string characters out of 5743681
+ 2148187 words of memory out of 5000000
+ 60145 multiletter control sequences out of 15000+600000
  649059 words of font info for 446 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 111i,15n,131p,2429b,2114s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 111i,14n,131p,2429b,2112s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/urw/courier/ucrb8a.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/urw/courier/ucrr8a.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/urw/courier/ucrro8a.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/urw/helvetic/uhvb8a.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/urw/helvetic/uhvr8a.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/urw/palatino/uplb8a.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/urw/palatino/uplr8a.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/urw/palatino/uplr8a.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/urw/palatino/uplri8a.pfb>
-Output written on main.pdf (31 pages, 281400 bytes).
+Output written on main.pdf (32 pages, 282891 bytes).
 PDF statistics:
- 927 PDF objects out of 1000 (max. 8388607)
- 859 compressed objects within 9 object streams
- 280 named destinations out of 1000 (max. 500000)
- 128322 words of extra memory for PDF output out of 128383 (max. 10000000)
+ 936 PDF objects out of 1000 (max. 8388607)
+ 867 compressed objects within 9 object streams
+ 282 named destinations out of 1000 (max. 500000)
+ 128330 words of extra memory for PDF output out of 128383 (max. 10000000)
 
