@@ -1,14 +1,38 @@
 \chapter{Conclusioni e Sviluppi Futuri}
 
 \begin{preamble}
-Questo capitolo conclude la relazione sintetizzando i risultati ottenuti e discutendo le limitazioni attuali e le possibili evoluzioni future del progetto.
+Questo capitolo conclude il lavoro sintetizzando i risultati ottenuti rispetto agli obiettivi di sicurezza e integrità del dato. Vengono inoltre analizzate criticamente le limitazioni dell'attuale implementazione e proposti scenari di evoluzione futura.
 \end{preamble}
 
-\section{Sintesi dei risultati ottenuti}
-% Riassunto del lavoro svolto e degli obiettivi raggiunti.
+\section{Sintesi dei Risultati}
+Il progetto ha dimostrato la fattibilità tecnica di un sistema di tracciabilità farmaceutica che non si limita alla semplice registrazione passiva dei dati, ma implementa una logica decisionale attiva e decentralizzata.
 
-\section{Limitazioni attuali}
-% Analisi dei costi, scalabilità e vincoli dell'implementazione attuale.
+I principali traguardi raggiunti includono:
+\begin{enumerate}
+    \item \textbf{Integrità Bayesiana}: L'implementazione on-chain della Rete Bayesiana (\texttt{BNCore}) ha permesso di validare la coerenza delle letture multisensoriali, riducendo drasticamente il rischio di accettare lotti compromessi a causa di falsi negativi dei singoli sensori.
+    \item \textbf{Resilienza Architetturale}: L'adozione di Hyperledger Besu con consenso IBFT 2.0 ha garantito la continuità del servizio e l'immutabilità dei dati anche in presenza di guasti o attacchi a un nodo validatore (fino a $f=1$ su $N=4$).
+    \item \textbf{Sicurezza Difensiva}: L'applicazione rigorosa dei principi di Secure Programming (Monitor Runtime, Checks-Effects-Interactions) ha prevenuto vulnerabilità comuni come la Reentrancy e l'accesso non autorizzato ai fondi in escrow.
+    \item \textbf{Verifica Formale}: L'utilizzo di PRISM ha fornito una garanzia matematica sul rispetto delle proprietà di Safety (probabilità di errore $<0.1\%$) e Guarantee.
+\end{enumerate}
 
-\section{Sviluppi futuri}
-% Possibili miglioramenti: adozione di Layer 2, integrazione con sensori reali, upgrade dei contratti.
+\section{Limitazioni Attuali}
+Nonostante il successo del prototipo, esistono limitazioni che devono essere considerate per un deployment in produzione:
+\begin{itemize}
+    \item \textbf{Scalabilità On-Chain}: Il calcolo bayesiano in Solidity, sebbene ottimizzato, consuma una quantità di Gas non trascurabile. Su una mainnet pubblica (es. Ethereum) i costi operativi potrebbero essere proibitivi; su una rete privata Besu (dove il Gas è gratuito o calmierato) il problema è ridotto al tempo di esecuzione.
+    \item \textbf{Privacy dei Dati}: Sebbene sia stato implementato un meccanismo di hashing per offuscare i dettagli del carico (es. nome farmaco), i metadati delle transazioni e i valori grezzi dei sensori rimangono visibili ai nodi validatori. La privacy ottenuta è parziale (pseudonimato); una riservatezza totale richiederebbe tecnologie Zero-Knowledge (es. zk-SNARKs).
+    \item \textbf{Simulazione IoT}: L'hardware IoT è attualmente simulato. La sicurezza fisica del sensore ("Hardware Root of Trust") esula dallo scopo di questo progetto software, ma rappresenta un vettore di attacco critico nel mondo reale.
+\end{itemize}
+
+\section{Sviluppi Futuri}
+Per superare le limitazioni identificate e aumentare il livello di maturità del sistema (TRL), si propongono le seguenti evoluzioni:
+
+\subsection{Integrazione zk-SNARKs (Privacy)}
+L'adozione di protocolli a conoscenza zero (Zero-Knowledge Proofs) permetterebbe al corriere di dimostrare la conformità della spedizione ("La temperatura è rimasta nel range") senza rivelare i valori esatti o i dettagli del tragitto, garantendo privacy commerciale e conformità GDPR.
+
+\subsection{Oracle Feed decentralizzati (Chainlink)}
+Sostituire lo script di simulazione centralizzato con una rete di oracoli decentralizzati (es. Chainlink) per leggere i dati dai dispositivi IoT. Questo eliminerebbe il singolo punto di fallimento rappresentato dallo script Node.js.
+
+\subsection{Hardware Security Module (HSM)}
+Integrazione con sensori dotati di Secure Element per la firma delle transazioni direttamente "at the edge". Questo garantirebbe che il dato firmato provenga fisicamente dal dispositivo e non sia stato iniettato via software.
+
+In conclusione, il lavoro svolto pone basi solide per una logistica 4.0 più sicura, dimostrando come l'intersezione tra Blockchain, Metodi Formali e IoT possa generare valore reale in contesti critici per la salute pubblica.

@@ -1,17 +1,83 @@
-\chapter{Analisi dei Rischi e Threat Modeling}
+\chapter{Valutazione del Rischio e Threat Modeling}
 
 \begin{preamble}
-In questo capitolo viene presentata l'analisi di sicurezza del sistema utilizzando la metodologia DUAL-STRIDE-DUA, identificando asset, minacce e vulnerabilità potenziali.
+In questo capitolo viene presentata un'analisi approfondita della sicurezza del sistema, condotta attraverso metodologie formali e strutturate. L'analisi inizia con la modellazione degli obiettivi e delle dipendenze strategiche tramite framework \textbf{i* (iStar)}, prosegue con la valutazione delle minacce mediante approccio \textbf{DUAL-STRIDE} esteso agli asset dell'attore sistema, e si conclude con la definizione di scenari di \textbf{Abuse e Misuse Cases}.
 \end{preamble}
 
-\section{Metodologia DUAL-STRIDE-DUA}
-% Spiegazione del framework utilizzato (Dual analysis + STRIDE + DUA extension).
+\section{Modellazione i* (iStar)}
+Per comprendere appieno il contesto organizzativo e tecnico, sono stati realizzati diversi modelli i*, che evidenziano attori, obiettivi (Goals), compiti (Tasks) e risorse (Resources).
 
-\section{Identificazione degli Asset}
-% Elenco degli asset critici: Smart Contract, Evidenze IoT, Fondi in escrow.
+\subsection{Supply Chain As-Is (Senza Sistema)}
+Il primo modello Strategic Dependency (SD) rappresenta la supply chain tradizionale.
+\begin{itemize}
+    \item \textbf{Attori}: Produttore, Distributore, Farmacia, Paziente.
+    \item \textbf{Criticità}: L'analisi SR (Strategic Rationale) evidenzia dipendenze di "fiducia cieca" tra gli attori riguardo l'integrità della temperatura. Il Produttore dipende dal Distributore per la corretta conservazione, ma non ha mezzi diretti di verifica (Softgoal "Integrità non verificabile").
+\end{itemize}
 
-\section{Modello degli Attaccanti}
-% Descrizione degli attori malevoli: Esterni, Insider, Utenti maldestri.
+\subsection{Supply Chain To-Be (Con Sistema Blockchain)}
+L'introduzione del sistema introduce nuove dipendenze strategiche più robuste.
+\begin{itemize}
+    \item \textbf{Nuovi Attori}: Sistema Smart Contract, Oracolo IoT.
+    \item \textbf{Vantaggi}: Il Softgoal "Integrità Verificabile" è ora soddisfatto dalla risorsa "Registro Immutabile" fornita dal sistema. Gli attori umani dipendono dal Sistema per la validazione, non più dalla fiducia reciproca.
+\end{itemize}
 
-\section{Analisi dettagliata delle minacce}
-% Dettaglio delle minacce individuate per categoria (Spoofing, Tampering, DoS, ecc.) e riferimenti a CAPEC/ATT&CK.
+\subsection{Sistema e Attaccanti}
+Sono stati modellati tre profili di attaccante interagenti con il sistema:
+\begin{enumerate}
+    \item \textbf{Attaccante Interno (Malicious Insider)}: Un operatore logistico corrotto che tenta di manipolare i sensori fisici.
+    \item \textbf{Attaccante Esterno}: Un hacker remoto che tenta attacchi di rete (DoS, intercettazione) o exploit sugli Smart Contract.
+    \item \textbf{Utente Maldestro (Clumsy User)}: Un operatore che commette errori non intenzionali (es. perdita chiavi private, input errati).
+\end{enumerate}
+Per ciascun attaccante, i diagrammi SR includono \textbf{Alberi di Attacco (Attack Trees)} integrati, che mostrano la decomposizione degli obiettivi malevoli (es. "Falsificare Report Temperatura") in sotto-task operativi.
+
+\section{Analisi DUAL-STRIDE}
+L'analisi delle minacce è stata condotta metodicamente raggruppando gli asset secondo il paradigma DUAL-STRIDE, focalizzandosi specificamente sugli asset dell'\textbf{Attore Sistema}.
+
+\subsection{Identificazione degli Asset}
+Gli asset primari analizzati sono:
+\begin{itemize}
+    \item \textbf{Smart Contract (Logica)}: Codice Solidity distribuito.
+    \item \textbf{Dati della Blockchain (Ledger)}: Storico transazioni e stati.
+    \item \textbf{Credenziali (Chiavi Private)}: Chiavi dei nodi validatori e degli utenti.
+    \item \textbf{Oracolo (Infrastruttura IoT)}: Ponte tra mondo fisico e digitale.
+\end{itemize}
+
+\subsection{Matrice delle Minacce (Riferimenti CAPEC/ATT\&CK)}
+Per ogni categoria STRIDE sono stati identificati vettori di attacco specifici, mappati sui framework standard \textbf{CAPEC} e \textbf{MITRE ATT\&CK}.
+
+\begin{table}[h]
+\centering
+\small % Riduci la dimensione del font
+\begin{tabularx}{\textwidth}{@{}l X l@{}}
+\toprule
+\textbf{STRIDE} & \textbf{Minaccia Identificata} & \textbf{Rif. CAPEC} \\ \midrule
+\textbf{S}poofing & Impersonificazione di un nodo validatore & CAPEC-151 (Identity Spoofing) \\ \midrule
+\textbf{T}ampering & Modifica dati sensore pre-invio (Data Injection) & CAPEC-155 (Screen/Data Capture) \\ \midrule
+\textbf{R}epudiation & Negazione di avvenuta consegna del lotto & CAPEC-390 (Bypassing Checks) \\ \midrule
+\textbf{I}nformation Disc. & Lettura transazioni private (Analisi traffico) & CAPEC-118 (Traffic Analysis) \\ \midrule
+\textbf{D}enial of Service & Spam di transazioni per bloccare la rete & CAPEC-488 (HTTP Flood/Gas Limit) \\ \midrule
+\textbf{E}levation of Priv. & Sfruttamento bug in AccessControl & CAPEC-233 (Privilege Escalation) \\ \bottomrule
+\end{tabularx}
+\caption{Analisi STRIDE sugli Asset del Sistema}
+\label{tab:stride_analysis}
+\end{table}
+
+\section{Abuse e Misuse Cases}
+Per completare l'analisi, sono stati definiti scenari operativi di abuso per ogni asset critico.
+
+\subsection{Abuse Case: Iniezione Dati Falsi (Attaccante Interno)}
+\begin{itemize}
+    \item \textbf{Attore}: Insider Logistico.
+    \item \textbf{Obiettivo}: Nascondere un'escursione termica per evitare penali.
+    \item \textbf{Asset}: Oracolo IoT.
+    \item \textbf{Scenario}: L'attaccante manomette fisicamente il sensore o inietta pacchetti MQTT falsificati verso l'Oracolo.
+    \item \textbf{Mitigazione}: Validazione Bayesiana per rilevare incongruenze statistiche (v. Cap. 4).
+\end{itemize}
+
+\subsection{Misuse Case: Smarrimento Chiave Privata (Utente Maldestro)}
+\begin{itemize}
+    \item \textbf{Attore}: Farmacista.
+    \item \textbf{Evento}: L'utente cancella accidentalmente il file keystore o lo condivide su canali non sicuri.
+    \item \textbf{Conseguenza}: Perdita di accesso ai fondi o furto d'identità.
+    \item \textbf{Mitigazione}: Procedure di key-recovery off-chain (non implementate on-chain per scelta di design) e formazione operativa.
+\end{itemize}

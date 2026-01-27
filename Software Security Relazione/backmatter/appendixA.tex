@@ -1,0 +1,66 @@
+\chapter{Guida al Deployment e Management}
+\label{app:deployment}
+
+\section{Requisiti di Sistema (Prerequisiti)}
+Per eseguire l'intero stack del progetto sono necessari i seguenti strumenti:
+\begin{itemize}
+    \item \textbf{Node.js} (versione $\ge$ 16.0.0) e \textbf{NPM}
+    \item \textbf{Docker} e \textbf{Docker Compose} (per il nodo Besu)
+    \item \textbf{Truffle Suite} (per compilazione e deploy Smart Contracts)
+    \item \textbf{Ganache} (opzionale, per test rapidi in locale)
+    \item \textbf{Git}
+    \item \textbf{Java JDK 11+} (se si esegue Besu nativamente senza Docker)
+\end{itemize}
+
+\section{Installazione e Setup}
+\subsection{Clonazione del Repository}
+Il codice sorgente è ospitato su GitHub. Eseguire il clone:
+\begin{lstlisting}[language=bash]
+git clone https://github.com/lucabelard/ProgettoSoftwareSecurity.git
+cd ProgettoSoftwareSecurity
+\end{lstlisting}
+
+\subsection{Installazione Dipendenze}
+Installare le dipendenze per l'interfaccia web e gli script di test:
+\begin{lstlisting}[language=bash]
+npm install
+cd web-interface
+npm install
+\end{lstlisting}
+
+\section{Avvio della Rete Blockchain}
+\subsection{Modalità Sviluppo (Ganache)}
+1. Avviare Ganache (GUI o CLI) sulla porta 7545.
+2. Configurare \texttt{truffle-config.js} per puntare a \texttt{127.0.0.1:7545}.
+3. Eseguire il deploy:
+\begin{lstlisting}[language=bash]
+truffle migrate --reset --network development
+\end{lstlisting}
+
+\subsection{Modalità Produzione (Hyperledger Besu)}
+1. Navigare nella cartella \texttt{besu-network}.
+2. Avviare i nodi validatori:
+\begin{lstlisting}[language=bash]
+./start_nodes.sh
+\end{lstlisting}
+3. Attendere che i nodi siano sincronizzati (consenso IBFT 2.0).
+4. Eseguire il deploy sulla rete Besu:
+\begin{lstlisting}[language=bash]
+truffle migrate --reset --network besu
+\end{lstlisting}
+
+\section{Esecuzione degli Script di Simulazione}
+Per testare il sistema end-to-end con dati simulati:
+\begin{lstlisting}[language=bash]
+node simula_oracolo.js
+\end{lstlisting}
+Questo script simulerà l'invio di dati dai sensori e l'interazione con l'Oracolo on-chain.
+
+\section{Interfaccia Web}
+Per avviare la dashboard utente (necessita di Node.js installato):
+\begin{lstlisting}[language=bash]
+cd web-interface
+npx http-server .
+\end{lstlisting}
+L'applicazione sarà accessibile di default a \texttt{http://localhost:8080}.
+Assicurarsi di avere MetaMask configurato sulla rete locale (Chain ID 1337 o 2024 a seconda della configurazione Ganache/Besu).

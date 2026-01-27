@@ -1,17 +1,26 @@
-\chapter{Introduzione e Contesto}
+\chapter{Contesto e Obiettivi}
 
 \begin{preamble}
-In questo capitolo viene introdotto il contesto del progetto, focalizzandosi sulle problematiche della catena del freddo farmaceutica e sulla soluzione proposta basata su Blockchain e Intelligenza Artificiale.
+In questo capitolo viene analizzato il dominio della Pharmaceutical Cold Chain, evidenziando le criticità di sicurezza attuali. Vengono quindi definiti gli obiettivi del progetto: automazione fidata, integrità dei dati e resilienza agli attacchi.
 \end{preamble}
 
-\section{Il problema della Catena del Freddo Farmaceutica}
-% Descrizione del problema di integrità e fiducia nella logistica farmaceutica.
+\section{Il problema della Catena del Freddo}
+La spedizione di medicinali sensibili è un processo ad alto rischio. Secondo l'Organizzazione Mondiale della Sanità (OMS), una percentuale significativa di vaccini viene sprecata ogni anno a causa di interruzioni nella catena del freddo.
+I problemi principali sono:
+\begin{itemize}
+    \item \textbf{Mancanza di visibilità end-to-end}: I dati di transito sono spesso disponibili solo a posteriori.
+    \item \textbf{Conflitto di interessi}: Il trasportatore, responsabile del mantenimento della temperatura, è spesso anche colui che fornisce i dati di monitoraggio, creando un incentivo alla manipolazione in caso di guasti.
+    \item \textbf{Silos informativi}: Produttori, distributori e farmacie utilizzano sistemi ERP diversi che non comunicano in tempo reale.
+\end{itemize}
 
-\section{Obiettivi del progetto: Automazione e Conformità}
-% Obiettivi principali: automatizzare la verifica e garantire la conformità agli standard.
+\section{Obiettivi del Progetto}
+Il sistema proposto mira a risolvere queste problematiche attraverso tre pilastri fondamentali:
 
-\section{Soluzione proposta: Oracolo Bayesiano su Blockchain}
-% Panoramica della soluzione tecnica: Smart Contract + Rete Bayesiana.
+\subsection{1. Automazione tramite Smart Contract}
+Eliminare l'intermediazione umana e burocratica nei processi di verifica e pagamento. Il contratto intelligente (Smart Contract) agisce come un deposito a garanzia (Escrow), sbloccando i fondi al corriere solo se tutte le condizioni di qualità sono matematicamente soddisfatte.
 
-\section{Organizzazione del documento}
-% Breve descrizione della struttura dei capitoli successivi.
+\subsection{2. Sicurezza del Dato (Data Integrity)}
+Garantire che, una volta acquisito, il dato non possa essere alterato (Tamper-Proof). Questo è assicurato dalla crittografia sottostante la blockchain e dal meccanismo di consenso IBFT 2.0 di Hyperledger Besu.
+
+\subsection{3. Validazione Logica (Data Validity)}
+Garantire che il dato acquisito rifletta la realtà. Qui interviene l'Oracolo Bayesiano, che correla letture diverse (es. "Temperatura Alta" + "Sigillo Rotto" + "Luce Rilevata") per calcolare la probabilità posteriore di un evento avverso, distinguendo tra falsi positivi dei sensori e reali compromissioni del carico.

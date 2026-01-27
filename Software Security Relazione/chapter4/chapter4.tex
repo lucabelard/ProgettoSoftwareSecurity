@@ -1,17 +1,115 @@
-\chapter{Progettazione e Implementazione Sicura}
+\chapter{Programmazione Sicura e Dettagli Implementativi}
 
 \begin{preamble}
-Questo capitolo descrive i dettagli implementativi degli Smart Contract e le misure di sicurezza adottate per mitigare le minacce identificate.
+In questo capitolo viene analizzata nel dettaglio l'implementazione del sistema, coprendo l'intero stack: dai Smart Contract Solidity, passando per la logica di simulazione Oracle, fino all'Interfaccia Web utente.
 \end{preamble}
 
-\section{Design degli Smart Contract}
-% Struttura dei contratti BNCore, BNGestoreSpedizioni, BNPagamenti.
+\section{Smart Contract e Logica On-Chain}
+Il backend decentralizzato è costituito dai contratti \texttt{BNCore} e \texttt{BNGestoreSpedizioni}, che implementano la logica di business e di sicurezza.
 
-\section{Implementazione della Rete Bayesiana On-Chain}
-% Dettagli sull'implementazione del calcolo probabilistico in Solidity (ottimizzazioni, precisione integer).
+\subsection{BNCore: Il Motore Inferenziale}
+Il contratto \texttt{BNCore} agisce come "cervello" matematico. Implementa una Rete Bayesiana statica dove:
+\begin{itemize}
+    \item \textbf{Fatti (Nodi Root)}: $F_1$ (Temperatura Conforme), $F_2$ (Integrità Fisica).
+    \item \textbf{Evidenze (Nodi Foglia)}: $E_1 \dots E_5$ (letture sensori).
+\end{itemize}
+Poiché Solidity non gestisce i float, le probabilità sono gestite come interi (base 100). Il calcolo della probabilità combinata avviene \emph{on-chain} per garantire trasparenza: tutti possono verificare perché una spedizione è stata accettata o rifiutata.
 
-\section{Pattern di Sicurezza adottati}
-% Utilizzo di AccessControl, Checks-Effects-Interactions, e altre best practices OpenZeppelin.
+\subsection{BNGestoreSpedizioni: Sicurezza Operativa}
+Gestisce il ciclo di vita... (come sopra).
+[...existing code listing...]
 
-\section{Gestione delle Evidenze e Oracolo}
-% Meccanismo di invio e validazione delle evidenze dai sensori.
+\subsection{BNPagamenti: L'Attuatore Finanziario}
+Questo contratto estende \texttt{BNGestoreSpedizioni} per isolare la logica critica di pagamento.
+\begin{itemize}
+    \item \textbf{Responsabilità}: Esegue la funzione \texttt{validaEPaga()}, che incrocia i dati del ledger con le probabilità calcolate da \texttt{BNCore}.
+    \item \textbf{Sicurezza}: Implementa \texttt{ReentrancyGuard} per prevenire attacchi durante il trasferimento di Ether.
+\end{itemize}
+
+\begin{lstlisting}[language=Solidity, caption=Runtime Monitor in BNPagamenti (validaEPaga)]
+function validaEPaga(uint256 _id) external nonReentrant {
+    // ... checks ...
+    (uint256 pF1, uint256 pF2) = _calcolaProbabilitaPosteriori(s.evidenze);
+    
+    // SAFETY MONITOR S4: Probability Threshold
+    if (pF1 < SOGLIA || pF2 < SOGLIA) {
+        emit MonitorSafetyViolation("Threshold", _id, msg.sender, "Non conforme");
+        emit TentativoPagamentoFallito(_id, ...);
+        return; // Fail-safe: non paga
+    }
+    
+    // GUARANTEE MONITOR G1: Payment Success
+    s.stato = StatoSpedizione.Pagata;
+    (bool success, ) = s.corriere.call{value: s.importoPagamento}("");
+    require(success, "Transfer fallito");
+    emit MonitorGuaranteeSuccess("PaymentExecuted", _id);
+}
+\end{lstlisting}
+
+\subsection{Privacy e Offuscamento Dati}
+Per mitigare la trasparenza totale della blockchain pubblica, è stato implementato un pattern di \textbf{On-Chain Hashing}.
+I dati sensibili (es. farmaco, destinazione) non vengono salvati sullo Smart Contract.
+\begin{enumerate}
+    \item Il mittente calcola $H = \text{Keccak256}(\text{JSON Dettagli})$ off-chain.
+    \item Invoca \texttt{creaSpedizioneConHash(..., H)}.
+    \item Solo chi possiede il JSON originale può verificare la corrispondenza chiamando \texttt{verificaDettagli(id, JSON)}.
+\end{enumerate}
+
+\section{Sistema Oracolo e Simulazione IoT}
+Il ponte tra mondo fisico e blockchain è gestito dallo script \texttt{simula\_oracolo.js}.
+Questo componente è fondamentale perché la blockchain non può interrogare direttamente i sensori.
+
+\subsection{Flow del Dato (Sensore $\rightarrow$ Blockchain)}
+\begin{enumerate}
+    \item \textbf{Generazione}: Lo script genera valori casuali per i 5 sensori (Temperatura, Umidità, Shock, Luce, Sigillo), simulando scenari normali (90\% probabilità) o di guasto.
+    \item \textbf{Firma}: Ogni lettura viene impacchettata in una transazione firmata dalla chiave privata del \texttt{RUOLO\_SENSORE}.
+    \item \textbf{Invio}: Le transazioni invocano \texttt{inviaEvidenza(id, tipo, valore)} sullo smart contract.
+\end{enumerate}
+
+\begin{lstlisting}[language=JavaScript, caption=Simulazione IoT e Invio dati (simula\_oracolo.js)]
+// Logica simulata: il 'sensore' rileva valori corretti casualmente
+function simulaSensore() { return Math.random() < 0.9; }
+
+// Loop di invio evidenze
+const E1_Temp = simulaSensore();
+await contratto.methods.inviaEvidenza(id, 1, E1_Temp)
+    .send({ from: indirizzoSensore }); // Firma crittografica
+\end{lstlisting}
+
+\section{Interfaccia Web (Dashboard Utente)}
+L'interazione umana avviene tramite una DApp (Decentralized App) Web, progettata per offrire esperienze diverse in base al ruolo dell'utente connesso (rilevato tramite MetaMask).
+
+\subsection{Ruolo: Mittente (Sender)}
+Il Mittente (es. casa farmaceutica) è l'iniziatore del processo.
+\begin{itemize}
+    \item \textbf{Nuova Spedizione}: Compila un form indicando l'indirizzo Ethereum del corriere e l'importo da bloccare in deposito (Escrow).
+    \item \textbf{Operazione}: Al click su "Crea", Web3.js apre MetaMask per confermare la transazione e depositare gli Ether.
+    \item \textbf{Monitoraggio}: Visualizza una lista delle proprie spedizioni con stato in tempo reale (In Transito, Consegnata, Rimborsata).
+\end{itemize}
+
+\subsection{Ruolo: Corriere (Carrier)}
+Il trasportatore ha accesso in "sola lettura" operativa ma con interesse economico.
+\begin{itemize}
+    \item \textbf{Tracking}: Visualizza le spedizioni a lui assegnate.
+    \item \textbf{Notifiche}: Riceve aggiornamenti sullo stato delle evidenze caricate dai sensori.
+    \item \textbf{Incasso}: Se la validazione Bayesiana ha successo, vede lo sblocco automatico dei fondi sul proprio wallet.
+\end{itemize}
+
+\subsection{Ruolo: Admin/Sensore (IoT Simulator)}
+Nella demo, l'interfaccia permette anche di "triggerare" manualmente l'invio delle evidenze (funzione di debug) per vedere come reagisce il contratto.
+\begin{itemize}
+    \item \textbf{Pannello Sensori}: Visualizza toggle switch per ogni sensore (E1-E5).
+    \item \textbf{Invio Forzato}: Permette di inviare una configurazione specifica (es. "Tutto OK tranne Temperatura") per testare la robustezza della validazione.
+\end{itemize}
+
+\section{Integrazione Web3 e Gestione Eventi}
+Il frontend non fa polling continuo ma reagisce agli **Eventi** emessi dallo Smart Contract.
+Quando \texttt{BNCore} emette l'evento \texttt{ProbabilitaValidazione}, l'interfaccia aggiorna immediatamente i grafici e lo stato, offrendo un'esperienza reattiva.
+
+\begin{lstlisting}[language=JavaScript, caption=Ascolto Eventi in Web3.js]
+contratto.events.EvidenceReceived()
+    .on('data', function(event){
+        console.log("Nuova evidenza ricevuta:", event.returnValues);
+        updateUIProressBar(event.returnValues.shipmentId);
+    });
+\end{lstlisting}

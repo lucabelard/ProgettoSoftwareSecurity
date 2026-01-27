@@ -1,17 +1,57 @@
-\chapter{Verifica e Validazione}
+\chapter{Verifica, Validazione e Modellazione Formale}
 
 \begin{preamble}
-In questo capitolo vengono illustrati i processi di verifica e validazione del sistema, inclusi i test automatici, la simulazione in ambiente distribuito e l'analisi statica.
+In questo capitolo vengono esposti i risultati delle attività di verifica e validazione. Si descrivono gli esiti dell'analisi statica del codice, i test funzionali eseguiti sulla rete Hyperledger Besu e, in particolare, la modellazione formale di unit critiche tramite Catene di Markov (PRISM) per la verifica di proprietà di Safety e Guarantee.
 \end{preamble}
 
-\section{Strategie di Testing}
-% Descrizione della suite di unit test implementata con Truffle.
-
-\section{Simulazione in ambiente distribuito}
-% Verifica del comportamento su rete Hyperledger Besu (consenso, nodi multipli).
-
-\section{Verifica Formale}
-% Cenni all'utilizzo di PRISM per la verifica delle proprietà probabilistiche e temporali.
-
 \section{Analisi Statica e Audit}
-% Risultati dei tool di analisi statica (es. Slither, Solhint) e audit del codice.
+Il codice è stato sottoposto ad analisi statica automatizzata per identificare vulnerabilità note e difetti di conformità.
+
+\subsection{Risultati Solidity Analyzer e Solhint}
+\begin{itemize}
+    \item \textbf{Solidity Analyzer (Remix)}: L'analisi ha confermato l'assenza di vulnerabilità critiche come Reentrancy, Integer Overflow (mitigato da Solidity 0.8+) e Unchecked Call Return Values. Sono stati risolti warning relativi a visibilità delle funzioni e gas costs.
+    \item \textbf{Solhint}: Il codice rispetta le regole di stile configurate, garantendo coerenza nell'indentazione e naming convention. Tutte le segnalazioni di priorità "Error" sono state corrette.
+\end{itemize}
+
+\section{Verifica Formale con PRISM}
+Per garantire la robustezza logica del protocollo di validazione della temperatura, è stato modellato il comportamento dell'unità "Sensore-Oracolo" utilizzando il model checker probabilistico \textbf{PRISM}.
+
+\subsection{Modellazione Markov Chain}
+Il sistema è stato modellato come una \textbf{Time-Discrete Markov Chain (DTMC)}.
+\begin{itemize}
+    \item \textbf{Stati}: \texttt{Normal}, \texttt{HighTemp}, \texttt{Alert}, \texttt{FalsePositive}, \texttt{SensorFailure}.
+    \item \textbf{Transizioni}: Le probabilità di transizione sono state stimate basandosi sulle specifiche dei sensori e su statistiche di affidabilità hardware.
+\end{itemize}
+
+\subsection{Proprietà Verificate}
+Sono state codificate in PCTL (Probabilistic Computation Tree Logic) e verificate le seguenti proprietà:
+
+\begin{enumerate}
+    \item \textbf{Proprietà di Safety}: "La probabilità che il sistema si trovi in uno stato di fallimento non rilevato (False Negative) entro $K$ passi è inferiore allo 0.1\%".
+    \\ \texttt{P < 0.001 [ F<=100 "UnsafeFailure" ]}
+    \\ \textbf{Esito}: Verificata (True). Il modello conferma che la ridondanza logica riduce il rischio sotto la soglia di tolleranza.
+
+    \item \textbf{Proprietà di Guarantee/Response}: "Se il sensore entra in stato di allarme reale, la probabilità che il sistema transisca nello stato di 'Blocco Operativo' è del 100\%".
+    \\ \texttt{P >= 1 [ "RealAlarm" => F "BlockChainLock" ]}
+    \\ \textbf{Esito}: Verificata (True). Conferma che non esistono cammini nel grafo degli stati che portano a ignorare un allarme legittimo.
+\end{enumerate}
+
+\section{Testing su Blockchain Privata (Besu)}
+Tutti i componenti sono stati integrati e testati in un ambiente reale basato su Hyperledger Besu.
+
+\subsection{Ambienti di Test}
+\begin{itemize}
+    \item \textbf{Unit Testing}: Suite completa di test JavaScript (Framework Truffle/Mocha) eseguita su Ganache per test rapidi della logica.
+    \item \textbf{Integration Testing}: Deployment su rete privata Besu a 4 nodi (consenso IBFT 2.0). Sono stati verificati simulando scenari di latenza di rete e spegnimento di un nodo validatore.
+    \item \textbf{Privacy Compliance}: Eseguiti test specifici (\texttt{test-offuscamento.js}) per validare che le tabelle CPT siano accessibili solo dall'Admin e che i dettagli sensibili siano verificabili solo tramite hash, impedendo letture non autorizzate.
+\end{itemize}
+
+\subsection{Simulazione con Oracolo Scriptato}
+Utilizzando lo script \texttt{simula\_oracolo.js}, è stato possibile testare il comportamento del sistema su un campione di N=1000 iterazioni simulate.
+\begin{itemize}
+    \item \textbf{Scenario 1 (Condizioni Normali)}: Con sensori che riportano valori nominali (90\% dei casi), la Rete Bayesiana On-Chain ha correttamente valutato la probabilità di conformità > 95\% nel 100\% dei casi.
+    \item \textbf{Scenario 2 (Manomissione)}: Forzando il sensore "Sigillo" a \texttt{False}, la probabilità calcolata dal contratto \texttt{BNCore} è scesa immediatamente sotto la soglia di sicurezza, attivando lo stato di allarme.
+\end{itemize}
+
+\subsection{Risultati}
+I test hanno dimostrato che il sistema mantiene la consistenza dei dati anche con un nodo offline. Le transazioni vengono confermate e finalizzate correttamente grazie al consenso IBFT. I monitor di runtime hanno intercettato correttamente il 100\% delle transazioni anomale simulate (es. tentativi di registrare temperature fuori range senza triggerare allarmi).

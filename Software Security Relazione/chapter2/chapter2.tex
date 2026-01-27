@@ -1,17 +1,66 @@
-\chapter{Scelte Tecnologiche e Architettura}
+\chapter{Analisi e Progettazione Architetturale}
 
 \begin{preamble}
-Questo capitolo analizza le tecnologie adottate per lo sviluppo del sistema e l'architettura complessiva, motivando le scelte effettuate in base a criteri di sicurezza e resilienza.
+Questo capitolo dettaglia le scelte architetturali adottate per soddisfare i requisiti di sicurezza. Si analizzano le tecnologie selezionate (Hyperledger Besu, Truffle), il design del sistema distribuito e l'architettura a tre livelli (Blockchain, Oracle Middleware, Web UI).
 \end{preamble}
 
-\section{Stack Tecnologico}
-% Descrizione di Ethereum, Solidity, Hyperledger Besu, Ganache, Truffle.
+\section{Architettura Distribuita a Tre Livelli}
+Il sistema è basato su un'architettura decentralizzata che interagisce con componenti off-chain per garantire usabilità e connessione con il mondo fisico.
 
-\section{Architettura del Sistema}
-% Descrizione dei livelli: Blockchain, Applicativo (Web3), IoT (simulato).
+\subsection{Livello Blockchain (Data & Logic Layer)}
+Il cuore del sistema è una rete privata basata su \textbf{Hyperledger Besu}.
+\begin{itemize}
+    \item \textbf{Ruolo}: Mantiene il registro immutabile delle transazioni (Ledger) e ospita la logica di business (Smart Contracts).
+    \item \textbf{Componenti}: Nodi validatori, Smart Contract \texttt{BNCore}, \texttt{BNGestoreSpedizioni} e \texttt{BNPagamenti}.
+\end{itemize}
 
-\section{Motivazioni delle scelte}
-% Analisi basata su Resistenza, Sopravvivenza e Ambiguità (dal documento SCELTE_TECNOLOGICHE.md).
+\subsection{Livello Middleware (Oracle Layer)}
+Poiché la blockchain è un sistema chiuso che non può accedere a dati esterni (internet/sensori), è necessario un componente "ponte".
+\begin{itemize}
+    \item \textbf{Componente}: Script Node.js \texttt{simula\_oracolo.js}.
+    \item \textbf{Funzione}: Questo script agisce da bridge. Simula l'acquisizione dati dai sensori IoT (Temperatura, Umidità, Shock, Luce, Sigillo), esegue una pre-validazione opzionale e invia le "evidenze" allo Smart Contract tramite transazioni firmate dal \texttt{RUOLO\_SENSORE}.
+\end{itemize}
 
-\section{Confronto con alternative}
-% Confronto con altre tecnologie (es. Hyperledger Fabric) e giustificazione di Ethereum/Besu.
+\subsection{Livello Presentazione (Web Interface)}
+L'interfaccia utente permette agli attori umani di interagire col sistema senza dover usare riga di comando.
+\begin{itemize}
+    \item \textbf{Tecnologia}: Single Page Application (SPA) HTML5/JS connessa via Web3.js.
+    \item \textbf{Ruolo}: Dashboard per la creazione spedizioni, monitoraggio real-time e gestione rimborsi.
+\end{itemize}
+
+\section{Focus Tecnologico: Hyperledger Besu}
+La scelta di Hyperledger Besu rispetto ad altre soluzioni (es. Geth, Hyperledger Fabric) è stata guidata da specifici requisiti di sicurezza enterprise.
+
+\subsection{Consenso IBFT 2.0 (Istanbul Byzantine Fault Tolerance)}
+A differenza del Proof-of-Work (costoso e lento) o Proof-of-Authority semplice, IBFT 2.0 offre:
+\begin{itemize}
+    \item \textbf{Finalità Immediata}: Una volta che un blocco è scritto, non può essere riorganizzato (niente "fork"). Questo è critico per la supply chain: una consegna registrata non può "sparire".
+    \item \textbf{Tolleranza ai Guasti Bizantini}: Il sistema continua a funzionare correttamente anche se fino a $f$ nodi su $N$ sono malevoli o offline, dove $N \ge 3f + 1$. Nella nostra configurazione a 4 nodi, il sistema resiste alla compromissione completa di 1 nodo validatore senza perdere integrità o disponibilità.
+\end{itemize}
+
+\subsection{Permissioning Avanzato}
+Besu permette di definire una "Allowlist" di nodi e account a livello di protocollo.
+\begin{itemize}
+    \item \textbf{Node Whitelisting}: Solo i nodi certificati (es. appartenenti a Produttore e Distributore) possono partecipare al consenso e sincronizzare la blockchain.
+    \item \textbf{Smart Contract Permissions}: L'accesso alle funzioni critiche è limitato a livello applicativo (tramite libreria AccessControl di OpenZeppelin), distinguendo ruoli come \texttt{ADMIN}, \texttt{MITTENTE} e \texttt{SENSORE}.
+\end{itemize}
+
+\section{Principi di Design Sicuro (Saltzer \& Schroeder)}
+L'architettura rispetta i principi fondamentali della sicurezza:
+\begin{itemize}
+    \item \textbf{Economy of Mechanism (Semplicità)}: I contratti sono modulari. \texttt{BNCore} fa solo matematica, \texttt{BNGestore} gestisce i processi. Meno codice = meno bug.
+    \item \textbf{Open Design}: La sicurezza non si basa sull'oscurità. Il codice è pubblico e verificabile; la sicurezza deriva dalla crittografia e dalla matematica del consenso.
+    \item \textbf{Fail-Safe Defaults}: Se una condizione non è verificata (es. evidenze mancanti), lo stato di default è "Blocco dei fondi" o "Rifiuto transazione", mai "Accettazione implicita".
+    \item \textbf{Separation of Privilege}: Per sbloccare un pagamento servono due condizioni distinte: l'invio delle evidenze (dal Sensore) e la verifica probabilistica (dal Contratto). Nessun singolo attore ha il potere totale.
+\end{itemize}
+
+\section{Analisi di Resistenza, Sopravvivenza e Ambiguità}
+\begin{itemize}
+    \item \textbf{Resistenza}: L'uso di crittografia asimmetrica rende impossibile la falsificazione delle firme digitali dei sensori.
+    \item \textbf{Sopravvivenza (Resilienza)}: La natura distribuita del ledger assicura che i dati siano replicati su tutti i nodi. Un attacco DDoS verso un singolo nodo non ferma il servizio.
+    \item \textbf{Ambiguità (Obfuscation/Privacy)}: Il sistema adotta un approccio ibrido "Privacy by Design". 
+    \begin{itemize}
+        \item \textit{Logica Pubblica}: I calcoli probabilistici sono trasparenti per garantire l'audit.
+        \item \textit{Dati Sensibili Offuscati}: I dettagli personali (nomi, lotti farmaceutici) non sono salvati in chiaro on-chain. Viene memorizzato solo un \textbf{Hash crittografico} (`hashedDetails`) che permette la verifica di integrità senza rivelare il contenuto a osservatori non autorizzati (Off-chain Data Storage).
+    \end{itemize}
+\end{itemize}
