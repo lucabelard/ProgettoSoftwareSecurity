@@ -26,7 +26,7 @@ Questo contratto estende \texttt{BNGestoreSpedizioni} per isolare la logica crit
     \item \textbf{Sicurezza}: Implementa \texttt{ReentrancyGuard} per prevenire attacchi durante il trasferimento di Ether.
 \end{itemize}
 
-\begin{lstlisting}[language=Solidity, caption=Runtime Monitor in BNPagamenti (validaEPaga)]
+\begin{lstlisting}[language=C, caption=Runtime Monitor in BNPagamenti (validaEPaga)]
 function validaEPaga(uint256 _id) external nonReentrant {
     // ... checks ...
     (uint256 pF1, uint256 pF2) = _calcolaProbabilitaPosteriori(s.evidenze);
@@ -66,7 +66,7 @@ Questo componente è fondamentale perché la blockchain non può interrogare dir
     \item \textbf{Invio}: Le transazioni invocano \texttt{inviaEvidenza(id, tipo, valore)} sullo smart contract.
 \end{enumerate}
 
-\begin{lstlisting}[language=JavaScript, caption=Simulazione IoT e Invio dati (simula\_oracolo.js)]
+\begin{lstlisting}[language=Java, caption=Simulazione IoT e Invio dati (simula\_oracolo.js)]
 // Logica simulata: il 'sensore' rileva valori corretti casualmente
 function simulaSensore() { return Math.random() < 0.9; }
 
@@ -106,7 +106,7 @@ Nella demo, l'interfaccia permette anche di "triggerare" manualmente l'invio del
 Il frontend non fa polling continuo ma reagisce agli **Eventi** emessi dallo Smart Contract.
 Quando \texttt{BNCore} emette l'evento \texttt{ProbabilitaValidazione}, l'interfaccia aggiorna immediatamente i grafici e lo stato, offrendo un'esperienza reattiva.
 
-\begin{lstlisting}[language=JavaScript, caption=Ascolto Eventi in Web3.js]
+\begin{lstlisting}[language=Java, caption=Ascolto Eventi in Web3.js]
 contratto.events.EvidenceReceived()
     .on('data', function(event){
         console.log("Nuova evidenza ricevuta:", event.returnValues);
