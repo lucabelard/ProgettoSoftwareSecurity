@@ -2,6 +2,7 @@
 pragma solidity ^0.8.19;
 
 import "./BNGestoreSpedizioni.sol";
+import "@openzeppelin/contracts/security/ReentrancyGuard.sol";
 
 // Custom Errors
 error NonSeiIlCorriere();
@@ -12,7 +13,7 @@ error PagamentoFallito();
  * @notice Gestisce la validazione e i pagamenti delle spedizioni
  * @dev Estende BNGestoreSpedizioni - ISOLAMENTO della logica di pagamento
  */
-contract BNPagamenti is BNGestoreSpedizioni {
+contract BNPagamenti is BNGestoreSpedizioni, ReentrancyGuard {
     
     // === EVENTI ===
     event SpedizionePagata(uint256 indexed id, address indexed corriere, uint256 importo);
@@ -32,7 +33,7 @@ contract BNPagamenti is BNGestoreSpedizioni {
      * @param _id ID della spedizione da validare
      * @dev Verifica tutte le evidenze, calcola probabilità Bayesiane e paga se >= 95%
      */
-    function validaEPaga(uint256 _id) external {
+    function validaEPaga(uint256 _id) external nonReentrant {
         Spedizione storage s = spedizioni[_id];
         
         // SAFETY MONITOR S5: Courier Authorization

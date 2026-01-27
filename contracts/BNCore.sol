@@ -88,6 +88,12 @@ contract BNCore is AccessControl {
         external
         onlyRole(RUOLO_ORACOLO)
     {
+        // ✅ VALIDAZIONE INPUT: Tutti i valori CPT devono essere validi (0-100)
+        require(_cpt.p_FF <= PRECISIONE, "CPT: p_FF invalido");
+        require(_cpt.p_FT <= PRECISIONE, "CPT: p_FT invalido");
+        require(_cpt.p_TF <= PRECISIONE, "CPT: p_TF invalido");
+        require(_cpt.p_TT <= PRECISIONE, "CPT: p_TT invalido");
+        
         if (_idEvidenza == 1) cpt_E1 = _cpt;
         else if (_idEvidenza == 2) cpt_E2 = _cpt;
         else if (_idEvidenza == 3) cpt_E3 = _cpt;
