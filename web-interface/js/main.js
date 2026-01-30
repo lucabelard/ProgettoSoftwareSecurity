@@ -81,10 +81,34 @@ function setupEventListeners() {
     document.getElementById('filterStatus')?.addEventListener('change', filterShipments);
 
     // Web3 Events
-    window.addEventListener('accountChanged', (event) => {
+    window.addEventListener('accountChanged', async (event) => {
         updateAccountUI();
-        loadShipments();
-        showToast('Account cambiato', 'info');
+
+        // Reload user roles for the new account
+        const account = getCurrentAccount();
+        const roles = await getUserRoles(account);
+        console.log('New account roles:', roles);
+
+        // Update UI with new roles
+        updateRoleBadges(roles);
+        filterPanelsByRole(roles);
+
+        // Auto-select appropriate panel based on new account's roles
+        const isAdmin = roles.includes('admin') || roles.includes('oracolo');
+        if (isAdmin) {
+            handleRoleSelection('admin');
+        } else if (roles.includes('mittente')) {
+            handleRoleSelection('mittente');
+        } else if (roles.includes('sensore')) {
+            handleRoleSelection('sensore');
+        } else {
+            handleRoleSelection('corriere');
+        }
+
+        // Reload shipments with new account context
+        await loadShipments();
+
+        showToast(`Account cambiato (${roles.join(', ')})`, 'success');
     });
 
     window.addEventListener('chainChanged', () => {

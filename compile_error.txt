@@ -1,0 +1,18 @@
+﻿
+Compiling your contracts...
+===========================
+> Compiling .\contracts\BNCalcolatoreOnChain.sol
+> Compiling .\contracts\BNCore.sol
+> Compiling .\contracts\BNGestoreSpedizioni.sol
+> Compiling .\contracts\BNPagamenti.sol
+> Compiling .\contracts\BNPagamenti.sol
+
+ParserError: Source "@openzeppelin/contracts/security/ReentrancyGuard.sol" not found
+ --> project:/contracts/BNPagamenti.sol:5:1:
+  |
+5 | import "@openzeppelin/contracts/security/ReentrancyGuard.sol";
+  | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+[31mCompilation failed. See above.[39m
+Truffle v5.11.5 (core: 5.11.5)
+Node v18.20.8
