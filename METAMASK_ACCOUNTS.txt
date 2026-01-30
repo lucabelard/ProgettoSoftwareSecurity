@@ -2,7 +2,7 @@ QUESTI SONO GLI ACCOUNT DA IMPORTARE IN METAMASK PER INTERAGIRE CON LA RETE BESU
 
 Network Details da configurare in MetaMask:
 ------------------------------------------
-Network Name: Besu
+Network Name: Besu Local
 RPC URL: http://127.0.0.1:8545
 Chain ID: 2024
 Currency Symbol: ETH
