@@ -41,7 +41,5 @@ echo.
 echo Per verificare lo stato della rete:
 echo   scripts\windows\check-network.ps1
 echo.
-echo Per fermare tutto:
-echo   scripts\windows\stop-network.bat
 echo.
 pause
