@@ -31,9 +31,10 @@ besu-config/node*/besu.log
 besu-config/node*/data/*.json
 besu-config/node*/data/*.lock
 besu-config/node*/data/LOCK
+besu-config/node*/besu.networks
+besu-config/node*/data/besu.ports
 
 # Temp files
 deploy_log.txt
 verify-besu-deploy.js
 scripts/verify-truffle.js
-
