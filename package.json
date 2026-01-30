@@ -21,7 +21,7 @@
   },
   "homepage": "https://github.com/lucabelard/ProgettoSoftwareSecurity#readme",
   "dependencies": {
-    "@openzeppelin/contracts": "^4.9.6",
+    "@openzeppelin/contracts": "^4.8.3",
     "web3": "^4.16.0"
   },
   "devDependencies": {
