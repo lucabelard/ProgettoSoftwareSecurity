@@ -4,7 +4,7 @@ echo ========================================
 echo [Node 1] Bootstrap Validator
 echo ========================================
 echo.
-echo RPC Port:  8545
+echo RPC Port:  8551
 echo P2P Port:  30303
 echo.
 
@@ -17,7 +17,7 @@ besu ^
   --rpc-http-enabled ^
   --rpc-http-api=ETH,NET,WEB3,IBFT,ADMIN,TXPOOL,MINER ^
   --rpc-http-host=0.0.0.0 ^
-  --rpc-http-port=8545 ^
+  --rpc-http-port=8551 ^
   --rpc-http-cors-origins="*" ^
   --host-allowlist="*" ^
   --p2p-enabled=true ^

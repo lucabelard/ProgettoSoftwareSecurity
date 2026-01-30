@@ -10,6 +10,41 @@ export let networkId;
 export let accounts = [];
 
 // ===== INITIALIZATION =====
+
+// RPC URLs dei 4 nodi Besu per fallback
+const BESU_RPC_URLS = [
+    'http://127.0.0.1:8545', // Node 1
+    'http://127.0.0.1:8546', // Node 2
+    'http://127.0.0.1:8547', // Node 3
+    'http://127.0.0.1:8548'  // Node 4
+];
+
+/**
+ * Try to connect to Besu nodes with fallback
+ * Tries all available RPC endpoints until one works
+ */
+async function tryBesuConnection() {
+    for (const rpcUrl of BESU_RPC_URLS) {
+        try {
+            console.log(`Tentativo connessione a ${rpcUrl}...`);
+            const provider = new Web3.providers.HttpProvider(rpcUrl, {
+                timeout: 5000 // 5 secondi timeout per ogni tentativo
+            });
+            const testWeb3 = new Web3(provider);
+            
+            // Test connessione
+            await testWeb3.eth.net.isListening();
+            
+            console.log(`✅ Connesso a Besu su ${rpcUrl}`);
+            return { provider, rpcUrl };
+        } catch (error) {
+            console.log(`❌ ${rpcUrl} non disponibile, provo il prossimo...`);
+        }
+    }
+    
+    throw new Error('Nessun nodo Besu raggiungibile. Assicurati che almeno un nodo sia avviato.');
+}
+
 export async function initWeb3() {
     try {
         if (typeof window.ethereum !== 'undefined') {
@@ -17,11 +52,11 @@ export async function initWeb3() {
             console.log('MetaMask rilevato');
             return { success: true, provider: 'MetaMask' };
         } else {
-            // Fallback to Ganache
-            const GANACHE_URL = 'http://127.0.0.1:7545';
-            web3 = new Web3(new Web3.providers.HttpProvider(GANACHE_URL));
-            console.log('MetaMask non trovato, connessione a Ganache...');
-            return { success: true, provider: 'Ganache' };
+            // Prova connessione con fallback a tutti i nodi Besu
+            const { provider, rpcUrl } = await tryBesuConnection();
+            web3 = new Web3(provider);
+            console.log(`Connesso a Besu (${rpcUrl})`);
+            return { success: true, provider: `Besu (${rpcUrl})` };
         }
     } catch (error) {
         console.error('Errore inizializzazione Web3:', error);
