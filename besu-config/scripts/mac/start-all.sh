@@ -2,7 +2,13 @@
 
 # Ottieni path assoluto dello script
 SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
-PROJECT_ROOT="$SCRIPT_DIR/../.."
+PROJECT_ROOT="$SCRIPT_DIR/../../.."
+
+# Cleanup previous processes
+echo "[*] Cleaning up old processes..."
+pkill -f besu 2>/dev/null
+pkill -f "besu-config/scripts/rpc-proxy.js" 2>/dev/null
+sleep 2
 
 echo "============================================================"
 echo "  AVVIO RETE BESU (MAC OS) - Chain ID 2025"
@@ -13,7 +19,10 @@ echo ""
 open_terminal() {
     local cmd=$1
     local title=$2
-    osascript -e "tell application \"Terminal\" to do script \"$cmd; exit\""
+    # Escape backslashes first, then double quotes for AppleScript
+    local escaped_cmd=${cmd//\\/\\\\}
+    escaped_cmd=${escaped_cmd//\"/\\\"}
+    osascript -e "tell application \"Terminal\" to do script \"$escaped_cmd\""
 }
 
 # 1. Avvia Proxy
