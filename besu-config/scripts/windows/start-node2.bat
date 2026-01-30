@@ -30,7 +30,7 @@ besu ^
   --p2p-host=0.0.0.0 ^
   --p2p-port=30304 ^
   --discovery-enabled=true ^
-  --min-gas-price=0 ^
+  --min-gas-price=1000 ^
   --miner-enabled=true ^
   --miner-coinbase=0x7eac0f7a98f6c004b1c7e0ee0f48897cd14af0cd ^
   --revert-reason-enabled=true ^

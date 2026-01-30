@@ -45,7 +45,11 @@ async function deployAndSetup() {
 
         const balance = await web3.eth.getBalance(adminAccount.address);
         console.log(`✓ Admin: ${adminAccount.address}`);
-        console.log(`✓ Balance: ${web3.utils.fromWei(balance, 'ether')} ETH\n`);
+        console.log(`✓ Balance: ${web3.utils.fromWei(balance, 'ether')} ETH`);
+
+        // Get Gas Price for Legacy Transactions
+        const gasPrice = await web3.eth.getGasPrice();
+        console.log(`✓ Gas Price: ${gasPrice} wei\n`);
 
         // Carica l'artifact del contratto
         const contractPath = path.join(__dirname, 'build', 'contracts', 'BNCalcolatoreOnChain.json');
@@ -60,7 +64,8 @@ async function deployAndSetup() {
         const deployedContract = await deployTx.send({
             from: adminAccount.address,
             gas: 8000000,
-            gasPrice: 0
+            gas: 8000000, // Gas Limit
+            gasPrice: gasPrice
         });
 
         console.log(`✅ Contratto deployato!`);
@@ -89,7 +94,8 @@ async function deployAndSetup() {
         await deployedContract.methods.grantRole(RUOLO_SENSORE, accounts.sensore.address).send({
             from: adminAccount.address,
             gas: 200000,
-            gasPrice: 0
+            gas: 200000,
+            gasPrice: gasPrice
         });
         console.log(`✓ Ruolo SENSORE assegnato a: ${accounts.sensore.address} (${accounts.sensore.name})`);
 
@@ -97,7 +103,8 @@ async function deployAndSetup() {
         await deployedContract.methods.grantRole(RUOLO_MITTENTE, accounts.mittente.address).send({
             from: adminAccount.address,
             gas: 200000,
-            gasPrice: 0
+            gas: 200000,
+            gasPrice: gasPrice
         });
         console.log(`✓ Ruolo MITTENTE assegnato a: ${accounts.mittente.address} (${accounts.mittente.name})`);
 
@@ -110,7 +117,8 @@ async function deployAndSetup() {
         await deployedContract.methods.impostaProbabilitaAPriori(99, 99).send({
             from: adminAccount.address,
             gas: 300000,
-            gasPrice: 0
+            gas: 300000,
+            gasPrice: gasPrice
         });
         console.log('✓ Probabilità a priori impostate (P(F1)=99%, P(F2)=99%)');
 
@@ -124,35 +132,40 @@ async function deployAndSetup() {
         await deployedContract.methods.impostaCPT(1, cptPositiva).send({
             from: adminAccount.address,
             gas: 300000,
-            gasPrice: 0
+            gas: 300000,
+            gasPrice: gasPrice
         });
 
         // E2 (Sigillo)
         await deployedContract.methods.impostaCPT(2, cptPositiva).send({
             from: adminAccount.address,
             gas: 300000,
-            gasPrice: 0
+            gas: 300000,
+            gasPrice: gasPrice
         });
 
         // E3 (Shock)
         await deployedContract.methods.impostaCPT(3, cptNegativa).send({
             from: adminAccount.address,
             gas: 300000,
-            gasPrice: 0
+            gas: 300000,
+            gasPrice: gasPrice
         });
 
         // E4 (Luce)
         await deployedContract.methods.impostaCPT(4, cptNegativa).send({
             from: adminAccount.address,
             gas: 300000,
-            gasPrice: 0
+            gas: 300000,
+            gasPrice: gasPrice
         });
 
         // E5 (Scan)
         await deployedContract.methods.impostaCPT(5, cptPositiva).send({
             from: adminAccount.address,
             gas: 300000,
-            gasPrice: 0
+            gas: 300000,
+            gasPrice: gasPrice
         });
 
         console.log('✓ Setup delle CPT per E1-E5 completato\n');

@@ -27,4 +27,8 @@ Address: 0xC5fdf4076b8F3A5357c5E395ab970B5B54098Fef
 Private Key: 0x0dbbe8e4ae425a6d2687f1a7e3ba17bc98c673636790f1b8ad91193c05875ef1
 
 -------------------------------------------
-NOTA: La rete ha Gas Price = 0, quindi non consumerai ETH reali o di test per le transazioni.
+NOTA: La rete ora richiede GAS per le transazioni (Gas Price >= 1000 wei).
+Gli account sopra hanno fondi pre-allocati nel blocco di genesi.
+
+
+

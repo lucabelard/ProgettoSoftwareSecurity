@@ -115,13 +115,51 @@ const server = http.createServer(async (clientReq, clientRes) => {
                             const responseJson = JSON.parse(resBuffer.toString());
                             if (responseJson.result) {
                                 const receipt = responseJson.result;
-                                const gasUsedDecimal = parseInt(receipt.gasUsed, 16);
+                                
+                                // Dati Transazione
+                                const txHash = receipt.transactionHash;
                                 const status = receipt.status === '0x1' ? 'SUCCESS' : 'FAILED';
-                                const msg = `⛽ TX RECEIPT | Hash: ${receipt.transactionHash} | Status: ${status} | Gas Used: ${gasUsedDecimal} | Block: ${parseInt(receipt.blockNumber, 16)}`;
-                                console.log(`[Log] ${msg}`);
-                                logToFile(TX_LOG_FILE, msg);
+                                const blockNumber = parseInt(receipt.blockNumber, 16);
+                                const from = receipt.from;
+                                const to = receipt.to;
+                                const contractAddress = receipt.contractAddress;
+                                
+                                // Calcoli Gas ed ETH
+                                const gasUsed = parseInt(receipt.gasUsed, 16);
+                                // Besu restituisce effectiveGasPrice in hex (wei)
+                                const gasPrice = receipt.effectiveGasPrice ? parseInt(receipt.effectiveGasPrice, 16) : 0;
+                                const costWei = BigInt(gasUsed) * BigInt(gasPrice);
+                                const costEth = Number(costWei) / 1e18; // Converti Wei -> ETH
+                                
+                                // Determina Tipo Transazione
+                                let txType = "GENERIC TRAFFIC";
+                                if (!to && contractAddress) {
+                                    txType = "📄 CONTRACT DEPLOYMENT";
+                                } else if (to) {
+                                    txType = "➡️ TRANSACTION";
+                                }
+
+                                // Formatta Messaggio Log Dettagliato
+                                const logMessage = `
+--------------------------------------------------------------------------------
+[${new Date().toISOString()}] ${txType}
+--------------------------------------------------------------------------------
+Status:       ${status}
+Hash:         ${txHash}
+Block:        ${blockNumber}
+Promoter:     ${from}
+Target:       ${to || "New Contract: " + contractAddress}
+Gas Used:     ${gasUsed}
+Gas Price:    ${gasPrice} wei
+Total Cost:   ${costEth.toFixed(18)} ETH
+--------------------------------------------------------------------------------
+`;
+                                console.log(`[Log] Transazione registrata in log.txt`);
+                                logToFile(path.join(LOG_DIR, 'log.txt'), logMessage);
                             }
-                        } catch (e) { /* ignore logging errors */ }
+                        } catch (e) { 
+                            console.error("[Proxy Log Error] ", e.message);
+                        }
                     });
                 } else {
                     clientRes.writeHead(proxyRes.statusCode, proxyRes.headers);
@@ -173,29 +211,43 @@ const server = http.createServer(async (clientReq, clientRes) => {
     });
 });
 
-// MONITORAGGIO ATTIVO (Ogni 3 secondi)
-setInterval(async () => {
-    const targetNode = NODES[currentNodeIndex];
-    const isAlive = await checkNode(targetNode.port);
+// MONITORAGGIO ATTIVO (Ogni 3 secondi) - Parte dopo 30 secondi per dare tempo ai nodi di avviarsi
+console.log('\n[Monitor] In attesa di 30 secondi per avvio nodi...');
+setTimeout(() => {
+    console.log('[Monitor] Avvio controllo attivo dei nodi...');
     
-    if (!isAlive) {
-        const warnMsg = `[Monitor] ⚠️ Node ${targetNode.name} (${targetNode.port}) NON RISPONDE!`;
-        console.log(warnMsg);
-        logToFile(LOG_FILE, warnMsg);
-        
-        console.log(`[Monitor] 🔄 Avvio failover automatico...`);
-        
-        const newIndex = await findActiveNode();
-        if (newIndex !== -1) {
-             currentNodeIndex = newIndex;
-             // Log switch già fatto da findActiveNode
-        } else {
-            const errMsg = `[Monitor] ❌ ERRORE: Nessun nodo disponibile!`;
-            console.log(errMsg);
-            logToFile(LOG_FILE, errMsg);
+    // Primo check immediato dopo il timeout
+    checkNode(NODES[currentNodeIndex].port).then(isAlive => {
+        if(isAlive) {
+            const successMsg = `[Monitor] ✅ Connessione stabilita con successo al Nodo Principale (${NODES[currentNodeIndex].name})`;
+            console.log(successMsg);
+            logToFile(LOG_FILE, successMsg);
         }
-    }
-}, 3000);
+    });
+
+    setInterval(async () => {
+        const targetNode = NODES[currentNodeIndex];
+        const isAlive = await checkNode(targetNode.port);
+        
+        if (!isAlive) {
+            const warnMsg = `[Monitor] ⚠️ Node ${targetNode.name} (${targetNode.port}) NON RISPONDE!`;
+            console.log(warnMsg);
+            logToFile(LOG_FILE, warnMsg);
+            
+            console.log(`[Monitor] 🔄 Avvio failover automatico...`);
+            
+            const newIndex = await findActiveNode();
+            if (newIndex !== -1) {
+                 currentNodeIndex = newIndex;
+                 // Log switch già fatto da findActiveNode
+            } else {
+                const errMsg = `[Monitor] ❌ ERRORE: Nessun nodo disponibile!`;
+                console.log(errMsg);
+                logToFile(LOG_FILE, errMsg);
+            }
+        }
+    }, 3000);
+}, 30000); // 30 Secondi di attesa iniziale
 
 server.listen(LISTENING_PORT, () => {
     console.log('===================================================');
@@ -205,5 +257,5 @@ server.listen(LISTENING_PORT, () => {
     console.log('===================================================');
     console.log(`Nodes configured:`);
     NODES.forEach(n => console.log(` - ${n.name}: Port ${n.port}`));
-    console.log('\n[Monitor] Controllo attivo avviato (ogni 3s)...');
 });
+

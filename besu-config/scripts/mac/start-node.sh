@@ -36,7 +36,7 @@ besu \
   --p2p-host=0.0.0.0 \
   --p2p-port=$P2P_PORT \
   --discovery-enabled=true \
-  --min-gas-price=0 \
+  --min-gas-price=1000 \
   --miner-enabled=true \
   --miner-coinbase=$(cat "$KEY_FILE.pub") \
   --revert-reason-enabled=true \
