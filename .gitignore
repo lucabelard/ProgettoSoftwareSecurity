@@ -33,6 +33,9 @@ besu-config/node*/besu.log
 # Ignore entire data directories for nodes to prevent pushing blockchain state
 besu-config/node*/data/
 besu-data/
+besu-config/node*/data/besu.networks
+besu-config/node*/data/besu.ports
+
 
 # Specific temporary files
 deploy_log.txt
