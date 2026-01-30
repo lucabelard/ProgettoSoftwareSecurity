@@ -20,8 +20,10 @@ secrets.json
 .vscode/
 .idea/
 .DS_Store
+**/.DS_Store
 Thumbs.db
 *.swp
+
 
 # Logs
 logs/
