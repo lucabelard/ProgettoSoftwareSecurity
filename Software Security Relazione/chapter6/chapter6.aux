@@ -1,18 +1,40 @@
 \relax 
 \providecommand\hyper@newdestlabel[2]{}
-\@writefile{toc}{\contentsline {chapter}{\numberline {6}Conclusioni e Sviluppi Futuri}{15}{chapter.6}\protected@file@percent }
+\@writefile{toc}{\contentsline {chapter}{\numberline {6}Analisi della Qualità del Codice (Solhint)}{28}{chapter.6}\protected@file@percent }
 \@writefile{lof}{\addvspace {10\p@ }}
 \@writefile{lot}{\addvspace {10\p@ }}
-\@writefile{toc}{\contentsline {section}{\numberline {6.1}Sintesi dei Risultati}{15}{section.6.1}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {6.2}Limitazioni Attuali}{15}{section.6.2}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {6.3}Sviluppi Futuri}{16}{section.6.3}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {6.3.1}Integrazione zk-SNARKs (Privacy)}{16}{subsection.6.3.1}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {6.3.2}Oracle Feed decentralizzati (Chainlink)}{16}{subsection.6.3.2}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {6.3.3}Hardware Security Module (HSM)}{16}{subsection.6.3.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {6.1}Introduzione}{28}{section.6.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {6.2}Metodologia}{28}{section.6.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.2.1}Solhint: Caratteristiche}{28}{subsection.6.2.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.2.2}Installazione ed Esecuzione}{28}{subsection.6.2.2}\protected@file@percent }
+\@writefile{lol}{\contentsline {lstlisting}{\numberline {6.1}{\ignorespaces Comandi principali Solhint}}{28}{lstlisting.6.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {6.3}Risultati Iniziali}{29}{section.6.3}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {6.1}{\ignorespaces Categorizzazione warning iniziali}}{29}{table.caption.52}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {6.4}Processo di Ottimizzazione}{29}{section.6.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.4.1}Fase 1: Miglioramenti al Codice (-56 warning)}{29}{subsection.6.4.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{Documentazione NatSpec (31 warning)}{29}{section*.53}\protected@file@percent }
+\@writefile{lol}{\contentsline {lstlisting}{\numberline {6.2}{\ignorespaces Esempio NatSpec}}{29}{lstlisting.6.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{Ottimizzazioni Gas (3 warning)}{29}{section*.54}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{Refactoring Funzioni (2 warning)}{30}{section*.55}\protected@file@percent }
+\@writefile{lol}{\contentsline {lstlisting}{\numberline {6.3}{\ignorespaces Helper function}}{30}{lstlisting.6.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.4.2}Fase 2: Configurazione Naming (-42 warning)}{30}{subsection.6.4.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.4.3}Fase 3: Configurazione Gas (-18 warning)}{30}{subsection.6.4.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {6.5}Configurazione Finale}{30}{section.6.5}\protected@file@percent }
+\@writefile{lol}{\contentsline {lstlisting}{\numberline {6.4}{\ignorespaces .solhint.json completo}}{31}{lstlisting.6.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {6.6}Risultati Finali}{31}{section.6.6}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.6.1}Metriche Quantitative}{31}{subsection.6.6.1}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {6.2}{\ignorespaces Evoluzione warning}}{31}{table.caption.56}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.6.2}Warning Rimanenti}{31}{subsection.6.6.2}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {6.3}{\ignorespaces Breakdown warning finali}}{31}{table.caption.57}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {6.7}Considerazioni Critiche}{32}{section.6.7}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Limiti analisi statica}{32}{section*.58}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Complementarietà con altri tool}{32}{section*.59}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {6.8}Conclusioni}{32}{section.6.8}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.8.1}Raccomandazioni}{32}{subsection.6.8.1}\protected@file@percent }
 \@setckpt{chapter6/chapter6}{
-\setcounter{page}{17}
+\setcounter{page}{33}
 \setcounter{equation}{0}
-\setcounter{enumi}{4}
+\setcounter{enumi}{3}
 \setcounter{enumii}{0}
 \setcounter{enumiii}{0}
 \setcounter{enumiv}{0}
@@ -20,18 +42,14 @@
 \setcounter{mpfootnote}{0}
 \setcounter{part}{0}
 \setcounter{chapter}{6}
-\setcounter{section}{3}
-\setcounter{subsection}{3}
+\setcounter{section}{8}
+\setcounter{subsection}{1}
 \setcounter{subsubsection}{0}
 \setcounter{paragraph}{0}
 \setcounter{subparagraph}{0}
 \setcounter{figure}{0}
-\setcounter{table}{0}
+\setcounter{table}{3}
 \setcounter{float@type}{8}
-\setcounter{section@level}{2}
-\setcounter{Item}{15}
-\setcounter{Hfootnote}{0}
-\setcounter{bookmark@seq@number}{0}
 \setcounter{parentequation}{0}
 \setcounter{su@anzahl}{0}
 \setcounter{LT@tables}{0}
@@ -50,6 +68,10 @@
 \setcounter{cp@cnt}{0}
 \setcounter{cp@tempcnt}{0}
 \setcounter{vrcnt}{0}
+\setcounter{section@level}{2}
+\setcounter{Item}{12}
+\setcounter{Hfootnote}{0}
+\setcounter{bookmark@seq@number}{0}
 \setcounter{KVtest}{0}
 \setcounter{subfigure}{0}
 \setcounter{subfigure@save}{0}
@@ -57,6 +79,6 @@
 \setcounter{subtable}{0}
 \setcounter{subtable@save}{0}
 \setcounter{lotdepth}{1}
-\setcounter{lstnumber}{6}
-\setcounter{lstlisting}{0}
+\setcounter{lstnumber}{24}
+\setcounter{lstlisting}{4}
 }

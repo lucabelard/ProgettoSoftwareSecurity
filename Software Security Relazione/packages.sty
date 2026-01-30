@@ -3,7 +3,7 @@
 % ... (encoding, fonts, etc.) ...
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
-\usepackage{bookmark} % Recommended to fix pdfTeX warning
+% \usepackage{bookmark} % Moved to end
 \usepackage{eurosym}
 \usepackage{makeidx}
 \makeindex
@@ -97,11 +97,23 @@
     urlcolor=black,
     breaklinks=true
 }
+\usepackage{bookmark}
 \usepackage{subfig}
 
 % CODE LISTINGS
 \usepackage{listings}
 \usepackage{xcolor}
+
+\lstdefinelanguage{Solidity}{
+    keywords={contract, function, event, modifier, require, revert, emit, if, else, return, uint256, address, bool, public, internal, external, view, pure, memory, storage},
+    keywordstyle=\color{blue}\bfseries,
+    comment=[l]{//},
+    commentstyle=\color{gray}\itshape,
+    stringstyle=\color{red},
+    basicstyle=\ttfamily\scriptsize,
+    breaklines=true,
+    showstringspaces=false
+}
 
 \definecolor{codegreen}{rgb}{0,0.6,0}
 \definecolor{codegray}{rgb}{0.5,0.5,0.5}
