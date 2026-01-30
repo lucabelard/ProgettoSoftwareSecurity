@@ -8,7 +8,13 @@ echo RPC Port:  8547
 echo P2P Port:  30305
 echo.
 
+
 cd /d "%~dp0..\.."
+
+REM Killing process on port 8547
+echo [*] Pulizia porta 8547...
+for /f "tokens=5" %%a in ('netstat -aon ^| find ":8547" ^| find "LISTENING"') do taskkill /f /pid %%a >nul 2>&1
+
 
 besu ^
   --data-path=node3/data ^

@@ -37,12 +37,13 @@ module.exports = {
         privateKeys: besuPrivateKeys,
         providerOrUrl: "http://127.0.0.1:8545",
         numberOfAddresses: 4,
-        pollingInterval: 1000
+        pollingInterval: 1000,
+        timeout: 120000  // 120 secondi di timeout HTTP
       }),
       network_id: "2024",  // BESU IBFT network uses 2024
       gas: 8000000,
       gasPrice: 0,
-      networkCheckTimeout: 60000,
+      networkCheckTimeout: 120000,
       timeoutBlocks: 500,
       deploymentPollingInterval: 2000,
       skipDryRun: true,

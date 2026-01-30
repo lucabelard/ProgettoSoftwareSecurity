@@ -30,8 +30,8 @@ echo [*] Avvio Node 4...
 start "Besu Node 4" scripts\windows\start-node4.bat
 
 echo.
-echo [*] Esecuzione script di connessione automatica (P2P Discovery)...
-powershell -ExecutionPolicy Bypass -File scripts\windows\auto-connect.ps1
+echo [*] I nodi si connetteranno automaticamente tramite P2P discovery...
+timeout /t 10 /nobreak >nul
 
 echo.
 echo ============================================================

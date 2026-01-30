@@ -2,7 +2,7 @@
 pragma solidity ^0.8.19;
 
 import "./BNGestoreSpedizioni.sol";
-import "@openzeppelin/contracts/utils/ReentrancyGuard.sol";
+import "@openzeppelin/contracts/security/ReentrancyGuard.sol";
 
 // Custom Errors
 error NonSeiIlCorriere();
