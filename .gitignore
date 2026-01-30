@@ -1,40 +1,44 @@
-# Node modules
+# Node & Dependencies
 node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+package-lock.json
 
-# Build artifacts (generati da truffle compile)
+# Build Artifacts (Truffle/Hardhat)
 build/
+dist/
+.cache/
 
-# Contract JSON copiato nell'interfaccia web
-web-interface/BNCalcolatoreOnChain.json
-web-interface/*.backup
-
-# Environment files
+# Environment & Secrets
 .env
 .env.local
+.env.*.local
+secrets.json
 
-# IDE
+# IDE & OS
 .vscode/
 .idea/
-
-# OS
 .DS_Store
 Thumbs.db
+*.swp
 
 # Logs
+logs/
 *.log
-npm-debug.log*
-
-# Besu Data
-besu-config/node*/data/database/
-besu-config/node*/data/caches/
+besu-config/logs/
 besu-config/node*/besu.log
-besu-config/node*/data/*.json
-besu-config/node*/data/*.lock
-besu-config/node*/data/LOCK
-besu-config/node*/besu.networks
-besu-config/node*/data/besu.ports
 
-# Temp files
+# Besu Blockchain Data (HEAVY)
+# Ignore entire data directories for nodes to prevent pushing blockchain state
+besu-config/node*/data/
+besu-data/
+
+# Specific temporary files
 deploy_log.txt
-verify-besu-deploy.js
-scripts/verify-truffle.js
+tmp/
+*.pid
+
+# Web Interface Artifacts
+web-interface/BNCalcolatoreOnChain.json
+web-interface/*.backup
