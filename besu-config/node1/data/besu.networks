@@ -1,4 +1,5 @@
 #This file contains the IP Addresses (global and local) used by the running instance of Besu. This file will be deleted after the node is shutdown.
+<<<<<<< Updated upstream
 <<<<<<< HEAD
 #Fri Jan 30 14:21:29 CET 2026
 =======
@@ -12,5 +13,8 @@
 >>>>>>> Stashed changes
 >>>>>>> bc538847b8749e39d20760c0a93c97e389db3912
 >>>>>>> 811de85508c8859c7eb5d5d9ad47bc925825eee3
+=======
+#Fri Jan 30 14:30:05 CET 2026
+>>>>>>> Stashed changes
 global-ip=0.0.0.0
 local-ip=0.0.0.0

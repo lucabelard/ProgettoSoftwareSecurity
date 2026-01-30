@@ -1,4 +1,5 @@
 #This file contains the ports used by the running instance of Besu. This file will be deleted after the node is shutdown.
+<<<<<<< Updated upstream
 <<<<<<< HEAD
 #Fri Jan 30 14:21:40 CET 2026
 =======
@@ -12,6 +13,9 @@
 >>>>>>> Stashed changes
 >>>>>>> bc538847b8749e39d20760c0a93c97e389db3912
 >>>>>>> 811de85508c8859c7eb5d5d9ad47bc925825eee3
+=======
+#Fri Jan 30 14:30:15 CET 2026
+>>>>>>> Stashed changes
 discovery=30306
 json-rpc=8548
 p2p=30306
