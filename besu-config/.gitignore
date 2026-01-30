@@ -8,6 +8,9 @@ node*/data/besu.networks
 node*/data/besu.ports
 node*/data/*.lock
 
+besu-config/node*/besu.networks
+besu-config/node*/data/besu.ports
+
 # Log files
 *.log
 
