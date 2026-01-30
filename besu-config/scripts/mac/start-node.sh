@@ -8,6 +8,9 @@ P2P_PORT=$4
 KEY_FILE=$5
 GENESIS_FILE="../../networkFiles/genesis-2025.json"
 
+# Imposta il titolo del terminale
+printf "\033]0;%s\007" "$NODE_NAME"
+
 echo "========================================"
 echo "Starting $NODE_NAME"
 echo "========================================"
