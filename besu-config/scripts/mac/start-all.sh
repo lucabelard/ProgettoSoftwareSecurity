@@ -18,8 +18,8 @@ open_terminal() {
 
 # 1. Avvia Proxy
 echo "[*] Starting Failover Proxy (Port 8545)..."
-# Proxy script wrapper
-open_terminal "cd \"$PROJECT_ROOT\" && node besu-config/scripts/rpc-proxy.js" "Besu Proxy"
+# Proxy script wrapper con titolo
+open_terminal "printf '\033]0;Besu Failover Proxy\007'; cd \"$PROJECT_ROOT\" && node besu-config/scripts/rpc-proxy.js" "Besu Proxy"
 
 # Attendi un attimo
 sleep 2
