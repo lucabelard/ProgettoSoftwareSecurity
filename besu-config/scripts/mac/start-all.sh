@@ -28,7 +28,7 @@ open_terminal() {
 # 1. Avvia Proxy
 echo "[*] Starting Failover Proxy (Port 8545)..."
 # Proxy script wrapper con titolo
-open_terminal "printf '\033]0;Besu Failover Proxy\007'; cd \"$PROJECT_ROOT\" && node besu-config/scripts/rpc-proxy.js" "Besu Proxy"
+open_terminal "bash \"$SCRIPT_DIR/run-proxy.sh\" \"$PROJECT_ROOT\"" "Besu Proxy"
 
 # Attendi un attimo
 sleep 2
@@ -60,6 +60,10 @@ CMD_NODE4="bash \"$SCRIPT_DIR/start-node.sh\" \"Node 4\" \"besu-config/node4/dat
 open_terminal "$CMD_NODE4" "Besu Node 4"
 
 echo ""
+echo "[*] Waiting for Node 1 to initialize..."
+bash "$SCRIPT_DIR/wait-for-besu.sh"
+
+echo ""
 echo "============================================================"
-echo "  RETE AVVIATA!"
+echo "  RETE AVVIATA & PRONTA!"
 echo "============================================================"
