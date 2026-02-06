@@ -4,363 +4,875 @@
       "id": "559a2351-4518-48d1-b9af-63dae821f6df",
       "text": "Sistema (Smart Contract)",
       "type": "istar.Actor",
-      "x": 800,
+      "x": 1100,
       "y": 600,
-      "customProperties": {"Description": ""},
+      "customProperties": {
+        "Description": ""
+      },
       "nodes": [
-        {"id": "406e93f8-7cb3-4fb0-a8ca-d01fcd620423", "text": "Garantire Integrità", "type": "istar.Goal", "x": 950, "y": 630},
-        {"id": "94809ccd-9be7-4838-8089-b119e61f5aeb", "text": "Immutabilità", "type": "istar.Quality", "x": 850, "y": 730},
-        {"id": "28e7be0a-76e7-4260-9aa5-f75d239422fa", "text": "Trasparenza", "type": "istar.Quality", "x": 950, "y": 730},
-        {"id": "7e901802-3177-4000-865c-52e1be583d83", "text": "Correttezza", "type": "istar.Quality", "x": 1050, "y": 730},
-        {"id": "cd095375-81ad-41f2-ade5-c1f8477cea0b", "text": "Access Control", "type": "istar.Task", "x": 820, "y": 850},
-        {"id": "de58a074-bc74-4995-ab6c-5ad5a2ddce3d", "text": "Validazione Input", "type": "istar.Task", "x": 920, "y": 850},
-        {"id": "fd465d93-9956-451d-8cda-9f9255d5bc89", "text": "Logica Bayesiana", "type": "istar.Task", "x": 1020, "y": 850},
-        {"id": "88db038d-3c76-4ab1-9839-a62ba6e6f019", "text": "Gestione Stati", "type": "istar.Task", "x": 1120, "y": 850},
-        {"id": "8971d575-b145-4638-820c-493d4939668f", "text": "Gestire Spedizioni\\ncon Garanzia", "type": "istar.Goal", "x": 750, "y": 950},
-        {"id": "10092d4b-a84a-45d1-afd8-15f6b167277f", "text": "Validare\\nConformità Bayesiana", "type": "istar.Goal", "x": 950, "y": 950},
-        {"id": "a15f4e98-0e88-4158-9724-eb657e299d2e", "text": "Gestire Pagamenti\\ne Rimborsi", "type": "istar.Goal", "x": 1150, "y": 950},
-        {"id": "721f0e50-8506-48c3-980e-c7cb284a4ef4", "text": "Ricevere\\nEscrow ETH", "type": "istar.Task", "x": 900, "y": 1050},
-        {"id": "e761604c-4083-4175-a0e0-b71e0a8d19e3", "text": "Pagare Corriere\\n(se P>=95%)", "type": "istar.Task", "x": 1020, "y": 1050},
-        {"id": "0180ceb5-8f82-485f-acdd-b0ebf3e1e385", "text": "Rimborsare\\nMittente", "type": "istar.Task", "x": 1140, "y": 1050},
-        {"id": "57f378f6-2419-41c1-8920-0bb04ecf4727", "text": "Annullamento\\nPre-Evidenze", "type": "istar.Task", "x": 1020, "y": 1150},
-        {"id": "dca31302-4951-4eaa-9b16-379e2f1e62c0", "text": "Rimborso per\\nValidazione Fallita (>=3)", "type": "istar.Task", "x": 1140, "y": 1150},
-        {"id": "f33b5395-bc8e-4f03-850d-04f1bd6d02e2", "text": "Rimborso per\\nTimeout (7 giorni)", "type": "istar.Task", "x": 1260, "y": 1150},
-        {"id": "221aabbd-7807-4f54-8b3a-df6efecdfed5", "text": "Raccogliere\\nEvidenze (E1-E5)", "type": "istar.Task", "x": 820, "y": 1050},
-        {"id": "c7dd0b0f-afbe-42eb-b5dc-136fc709c518", "text": "Calcolare\\nP(F1|E)", "type": "istar.Task", "x": 700, "y": 1050},
-        {"id": "b479e4ea-7a15-4aaa-b38e-a968a6c45519", "text": "Calcolare\\nP(F2|E)", "type": "istar.Task", "x": 700, "y": 1150},
-        {"id": "d59c25ec-c33b-4fbe-a76e-1f5c7e758261", "text": "Verificare\\nSoglia 95%", "type": "istar.Task", "x": 820, "y": 1150},
-        {"id": "2f2f03df-142f-4113-842a-2ab96d64314b", "text": "S1: Access\\nControl", "type": "istar.Task", "x": 700, "y": 1250},
-        {"id": "342bb948-5ced-4c9d-a3b2-405086c738f8", "text": "S2: Single\\nPayment", "type": "istar.Task", "x": 800, "y": 1250},
-        {"id": "8059e4d7-b8f8-4d45-9e97-c69d77da7d56", "text": "S3: Complete\\nEvidence", "type": "istar.Task", "x": 900, "y": 1250},
-        {"id": "0bf73439-ba9a-45ce-aefc-932e76bfef97", "text": "S4: Probability\\nThreshold", "type": "istar.Task", "x": 1000, "y": 1250},
-        {"id": "9a402bed-0a81-422a-ad2a-cf682be33b6c", "text": "S5: Courier\\nAuthorization", "type": "istar.Task", "x": 1100, "y": 1250},
-        {"id": "f8646af5-f8cc-4deb-8eb2-7609bf1faef5", "text": "G1: Payment on\\nValid Evidence", "type": "istar.Task", "x": 1200, "y": 1250},
-        {"id": "8bfda430-f13e-4607-a56d-0e0869a3ad8b", "text": "G2: Evidence\\nState Update", "type": "istar.Task", "x": 1300, "y": 1250},
-        {"id": "8598da83-de7e-4228-b003-6ba895265c21", "text": "Efficienza Gas", "type": "istar.Quality", "x": 1150, "y": 730},
-        {"id": "8de10e8c-ce2b-44af-a0d0-f6a0fc8ff011", "text": "Liveness\\n(Disponibilità Fondi)", "type": "istar.Quality", "x": 750, "y": 830},
-        {"id": "7feb1be7-4cf1-4a1c-a0c4-4318b5e3f7ed", "text": "Resistenza\\nInsider Threat", "type": "istar.Quality", "x": 1050, "y": 830}
+        {
+          "id": "406e93f8-7cb3-4fb0-a8ca-d01fcd620423",
+          "text": "Garantire Integrità",
+          "type": "istar.Goal",
+          "x": 1250,
+          "y": 630
+        },
+        {
+          "id": "94809ccd-9be7-4838-8089-b119e61f5aeb",
+          "text": "Immutabilità",
+          "type": "istar.Quality",
+          "x": 1150,
+          "y": 730
+        },
+        {
+          "id": "28e7be0a-76e7-4260-9aa5-f75d239422fa",
+          "text": "Trasparenza",
+          "type": "istar.Quality",
+          "x": 1250,
+          "y": 730
+        },
+        {
+          "id": "7e901802-3177-4000-865c-52e1be583d83",
+          "text": "Correttezza",
+          "type": "istar.Quality",
+          "x": 1350,
+          "y": 730
+        },
+        {
+          "id": "cd095375-81ad-41f2-ade5-c1f8477cea0b",
+          "text": "Access Control",
+          "type": "istar.Task",
+          "x": 1120,
+          "y": 850
+        },
+        {
+          "id": "de58a074-bc74-4995-ab6c-5ad5a2ddce3d",
+          "text": "Validazione Input",
+          "type": "istar.Task",
+          "x": 1220,
+          "y": 850
+        },
+        {
+          "id": "fd465d93-9956-451d-8cda-9f9255d5bc89",
+          "text": "Logica Bayesiana",
+          "type": "istar.Task",
+          "x": 1320,
+          "y": 850
+        },
+        {
+          "id": "88db038d-3c76-4ab1-9839-a62ba6e6f019",
+          "text": "Gestione Stati",
+          "type": "istar.Task",
+          "x": 1420,
+          "y": 850
+        },
+        {
+          "id": "8971d575-b145-4638-820c-493d4939668f",
+          "text": "Gestire Spedizioni\ncon Garanzia",
+          "type": "istar.Goal",
+          "x": 1050,
+          "y": 950
+        },
+        {
+          "id": "10092d4b-a84a-45d1-afd8-15f6b167277f",
+          "text": "Validare\nConformità Bayesiana",
+          "type": "istar.Goal",
+          "x": 1250,
+          "y": 950
+        },
+        {
+          "id": "a15f4e98-0e88-4158-9724-eb657e299d2e",
+          "text": "Gestire Pagamenti\ne Rimborsi",
+          "type": "istar.Goal",
+          "x": 1450,
+          "y": 950
+        },
+        {
+          "id": "721f0e50-8506-48c3-980e-c7cb284a4ef4",
+          "text": "Ricevere\nEscrow ETH",
+          "type": "istar.Task",
+          "x": 1200,
+          "y": 1050
+        },
+        {
+          "id": "e761604c-4083-4175-a0e0-b71e0a8d19e3",
+          "text": "Pagare Corriere\n(se P>=95%)",
+          "type": "istar.Task",
+          "x": 1320,
+          "y": 1050
+        },
+        {
+          "id": "0180ceb5-8f82-485f-acdd-b0ebf3e1e385",
+          "text": "Rimborsare\nMittente",
+          "type": "istar.Task",
+          "x": 1440,
+          "y": 1050
+        },
+        {
+          "id": "221aabbd-7807-4f54-8b3a-df6efecdfed5",
+          "text": "Raccogliere\nEvidenze (E1-E5)",
+          "type": "istar.Task",
+          "x": 1120,
+          "y": 1050
+        },
+        {
+          "id": "c7dd0b0f-afbe-42eb-b5dc-136fc709c518",
+          "text": "Calcolare\nP(F1|E)",
+          "type": "istar.Task",
+          "x": 1000,
+          "y": 1050
+        },
+        {
+          "id": "b479e4ea-7a15-4aaa-b38e-a968a6c45519",
+          "text": "Calcolare\nP(F2|E)",
+          "type": "istar.Task",
+          "x": 1000,
+          "y": 1150
+        },
+        {
+          "id": "d59c25ec-c33b-4fbe-a76e-1f5c7e758261",
+          "text": "Verificare\nSoglia 95%",
+          "type": "istar.Task",
+          "x": 1120,
+          "y": 1150
+        }
       ]
     },
     {
       "id": "aa9cdbb4-a28b-490a-9e5b-07dbe798e5fc",
       "text": "Mittente (Sender)",
       "type": "istar.Agent",
-      "x": 100,
+      "x": 200,
       "y": 1600,
-      "customProperties": {"Description": "Farmacia che spedisce prodotti"},
+      "customProperties": {
+        "Description": ""
+      },
       "nodes": [
-        {"id": "9af5b2a8-8d34-4edf-9628-181ec294ca0d", "text": "Spedire con\\nGaranzia Qualità", "type": "istar.Goal", "x": 300, "y": 1650},
-        {"id": "01c71412-aac6-43ae-abf1-87e76a325b18", "text": "Creare Spedizione", "type": "istar.Task", "x": 150, "y": 1750},
-        {"id": "e2dea419-5c2a-45e7-81a3-a2b31c03dc72", "text": "Depositare\\nPagamento ETH", "type": "istar.Task", "x": 270, "y": 1750},
-        {"id": "37899c0d-ecb8-443a-8ee0-e1120071d2f4", "text": "Richiedere\\nRimborso", "type": "istar.Task", "x": 390, "y": 1750},
-        {"id": "8c3eb8bb-dcae-4338-95e3-185898442c00", "text": "Annullare\\nSpedizione", "type": "istar.Task", "x": 510, "y": 1750},
-        {"id": "41d0bc38-b3af-4fe3-b895-57aef11ab285", "text": "Minimizzare\\nRischio", "type": "istar.Quality", "x": 220, "y": 1850},
-        {"id": "e03fec34-e6d4-4103-b63a-bf325b8e0a4d", "text": "Garanzia\\nRimborso", "type": "istar.Quality", "x": 380, "y": 1850}
+        {
+          "id": "9af5b2a8-8d34-4edf-9628-181ec294ca0d",
+          "text": "Spedire con\nGaranzia Qualità",
+          "type": "istar.Goal",
+          "x": 400,
+          "y": 1650
+        },
+        {
+          "id": "01c71412-aac6-43ae-abf1-87e76a325b18",
+          "text": "Creare Spedizione",
+          "type": "istar.Task",
+          "x": 250,
+          "y": 1750
+        },
+        {
+          "id": "e2dea419-5c2a-45e7-81a3-a2b31c03dc72",
+          "text": "Depositare\nPagamento ETH",
+          "type": "istar.Task",
+          "x": 370,
+          "y": 1750
+        },
+        {
+          "id": "37899c0d-ecb8-443a-8ee0-e1120071d2f4",
+          "text": "Richiedere\nRimborso",
+          "type": "istar.Task",
+          "x": 490,
+          "y": 1750
+        }
       ]
     },
     {
       "id": "4d79b25f-85cb-4380-a269-230b77631e9d",
       "text": "Corriere (Courier)",
       "type": "istar.Agent",
-      "x": 100,
+      "x": 200,
       "y": 2100,
-      "customProperties": {"Description": "Azienda di trasporto"},
+      "customProperties": {
+        "Description": ""
+      },
       "nodes": [
-        {"id": "88ab0fb4-b331-4e2d-a78b-7378cc116e0d", "text": "Trasportare e\\nRicevere Pagamento", "type": "istar.Goal", "x": 350, "y": 2150},
-        {"id": "ad9d4999-b65d-4ba5-8c86-89e950036762", "text": "Trasportare\\nSpedizione", "type": "istar.Task", "x": 200, "y": 2250},
-        {"id": "a960b74b-6436-42ae-9009-c2f6cde5e534", "text": "Richiedere\\nValidazione", "type": "istar.Task", "x": 350, "y": 2250},
-        {"id": "79e13dd4-af5a-42d8-86a6-6340a3c83039", "text": "Ricevere\\nPagamento", "type": "istar.Task", "x": 500, "y": 2250},
-        {"id": "934596f9-884e-48a9-b031-81dc7e6d943d", "text": "Certezza\\nPagamento", "type": "istar.Quality", "x": 270, "y": 2350},
-        {"id": "2bcefd92-7642-42ef-9e63-cbaf4d5f7718", "text": "Rapidità\\nLiquidazione", "type": "istar.Quality", "x": 430, "y": 2350}
+        {
+          "id": "88ab0fb4-b331-4e2d-a78b-7378cc116e0d",
+          "text": "Trasportare e\nRicevere Pagamento",
+          "type": "istar.Goal",
+          "x": 450,
+          "y": 2150
+        },
+        {
+          "id": "a960b74b-6436-42ae-9009-c2f6cde5e534",
+          "text": "Richiedere\nValidazione",
+          "type": "istar.Task",
+          "x": 450,
+          "y": 2250
+        },
+        {
+          "id": "79e13dd4-af5a-42d8-86a6-6340a3c83039",
+          "text": "Ricevere\nPagamento",
+          "type": "istar.Task",
+          "x": 600,
+          "y": 2250
+        }
       ]
     },
     {
       "id": "eb5eb24d-e1f4-494e-88c3-d2c2769966b6",
       "text": "Oracolo / Admin",
       "type": "istar.Role",
-      "x": 1500,
+      "x": 1800,
       "y": 1600,
-      "customProperties": {"Description": "Amministratore del sistema"},
+      "customProperties": {
+        "Description": ""
+      },
       "nodes": [
-        {"id": "6ea157b7-bb80-4dd7-a400-201e78a2da24", "text": "Configurare\\nSistema Correttamente", "type": "istar.Goal", "x": 1800, "y": 1650},
-        {"id": "1785f6df-56aa-497b-b635-962244d34218", "text": "Impostare\\nProbabilità A Priori", "type": "istar.Task", "x": 1650, "y": 1750},
-        {"id": "325f3cd6-41c9-4628-9a38-505128a62dc8", "text": "Configurare\\nCPT (E1-E5)", "type": "istar.Task", "x": 1800, "y": 1750},
-        {"id": "e560f354-da79-43ef-9b61-b9cdccfb0bbf", "text": "Gestire Ruoli\\nAccess Control", "type": "istar.Task", "x": 1950, "y": 1750},
-        {"id": "1daba0c4-f120-4642-8696-135342dedf51", "text": "Monitorare\\nSistema", "type": "istar.Task", "x": 2100, "y": 1750},
-        {"id": "b81b2d01-e0a2-4a4a-9302-b173f1ec854b", "text": "Accuratezza", "type": "istar.Quality", "x": 1700, "y": 1850},
-        {"id": "e69cbe6a-7b77-4942-86ec-38c690007e11", "text": "Giustizia", "type": "istar.Quality", "x": 1850, "y": 1850},
-        {"id": "5d4c81e1-9c06-4f8c-abc5-cd3e6a589ad6", "text": "Trasparenza", "type": "istar.Quality", "x": 2000, "y": 1850}
+        {
+          "id": "6ea157b7-bb80-4dd7-a400-201e78a2da24",
+          "text": "Configurare\nSistema Correttamente",
+          "type": "istar.Goal",
+          "x": 2100,
+          "y": 1650
+        },
+        {
+          "id": "325f3cd6-41c9-4628-9a38-505128a62dc8",
+          "text": "Configurare\nCPT (E1-E5)",
+          "type": "istar.Task",
+          "x": 2100,
+          "y": 1750
+        }
       ]
     },
     {
       "id": "130b8793-dfc8-4339-b4e7-1d93f915c8e7",
       "text": "Sensore IoT",
       "type": "istar.Agent",
-      "x": 1500,
+      "x": 1800,
       "y": 2100,
-      "customProperties": {"Description": "Dispositivo IoT per evidenze"},
+      "customProperties": {
+        "Description": ""
+      },
       "nodes": [
-        {"id": "aa56195f-c5c2-41f5-a1fd-352ec3167d01", "text": "Rilevare e Trasmettere\\nDati Ambientali", "type": "istar.Goal", "x": 1850, "y": 2150},
-        {"id": "eee00234-ad6d-4b38-b6e9-264fe35a731c", "text": "Misurare\\nTemperatura (E1)", "type": "istar.Task", "x": 1600, "y": 2250},
-        {"id": "af1521f3-a903-4e44-be85-f93b4cdbfba2", "text": "Verificare\\nSigillo (E2)", "type": "istar.Task", "x": 1750, "y": 2250},
-        {"id": "ce3e3327-51a3-49ed-b872-c51f751afb50", "text": "Rilevare\\nShock (E3)", "type": "istar.Task", "x": 1900, "y": 2250},
-        {"id": "7016e6b0-11c4-4c11-b724-58e613884b52", "text": "Rilevare\\nLuce (E4)", "type": "istar.Task", "x": 2050, "y": 2250},
-        {"id": "c659549e-7e45-46fc-83c1-bfdae72999d6", "text": "Confermare\\nArrivo (E5)", "type": "istar.Task", "x": 1675, "y": 2350},
-        {"id": "33285d72-0be3-4e20-95fc-a8870456e814", "text": "Inviare Evidenze\\nOn-Chain", "type": "istar.Task", "x": 1875, "y": 2350},
-        {"id": "a47a44ee-a781-4d1e-bdae-bf7c28f7c3b3", "text": "Precisione", "type": "istar.Quality", "x": 1700, "y": 2450},
-        {"id": "d53645b1-783d-4a46-bd1a-59c6d89adc1d", "text": "Affidabilità", "type": "istar.Quality", "x": 1900, "y": 2450}
+        {
+          "id": "aa56195f-c5c2-41f5-a1fd-352ec3167d01",
+          "text": "Rilevare e Trasmettere\nDati Ambientali",
+          "type": "istar.Goal",
+          "x": 2150,
+          "y": 2150
+        },
+        {
+          "id": "33285d72-0be3-4e20-95fc-a8870456e814",
+          "text": "Inviare Evidenze\nOn-Chain",
+          "type": "istar.Task",
+          "x": 2175,
+          "y": 2350
+        }
       ]
     },
     {
       "id": "6ece3997-e19e-464f-bd3a-272f83eff9d8",
       "text": "Attaccante Esterno",
       "type": "istar.Role",
-      "x": 1500,
+      "x": 2000,
       "y": 100,
-      "customProperties": {"Description": "Hacker o Competitor"},
+      "customProperties": {
+        "Description": ""
+      },
       "nodes": [
-        {"id": "2ac8c944-db1f-4624-96fd-1d7cbc84b143", "text": "Compromettere Supply Chain\n(DUAL-STRIDE Root)", "type": "istar.Goal", "x": 1800, "y": 150},
-        {"id": "s21a_spoof_sensore", "text": "S2.1-A: Spoofing Sensore\n[CAPEC-151]", "type": "istar.Task", "x": 1650, "y": 250},
-        {"id": "t21a_mitm_data", "text": "T2.1: MITM Dati Transito\n[CAPEC-94]", "type": "istar.Task", "x": 1550, "y": 350},
-        {"id": "t31a_reentrancy", "text": "T3.1-A: Reentrancy Attack\n[CAPEC-194]", "type": "istar.Task", "x": 1750, "y": 350},
-        {"id": "d31a_withholding", "text": "D3.1-A: Withholding Attack\n[CAPEC-227]", "type": "istar.Task", "x": 1700, "y": 450},
-        {"id": "s71a_phishing", "text": "S7.1-A: Phishing UI\n[CAPEC-98]", "type": "istar.Task", "x": 1800, "y": 450},
-        {"id": "i61a_datamining", "text": "I6.1-A: Data Mining Comp.\n[CAPEC-116]", "type": "istar.Task", "x": 1950, "y": 250},
-        {"id": "s81a_keylogger", "text": "S8.1-A: Keylogging\n[CAPEC-568]", "type": "istar.Task", "x": 1900, "y": 350}
+        {
+          "id": "ext_root_goal",
+          "text": "Compromettere Sistema\n(CAPEC-Root)",
+          "type": "istar.Goal",
+          "x": 2300,
+          "y": 150
+        },
+        {
+          "id": "ext_spoof_goal",
+          "text": "S2.1-A: Spoofing Sensore\n[CAPEC-151]",
+          "type": "istar.Goal",
+          "x": 2100,
+          "y": 250
+        },
+        {
+          "id": "2.1_sniffing",
+          "text": "Intercettare Traffico",
+          "type": "istar.Task",
+          "x": 2050,
+          "y": 350
+        },
+        {
+          "id": "2.1_extract_key",
+          "text": "Estrarre Chiave/ID",
+          "type": "istar.Task",
+          "x": 2150,
+          "y": 350
+        },
+        {
+          "id": "2.1_replay",
+          "text": "Replay Dati Vecchi",
+          "type": "istar.Task",
+          "x": 2050,
+          "y": 450
+        },
+        {
+          "id": "2.1_inject",
+          "text": "Iniettare Dati Falsi",
+          "type": "istar.Task",
+          "x": 2150,
+          "y": 450
+        },
+        {
+          "id": "ext_reentrancy_goal",
+          "text": "T3.1-A: Reentrancy Attack\n[CAPEC-194]",
+          "type": "istar.Goal",
+          "x": 2400,
+          "y": 250
+        },
+        {
+          "id": "3.1_deploy_mal",
+          "text": "Deploy Contratto Malevolo",
+          "type": "istar.Task",
+          "x": 2350,
+          "y": 350
+        },
+        {
+          "id": "3.1_call_valida",
+          "text": "Call validaEPaga()",
+          "type": "istar.Task",
+          "x": 2450,
+          "y": 350
+        },
+        {
+          "id": "3.1_fallback",
+          "text": "Trigger Fallback()",
+          "type": "istar.Task",
+          "x": 2350,
+          "y": 450
+        },
+        {
+          "id": "3.1_drain",
+          "text": "Bypass Stato Check",
+          "type": "istar.Task",
+          "x": 2450,
+          "y": 450
+        },
+        {
+          "id": "ext_phishing_goal",
+          "text": "S7.1-A: Phishing UI\n[CAPEC-98]",
+          "type": "istar.Goal",
+          "x": 2700,
+          "y": 250
+        },
+        {
+          "id": "7.1_clone_ui",
+          "text": "Clonare Interfaccia",
+          "type": "istar.Task",
+          "x": 2650,
+          "y": 350
+        },
+        {
+          "id": "7.1_social_eng",
+          "text": "Social Engineering",
+          "type": "istar.Task",
+          "x": 2750,
+          "y": 350
+        },
+        {
+          "id": "7.1_steal_creds",
+          "text": "Rubare Seed Phrase",
+          "type": "istar.Task",
+          "x": 2700,
+          "y": 450
+        }
       ]
     },
     {
       "id": "0129dcdd-de86-4a5d-afdc-b1d9d9e63fdd",
       "text": "Attaccante Interno",
       "type": "istar.Role",
-      "x": 100,
+      "x": 200,
       "y": 100,
-      "customProperties": {"Description": "Insider / Admin Infedele"},
+      "customProperties": {
+        "Description": ""
+      },
       "nodes": [
-        {"id": "1b858b89-5b48-49ba-a49d-4cc442656fcb", "text": "Sabotaggio o Profitto Illecito\n(Insider Threat)", "type": "istar.Goal", "x": 300, "y": 150},
-        {"id": "t51a_cpt_manipulation", "text": "T5.1-A: Manipolazione CPT\n[CAPEC-122]", "type": "istar.Task", "x": 150, "y": 250},
-        {"id": "e41a_privilege_escalation", "text": "E4.1-A: Privilege Escalation\n[CAPEC-122]", "type": "istar.Task", "x": 50, "y": 350},
-        {"id": "i51a_reverse_engineering", "text": "I5.1-A: Reverse Eng. Modello\n[CAPEC-188]", "type": "istar.Task", "x": 250, "y": 250}
+        {
+          "id": "int_root_goal",
+          "text": "Abuso Privilegi\n(Insider Threat)",
+          "type": "istar.Goal",
+          "x": 400,
+          "y": 150
+        },
+        {
+          "id": "int_manip_cpt_goal",
+          "text": "T5.1-A: Manipolazione CPT\n[CAPEC-122]",
+          "type": "istar.Goal",
+          "x": 350,
+          "y": 300
+        },
+        {
+          "id": "5.1_access_admin",
+          "text": "Ottenere Ruolo Oracolo",
+          "type": "istar.Task",
+          "x": 250,
+          "y": 400
+        },
+        {
+          "id": "5.1_calc_malicious",
+          "text": "Calcolare Parametri Falsi",
+          "type": "istar.Task",
+          "x": 350,
+          "y": 400
+        },
+        {
+          "id": "5.1_commit_tx",
+          "text": "Eseguire impostaCPT()",
+          "type": "istar.Task",
+          "x": 450,
+          "y": 400
+        }
       ]
     },
     {
       "id": "9e857314-67e6-4bad-b3a6-d41e3ee96caa",
       "text": "Utente Maldestro",
       "type": "istar.Role",
-      "x": 800,
-      "y": 1200,
-      "customProperties": {"Description": "Human Error / Misuse Case"},
+      "x": 1100,
+      "y": 1300,
+      "customProperties": {
+        "Description": ""
+      },
       "nodes": [
-        {"id": "b621b2bf-b6dd-456c-9bbf-060b9fe756d1", "text": "Causare Danni Accidentali\n(Misuse)", "type": "istar.Goal", "x": 1100, "y": 1250},
-        {"id": "t31m_errore_indirizzo", "text": "T3.1-M: Errore Indirizzo (Typo)\n[Pendenza]", "type": "istar.Task", "x": 950, "y": 1350},
-        {"id": "s21m_guasto_sensore", "text": "S2.1-M: Sensore Guasto\n(Drift/Battery)", "type": "istar.Task", "x": 900, "y": 1450},
-        {"id": "s81m_perdita_chiavi", "text": "S8.1-M: Perdita Chiavi Private\n(Negligenza)", "type": "istar.Task", "x": 1100, "y": 1350},
-        {"id": "t51m_errore_config", "text": "T5.1-M: Errore Config. Admin\n(Human Error)", "type": "istar.Task", "x": 1250, "y": 1350}
+        {
+          "id": "user_mistake_root",
+          "text": "Errore Operativo\n(Human Error)",
+          "type": "istar.Goal",
+          "x": 1300,
+          "y": 1350
+        },
+        {
+          "id": "misuse_addr_goal",
+          "text": "T3.1-M: Errore Input Indirizzo",
+          "type": "istar.Goal",
+          "x": 1200,
+          "y": 1450
+        },
+        {
+          "id": "3.1m_copy_paste",
+          "text": "Copia-Incolla Errato",
+          "type": "istar.Task",
+          "x": 1100,
+          "y": 1550
+        },
+        {
+          "id": "3.1m_ignore_check",
+          "text": "Ignorare Checksum",
+          "type": "istar.Task",
+          "x": 1200,
+          "y": 1550
+        },
+        {
+          "id": "3.1m_confirm",
+          "text": "Conferma Senza Verifica",
+          "type": "istar.Task",
+          "x": 1300,
+          "y": 1550
+        }
       ]
     }
   ],
   "orphans": [],
-  "dependencies": [],
+  "dependencies": [
+    {
+      "id": "dep_spoofing_res",
+      "text": "Evidenze Falsificate",
+      "type": "istar.Resource",
+      "x": 1550,
+      "y": 450,
+      "source": "6ece3997-e19e-464f-bd3a-272f83eff9d8",
+      "target": "559a2351-4518-48d1-b9af-63dae821f6df"
+    },
+    {
+      "id": "dep_reentrancy_res",
+      "text": "Fondi Drenati",
+      "type": "istar.Resource",
+      "x": 1550,
+      "y": 300,
+      "source": "559a2351-4518-48d1-b9af-63dae821f6df",
+      "target": "6ece3997-e19e-464f-bd3a-272f83eff9d8"
+    },
+    {
+      "id": "dep_reentrancy_task",
+      "text": "Chiamata Reentrancy",
+      "type": "istar.Task",
+      "x": 1550,
+      "y": 380,
+      "source": "6ece3997-e19e-464f-bd3a-272f83eff9d8",
+      "target": "559a2351-4518-48d1-b9af-63dae821f6df"
+    },
+    {
+      "id": "dep_cpt_res",
+      "text": "Configurazione CPT Malevola",
+      "type": "istar.Resource",
+      "x": 650,
+      "y": 350,
+      "source": "0129dcdd-de86-4a5d-afdc-b1d9d9e63fdd",
+      "target": "559a2351-4518-48d1-b9af-63dae821f6df"
+    },
+    {
+      "id": "dep_mistake_res",
+      "text": "Pagamento a Indirizzo Errato",
+      "type": "istar.Resource",
+      "x": 1200,
+      "y": 1250,
+      "source": "aa9cdbb4-a28b-490a-9e5b-07dbe798e5fc",
+      "target": "559a2351-4518-48d1-b9af-63dae821f6df"
+    },
+    {
+      "id": "dep_escrow_res",
+      "text": "Escrow Payment",
+      "type": "istar.Resource",
+      "x": 650,
+      "y": 800,
+      "source": "aa9cdbb4-a28b-490a-9e5b-07dbe798e5fc",
+      "target": "559a2351-4518-48d1-b9af-63dae821f6df"
+    },
+    {
+      "id": "dep_evidence_res",
+      "text": "Evidenze IoT Autentiche",
+      "type": "istar.Resource",
+      "x": 1450,
+      "y": 1500,
+      "source": "130b8793-dfc8-4339-b4e7-1d93f915c8e7",
+      "target": "559a2351-4518-48d1-b9af-63dae821f6df"
+    },
+    {
+      "id": "dep_service_res",
+      "text": "Pagamento Servizio",
+      "type": "istar.Resource",
+      "x": 650,
+      "y": 1500,
+      "source": "559a2351-4518-48d1-b9af-63dae821f6df",
+      "target": "4d79b25f-85cb-4380-a269-230b77631e9d"
+    },
+    {
+      "id": "dep_config_task",
+      "text": "Configurazione Sistema",
+      "type": "istar.Task",
+      "x": 1450,
+      "y": 1100,
+      "source": "eb5eb24d-e1f4-494e-88c3-d2c2769966b6",
+      "target": "559a2351-4518-48d1-b9af-63dae821f6df"
+    }
+  ],
   "links": [
     {
-      "id": "link_ae_root_1",
+      "id": "30f9a2b1-ext-1",
       "type": "istar.OrRefinementLink",
-      "source": "s21a_spoof_sensore",
-      "target": "2ac8c944-db1f-4624-96fd-1d7cbc84b143"
+      "source": "ext_spoof_goal",
+      "target": "ext_root_goal"
     },
     {
-      "id": "link_ae_root_2",
+      "id": "30f9a2b1-ext-2",
       "type": "istar.OrRefinementLink",
-      "source": "t21a_mitm_data",
-      "target": "2ac8c944-db1f-4624-96fd-1d7cbc84b143"
+      "source": "ext_reentrancy_goal",
+      "target": "ext_root_goal"
     },
     {
-      "id": "link_ae_root_3",
+      "id": "30f9a2b1-ext-3",
       "type": "istar.OrRefinementLink",
-      "source": "t31a_reentrancy",
-      "target": "2ac8c944-db1f-4624-96fd-1d7cbc84b143"
-    },
-     {
-      "id": "link_ae_root_4",
-      "type": "istar.OrRefinementLink",
-      "source": "d31a_withholding",
-      "target": "2ac8c944-db1f-4624-96fd-1d7cbc84b143"
-    },
-     {
-      "id": "link_ae_root_5",
-      "type": "istar.OrRefinementLink",
-      "source": "s71a_phishing",
-      "target": "2ac8c944-db1f-4624-96fd-1d7cbc84b143"
-    },
-     {
-      "id": "link_ae_root_6",
-      "type": "istar.OrRefinementLink",
-      "source": "i61a_datamining",
-      "target": "2ac8c944-db1f-4624-96fd-1d7cbc84b143"
-    },
-     {
-      "id": "link_ae_root_7",
-      "type": "istar.OrRefinementLink",
-      "source": "s81a_keylogger",
-      "target": "2ac8c944-db1f-4624-96fd-1d7cbc84b143"
+      "source": "ext_phishing_goal",
+      "target": "ext_root_goal"
     },
     {
-      "id": "link_ai_root_1",
-      "type": "istar.OrRefinementLink",
-      "source": "t51a_cpt_manipulation",
-      "target": "1b858b89-5b48-49ba-a49d-4cc442656fcb"
+      "id": "30f9a2b1-sp-1",
+      "type": "istar.AndRefinementLink",
+      "source": "2.1_sniffing",
+      "target": "ext_spoof_goal"
     },
     {
-      "id": "link_ai_root_2",
-      "type": "istar.OrRefinementLink",
-      "source": "e41a_privilege_escalation",
-      "target": "1b858b89-5b48-49ba-a49d-4cc442656fcb"
+      "id": "30f9a2b1-sp-2",
+      "type": "istar.AndRefinementLink",
+      "source": "2.1_extract_key",
+      "target": "ext_spoof_goal"
     },
     {
-      "id": "link_ai_root_3",
+      "id": "30f9a2b1-sp-3",
       "type": "istar.OrRefinementLink",
-      "source": "i51a_reverse_engineering",
-      "target": "1b858b89-5b48-49ba-a49d-4cc442656fcb"
+      "source": "2.1_replay",
+      "target": "ext_spoof_goal"
     },
     {
-      "id": "link_um_root_1",
+      "id": "30f9a2b1-sp-4",
       "type": "istar.OrRefinementLink",
-      "source": "t31m_errore_indirizzo",
-      "target": "b621b2bf-b6dd-456c-9bbf-060b9fe756d1"
+      "source": "2.1_inject",
+      "target": "ext_spoof_goal"
     },
     {
-      "id": "link_um_root_2",
-      "type": "istar.OrRefinementLink",
-      "source": "s21m_guasto_sensore",
-      "target": "b621b2bf-b6dd-456c-9bbf-060b9fe756d1"
+      "id": "30f9a2b1-re-1",
+      "type": "istar.AndRefinementLink",
+      "source": "3.1_deploy_mal",
+      "target": "ext_reentrancy_goal"
     },
     {
-      "id": "link_um_root_3",
-      "type": "istar.OrRefinementLink",
-      "source": "s81m_perdita_chiavi",
-      "target": "b621b2bf-b6dd-456c-9bbf-060b9fe756d1"
+      "id": "30f9a2b1-re-2",
+      "type": "istar.AndRefinementLink",
+      "source": "3.1_call_valida",
+      "target": "ext_reentrancy_goal"
     },
     {
-      "id": "link_um_root_4",
-      "type": "istar.OrRefinementLink",
-      "source": "t51m_errore_config",
-      "target": "b621b2bf-b6dd-456c-9bbf-060b9fe756d1"
+      "id": "30f9a2b1-re-3",
+      "type": "istar.AndRefinementLink",
+      "source": "3.1_fallback",
+      "target": "ext_reentrancy_goal"
     },
     {
-      "id": "27d22aa6-658f-4438-a785-ac74cdee4168",
+      "id": "30f9a2b1-re-4",
+      "type": "istar.AndRefinementLink",
+      "source": "3.1_drain",
+      "target": "ext_reentrancy_goal"
+    },
+    {
+      "id": "30f9a2b1-ph-1",
+      "type": "istar.AndRefinementLink",
+      "source": "7.1_clone_ui",
+      "target": "ext_phishing_goal"
+    },
+    {
+      "id": "30f9a2b1-ph-2",
+      "type": "istar.AndRefinementLink",
+      "source": "7.1_social_eng",
+      "target": "ext_phishing_goal"
+    },
+    {
+      "id": "30f9a2b1-ph-3",
+      "type": "istar.AndRefinementLink",
+      "source": "7.1_steal_creds",
+      "target": "ext_phishing_goal"
+    },
+    {
+      "id": "40f9a2b1-int-1",
+      "type": "istar.OrRefinementLink",
+      "source": "int_manip_cpt_goal",
+      "target": "int_root_goal"
+    },
+    {
+      "id": "40f9a2b1-int-2",
+      "type": "istar.AndRefinementLink",
+      "source": "5.1_access_admin",
+      "target": "int_manip_cpt_goal"
+    },
+    {
+      "id": "40f9a2b1-int-3",
+      "type": "istar.AndRefinementLink",
+      "source": "5.1_calc_malicious",
+      "target": "int_manip_cpt_goal"
+    },
+    {
+      "id": "40f9a2b1-int-4",
+      "type": "istar.AndRefinementLink",
+      "source": "5.1_commit_tx",
+      "target": "int_manip_cpt_goal"
+    },
+    {
+      "id": "50f9a2b1-um-1",
+      "type": "istar.OrRefinementLink",
+      "source": "misuse_addr_goal",
+      "target": "user_mistake_root"
+    },
+    {
+      "id": "50f9a2b1-um-2",
+      "type": "istar.AndRefinementLink",
+      "source": "3.1m_copy_paste",
+      "target": "misuse_addr_goal"
+    },
+    {
+      "id": "50f9a2b1-um-3",
+      "type": "istar.AndRefinementLink",
+      "source": "3.1m_ignore_check",
+      "target": "misuse_addr_goal"
+    },
+    {
+      "id": "50f9a2b1-um-4",
+      "type": "istar.AndRefinementLink",
+      "source": "3.1m_confirm",
+      "target": "misuse_addr_goal"
+    },
+    {
+      "id": "60f9a2b1-sys-1",
       "type": "istar.AndRefinementLink",
       "source": "cd095375-81ad-41f2-ade5-c1f8477cea0b",
       "target": "406e93f8-7cb3-4fb0-a8ca-d01fcd620423"
     },
     {
-      "id": "2a3828ec-6bbf-4c0c-8ff7-19a432c504c8",
+      "id": "60f9a2b1-sys-2",
       "type": "istar.AndRefinementLink",
       "source": "de58a074-bc74-4995-ab6c-5ad5a2ddce3d",
       "target": "406e93f8-7cb3-4fb0-a8ca-d01fcd620423"
     },
     {
-      "id": "55197cfc-9868-4a7b-b1c2-900be02c698a",
+      "id": "60f9a2b1-sys-3",
       "type": "istar.AndRefinementLink",
       "source": "fd465d93-9956-451d-8cda-9f9255d5bc89",
       "target": "406e93f8-7cb3-4fb0-a8ca-d01fcd620423"
     },
     {
-      "id": "392ea04f-5162-4f4a-970a-8a430e81c399",
+      "id": "60f9a2b1-sys-4",
       "type": "istar.AndRefinementLink",
       "source": "88db038d-3c76-4ab1-9839-a62ba6e6f019",
       "target": "406e93f8-7cb3-4fb0-a8ca-d01fcd620423"
     },
     {
-      "id": "17bab2fa-4cc7-4aae-bb06-172b4c03226f",
+      "id": "60f9a2b1-sys-5",
       "type": "istar.AndRefinementLink",
       "source": "01c71412-aac6-43ae-abf1-87e76a325b18",
       "target": "9af5b2a8-8d34-4edf-9628-181ec294ca0d"
     },
     {
-      "id": "6335d9de-392f-4a43-b670-e39531f13d1f",
+      "id": "60f9a2b1-sys-6",
       "type": "istar.AndRefinementLink",
       "source": "e2dea419-5c2a-45e7-81a3-a2b31c03dc72",
       "target": "01c71412-aac6-43ae-abf1-87e76a325b18"
     },
-     {
-      "id": "c56f4b29-7b3b-43a2-b711-c12b1d16e015",
+    {
+      "id": "60f9a2b1-sys-7",
       "type": "istar.AndRefinementLink",
       "source": "ad9d4999-b65d-4ba5-8c86-89e950036762",
       "target": "88ab0fb4-b331-4e2d-a78b-7378cc116e0d"
     },
     {
-      "id": "61a7b3fe-40f0-49dc-9daa-ec1d9d85a692",
+      "id": "60f9a2b1-sys-8",
       "type": "istar.AndRefinementLink",
       "source": "a960b74b-6436-42ae-9009-c2f6cde5e534",
       "target": "88ab0fb4-b331-4e2d-a78b-7378cc116e0d"
     },
     {
-      "id": "570e132f-3ecd-45e2-9795-ecd753e53230",
+      "id": "60f9a2b1-sys-9",
       "type": "istar.AndRefinementLink",
       "source": "79e13dd4-af5a-42d8-86a6-6340a3c83039",
       "target": "88ab0fb4-b331-4e2d-a78b-7378cc116e0d"
     },
     {
-      "id": "d9a17a1e-747b-421c-83c1-4b09b62a6f26",
+      "id": "60f9a2b1-sys-10",
       "type": "istar.AndRefinementLink",
       "source": "1785f6df-56aa-497b-b635-962244d34218",
       "target": "6ea157b7-bb80-4dd7-a400-201e78a2da24"
     },
     {
-      "id": "771e8601-081e-450f-a42e-15104938a9d1",
+      "id": "60f9a2b1-sys-11",
       "type": "istar.AndRefinementLink",
       "source": "325f3cd6-41c9-4628-9a38-505128a62dc8",
       "target": "6ea157b7-bb80-4dd7-a400-201e78a2da24"
     },
     {
-      "id": "e2baeb8b-1e64-4e4c-8368-80e22709eab0",
-      "type": "istar.AndRefinementLink",
-      "source": "e560f354-da79-43ef-9b61-b9cdccfb0bbf",
-      "target": "6ea157b7-bb80-4dd7-a400-201e78a2da24"
+      "id": "70f9a2b1-dl-1",
+      "type": "istar.DependencyLink",
+      "source": "6ece3997-e19e-464f-bd3a-272f83eff9d8",
+      "target": "dep_spoofing_res"
     },
     {
-      "id": "2d9b6a15-d72b-421b-8524-7096e58043b3",
-      "type": "istar.AndRefinementLink",
-      "source": "1daba0c4-f120-4642-8696-135342dedf51",
-      "target": "6ea157b7-bb80-4dd7-a400-201e78a2da24"
+      "id": "70f9a2b1-dl-2",
+      "type": "istar.DependencyLink",
+      "source": "dep_spoofing_res",
+      "target": "559a2351-4518-48d1-b9af-63dae821f6df"
     },
     {
-      "id": "4b92b61f-f46e-449e-b9b2-38e2e1e0a293",
-      "type": "istar.AndRefinementLink",
-      "source": "eee00234-ad6d-4b38-b6e9-264fe35a731c",
-      "target": "aa56195f-c5c2-41f5-a1fd-352ec3167d01"
+      "id": "70f9a2b1-dl-3",
+      "type": "istar.DependencyLink",
+      "source": "559a2351-4518-48d1-b9af-63dae821f6df",
+      "target": "dep_reentrancy_res"
     },
     {
-      "id": "b8f0a35e-c040-4209-923f-e1c7f99d9196",
-      "type": "istar.AndRefinementLink",
-      "source": "af1521f3-a903-4e44-be85-f93b4cdbfba2",
-      "target": "aa56195f-c5c2-41f5-a1fd-352ec3167d01"
+      "id": "70f9a2b1-dl-4",
+      "type": "istar.DependencyLink",
+      "source": "dep_reentrancy_res",
+      "target": "6ece3997-e19e-464f-bd3a-272f83eff9d8"
     },
     {
-      "id": "18f2d5c9-940e-4c74-897b-d02f5a6b7d56",
-      "type": "istar.AndRefinementLink",
-      "source": "ce3e3327-51a3-49ed-b872-c51f751afb50",
-      "target": "aa56195f-c5c2-41f5-a1fd-352ec3167d01"
+      "id": "70f9a2b1-dl-5",
+      "type": "istar.DependencyLink",
+      "source": "6ece3997-e19e-464f-bd3a-272f83eff9d8",
+      "target": "dep_reentrancy_task"
     },
     {
-      "id": "679f291e-359f-4428-98e3-05f32a2f8b5a",
-      "type": "istar.AndRefinementLink",
-      "source": "7016e6b0-11c4-4c11-b724-58e613884b52",
-      "target": "aa56195f-c5c2-41f5-a1fd-352ec3167d01"
+      "id": "70f9a2b1-dl-6",
+      "type": "istar.DependencyLink",
+      "source": "dep_reentrancy_task",
+      "target": "559a2351-4518-48d1-b9af-63dae821f6df"
     },
     {
-      "id": "d0e1b6f0-d5a8-4e52-9b2f-48e029c2d765",
-      "type": "istar.AndRefinementLink",
-      "source": "c659549e-7e45-46fc-83c1-bfdae72999d6",
-      "target": "aa56195f-c5c2-41f5-a1fd-352ec3167d01"
+      "id": "70f9a2b1-dl-7",
+      "type": "istar.DependencyLink",
+      "source": "0129dcdd-de86-4a5d-afdc-b1d9d9e63fdd",
+      "target": "dep_cpt_res"
+    },
+    {
+      "id": "70f9a2b1-dl-8",
+      "type": "istar.DependencyLink",
+      "source": "dep_cpt_res",
+      "target": "559a2351-4518-48d1-b9af-63dae821f6df"
+    },
+    {
+      "id": "70f9a2b1-dl-9",
+      "type": "istar.DependencyLink",
+      "source": "aa9cdbb4-a28b-490a-9e5b-07dbe798e5fc",
+      "target": "dep_mistake_res"
+    },
+    {
+      "id": "70f9a2b1-dl-10",
+      "type": "istar.DependencyLink",
+      "source": "dep_mistake_res",
+      "target": "559a2351-4518-48d1-b9af-63dae821f6df"
+    },
+    {
+      "id": "70f9a2b1-dl-11",
+      "type": "istar.DependencyLink",
+      "source": "aa9cdbb4-a28b-490a-9e5b-07dbe798e5fc",
+      "target": "dep_escrow_res"
+    },
+    {
+      "id": "70f9a2b1-dl-12",
+      "type": "istar.DependencyLink",
+      "source": "dep_escrow_res",
+      "target": "559a2351-4518-48d1-b9af-63dae821f6df"
+    },
+    {
+      "id": "70f9a2b1-dl-13",
+      "type": "istar.DependencyLink",
+      "source": "130b8793-dfc8-4339-b4e7-1d93f915c8e7",
+      "target": "dep_evidence_res"
+    },
+    {
+      "id": "70f9a2b1-dl-14",
+      "type": "istar.DependencyLink",
+      "source": "dep_evidence_res",
+      "target": "559a2351-4518-48d1-b9af-63dae821f6df"
+    },
+    {
+      "id": "70f9a2b1-dl-15",
+      "type": "istar.DependencyLink",
+      "source": "559a2351-4518-48d1-b9af-63dae821f6df",
+      "target": "dep_service_res"
+    },
+    {
+      "id": "70f9a2b1-dl-16",
+      "type": "istar.DependencyLink",
+      "source": "dep_service_res",
+      "target": "4d79b25f-85cb-4380-a269-230b77631e9d"
+    },
+    {
+      "id": "70f9a2b1-dl-17",
+      "type": "istar.DependencyLink",
+      "source": "eb5eb24d-e1f4-494e-88c3-d2c2769966b6",
+      "target": "dep_config_task"
+    },
+    {
+      "id": "70f9a2b1-dl-18",
+      "type": "istar.DependencyLink",
+      "source": "dep_config_task",
+      "target": "559a2351-4518-48d1-b9af-63dae821f6df"
     }
   ],
   "display": {},
   "tool": "pistar.2.1.0",
   "istar": "2.0",
   "diagram": {
-    "width": 2500,
-    "height": 2700,
-    "name": "DUAL-STRIDE Complete System & Attackers"
+    "width": 3500,
+    "height": 2800,
+    "name": "DUAL-STRIDE Final Corrected"
   }
 }
