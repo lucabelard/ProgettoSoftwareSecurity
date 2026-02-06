@@ -13,6 +13,7 @@ besu-config/node*/data/besu.ports
 
 # Log files
 *.log
+logs/
 
 # File temporanei Windows
 Thumbs.db
