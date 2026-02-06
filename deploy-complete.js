@@ -1,7 +1,10 @@
-// Script di deploy COMPLETO con assegnazione ruoli
+// Script di deploy COMPLETO con assegnazione ruoli e LOGGING AVANZATO
 const { Web3 } = require('web3');
 const fs = require('fs');
 const path = require('path');
+
+// Import del Logger avanzato
+const logger = require('./besu-config/scripts/monitoring/blockchain-logger');
 
 const web3 = new Web3('http://127.0.0.1:8545');
 
@@ -35,7 +38,7 @@ web3.eth.accounts.wallet.add(adminAccount);
 
 async function deployAndSetup() {
     console.log('\n========================================');
-    console.log('DEPLOY E SETUP COMPLETO');
+    console.log('DEPLOY E SETUP COMPLETO (CON LOGGING)');
     console.log('========================================\n');
 
     try {
@@ -43,13 +46,16 @@ async function deployAndSetup() {
         const chainId = await web3.eth.getChainId();
         console.log(`✓ Connesso a Chain ID: ${chainId}`);
 
-        const balance = await web3.eth.getBalance(adminAccount.address);
+        const initialBalance = await web3.eth.getBalance(adminAccount.address);
         console.log(`✓ Admin: ${adminAccount.address}`);
-        console.log(`✓ Balance: ${web3.utils.fromWei(balance, 'ether')} ETH`);
+        console.log(`✓ Balance: ${web3.utils.fromWei(initialBalance, 'ether')} ETH`);
 
         // Get Gas Price for Legacy Transactions
         const gasPrice = await web3.eth.getGasPrice();
         console.log(`✓ Gas Price: ${gasPrice} wei\n`);
+
+        // ============ INIZIO SESSIONE LOGGING ============
+        logger.startDeploymentSession(chainId, adminAccount.address, initialBalance);
 
         // Carica l'artifact del contratto
         const contractPath = path.join(__dirname, 'build', 'contracts', 'BNCalcolatoreOnChain.json');
@@ -61,12 +67,31 @@ async function deployAndSetup() {
         const contract = new web3.eth.Contract(contractJson.abi);
         const deployTx = contract.deploy({ data: contractJson.bytecode });
 
+        let txStartTime = Date.now();
         const deployedContract = await deployTx.send({
             from: adminAccount.address,
             gas: 8000000,
-            gas: 8000000, // Gas Limit
             gasPrice: gasPrice
         });
+
+        // Log del deployment - ottieni receipt dal blocco più recente
+        const blockNumber = await web3.eth.getBlockNumber();
+        const block = await web3.eth.getBlock(blockNumber, true);
+        if (block && block.transactions && block.transactions.length > 0) {
+            // Trova la transazione di deployment (quella senza 'to')
+            const deployTxData = block.transactions.find(tx => !tx.to);
+            if (deployTxData) {
+                const receipt = await web3.eth.getTransactionReceipt(deployTxData.hash);
+                if (receipt) {
+                    logger.logContractDeployment(
+                        receipt, 
+                        'BNCalcolatoreOnChain', 
+                        deployedContract.options.address,
+                        txStartTime
+                    );
+                }
+            }
+        }
 
         console.log(`✅ Contratto deployato!`);
         console.log(`📍 Indirizzo: ${deployedContract.options.address}\n`);
@@ -90,22 +115,34 @@ async function deployAndSetup() {
         const RUOLO_SENSORE = await deployedContract.methods.RUOLO_SENSORE().call();
         const RUOLO_MITTENTE = await deployedContract.methods.RUOLO_MITTENTE().call();
 
+        // Helper per eseguire transazione con logging
+        async function sendAndLog(method, methodName) {
+            txStartTime = Date.now();
+            const result = await method.send({
+                from: adminAccount.address,
+                gas: 300000,
+                gasPrice: gasPrice
+            });
+            
+            // Ottieni receipt
+            const receipt = await web3.eth.getTransactionReceipt(result.transactionHash);
+            logger.logTransaction(receipt, methodName, 0, txStartTime);
+            
+            return result;
+        }
+
         // Assegna ruolo SENSORE
-        await deployedContract.methods.grantRole(RUOLO_SENSORE, accounts.sensore.address).send({
-            from: adminAccount.address,
-            gas: 200000,
-            gas: 200000,
-            gasPrice: gasPrice
-        });
+        await sendAndLog(
+            deployedContract.methods.grantRole(RUOLO_SENSORE, accounts.sensore.address),
+            'grantRole(SENSORE)'
+        );
         console.log(`✓ Ruolo SENSORE assegnato a: ${accounts.sensore.address} (${accounts.sensore.name})`);
 
         // Assegna ruolo MITTENTE  
-        await deployedContract.methods.grantRole(RUOLO_MITTENTE, accounts.mittente.address).send({
-            from: adminAccount.address,
-            gas: 200000,
-            gas: 200000,
-            gasPrice: gasPrice
-        });
+        await sendAndLog(
+            deployedContract.methods.grantRole(RUOLO_MITTENTE, accounts.mittente.address),
+            'grantRole(MITTENTE)'
+        );
         console.log(`✓ Ruolo MITTENTE assegnato a: ${accounts.mittente.address} (${accounts.mittente.name})`);
 
         console.log(`\n✓ Admin mantiene ruoli DEFAULT_ADMIN_ROLE e RUOLO_ORACOLO`);
@@ -114,12 +151,10 @@ async function deployAndSetup() {
         console.log('⚙️  Setup Probabilità (CPT)...\n');
 
         // Probabilità a priori
-        await deployedContract.methods.impostaProbabilitaAPriori(99, 99).send({
-            from: adminAccount.address,
-            gas: 300000,
-            gas: 300000,
-            gasPrice: gasPrice
-        });
+        await sendAndLog(
+            deployedContract.methods.impostaProbabilitaAPriori(99, 99),
+            'impostaProbabilitaAPriori'
+        );
         console.log('✓ Probabilità a priori impostate (P(F1)=99%, P(F2)=99%)');
 
         // CPT per evidenze positive (E1, E2, E5)
@@ -129,46 +164,40 @@ async function deployAndSetup() {
         const cptNegativa = { p_FF: 95, p_FT: 70, p_TF: 50, p_TT: 1 };
 
         // E1 (Temperatura)
-        await deployedContract.methods.impostaCPT(1, cptPositiva).send({
-            from: adminAccount.address,
-            gas: 300000,
-            gas: 300000,
-            gasPrice: gasPrice
-        });
+        await sendAndLog(
+            deployedContract.methods.impostaCPT(1, cptPositiva),
+            'impostaCPT(E1_Temperatura)'
+        );
 
         // E2 (Sigillo)
-        await deployedContract.methods.impostaCPT(2, cptPositiva).send({
-            from: adminAccount.address,
-            gas: 300000,
-            gas: 300000,
-            gasPrice: gasPrice
-        });
+        await sendAndLog(
+            deployedContract.methods.impostaCPT(2, cptPositiva),
+            'impostaCPT(E2_Sigillo)'
+        );
 
         // E3 (Shock)
-        await deployedContract.methods.impostaCPT(3, cptNegativa).send({
-            from: adminAccount.address,
-            gas: 300000,
-            gas: 300000,
-            gasPrice: gasPrice
-        });
+        await sendAndLog(
+            deployedContract.methods.impostaCPT(3, cptNegativa),
+            'impostaCPT(E3_Shock)'
+        );
 
         // E4 (Luce)
-        await deployedContract.methods.impostaCPT(4, cptNegativa).send({
-            from: adminAccount.address,
-            gas: 300000,
-            gas: 300000,
-            gasPrice: gasPrice
-        });
+        await sendAndLog(
+            deployedContract.methods.impostaCPT(4, cptNegativa),
+            'impostaCPT(E4_Luce)'
+        );
 
         // E5 (Scan)
-        await deployedContract.methods.impostaCPT(5, cptPositiva).send({
-            from: adminAccount.address,
-            gas: 300000,
-            gas: 300000,
-            gasPrice: gasPrice
-        });
+        await sendAndLog(
+            deployedContract.methods.impostaCPT(5, cptPositiva),
+            'impostaCPT(E5_Scan)'
+        );
 
         console.log('✓ Setup delle CPT per E1-E5 completato\n');
+
+        // ============ FINE SESSIONE LOGGING ============
+        const finalBalance = await web3.eth.getBalance(adminAccount.address);
+        const summary = logger.endDeploymentSession(finalBalance);
 
         console.log('========================================');
         console.log('✅ SETUP COMPLETATO CON SUCCESSO!');
@@ -178,11 +207,21 @@ async function deployAndSetup() {
         console.log(`  Mittente:      ${accounts.mittente.address}`);
         console.log(`  Sensore:       ${accounts.sensore.address}`);
         console.log(`  Corriere:      ${accounts.corriere.address}`);
+        console.log('\n📊 RIEPILOGO DEPLOYMENT:');
+        console.log(`  Transazioni:   ${summary.totals.count}`);
+        console.log(`  Gas Totale:    ${logger.formatNumber(summary.totals.gasUsed)}`);
+        console.log(`  Costo Totale:  ${summary.totals.costEth.toFixed(8)} ETH`);
+        console.log(`  Durata:        ${summary.totals.durationSeconds.toFixed(1)}s`);
+        console.log('\n📁 LOG FILES GENERATI:');
+        console.log(`  - besu-config/logs/deployment.log`);
+        console.log(`  - besu-config/logs/gas_report.log`);
+        console.log(`  - besu-config/logs/session_summary.json`);
         console.log('\n✨ Ora puoi connettere MetaMask con questi account!\n');
 
     } catch (error) {
         console.error('\n❌ ERRORE durante il deploy:');
         console.error(error.message);
+        console.error(error.stack);
         process.exit(1);
     }
 }

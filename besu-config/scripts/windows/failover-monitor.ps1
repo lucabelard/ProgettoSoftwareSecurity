@@ -61,7 +61,7 @@ function Start-BesuNode {
         
         $arguments = @(
             "--data-path=$($Node.DataPath)/data",
-            "--genesis-file=genesis-ibft.json",
+            "--genesis-file=networkFiles/genesis-ibft.json",
             "--node-private-key-file=$($Node.Key)",
             "--rpc-http-enabled",
             "--rpc-http-api=ETH,NET,WEB3,IBFT,ADMIN,TXPOOL,MINER",

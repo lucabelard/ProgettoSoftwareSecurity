@@ -12,7 +12,7 @@ cd /d "%~dp0..\.."
 
 besu ^
   --data-path=node1/data ^
-  --genesis-file=genesis-ibft.json ^
+  --genesis-file=networkFiles/genesis-ibft.json ^
   --node-private-key-file=networkFiles/keys/0x8b175a2617911fc7d30b6cb960d4240eab55a58c/key ^
   --rpc-http-enabled ^
   --rpc-http-api=ETH,NET,WEB3,IBFT,ADMIN,TXPOOL,MINER ^

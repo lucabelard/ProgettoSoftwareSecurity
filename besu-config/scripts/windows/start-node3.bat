@@ -18,7 +18,7 @@ for /f "tokens=5" %%a in ('netstat -aon ^| find ":8547" ^| find "LISTENING"') do
 
 besu ^
   --data-path=node3/data ^
-  --genesis-file=genesis-ibft.json ^
+  --genesis-file=networkFiles/genesis-ibft.json ^
   --node-private-key-file=networkFiles/keys/0xba3cc3e7110c0b33d357868178acc766c12c9417/key ^
   --rpc-http-enabled ^
   --rpc-http-api=ETH,NET,WEB3,IBFT,ADMIN,TXPOOL,MINER ^

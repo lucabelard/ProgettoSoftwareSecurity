@@ -20,10 +20,11 @@ cd /d "%~dp0..\\.."
 
 REM Killing process on port 8545 (pulizia)
 echo [*] Pulizia porta 8545...
-for /f "tokens=5" %%a in ('netstat -aon ^| find ":8545" ^| find "LISTENING"') do taskkill /f /pid %%a >nul 2>&1
+echo [*] Pulizia porta 8545...
+powershell -Command "Get-NetTCPConnection -LocalPort 8545 -ErrorAction SilentlyContinue | ForEach-Object { Stop-Process -Id $_.OwningProcess -Force }"
 
 echo [*] Avvio Proxy Node.js...
-node scripts/rpc-proxy.js
+node scripts/monitoring/rpc-proxy.js
 
 
 pause

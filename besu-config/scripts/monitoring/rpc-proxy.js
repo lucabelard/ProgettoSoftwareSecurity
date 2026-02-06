@@ -1,6 +1,12 @@
 const http = require('http');
 const fs = require('fs');
 const path = require('path');
+const zlib = require('zlib');
+
+// Import Logger Avanzato
+const logger = require('./blockchain-logger');
+
+console.log('>>> PROXY VERSION: 2.1 - DEBUG ENABLED <<<');
 
 // Configurazione
 const LISTENING_PORT = 8545;
@@ -13,11 +19,9 @@ const NODES = [
 
 let currentNodeIndex = 0;
 
-// Logging Setup
-const LOG_DIR = path.join(__dirname, '..', 'logs');
-if (!fs.existsSync(LOG_DIR)) fs.mkdirSync(LOG_DIR, { recursive: true });
-const LOG_FILE = path.join(LOG_DIR, 'network_traffic.log');
-const TX_LOG_FILE = path.join(LOG_DIR, 'transactions.log');
+// Usa i file di log dal logger centralizzato
+const LOG_FILE = logger.LOG_FILES.network;
+const TX_LOG_FILE = logger.LOG_FILES.transactions;
 
 function logToFile(file, message) {
     const timestamp = new Date().toISOString();
@@ -66,6 +70,71 @@ async function findActiveNode() {
     return -1;
 }
 
+// Funzione per recuperare receipt E dettagli transazione
+function fetchAndLogReceipt(txHash, nodePort, retries = 0) {
+    if (retries > 10) { // Aumentati retry a 10
+        console.log(`[Log] ⚠️ Receipt non trovata dopo 10 tentativi per ${txHash.substring(0, 20)}...`);
+        return;
+    }
+    
+    // 1. Richiedi Receipt
+    const requestRpc = (method, params, callback) => {
+        const req = http.request({
+            hostname: '127.0.0.1',
+            port: nodePort,
+            path: '/',
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' }
+        }, (res) => {
+            let data = '';
+            res.on('data', chunk => data += chunk);
+            res.on('end', () => {
+                try {
+                    const json = JSON.parse(data);
+                    callback(null, json);
+                } catch (e) { callback(e, null); }
+            });
+        });
+        req.on('error', (e) => callback(e, null));
+        req.write(JSON.stringify({
+            jsonrpc: '2.0',
+            method: method,
+            params: params,
+            id: Date.now()
+        }));
+        req.end();
+    };
+
+    // Chain di chiamate: Receipt -> Transaction -> Log
+    requestRpc('eth_getTransactionReceipt', [txHash], (err, receiptJson) => {
+        if (err || !receiptJson || !receiptJson.result) {
+            // Riprova se non c'è ancora la receipt
+            setTimeout(() => fetchAndLogReceipt(txHash, nodePort, retries + 1), 2000);
+            return;
+        }
+
+        const receipt = receiptJson.result;
+        
+        // 2. Richiedi dettagli Transazione (per avere il Value)
+        requestRpc('eth_getTransactionByHash', [txHash], (err, txJson) => {
+            let valueWei = '0';
+            if (!err && txJson && txJson.result && txJson.result.value) {
+                valueWei = txJson.result.value;
+            }
+
+            // 3. Logga con tutti i dati
+            try {
+                // Passiamo anche il value (convertito da hex a stringa decimale o lasciato hex per logger)
+                const logResult = logger.logProxyTransaction(receipt, valueWei);
+                console.log(`[Log] ${logResult.type} | Value: ${logResult.valueEth.toFixed(4)} ETH | Gas: ${logger.formatNumber(logResult.gasUsed)} | Cost: ${logResult.costEth.toFixed(6)} ETH`);
+            } catch (e) {
+                console.error(`[ERROR] Logging failed: ${e.message}`);
+            }
+        });
+    });
+}
+
+
 const server = http.createServer(async (clientReq, clientRes) => {
     // Bufferizzare il body della richiesta
     const chunks = [];
@@ -78,13 +147,7 @@ const server = http.createServer(async (clientReq, clientRes) => {
             if (bodyString) requestData = JSON.parse(bodyString);
         } catch (e) { /* ignore parse error */ }
 
-        // LOGGING RICHIESTE TX
-        if (requestData.method === 'eth_sendRawTransaction' || requestData.method === 'eth_sendTransaction') {
-            const paramsStr = JSON.stringify(requestData.params || []).substring(0, 150);
-            const msg = `📝 TX SUBMITTED | Method: ${requestData.method} | Params: ${paramsStr}...`;
-            console.log(msg);
-            logToFile(TX_LOG_FILE, msg);
-        }
+
 
         const sendRequest = (nodeIndex, isRetry = false) => {
             const targetNode = NODES[nodeIndex];
@@ -101,8 +164,12 @@ const server = http.createServer(async (clientReq, clientRes) => {
             options.headers['Content-Length'] = bodyBuffer.length;
 
             const proxyReq = http.request(options, (proxyRes) => {
-                // Intercettiamo la risposta per i log del Gas
-                if (requestData.method === 'eth_getTransactionReceipt') {
+                // Intercettiamo le risposte per logging delle transazioni
+                const shouldIntercept = requestData.method === 'eth_getTransactionReceipt' || 
+                                        requestData.method === 'eth_sendRawTransaction' ||
+                                        requestData.method === 'eth_sendTransaction';
+                
+                if (shouldIntercept) {
                     const resChunks = [];
                     proxyRes.on('data', chunk => resChunks.push(chunk));
                     proxyRes.on('end', () => {
@@ -111,54 +178,51 @@ const server = http.createServer(async (clientReq, clientRes) => {
                         clientRes.write(resBuffer);
                         clientRes.end();
 
-                        try {
-                            const responseJson = JSON.parse(resBuffer.toString());
-                            if (responseJson.result) {
-                                const receipt = responseJson.result;
-                                
-                                // Dati Transazione
-                                const txHash = receipt.transactionHash;
-                                const status = receipt.status === '0x1' ? 'SUCCESS' : 'FAILED';
-                                const blockNumber = parseInt(receipt.blockNumber, 16);
-                                const from = receipt.from;
-                                const to = receipt.to;
-                                const contractAddress = receipt.contractAddress;
-                                
-                                // Calcoli Gas ed ETH
-                                const gasUsed = parseInt(receipt.gasUsed, 16);
-                                // Besu restituisce effectiveGasPrice in hex (wei)
-                                const gasPrice = receipt.effectiveGasPrice ? parseInt(receipt.effectiveGasPrice, 16) : 0;
-                                const costWei = BigInt(gasUsed) * BigInt(gasPrice);
-                                const costEth = Number(costWei) / 1e18; // Converti Wei -> ETH
-                                
-                                // Determina Tipo Transazione
-                                let txType = "GENERIC TRAFFIC";
-                                if (!to && contractAddress) {
-                                    txType = "📄 CONTRACT DEPLOYMENT";
-                                } else if (to) {
-                                    txType = "➡️ TRANSACTION";
+                        // Decomprimi se gzip e processa
+                        const contentEncoding = proxyRes.headers['content-encoding'];
+                        
+                        const processJsonData = (data) => {
+                            try {
+                                const responseStr = data.toString().trim();
+                                const jsonStart = responseStr.indexOf('{');
+                                if (jsonStart >= 0) {
+                                    const jsonStr = responseStr.substring(jsonStart);
+                                    const responseJson = JSON.parse(jsonStr);
+                                    
+                                    // Log transazioni - Intercetta Receipt
+                                    if (requestData.method === 'eth_getTransactionReceipt' && 
+                                        responseJson.result && responseJson.result.transactionHash) {
+                                        try {
+                                            const receipt = responseJson.result;
+                                            const logResult = logger.logProxyTransaction(receipt);
+                                            console.log(`[Log] ${logResult.type} | Value: ${logResult.valueEth.toFixed(4)} ETH | Gas: ${logger.formatNumber(logResult.gasUsed)} | Cost: ${logResult.costEth.toFixed(6)} ETH`);
+                                        } catch (logErr) {
+                                            // Silently ignore log errors or log to file only
+                                        }
+                                    }
+                                    
+                                    // Intercetta invio TX per fetch asincrono
+                                    if ((requestData.method === 'eth_sendRawTransaction' || 
+                                         requestData.method === 'eth_sendTransaction') && 
+                                        responseJson.result) {
+                                        const txHash = responseJson.result;
+                                        // Non logghiamo nulla qui in console per pulizia, il log avverrà al fetch
+                                        setTimeout(() => {
+                                            fetchAndLogReceipt(txHash, NODES[currentNodeIndex].port);
+                                        }, 4000);
+                                    }
                                 }
-
-                                // Formatta Messaggio Log Dettagliato
-                                const logMessage = `
---------------------------------------------------------------------------------
-[${new Date().toISOString()}] ${txType}
---------------------------------------------------------------------------------
-Status:       ${status}
-Hash:         ${txHash}
-Block:        ${blockNumber}
-Promoter:     ${from}
-Target:       ${to || "New Contract: " + contractAddress}
-Gas Used:     ${gasUsed}
-Gas Price:    ${gasPrice} wei
-Total Cost:   ${costEth.toFixed(18)} ETH
---------------------------------------------------------------------------------
-`;
-                                console.log(`[Log] Transazione registrata in log.txt`);
-                                logToFile(path.join(LOG_DIR, 'log.txt'), logMessage);
+                            } catch (e) {
+                                // Ignora errori parse
                             }
-                        } catch (e) { 
-                            console.error("[Proxy Log Error] ", e.message);
+                        };
+
+                        if (contentEncoding === 'gzip') {
+                            zlib.gunzip(resBuffer, (err, decoded) => {
+                                if (!err) processJsonData(decoded);
+                            });
+                        } else {
+                            processJsonData(resBuffer);
                         }
                     });
                 } else {
@@ -213,17 +277,29 @@ Total Cost:   ${costEth.toFixed(18)} ETH
 
 // MONITORAGGIO ATTIVO (Ogni 3 secondi) - Parte dopo 30 secondi per dare tempo ai nodi di avviarsi
 console.log('\n[Monitor] In attesa di 30 secondi per avvio nodi...');
-setTimeout(() => {
+setTimeout(async () => {
     console.log('[Monitor] Avvio controllo attivo dei nodi...');
     
-    // Primo check immediato dopo il timeout
-    checkNode(NODES[currentNodeIndex].port).then(isAlive => {
-        if(isAlive) {
-            const successMsg = `[Monitor] ✅ Connessione stabilita con successo al Nodo Principale (${NODES[currentNodeIndex].name})`;
-            console.log(successMsg);
-            logToFile(LOG_FILE, successMsg);
+    // Primo check - prova tutti i nodi per trovarne uno attivo
+    let connectedNode = null;
+    for (let i = 0; i < NODES.length; i++) {
+        const isAlive = await checkNode(NODES[i].port);
+        if (isAlive) {
+            connectedNode = NODES[i];
+            currentNodeIndex = i;
+            break;
         }
-    });
+    }
+    
+    if (connectedNode) {
+        const successMsg = `[Monitor] ✅ CONNESSIONE RIUSCITA! Nodo attivo: ${connectedNode.name} (Porta ${connectedNode.port})`;
+        console.log(successMsg);
+        logToFile(LOG_FILE, successMsg);
+    } else {
+        const errMsg = `[Monitor] ❌ ATTENZIONE: Nessun nodo risponde al primo controllo. Riprovo...`;
+        console.log(errMsg);
+        logToFile(LOG_FILE, errMsg);
+    }
 
     setInterval(async () => {
         const targetNode = NODES[currentNodeIndex];
