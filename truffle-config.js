@@ -56,19 +56,19 @@ module.exports = {
           privateKeys: besuPrivateKeys,
           providerOrUrl: "http://127.0.0.1:8551",
           numberOfAddresses: 4,
-          pollingInterval: 8000,
-          timeout: 300000
+          pollingInterval: 4000,  // Check every 4 seconds (Besu block time is ~2s)
+          timeout: 600000         // 10 minutes timeout
         });
         // Suppress unhandled "ESOCKETTIMEDOUT" errors from polling
         provider.engine.on('error', (err) => {
-          // console.log('[Ignored Provider Error]:', err.message);
+          console.log('[Ignored Provider Error]:', err.message);
         });
         return provider;
       },
       network_id: "2025",  // BESU IBFT network uses 2025
       gas: 8000000,
       gasPrice: 1000,
-      networkCheckTimeout: 300000,
+      networkCheckTimeout: 600000,
       timeoutBlocks: 500,
       deploymentPollingInterval: 8000,
       skipDryRun: true,
