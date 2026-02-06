@@ -49,11 +49,17 @@ besu \
 
 EXIT_CODE=${PIPESTATUS[0]}
 
-if [ $EXIT_CODE -ne 0 ]; then
+# 143 = SIGTERM (pkill), 130 = SIGINT (Ctrl+C)
+if [ $EXIT_CODE -ne 0 ] && [ $EXIT_CODE -ne 143 ] && [ $EXIT_CODE -ne 130 ]; then
     echo "ERROR: Besu exited with code $EXIT_CODE"
     echo "Last 20 lines of log:"
     echo "---------------------"
     tail -n 20 "$LOG_FILE"
     echo "---------------------"
     read -p "Press Enter to exit..."
+else
+    # Force close this specific window
+    osascript -e "tell application \"Terminal\" to close (every window whose name contains \"$NODE_NAME\")" &
+    exit 0
 fi
+

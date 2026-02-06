@@ -5,6 +5,24 @@
 
 const HDWalletProvider = require('@truffle/hdwallet-provider');
 
+// Global error handler to suppress benign network errors during shutdown
+process.on('uncaughtException', (err) => {
+  if (err.message && (err.message.includes('ESOCKETTIMEDOUT') || err.message.includes('PollingBlockTracker'))) {
+    // Suppress
+    return;
+  }
+  console.error('Uncaught Exception:', err);
+  process.exit(1);
+});
+
+process.on('unhandledRejection', (reason, promise) => {
+  if (reason.message && (reason.message.includes('ESOCKETTIMEDOUT') || reason.message.includes('PollingBlockTracker'))) {
+    // Suppress
+    return;
+  }
+  console.error('Unhandled Rejection:', reason);
+});
+
 // Chiavi private degli account precaricati nel genesis di Besu
 // ATTENZIONE: Questi sono account di TEST pubblici - NON usare in produzione!
 const besuPrivateKeys = [
@@ -33,19 +51,26 @@ module.exports = {
       timeoutBlocks: 200
     },
     besu: {
-      provider: () => new HDWalletProvider({
-        privateKeys: besuPrivateKeys,
-        providerOrUrl: "http://127.0.0.1:8545",
-        numberOfAddresses: 4,
-        pollingInterval: 1000,
-        timeout: 120000  // 120 secondi di timeout HTTP
-      }),
-      network_id: "2024",  // BESU IBFT network uses 2024
+      provider: () => {
+        const provider = new HDWalletProvider({
+          privateKeys: besuPrivateKeys,
+          providerOrUrl: "http://127.0.0.1:8551",
+          numberOfAddresses: 4,
+          pollingInterval: 8000,
+          timeout: 300000
+        });
+        // Suppress unhandled "ESOCKETTIMEDOUT" errors from polling
+        provider.engine.on('error', (err) => {
+          // console.log('[Ignored Provider Error]:', err.message);
+        });
+        return provider;
+      },
+      network_id: "2025",  // BESU IBFT network uses 2025
       gas: 8000000,
-      gasPrice: 0,
-      networkCheckTimeout: 120000,
+      gasPrice: 1000,
+      networkCheckTimeout: 300000,
       timeoutBlocks: 500,
-      deploymentPollingInterval: 2000,
+      deploymentPollingInterval: 8000,
       skipDryRun: true,
       disableConfirmationListener: true
     },
@@ -53,9 +78,9 @@ module.exports = {
     besu_dev: {
       host: "127.0.0.1",
       port: 8545,
-      network_id: "2024",  // IBFT network ID
+      network_id: "2025",  // IBFT network ID
       gas: 8000000,
-      gasPrice: 0,
+      gasPrice: 1000,
       from: "0xfe3b557e8fb62b89f4916b721be55ceb828dbd73",
       networkCheckTimeout: 60000,
       timeoutBlocks: 500

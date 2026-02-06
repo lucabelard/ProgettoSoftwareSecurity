@@ -519,6 +519,8 @@ async function handleValidatePayment() {
                 } else {
                     errorMessage = '❌ Validazione fallita - controlla che tutte le evidenze siano state inviate e che le probabilità siano corrette';
                 }
+            } else if (error.message.includes('Parameter decoding error')) {
+                errorMessage = '🚫 ACCESSO NEGATO: Questo account non è il corriere di questa spedizione! Cambia account o crea una nuova spedizione assegnata a te.';
             } else if (error.message.includes('revert')) {
                 // Generic revert message extraction
                 const match = error.message.match(/revert\s+(.+?)(?:"|$)/);
