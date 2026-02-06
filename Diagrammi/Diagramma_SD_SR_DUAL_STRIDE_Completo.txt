@@ -1,878 +1,348 @@
 {
   "actors": [
     {
-      "id": "559a2351-4518-48d1-b9af-63dae821f6df",
-      "text": "Sistema (Smart Contract)",
+      "id": "sr-sensore-main",
+      "text": "Sensore_IoT",
       "type": "istar.Actor",
-      "x": 1100,
-      "y": 600,
-      "customProperties": {
-        "Description": ""
-      },
-      "nodes": [
-        {
-          "id": "406e93f8-7cb3-4fb0-a8ca-d01fcd620423",
-          "text": "Garantire Integrità",
-          "type": "istar.Goal",
-          "x": 1250,
-          "y": 630
-        },
-        {
-          "id": "94809ccd-9be7-4838-8089-b119e61f5aeb",
-          "text": "Immutabilità",
-          "type": "istar.Quality",
-          "x": 1150,
-          "y": 730
-        },
-        {
-          "id": "28e7be0a-76e7-4260-9aa5-f75d239422fa",
-          "text": "Trasparenza",
-          "type": "istar.Quality",
-          "x": 1250,
-          "y": 730
-        },
-        {
-          "id": "7e901802-3177-4000-865c-52e1be583d83",
-          "text": "Correttezza",
-          "type": "istar.Quality",
-          "x": 1350,
-          "y": 730
-        },
-        {
-          "id": "cd095375-81ad-41f2-ade5-c1f8477cea0b",
-          "text": "Access Control",
-          "type": "istar.Task",
-          "x": 1120,
-          "y": 850
-        },
-        {
-          "id": "de58a074-bc74-4995-ab6c-5ad5a2ddce3d",
-          "text": "Validazione Input",
-          "type": "istar.Task",
-          "x": 1220,
-          "y": 850
-        },
-        {
-          "id": "fd465d93-9956-451d-8cda-9f9255d5bc89",
-          "text": "Logica Bayesiana",
-          "type": "istar.Task",
-          "x": 1320,
-          "y": 850
-        },
-        {
-          "id": "88db038d-3c76-4ab1-9839-a62ba6e6f019",
-          "text": "Gestione Stati",
-          "type": "istar.Task",
-          "x": 1420,
-          "y": 850
-        },
-        {
-          "id": "8971d575-b145-4638-820c-493d4939668f",
-          "text": "Gestire Spedizioni\ncon Garanzia",
-          "type": "istar.Goal",
-          "x": 1050,
-          "y": 950
-        },
-        {
-          "id": "10092d4b-a84a-45d1-afd8-15f6b167277f",
-          "text": "Validare\nConformità Bayesiana",
-          "type": "istar.Goal",
-          "x": 1250,
-          "y": 950
-        },
-        {
-          "id": "a15f4e98-0e88-4158-9724-eb657e299d2e",
-          "text": "Gestire Pagamenti\ne Rimborsi",
-          "type": "istar.Goal",
-          "x": 1450,
-          "y": 950
-        },
-        {
-          "id": "721f0e50-8506-48c3-980e-c7cb284a4ef4",
-          "text": "Ricevere\nEscrow ETH",
-          "type": "istar.Task",
-          "x": 1200,
-          "y": 1050
-        },
-        {
-          "id": "e761604c-4083-4175-a0e0-b71e0a8d19e3",
-          "text": "Pagare Corriere\n(se P>=95%)",
-          "type": "istar.Task",
-          "x": 1320,
-          "y": 1050
-        },
-        {
-          "id": "0180ceb5-8f82-485f-acdd-b0ebf3e1e385",
-          "text": "Rimborsare\nMittente",
-          "type": "istar.Task",
-          "x": 1440,
-          "y": 1050
-        },
-        {
-          "id": "221aabbd-7807-4f54-8b3a-df6efecdfed5",
-          "text": "Raccogliere\nEvidenze (E1-E5)",
-          "type": "istar.Task",
-          "x": 1120,
-          "y": 1050
-        },
-        {
-          "id": "c7dd0b0f-afbe-42eb-b5dc-136fc709c518",
-          "text": "Calcolare\nP(F1|E)",
-          "type": "istar.Task",
-          "x": 1000,
-          "y": 1050
-        },
-        {
-          "id": "b479e4ea-7a15-4aaa-b38e-a968a6c45519",
-          "text": "Calcolare\nP(F2|E)",
-          "type": "istar.Task",
-          "x": 1000,
-          "y": 1150
-        },
-        {
-          "id": "d59c25ec-c33b-4fbe-a76e-1f5c7e758261",
-          "text": "Verificare\nSoglia 95%",
-          "type": "istar.Task",
-          "x": 1120,
-          "y": 1150
-        }
-      ]
-    },
-    {
-      "id": "aa9cdbb4-a28b-490a-9e5b-07dbe798e5fc",
-      "text": "Mittente (Sender)",
-      "type": "istar.Agent",
-      "x": 200,
-      "y": 1600,
-      "customProperties": {
-        "Description": ""
-      },
-      "nodes": [
-        {
-          "id": "9af5b2a8-8d34-4edf-9628-181ec294ca0d",
-          "text": "Spedire con\nGaranzia Qualità",
-          "type": "istar.Goal",
-          "x": 400,
-          "y": 1650
-        },
-        {
-          "id": "01c71412-aac6-43ae-abf1-87e76a325b18",
-          "text": "Creare Spedizione",
-          "type": "istar.Task",
-          "x": 250,
-          "y": 1750
-        },
-        {
-          "id": "e2dea419-5c2a-45e7-81a3-a2b31c03dc72",
-          "text": "Depositare\nPagamento ETH",
-          "type": "istar.Task",
-          "x": 370,
-          "y": 1750
-        },
-        {
-          "id": "37899c0d-ecb8-443a-8ee0-e1120071d2f4",
-          "text": "Richiedere\nRimborso",
-          "type": "istar.Task",
-          "x": 490,
-          "y": 1750
-        }
-      ]
-    },
-    {
-      "id": "4d79b25f-85cb-4380-a269-230b77631e9d",
-      "text": "Corriere (Courier)",
-      "type": "istar.Agent",
-      "x": 200,
-      "y": 2100,
-      "customProperties": {
-        "Description": ""
-      },
-      "nodes": [
-        {
-          "id": "88ab0fb4-b331-4e2d-a78b-7378cc116e0d",
-          "text": "Trasportare e\nRicevere Pagamento",
-          "type": "istar.Goal",
-          "x": 450,
-          "y": 2150
-        },
-        {
-          "id": "a960b74b-6436-42ae-9009-c2f6cde5e534",
-          "text": "Richiedere\nValidazione",
-          "type": "istar.Task",
-          "x": 450,
-          "y": 2250
-        },
-        {
-          "id": "79e13dd4-af5a-42d8-86a6-6340a3c83039",
-          "text": "Ricevere\nPagamento",
-          "type": "istar.Task",
-          "x": 600,
-          "y": 2250
-        }
-      ]
-    },
-    {
-      "id": "eb5eb24d-e1f4-494e-88c3-d2c2769966b6",
-      "text": "Oracolo / Admin",
-      "type": "istar.Role",
       "x": 1800,
-      "y": 1600,
-      "customProperties": {
-        "Description": ""
-      },
+      "y": 200,
+      "customProperties": {"Description": "Dispositivo IoT"},
       "nodes": [
-        {
-          "id": "6ea157b7-bb80-4dd7-a400-201e78a2da24",
-          "text": "Configurare\nSistema Correttamente",
-          "type": "istar.Goal",
-          "x": 2100,
-          "y": 1650
-        },
-        {
-          "id": "325f3cd6-41c9-4628-9a38-505128a62dc8",
-          "text": "Configurare\nCPT (E1-E5)",
-          "type": "istar.Task",
-          "x": 2100,
-          "y": 1750
-        }
+        {"id": "g1-monitorare-registrare", "text": "Monitorare e registrare condizioni trasporto", "type": "istar.Goal", "x": 2176, "y": 222},
+        {"id": "t1-rilevare-temperatura", "text": "Rilevare temperatura E1", "type": "istar.Task", "x": 1904, "y": 255},
+        {"id": "t2-rilevare-shock", "text": "Rilevare shock E3", "type": "istar.Task", "x": 2025, "y": 312},
+        {"id": "t3-rilevare-apertura", "text": "Rilevare apertura/luce E4", "type": "istar.Task", "x": 2051, "y": 384},
+        {"id": "t4-verificare-sigillo", "text": "Verificare sigillo elettronico E2", "type": "istar.Task", "x": 2161, "y": 387},
+        {"id": "t5-registrare-timestamp", "text": "Registrare timestamp E5", "type": "istar.Task", "x": 2503, "y": 246},
+        {"id": "g2-trasmettere-dati", "text": "Trasmettere dati a blockchain", "type": "istar.Goal", "x": 2270, "y": 281},
+        {"id": "t6-campionare", "text": "Campionare ogni 5 minuti", "type": "istar.Task", "x": 1902, "y": 350},
+        {"id": "t7-verificare-range", "text": "Verificare range 2-8°C", "type": "istar.Task", "x": 1798, "y": 350},
+        {"id": "t9-salvare-memoria", "text": "Salvare in memoria locale", "type": "istar.Task", "x": 2296, "y": 394},
+        {"id": "t10-inviare-sistema", "text": "Inviare a Sistema Blockchain", "type": "istar.Task", "x": 2403, "y": 392},
+        {"id": "t11-generare-report", "text": "Generare report finale", "type": "istar.Task", "x": 2535, "y": 386},
+        {"id": "sg1-precisione", "text": "Precisione misurazioni", "type": "istar.Quality", "x": 1812, "y": 484},
+        {"id": "sg2-integrita", "text": "Integrità Dati", "type": "istar.Quality", "x": 2318, "y": 486},
+        {"id": "sg3-autonomia", "text": "Autonomia batteria", "type": "istar.Quality", "x": 1956, "y": 484}
       ]
     },
     {
-      "id": "130b8793-dfc8-4339-b4e7-1d93f915c8e7",
-      "text": "Sensore IoT",
-      "type": "istar.Agent",
-      "x": 1800,
-      "y": 2100,
-      "customProperties": {
-        "Description": ""
-      },
+      "id": "sistema_actor",
+      "text": "Sistema_Blockchain",
+      "type": "istar.Actor",
+      "x": 1500,
+      "y": 700,
+      "customProperties": {"Description": "Smart Contract System"},
       "nodes": [
-        {
-          "id": "aa56195f-c5c2-41f5-a1fd-352ec3167d01",
-          "text": "Rilevare e Trasmettere\nDati Ambientali",
-          "type": "istar.Goal",
-          "x": 2150,
-          "y": 2150
-        },
-        {
-          "id": "33285d72-0be3-4e20-95fc-a8870456e814",
-          "text": "Inviare Evidenze\nOn-Chain",
-          "type": "istar.Task",
-          "x": 2175,
-          "y": 2350
-        }
+        {"id": "s_goal_main", "text": "Garantire Sistema Affidabile", "type": "istar.Goal", "x": 1684, "y": 725},
+        {"id": "s_task_spedizioni", "text": "Gestione Spedizioni", "type": "istar.Task", "x": 1584, "y": 875},
+        {"id": "s_task_evidenze", "text": "Gestione Evidenze", "type": "istar.Task", "x": 1734, "y": 875},
+        {"id": "s_task_pagamenti", "text": "Gestione Pagamenti", "type": "istar.Task", "x": 2029, "y": 876},
+        {"id": "s_task_monitoraggio", "text": "Monitoraggio Ambientale", "type": "istar.Task", "x": 1879, "y": 876},
+        {"id": "s_task_autorizzazioni", "text": "Gestione Autorizzazioni", "type": "istar.Task", "x": 2184, "y": 875},
+        {"id": "s_resource_blockchain", "text": "Registro Blockchain", "type": "istar.Resource", "x": 1543, "y": 1233},
+        {"id": "s_resource_ipfs", "text": "IPFS Hash", "type": "istar.Resource", "x": 1868, "y": 1075},
+        {"id": "s_resource_escrow", "text": "Smart Contract Escrow", "type": "istar.Resource", "x": 2033, "y": 1116},
+        {"id": "s_task_memorizzazione", "text": "Memorizzazione Dati", "type": "istar.Task", "x": 1486, "y": 1159},
+        {"id": "s_task_validazione_tx", "text": "Validazione Transazioni", "type": "istar.Task", "x": 1602, "y": 1166},
+        {"id": "s_softgoal_sicurezza", "text": "Sicurezza", "type": "istar.Quality", "x": 2184, "y": 1100},
+        {"id": "s_softgoal_trasparenza", "text": "Trasparenza", "type": "istar.Quality", "x": 1769, "y": 1165},
+        {"id": "s_softgoal_immutabilita", "text": "Immutabilità", "type": "istar.Quality", "x": 1671, "y": 1086}
+      ]
+    },
+    {
+      "id": "admin_actor",
+      "text": "Admin",
+      "type": "istar.Actor",
+      "x": 1000,
+      "y": 1400,
+      "customProperties": {"Description": "System Admin"},
+      "nodes": [
+        {"id": "a_goal_main", "text": "Amministrare Sistema Efficacemente", "type": "istar.Goal", "x": 1208, "y": 1468},
+        {"id": "a_task_ruoli", "text": "Gestione Ruoli", "type": "istar.Task", "x": 1058, "y": 1618},
+        {"id": "a_task_validazione", "text": "Validazione Manuale Evidenze", "type": "istar.Task", "x": 1258, "y": 1618},
+        {"id": "a_task_configurazione", "text": "Configurazione Sistema", "type": "istar.Task", "x": 1458, "y": 1618},
+        {"id": "a_task_monitoraggio", "text": "Monitoraggio Sistema", "type": "istar.Task", "x": 1657, "y": 1618},
+        {"id": "a_goal_approvazione", "text": "Approvazione Evidenze", "type": "istar.Goal", "x": 1208, "y": 1768},
+        {"id": "a_task_approva", "text": "Approva Evidenza", "type": "istar.Task", "x": 1158, "y": 1898},
+        {"id": "a_task_rifiuta", "text": "Rifiuta Evidenza", "type": "istar.Task", "x": 1308, "y": 1898},
+        {"id": "a_resource_acl", "text": "Access Control List", "type": "istar.Resource", "x": 1022, "y": 1873},
+        {"id": "a_resource_dashboard", "text": "Dashboard Admin", "type": "istar.Resource", "x": 1658, "y": 1768},
+        {"id": "a_softgoal_sicurezza", "text": "Sicurezza Sistema", "type": "istar.Quality", "x": 1108, "y": 1998},
+        {"id": "a_softgoal_qualita", "text": "Qualità Evidenze", "type": "istar.Quality", "x": 1511, "y": 1884}
+      ]
+    },
+    {
+      "id": "1577c81f-97d3-45f7-92d8-fdd223eb5078",
+      "text": "Corriere",
+      "type": "istar.Actor",
+      "x": 50,
+      "y": 1140,
+      "customProperties": {"Description": "Courier"},
+      "nodes": [
+        {"id": "g1-consegnare-ricevere", "text": "Consegnare Farmaci e Ricevere Pagamento", "type": "istar.Goal", "x": 421, "y": 1221},
+        {"id": "t1-ritirare", "text": "Ritirare spedizione", "type": "istar.Task", "x": 340, "y": 1152},
+        {"id": "t2-mantenere-temp", "text": "Mantenere temperatura 2-8°C", "type": "istar.Task", "x": 209, "y": 1322},
+        {"id": "t3-evitare-shock", "text": "Evitare shock fisici", "type": "istar.Task", "x": 521, "y": 1151},
+        {"id": "t4-garantire-sigillo", "text": "Garantire sigillo intatto", "type": "istar.Task", "x": 596, "y": 1221},
+        {"id": "t5-consegnare-deadline", "text": "Consegnare entro deadline", "type": "istar.Task", "x": 204, "y": 1218},
+        {"id": "g2-dimostrare-conformita", "text": "Dimostrare Conformità", "type": "istar.Goal", "x": 420, "y": 1366},
+        {"id": "g3-ottenere-sblocco", "text": "Ottenere sblocco pagamento", "type": "istar.Goal", "x": 561, "y": 1407},
+        {"id": "t10-veicolo-refrigerato", "text": "Usare Veicolo Refrigerato", "type": "istar.Task", "x": 91, "y": 1599},
+        {"id": "t11-monitorare-temp", "text": "Monitorare Continuamente", "type": "istar.Task", "x": 336, "y": 1599},
+        {"id": "t12-intervenire-anomalie", "text": "Intervenire se anomalie", "type": "istar.Task", "x": 210, "y": 1600},
+        {"id": "t6-raccogliere-dati", "text": "Raccogliere dati sensori", "type": "istar.Task", "x": 553, "y": 1516},
+        {"id": "t8-firma-destinatario", "text": "Ottenere firma destinatario", "type": "istar.Task", "x": 421, "y": 1515},
+        {"id": "t13-registrare-blockchain", "text": "Registrare evidenze su blockchain", "type": "istar.Task", "x": 707, "y": 1481},
+        {"id": "sg1-certezza-pagamento", "text": "Certezza di pagamento", "type": "istar.Quality", "x": 559, "y": 1630},
+        {"id": "sg2-reputazione", "text": "Reputazione professionale", "type": "istar.Quality", "x": 75, "y": 1431},
+        {"id": "sg3-ridurre-tempi", "text": "Ridurre tempi di pagamento", "type": "istar.Quality", "x": 710, "y": 1638}
+      ]
+    },
+    {
+      "id": "483d54b5-b87f-4be4-b549-433b26825176",
+      "text": "Mittente",
+      "type": "istar.Actor",
+      "x": 180,
+      "y": 400,
+      "customProperties": {"Description": "Sender/Pharma"},
+      "nodes": [
+        {"id": "g1-spedire-farmaci", "text": "Spedizione farmaci in catena del freddo", "type": "istar.Goal", "x": 239, "y": 448},
+        {"id": "t1-selezionare-corriere", "text": "Selezionare corriere certificato", "type": "istar.Task", "x": 285, "y": 641},
+        {"id": "t3-installare-sensori", "text": "Installare sensori IoT", "type": "istar.Task", "x": 426, "y": 486},
+        {"id": "t4-depositare-fondi", "text": "Depositare fondi in smart contract", "type": "istar.Task", "x": 201, "y": 587},
+        {"id": "g2-verificare-conformita", "text": "Verificare conformità post-consegna", "type": "istar.Goal", "x": 522, "y": 606},
+        {"id": "g3-pagare-se-conforme", "text": "Pagare solo se conforme", "type": "istar.Goal", "x": 398, "y": 644},
+        {"id": "t5-verificare-evidenze", "text": "Verificare evidenze blockchain", "type": "istar.Task", "x": 474, "y": 694},
+        {"id": "t6-verificare-certificati", "text": "Verificare certificati corriere", "type": "istar.Task", "x": 593, "y": 691},
+        {"id": "sg1-protezione-finanziaria", "text": "Protezione Finanziaria", "type": "istar.Quality", "x": 199, "y": 722},
+        {"id": "sg2-tracciabilita", "text": "Tracciabilità completa", "type": "istar.Quality", "x": 572, "y": 516},
+        {"id": "sg3-minimizzare-rischio", "text": "Minimizzare rischio perdita", "type": "istar.Quality", "x": 369, "y": 765},
+        {"id": "cd95393e-758a-4f94-ac2d-7b00e852b1c4", "text": "Possibilità di annullare spedizione", "type": "istar.Goal", "x": 397, "y": 415}
       ]
     },
     {
       "id": "6ece3997-e19e-464f-bd3a-272f83eff9d8",
       "text": "Attaccante Esterno",
       "type": "istar.Role",
-      "x": 2000,
+      "x": 2500,
       "y": 100,
-      "customProperties": {
-        "Description": ""
-      },
       "nodes": [
-        {
-          "id": "ext_root_goal",
-          "text": "Compromettere Sistema\n(CAPEC-Root)",
-          "type": "istar.Goal",
-          "x": 2300,
-          "y": 150
-        },
-        {
-          "id": "ext_spoof_goal",
-          "text": "S2.1-A: Spoofing Sensore\n[CAPEC-151]",
-          "type": "istar.Goal",
-          "x": 2100,
-          "y": 250
-        },
-        {
-          "id": "2.1_sniffing",
-          "text": "Intercettare Traffico",
-          "type": "istar.Task",
-          "x": 2050,
-          "y": 350
-        },
-        {
-          "id": "2.1_extract_key",
-          "text": "Estrarre Chiave/ID",
-          "type": "istar.Task",
-          "x": 2150,
-          "y": 350
-        },
-        {
-          "id": "2.1_replay",
-          "text": "Replay Dati Vecchi",
-          "type": "istar.Task",
-          "x": 2050,
-          "y": 450
-        },
-        {
-          "id": "2.1_inject",
-          "text": "Iniettare Dati Falsi",
-          "type": "istar.Task",
-          "x": 2150,
-          "y": 450
-        },
-        {
-          "id": "ext_reentrancy_goal",
-          "text": "T3.1-A: Reentrancy Attack\n[CAPEC-194]",
-          "type": "istar.Goal",
-          "x": 2400,
-          "y": 250
-        },
-        {
-          "id": "3.1_deploy_mal",
-          "text": "Deploy Contratto Malevolo",
-          "type": "istar.Task",
-          "x": 2350,
-          "y": 350
-        },
-        {
-          "id": "3.1_call_valida",
-          "text": "Call validaEPaga()",
-          "type": "istar.Task",
-          "x": 2450,
-          "y": 350
-        },
-        {
-          "id": "3.1_fallback",
-          "text": "Trigger Fallback()",
-          "type": "istar.Task",
-          "x": 2350,
-          "y": 450
-        },
-        {
-          "id": "3.1_drain",
-          "text": "Bypass Stato Check",
-          "type": "istar.Task",
-          "x": 2450,
-          "y": 450
-        },
-        {
-          "id": "ext_phishing_goal",
-          "text": "S7.1-A: Phishing UI\n[CAPEC-98]",
-          "type": "istar.Goal",
-          "x": 2700,
-          "y": 250
-        },
-        {
-          "id": "7.1_clone_ui",
-          "text": "Clonare Interfaccia",
-          "type": "istar.Task",
-          "x": 2650,
-          "y": 350
-        },
-        {
-          "id": "7.1_social_eng",
-          "text": "Social Engineering",
-          "type": "istar.Task",
-          "x": 2750,
-          "y": 350
-        },
-        {
-          "id": "7.1_steal_creds",
-          "text": "Rubare Seed Phrase",
-          "type": "istar.Task",
-          "x": 2700,
-          "y": 450
-        }
+        {"id": "ext_root_goal", "text": "Compromettere Sistema (CAPEC-Root)", "type": "istar.Goal", "x": 2800, "y": 150},
+        {"id": "ext_spoof_goal", "text": "S2.1-A: Spoofing Sensore [CAPEC-151]", "type": "istar.Goal", "x": 2600, "y": 250},
+        {"id": "2.1_sniffing", "text": "Intercettare Traffico", "type": "istar.Task", "x": 2550, "y": 350},
+        {"id": "2.1_extract_key", "text": "Estrarre Chiave/ID", "type": "istar.Task", "x": 2650, "y": 350},
+        {"id": "2.1_replay", "text": "Replay Dati Vecchi", "type": "istar.Task", "x": 2550, "y": 450},
+        {"id": "2.1_inject", "text": "Iniettare Dati Falsi", "type": "istar.Task", "x": 2650, "y": 450},
+        {"id": "ext_reentrancy_goal", "text": "T3.1-A: Reentrancy Attack [CAPEC-194]", "type": "istar.Goal", "x": 2900, "y": 250},
+        {"id": "3.1_deploy_mal", "text": "Deploy Contratto Malevolo", "type": "istar.Task", "x": 2850, "y": 350},
+        {"id": "3.1_call_valida", "text": "Call validaEPaga()", "type": "istar.Task", "x": 2950, "y": 350},
+        {"id": "3.1_fallback", "text": "Trigger Fallback()", "type": "istar.Task", "x": 2850, "y": 450},
+        {"id": "3.1_drain", "text": "Bypass Stato Check", "type": "istar.Task", "x": 2950, "y": 450},
+        {"id": "ext_phishing_goal", "text": "S7.1-A: Phishing UI [CAPEC-98]", "type": "istar.Goal", "x": 3200, "y": 250},
+        {"id": "7.1_clone_ui", "text": "Clonare Interfaccia", "type": "istar.Task", "x": 3150, "y": 350},
+        {"id": "7.1_social_eng", "text": "Social Engineering", "type": "istar.Task", "x": 3250, "y": 350},
+        {"id": "7.1_steal_creds", "text": "Rubare Seed Phrase", "type": "istar.Task", "x": 3200, "y": 450}
       ]
     },
     {
       "id": "0129dcdd-de86-4a5d-afdc-b1d9d9e63fdd",
       "text": "Attaccante Interno",
       "type": "istar.Role",
-      "x": 200,
-      "y": 100,
-      "customProperties": {
-        "Description": ""
-      },
+      "x": 2500,
+      "y": 600,
       "nodes": [
-        {
-          "id": "int_root_goal",
-          "text": "Abuso Privilegi\n(Insider Threat)",
-          "type": "istar.Goal",
-          "x": 400,
-          "y": 150
-        },
-        {
-          "id": "int_manip_cpt_goal",
-          "text": "T5.1-A: Manipolazione CPT\n[CAPEC-122]",
-          "type": "istar.Goal",
-          "x": 350,
-          "y": 300
-        },
-        {
-          "id": "5.1_access_admin",
-          "text": "Ottenere Ruolo Oracolo",
-          "type": "istar.Task",
-          "x": 250,
-          "y": 400
-        },
-        {
-          "id": "5.1_calc_malicious",
-          "text": "Calcolare Parametri Falsi",
-          "type": "istar.Task",
-          "x": 350,
-          "y": 400
-        },
-        {
-          "id": "5.1_commit_tx",
-          "text": "Eseguire impostaCPT()",
-          "type": "istar.Task",
-          "x": 450,
-          "y": 400
-        }
+        {"id": "int_root_goal", "text": "Abuso Privilegi (Insider Threat)", "type": "istar.Goal", "x": 2700, "y": 650},
+        {"id": "int_manip_cpt_goal", "text": "T5.1-A: Manipolazione CPT [CAPEC-122]", "type": "istar.Goal", "x": 2650, "y": 800},
+        {"id": "5.1_access_admin", "text": "Ottenere Ruolo Oracolo", "type": "istar.Task", "x": 2550, "y": 900},
+        {"id": "5.1_calc_malicious", "text": "Calcolare Parametri Falsi", "type": "istar.Task", "x": 2650, "y": 900},
+        {"id": "5.1_commit_tx", "text": "Eseguire impostaCPT()", "type": "istar.Task", "x": 2750, "y": 900}
       ]
     },
     {
       "id": "9e857314-67e6-4bad-b3a6-d41e3ee96caa",
       "text": "Utente Maldestro",
       "type": "istar.Role",
-      "x": 1100,
-      "y": 1300,
-      "customProperties": {
-        "Description": ""
-      },
+      "x": 2500,
+      "y": 1100,
       "nodes": [
-        {
-          "id": "user_mistake_root",
-          "text": "Errore Operativo\n(Human Error)",
-          "type": "istar.Goal",
-          "x": 1300,
-          "y": 1350
-        },
-        {
-          "id": "misuse_addr_goal",
-          "text": "T3.1-M: Errore Input Indirizzo",
-          "type": "istar.Goal",
-          "x": 1200,
-          "y": 1450
-        },
-        {
-          "id": "3.1m_copy_paste",
-          "text": "Copia-Incolla Errato",
-          "type": "istar.Task",
-          "x": 1100,
-          "y": 1550
-        },
-        {
-          "id": "3.1m_ignore_check",
-          "text": "Ignorare Checksum",
-          "type": "istar.Task",
-          "x": 1200,
-          "y": 1550
-        },
-        {
-          "id": "3.1m_confirm",
-          "text": "Conferma Senza Verifica",
-          "type": "istar.Task",
-          "x": 1300,
-          "y": 1550
-        }
+        {"id": "user_mistake_root", "text": "Errore Operativo (Human Error)", "type": "istar.Goal", "x": 2700, "y": 1150},
+        {"id": "misuse_addr_goal", "text": "T3.1-M: Errore Input Indirizzo", "type": "istar.Goal", "x": 2600, "y": 1250},
+        {"id": "3.1m_copy_paste", "text": "Copia-Incolla Errato", "type": "istar.Task", "x": 2500, "y": 1350},
+        {"id": "3.1m_ignore_check", "text": "Ignorare Checksum", "type": "istar.Task", "x": 2600, "y": 1350},
+        {"id": "3.1m_confirm", "text": "Conferma Senza Verifica", "type": "istar.Task", "x": 2700, "y": 1350}
       ]
     }
   ],
   "orphans": [],
   "dependencies": [
-    {
-      "id": "dep_spoofing_res",
-      "text": "Evidenze Falsificate",
-      "type": "istar.Resource",
-      "x": 1550,
-      "y": 450,
-      "source": "6ece3997-e19e-464f-bd3a-272f83eff9d8",
-      "target": "559a2351-4518-48d1-b9af-63dae821f6df"
-    },
-    {
-      "id": "dep_reentrancy_res",
-      "text": "Fondi Drenati",
-      "type": "istar.Resource",
-      "x": 1550,
-      "y": 300,
-      "source": "559a2351-4518-48d1-b9af-63dae821f6df",
-      "target": "6ece3997-e19e-464f-bd3a-272f83eff9d8"
-    },
-    {
-      "id": "dep_reentrancy_task",
-      "text": "Chiamata Reentrancy",
-      "type": "istar.Task",
-      "x": 1550,
-      "y": 380,
-      "source": "6ece3997-e19e-464f-bd3a-272f83eff9d8",
-      "target": "559a2351-4518-48d1-b9af-63dae821f6df"
-    },
-    {
-      "id": "dep_cpt_res",
-      "text": "Configurazione CPT Malevola",
-      "type": "istar.Resource",
-      "x": 650,
-      "y": 350,
-      "source": "0129dcdd-de86-4a5d-afdc-b1d9d9e63fdd",
-      "target": "559a2351-4518-48d1-b9af-63dae821f6df"
-    },
-    {
-      "id": "dep_mistake_res",
-      "text": "Pagamento a Indirizzo Errato",
-      "type": "istar.Resource",
-      "x": 1200,
-      "y": 1250,
-      "source": "aa9cdbb4-a28b-490a-9e5b-07dbe798e5fc",
-      "target": "559a2351-4518-48d1-b9af-63dae821f6df"
-    },
-    {
-      "id": "dep_escrow_res",
-      "text": "Escrow Payment",
-      "type": "istar.Resource",
-      "x": 650,
-      "y": 800,
-      "source": "aa9cdbb4-a28b-490a-9e5b-07dbe798e5fc",
-      "target": "559a2351-4518-48d1-b9af-63dae821f6df"
-    },
-    {
-      "id": "dep_evidence_res",
-      "text": "Evidenze IoT Autentiche",
-      "type": "istar.Resource",
-      "x": 1450,
-      "y": 1500,
-      "source": "130b8793-dfc8-4339-b4e7-1d93f915c8e7",
-      "target": "559a2351-4518-48d1-b9af-63dae821f6df"
-    },
-    {
-      "id": "dep_service_res",
-      "text": "Pagamento Servizio",
-      "type": "istar.Resource",
-      "x": 650,
-      "y": 1500,
-      "source": "559a2351-4518-48d1-b9af-63dae821f6df",
-      "target": "4d79b25f-85cb-4380-a269-230b77631e9d"
-    },
-    {
-      "id": "dep_config_task",
-      "text": "Configurazione Sistema",
-      "type": "istar.Task",
-      "x": 1450,
-      "y": 1100,
-      "source": "eb5eb24d-e1f4-494e-88c3-d2c2769966b6",
-      "target": "559a2351-4518-48d1-b9af-63dae821f6df"
-    }
+    {"id": "dep_creazione_spedizione", "text": "Creazione Spedizione", "type": "istar.Task", "x": 610, "y": 181, "source": "483d54b5-b87f-4be4-b549-433b26825176", "target": "sistema_actor"},
+    {"id": "dep_validazione_evidenze", "text": "Validazione Evidenze Automatica", "type": "istar.Goal", "x": 607, "y": 238, "source": "483d54b5-b87f-4be4-b549-433b26825176", "target": "sistema_actor"},
+    {"id": "dep_pagamento_automatico", "text": "Pagamento Automatico", "type": "istar.Task", "x": 601, "y": 296, "source": "483d54b5-b87f-4be4-b549-433b26825176", "target": "sistema_actor"},
+    {"id": "dep_tracciabilita", "text": "Tracciabilità Immutabile", "type": "istar.Quality", "x": 620, "y": 100, "source": "483d54b5-b87f-4be4-b549-433b26825176", "target": "sistema_actor"},
+    {"id": "dep_registrazione_consegna", "text": "Registrazione Consegna", "type": "istar.Task", "x": 810, "y": 815, "source": "1577c81f-97d3-45f7-92d8-fdd223eb5078", "target": "sistema_actor"},
+    {"id": "dep_ricezione_pagamento", "text": "Ricezione Pagamento", "type": "istar.Goal", "x": 814, "y": 756, "source": "1577c81f-97d3-45f7-92d8-fdd223eb5078", "target": "sistema_actor"},
+    {"id": "dep_prova_conformita", "text": "Prova di Conformità", "type": "istar.Resource", "x": 811, "y": 880, "source": "1577c81f-97d3-45f7-92d8-fdd223eb5078", "target": "sistema_actor"},
+    {"id": "dep_invio_dati", "text": "Invio Dati Ambientali", "type": "istar.Task", "x": 1600, "y": 240, "source": "sr-sensore-main", "target": "sistema_actor"},
+    {"id": "dep_timestamp", "text": "Timestamp Certificato", "type": "istar.Resource", "x": 1600, "y": 172, "source": "sr-sensore-main", "target": "sistema_actor"},
+    {"id": "dep_gestione_ruoli", "text": "Gestione Ruoli", "type": "istar.Task", "x": 1300, "y": 1022, "source": "admin_actor", "target": "sistema_actor"},
+    {"id": "dep_validazione_manuale", "text": "Validazione Manuale Evidenze", "type": "istar.Task", "x": 1300, "y": 1039, "source": "admin_actor", "target": "sistema_actor"},
+    {"id": "dep_approvazione_evidenze", "text": "Approvazione Evidenze", "type": "istar.Goal", "x": 1300, "y": 1080, "source": "sistema_actor", "target": "admin_actor"},
+    {"id": "dep_configurazione_sistema", "text": "Configurazione Sistema", "type": "istar.Task", "x": 1300, "y": 1161, "source": "sistema_actor", "target": "admin_actor"},
+    {"id": "dep_dati_affidabili", "text": "Dati Affidabili", "type": "istar.Quality", "x": 1600, "y": 289, "source": "sistema_actor", "target": "sr-sensore-main"},
+    {"id": "dep_letture_ambientali", "text": "Richiesta Letture Ambientali", "type": "istar.Resource", "x": 1600, "y": 362, "source": "sistema_actor", "target": "sr-sensore-main"},
+    {"id": "dep_conferma_consegna", "text": "Conferma Consegna", "type": "istar.Resource", "x": 813, "y": 704, "source": "sistema_actor", "target": "1577c81f-97d3-45f7-92d8-fdd223eb5078"},
+    {"id": "dep_consegna_fisica", "text": "Consegna Fisica Merce", "type": "istar.Goal", "x": 87, "y": 830, "source": "483d54b5-b87f-4be4-b549-433b26825176", "target": "1577c81f-97d3-45f7-92d8-fdd223eb5078"},
+    {"id": "48b34093-1c4c-430e-8b9b-660db6375b0c", "text": "Informazioni destinatario", "type": "istar.Resource", "x": 12, "y": 723, "source": "1577c81f-97d3-45f7-92d8-fdd223eb5078", "target": "483d54b5-b87f-4be4-b549-433b26825176"},
+    {"id": "2f2aafdd-4735-4537-b78c-6cad725d3482", "text": "Rimborso automatico", "type": "istar.Goal", "x": 624, "y": 48, "source": "483d54b5-b87f-4be4-b549-433b26825176", "target": "sistema_actor"},
+    
+    {"id": "dep_spoofing_res", "text": "Evidenze Falsificate", "type": "istar.Resource", "x": 2200, "y": 300, "source": "6ece3997-e19e-464f-bd3a-272f83eff9d8", "target": "sistema_actor"},
+    {"id": "dep_reentrancy_res", "text": "Fondi Drenati", "type": "istar.Resource", "x": 2200, "y": 500, "source": "sistema_actor", "target": "6ece3997-e19e-464f-bd3a-272f83eff9d8"},
+    {"id": "dep_reentrancy_task", "text": "Chiamata Reentrancy", "type": "istar.Task", "x": 2200, "y": 400, "source": "6ece3997-e19e-464f-bd3a-272f83eff9d8", "target": "sistema_actor"},
+    {"id": "dep_cpt_res", "text": "Configurazione CPT Malevola", "type": "istar.Resource", "x": 2200, "y": 800, "source": "0129dcdd-de86-4a5d-afdc-b1d9d9e63fdd", "target": "sistema_actor"},
+    {"id": "dep_mistake_res", "text": "Pagamento a Indirizzo Errato", "type": "istar.Resource", "x": 2200, "y": 1200, "source": "9e857314-67e6-4bad-b3a6-d41e3ee96caa", "target": "sistema_actor"}
   ],
   "links": [
-    {
-      "id": "30f9a2b1-ext-1",
-      "type": "istar.OrRefinementLink",
-      "source": "ext_spoof_goal",
-      "target": "ext_root_goal"
-    },
-    {
-      "id": "30f9a2b1-ext-2",
-      "type": "istar.OrRefinementLink",
-      "source": "ext_reentrancy_goal",
-      "target": "ext_root_goal"
-    },
-    {
-      "id": "30f9a2b1-ext-3",
-      "type": "istar.OrRefinementLink",
-      "source": "ext_phishing_goal",
-      "target": "ext_root_goal"
-    },
-    {
-      "id": "30f9a2b1-sp-1",
-      "type": "istar.AndRefinementLink",
-      "source": "2.1_sniffing",
-      "target": "ext_spoof_goal"
-    },
-    {
-      "id": "30f9a2b1-sp-2",
-      "type": "istar.AndRefinementLink",
-      "source": "2.1_extract_key",
-      "target": "ext_spoof_goal"
-    },
-    {
-      "id": "30f9a2b1-sp-3",
-      "type": "istar.OrRefinementLink",
-      "source": "2.1_replay",
-      "target": "ext_spoof_goal"
-    },
-    {
-      "id": "30f9a2b1-sp-4",
-      "type": "istar.OrRefinementLink",
-      "source": "2.1_inject",
-      "target": "ext_spoof_goal"
-    },
-    {
-      "id": "30f9a2b1-re-1",
-      "type": "istar.AndRefinementLink",
-      "source": "3.1_deploy_mal",
-      "target": "ext_reentrancy_goal"
-    },
-    {
-      "id": "30f9a2b1-re-2",
-      "type": "istar.AndRefinementLink",
-      "source": "3.1_call_valida",
-      "target": "ext_reentrancy_goal"
-    },
-    {
-      "id": "30f9a2b1-re-3",
-      "type": "istar.AndRefinementLink",
-      "source": "3.1_fallback",
-      "target": "ext_reentrancy_goal"
-    },
-    {
-      "id": "30f9a2b1-re-4",
-      "type": "istar.AndRefinementLink",
-      "source": "3.1_drain",
-      "target": "ext_reentrancy_goal"
-    },
-    {
-      "id": "30f9a2b1-ph-1",
-      "type": "istar.AndRefinementLink",
-      "source": "7.1_clone_ui",
-      "target": "ext_phishing_goal"
-    },
-    {
-      "id": "30f9a2b1-ph-2",
-      "type": "istar.AndRefinementLink",
-      "source": "7.1_social_eng",
-      "target": "ext_phishing_goal"
-    },
-    {
-      "id": "30f9a2b1-ph-3",
-      "type": "istar.AndRefinementLink",
-      "source": "7.1_steal_creds",
-      "target": "ext_phishing_goal"
-    },
-    {
-      "id": "40f9a2b1-int-1",
-      "type": "istar.OrRefinementLink",
-      "source": "int_manip_cpt_goal",
-      "target": "int_root_goal"
-    },
-    {
-      "id": "40f9a2b1-int-2",
-      "type": "istar.AndRefinementLink",
-      "source": "5.1_access_admin",
-      "target": "int_manip_cpt_goal"
-    },
-    {
-      "id": "40f9a2b1-int-3",
-      "type": "istar.AndRefinementLink",
-      "source": "5.1_calc_malicious",
-      "target": "int_manip_cpt_goal"
-    },
-    {
-      "id": "40f9a2b1-int-4",
-      "type": "istar.AndRefinementLink",
-      "source": "5.1_commit_tx",
-      "target": "int_manip_cpt_goal"
-    },
-    {
-      "id": "50f9a2b1-um-1",
-      "type": "istar.OrRefinementLink",
-      "source": "misuse_addr_goal",
-      "target": "user_mistake_root"
-    },
-    {
-      "id": "50f9a2b1-um-2",
-      "type": "istar.AndRefinementLink",
-      "source": "3.1m_copy_paste",
-      "target": "misuse_addr_goal"
-    },
-    {
-      "id": "50f9a2b1-um-3",
-      "type": "istar.AndRefinementLink",
-      "source": "3.1m_ignore_check",
-      "target": "misuse_addr_goal"
-    },
-    {
-      "id": "50f9a2b1-um-4",
-      "type": "istar.AndRefinementLink",
-      "source": "3.1m_confirm",
-      "target": "misuse_addr_goal"
-    },
-    {
-      "id": "60f9a2b1-sys-1",
-      "type": "istar.AndRefinementLink",
-      "source": "cd095375-81ad-41f2-ade5-c1f8477cea0b",
-      "target": "406e93f8-7cb3-4fb0-a8ca-d01fcd620423"
-    },
-    {
-      "id": "60f9a2b1-sys-2",
-      "type": "istar.AndRefinementLink",
-      "source": "de58a074-bc74-4995-ab6c-5ad5a2ddce3d",
-      "target": "406e93f8-7cb3-4fb0-a8ca-d01fcd620423"
-    },
-    {
-      "id": "60f9a2b1-sys-3",
-      "type": "istar.AndRefinementLink",
-      "source": "fd465d93-9956-451d-8cda-9f9255d5bc89",
-      "target": "406e93f8-7cb3-4fb0-a8ca-d01fcd620423"
-    },
-    {
-      "id": "60f9a2b1-sys-4",
-      "type": "istar.AndRefinementLink",
-      "source": "88db038d-3c76-4ab1-9839-a62ba6e6f019",
-      "target": "406e93f8-7cb3-4fb0-a8ca-d01fcd620423"
-    },
-    {
-      "id": "60f9a2b1-sys-5",
-      "type": "istar.AndRefinementLink",
-      "source": "01c71412-aac6-43ae-abf1-87e76a325b18",
-      "target": "9af5b2a8-8d34-4edf-9628-181ec294ca0d"
-    },
-    {
-      "id": "60f9a2b1-sys-6",
-      "type": "istar.AndRefinementLink",
-      "source": "e2dea419-5c2a-45e7-81a3-a2b31c03dc72",
-      "target": "01c71412-aac6-43ae-abf1-87e76a325b18"
-    },
-    {
-      "id": "60f9a2b1-sys-7",
-      "type": "istar.AndRefinementLink",
-      "source": "ad9d4999-b65d-4ba5-8c86-89e950036762",
-      "target": "88ab0fb4-b331-4e2d-a78b-7378cc116e0d"
-    },
-    {
-      "id": "60f9a2b1-sys-8",
-      "type": "istar.AndRefinementLink",
-      "source": "a960b74b-6436-42ae-9009-c2f6cde5e534",
-      "target": "88ab0fb4-b331-4e2d-a78b-7378cc116e0d"
-    },
-    {
-      "id": "60f9a2b1-sys-9",
-      "type": "istar.AndRefinementLink",
-      "source": "79e13dd4-af5a-42d8-86a6-6340a3c83039",
-      "target": "88ab0fb4-b331-4e2d-a78b-7378cc116e0d"
-    },
-    {
-      "id": "60f9a2b1-sys-10",
-      "type": "istar.AndRefinementLink",
-      "source": "1785f6df-56aa-497b-b635-962244d34218",
-      "target": "6ea157b7-bb80-4dd7-a400-201e78a2da24"
-    },
-    {
-      "id": "60f9a2b1-sys-11",
-      "type": "istar.AndRefinementLink",
-      "source": "325f3cd6-41c9-4628-9a38-505128a62dc8",
-      "target": "6ea157b7-bb80-4dd7-a400-201e78a2da24"
-    },
-    {
-      "id": "70f9a2b1-dl-1",
-      "type": "istar.DependencyLink",
-      "source": "6ece3997-e19e-464f-bd3a-272f83eff9d8",
-      "target": "dep_spoofing_res"
-    },
-    {
-      "id": "70f9a2b1-dl-2",
-      "type": "istar.DependencyLink",
-      "source": "dep_spoofing_res",
-      "target": "559a2351-4518-48d1-b9af-63dae821f6df"
-    },
-    {
-      "id": "70f9a2b1-dl-3",
-      "type": "istar.DependencyLink",
-      "source": "559a2351-4518-48d1-b9af-63dae821f6df",
-      "target": "dep_reentrancy_res"
-    },
-    {
-      "id": "70f9a2b1-dl-4",
-      "type": "istar.DependencyLink",
-      "source": "dep_reentrancy_res",
-      "target": "6ece3997-e19e-464f-bd3a-272f83eff9d8"
-    },
-    {
-      "id": "70f9a2b1-dl-5",
-      "type": "istar.DependencyLink",
-      "source": "6ece3997-e19e-464f-bd3a-272f83eff9d8",
-      "target": "dep_reentrancy_task"
-    },
-    {
-      "id": "70f9a2b1-dl-6",
-      "type": "istar.DependencyLink",
-      "source": "dep_reentrancy_task",
-      "target": "559a2351-4518-48d1-b9af-63dae821f6df"
-    },
-    {
-      "id": "70f9a2b1-dl-7",
-      "type": "istar.DependencyLink",
-      "source": "0129dcdd-de86-4a5d-afdc-b1d9d9e63fdd",
-      "target": "dep_cpt_res"
-    },
-    {
-      "id": "70f9a2b1-dl-8",
-      "type": "istar.DependencyLink",
-      "source": "dep_cpt_res",
-      "target": "559a2351-4518-48d1-b9af-63dae821f6df"
-    },
-    {
-      "id": "70f9a2b1-dl-9",
-      "type": "istar.DependencyLink",
-      "source": "aa9cdbb4-a28b-490a-9e5b-07dbe798e5fc",
-      "target": "dep_mistake_res"
-    },
-    {
-      "id": "70f9a2b1-dl-10",
-      "type": "istar.DependencyLink",
-      "source": "dep_mistake_res",
-      "target": "559a2351-4518-48d1-b9af-63dae821f6df"
-    },
-    {
-      "id": "70f9a2b1-dl-11",
-      "type": "istar.DependencyLink",
-      "source": "aa9cdbb4-a28b-490a-9e5b-07dbe798e5fc",
-      "target": "dep_escrow_res"
-    },
-    {
-      "id": "70f9a2b1-dl-12",
-      "type": "istar.DependencyLink",
-      "source": "dep_escrow_res",
-      "target": "559a2351-4518-48d1-b9af-63dae821f6df"
-    },
-    {
-      "id": "70f9a2b1-dl-13",
-      "type": "istar.DependencyLink",
-      "source": "130b8793-dfc8-4339-b4e7-1d93f915c8e7",
-      "target": "dep_evidence_res"
-    },
-    {
-      "id": "70f9a2b1-dl-14",
-      "type": "istar.DependencyLink",
-      "source": "dep_evidence_res",
-      "target": "559a2351-4518-48d1-b9af-63dae821f6df"
-    },
-    {
-      "id": "70f9a2b1-dl-15",
-      "type": "istar.DependencyLink",
-      "source": "559a2351-4518-48d1-b9af-63dae821f6df",
-      "target": "dep_service_res"
-    },
-    {
-      "id": "70f9a2b1-dl-16",
-      "type": "istar.DependencyLink",
-      "source": "dep_service_res",
-      "target": "4d79b25f-85cb-4380-a269-230b77631e9d"
-    },
-    {
-      "id": "70f9a2b1-dl-17",
-      "type": "istar.DependencyLink",
-      "source": "eb5eb24d-e1f4-494e-88c3-d2c2769966b6",
-      "target": "dep_config_task"
-    },
-    {
-      "id": "70f9a2b1-dl-18",
-      "type": "istar.DependencyLink",
-      "source": "dep_config_task",
-      "target": "559a2351-4518-48d1-b9af-63dae821f6df"
-    }
+    {"id": "link-1", "type": "istar.OrRefinementLink", "source": "ext_spoof_goal", "target": "ext_root_goal"},
+    {"id": "link-2", "type": "istar.OrRefinementLink", "source": "ext_reentrancy_goal", "target": "ext_root_goal"},
+    {"id": "link-3", "type": "istar.OrRefinementLink", "source": "ext_phishing_goal", "target": "ext_root_goal"},
+    {"id": "link-4", "type": "istar.AndRefinementLink", "source": "2.1_sniffing", "target": "ext_spoof_goal"},
+    {"id": "link-5", "type": "istar.AndRefinementLink", "source": "2.1_extract_key", "target": "ext_spoof_goal"},
+    {"id": "link-6", "type": "istar.OrRefinementLink", "source": "2.1_replay", "target": "ext_spoof_goal"},
+    {"id": "link-7", "type": "istar.OrRefinementLink", "source": "2.1_inject", "target": "ext_spoof_goal"},
+    {"id": "link-8", "type": "istar.AndRefinementLink", "source": "3.1_deploy_mal", "target": "ext_reentrancy_goal"},
+    {"id": "link-9", "type": "istar.AndRefinementLink", "source": "3.1_call_valida", "target": "ext_reentrancy_goal"},
+    {"id": "link-10", "type": "istar.AndRefinementLink", "source": "3.1_fallback", "target": "ext_reentrancy_goal"},
+    {"id": "link-11", "type": "istar.AndRefinementLink", "source": "3.1_drain", "target": "ext_reentrancy_goal"},
+    {"id": "link-12", "type": "istar.AndRefinementLink", "source": "7.1_clone_ui", "target": "ext_phishing_goal"},
+    {"id": "link-13", "type": "istar.AndRefinementLink", "source": "7.1_social_eng", "target": "ext_phishing_goal"},
+    {"id": "link-14", "type": "istar.AndRefinementLink", "source": "7.1_steal_creds", "target": "ext_phishing_goal"},
+    {"id": "link-15", "type": "istar.OrRefinementLink", "source": "int_manip_cpt_goal", "target": "int_root_goal"},
+    {"id": "link-16", "type": "istar.AndRefinementLink", "source": "5.1_access_admin", "target": "int_manip_cpt_goal"},
+    {"id": "link-17", "type": "istar.AndRefinementLink", "source": "5.1_calc_malicious", "target": "int_manip_cpt_goal"},
+    {"id": "link-18", "type": "istar.AndRefinementLink", "source": "5.1_commit_tx", "target": "int_manip_cpt_goal"},
+    {"id": "link-19", "type": "istar.OrRefinementLink", "source": "misuse_addr_goal", "target": "user_mistake_root"},
+    {"id": "link-20", "type": "istar.AndRefinementLink", "source": "3.1m_copy_paste", "target": "misuse_addr_goal"},
+    {"id": "link-21", "type": "istar.AndRefinementLink", "source": "3.1m_ignore_check", "target": "misuse_addr_goal"},
+    {"id": "link-22", "type": "istar.AndRefinementLink", "source": "3.1m_confirm", "target": "misuse_addr_goal"},
+    
+    {"id": "l-dep1", "type": "istar.DependencyLink", "source": "6ece3997-e19e-464f-bd3a-272f83eff9d8", "target": "dep_spoofing_res"},
+    {"id": "l-dep2", "type": "istar.DependencyLink", "source": "dep_spoofing_res", "target": "sistema_actor"},
+    {"id": "l-dep3", "type": "istar.DependencyLink", "source": "sistema_actor", "target": "dep_reentrancy_res"},
+    {"id": "l-dep4", "type": "istar.DependencyLink", "source": "dep_reentrancy_res", "target": "6ece3997-e19e-464f-bd3a-272f83eff9d8"},
+    {"id": "l-dep5", "type": "istar.DependencyLink", "source": "6ece3997-e19e-464f-bd3a-272f83eff9d8", "target": "dep_reentrancy_task"},
+    {"id": "l-dep6", "type": "istar.DependencyLink", "source": "dep_reentrancy_task", "target": "sistema_actor"},
+    {"id": "l-dep7", "type": "istar.DependencyLink", "source": "0129dcdd-de86-4a5d-afdc-b1d9d9e63fdd", "target": "dep_cpt_res"},
+    {"id": "l-dep8", "type": "istar.DependencyLink", "source": "dep_cpt_res", "target": "sistema_actor"},
+    {"id": "l-dep9", "type": "istar.DependencyLink", "source": "9e857314-67e6-4bad-b3a6-d41e3ee96caa", "target": "dep_mistake_res"},
+    {"id": "l-dep10", "type": "istar.DependencyLink", "source": "dep_mistake_res", "target": "sistema_actor"},
+    
+    {"id": "l-dep11", "type": "istar.DependencyLink", "source": "483d54b5-b87f-4be4-b549-433b26825176", "target": "dep_creazione_spedizione"},
+    {"id": "l-dep12", "type": "istar.DependencyLink", "source": "dep_creazione_spedizione", "target": "sistema_actor"},
+    {"id": "l-dep13", "type": "istar.DependencyLink", "source": "483d54b5-b87f-4be4-b549-433b26825176", "target": "dep_validazione_evidenze"},
+    {"id": "l-dep14", "type": "istar.DependencyLink", "source": "dep_validazione_evidenze", "target": "sistema_actor"},
+    {"id": "l-dep15", "type": "istar.DependencyLink", "source": "483d54b5-b87f-4be4-b549-433b26825176", "target": "dep_tracciabilita"},
+    {"id": "l-dep16", "type": "istar.DependencyLink", "source": "dep_tracciabilita", "target": "sistema_actor"},
+    {"id": "l-dep17", "type": "istar.DependencyLink", "source": "1577c81f-97d3-45f7-92d8-fdd223eb5078", "target": "dep_registrazione_consegna"},
+    {"id": "l-dep18", "type": "istar.DependencyLink", "source": "dep_registrazione_consegna", "target": "sistema_actor"},
+    {"id": "l-dep19", "type": "istar.DependencyLink", "source": "sr-sensore-main", "target": "dep_invio_dati"},
+    {"id": "l-dep20", "type": "istar.DependencyLink", "source": "dep_invio_dati", "target": "sistema_actor"},
+    {"id": "l-dep21", "type": "istar.DependencyLink", "source": "sr-sensore-main", "target": "dep_timestamp"},
+    {"id": "l-dep22", "type": "istar.DependencyLink", "source": "dep_timestamp", "target": "sistema_actor"},
+    {"id": "l-dep23", "type": "istar.DependencyLink", "source": "admin_actor", "target": "dep_gestione_ruoli"},
+    {"id": "l-dep24", "type": "istar.DependencyLink", "source": "dep_gestione_ruoli", "target": "sistema_actor"},
+    {"id": "l-dep25", "type": "istar.DependencyLink", "source": "admin_actor", "target": "dep_validazione_manuale"},
+    {"id": "l-dep26", "type": "istar.DependencyLink", "source": "dep_validazione_manuale", "target": "sistema_actor"},
+    {"id": "l-dep27", "type": "istar.DependencyLink", "source": "sistema_actor", "target": "dep_approvazione_evidenze"},
+    {"id": "l-dep28", "type": "istar.DependencyLink", "source": "dep_approvazione_evidenze", "target": "admin_actor"},
+    {"id": "l-dep29", "type": "istar.DependencyLink", "source": "sistema_actor", "target": "dep_configurazione_sistema"},
+    {"id": "l-dep30", "type": "istar.DependencyLink", "source": "dep_configurazione_sistema", "target": "admin_actor"},
+    {"id": "l-dep31", "type": "istar.DependencyLink", "source": "sistema_actor", "target": "dep_dati_affidabili"},
+    {"id": "l-dep32", "type": "istar.DependencyLink", "source": "dep_dati_affidabili", "target": "sr-sensore-main"},
+    {"id": "l-dep33", "type": "istar.DependencyLink", "source": "sistema_actor", "target": "dep_letture_ambientali"},
+    {"id": "l-dep34", "type": "istar.DependencyLink", "source": "dep_letture_ambientali", "target": "sr-sensore-main"},
+    {"id": "l-dep35", "type": "istar.DependencyLink", "source": "sistema_actor", "target": "dep_conferma_consegna"},
+    {"id": "l-dep36", "type": "istar.DependencyLink", "source": "dep_conferma_consegna", "target": "1577c81f-97d3-45f7-92d8-fdd223eb5078"},
+    {"id": "l-dep37", "type": "istar.DependencyLink", "source": "483d54b5-b87f-4be4-b549-433b26825176", "target": "dep_consegna_fisica"},
+    {"id": "l-dep38", "type": "istar.DependencyLink", "source": "dep_consegna_fisica", "target": "1577c81f-97d3-45f7-92d8-fdd223eb5078"},
+    {"id": "l-dep39", "type": "istar.DependencyLink", "source": "1577c81f-97d3-45f7-92d8-fdd223eb5078", "target": "48b34093-1c4c-430e-8b9b-660db6375b0c"},
+    {"id": "l-dep40", "type": "istar.DependencyLink", "source": "48b34093-1c4c-430e-8b9b-660db6375b0c", "target": "483d54b5-b87f-4be4-b549-433b26825176"},
+    {"id": "l-dep41", "type": "istar.DependencyLink", "source": "483d54b5-b87f-4be4-b549-433b26825176", "target": "2f2aafdd-4735-4537-b78c-6cad725d3482"},
+    {"id": "l-dep42", "type": "istar.DependencyLink", "source": "2f2aafdd-4735-4537-b78c-6cad725d3482", "target": "sistema_actor"},
+
+    {"id": "673b1b9c-ccdc-43b5-9d89-90d21c23e259", "type": "istar.AndRefinementLink", "source": "g1-spedire-farmaci", "target": "t1-selezionare-corriere"},
+    {"id": "ba93496e-8dbf-48fc-8963-723924635e44", "type": "istar.AndRefinementLink", "source": "g1-spedire-farmaci", "target": "t3-installare-sensori"},
+    {"id": "bf22060f-0427-4af4-87f2-99be29085243", "type": "istar.AndRefinementLink", "source": "g1-spedire-farmaci", "target": "t4-depositare-fondi"},
+    {"id": "355896c5-df3a-425c-b6c9-bcbbeb7ff083", "type": "istar.AndRefinementLink", "source": "g1-spedire-farmaci", "target": "g2-verificare-conformita"},
+    {"id": "4964b4c1-5608-4a40-8218-be17601c5f19", "type": "istar.AndRefinementLink", "source": "g1-spedire-farmaci", "target": "g3-pagare-se-conforme"},
+    {"id": "e40dfc34-a6a3-4fa6-b715-cb233c5ce148", "type": "istar.AndRefinementLink", "source": "g2-verificare-conformita", "target": "t5-verificare-evidenze"},
+    {"id": "8dcee9a0-b6d0-406b-89a9-2b3803c71297", "type": "istar.AndRefinementLink", "source": "g2-verificare-conformita", "target": "t6-verificare-certificati"},
+    {"id": "9258636f-7b69-4916-a0fb-34291a044516", "type": "istar.ContributionLink", "source": "t3-installare-sensori", "target": "sg2-tracciabilita"},
+    {"id": "18a673fa-dbcf-4bf0-bfb8-77099706e015", "type": "istar.ContributionLink", "source": "t4-depositare-fondi", "target": "sg1-protezione-finanziaria"},
+    
+    {"id": "8fa3f002-3dba-4f7c-8dad-290a3455bd33", "type": "istar.AndRefinementLink", "source": "g1-consegnare-ricevere", "target": "t1-ritirare"},
+    {"id": "3ee964e4-c811-46eb-9fb9-c9cded4bd6ae", "type": "istar.AndRefinementLink", "source": "g1-consegnare-ricevere", "target": "t2-mantenere-temp"},
+    {"id": "11e7acf9-85c8-459b-ba69-35971fc7184f", "type": "istar.AndRefinementLink", "source": "g1-consegnare-ricevere", "target": "t3-evitare-shock"},
+    {"id": "17c6f2aa-06e0-41a0-acd0-d0a9b5f15d03", "type": "istar.AndRefinementLink", "source": "g1-consegnare-ricevere", "target": "t4-garantire-sigillo"},
+    {"id": "65cddb7c-564a-4ed7-8f9f-25df79baeacf", "type": "istar.AndRefinementLink", "source": "g1-consegnare-ricevere", "target": "t5-consegnare-deadline"},
+    {"id": "02350da5-7ed1-4437-9914-29bc9b3201b7", "type": "istar.AndRefinementLink", "source": "g1-consegnare-ricevere", "target": "g2-dimostrare-conformita"},
+    {"id": "9945f71a-15db-4bf0-9dfd-8fe78a441db7", "type": "istar.AndRefinementLink", "source": "g1-consegnare-ricevere", "target": "g3-ottenere-sblocco"},
+    {"id": "e3eb7155-5e88-4ca8-af0a-2af83cc175cf", "type": "istar.AndRefinementLink", "source": "t2-mantenere-temp", "target": "t10-veicolo-refrigerato"},
+    {"id": "fa9ff460-c596-4c52-bdcb-fef78d9b455b", "type": "istar.AndRefinementLink", "source": "t2-mantenere-temp", "target": "t11-monitorare-temp"},
+    {"id": "f99993fd-16de-4759-b050-ed9936eab248", "type": "istar.AndRefinementLink", "source": "t2-mantenere-temp", "target": "t12-intervenire-anomalie"},
+    {"id": "d8ce42c1-62b8-4180-bce0-1c7c3c2970a3", "type": "istar.AndRefinementLink", "source": "g2-dimostrare-conformita", "target": "t6-raccogliere-dati"},
+    {"id": "2c74a34f-d677-4a7c-9b3d-95556bc621b4", "type": "istar.AndRefinementLink", "source": "g2-dimostrare-conformita", "target": "t8-firma-destinatario"},
+    {"id": "7f8a2048-349b-44f7-803c-b080a3fe7f18", "type": "istar.AndRefinementLink", "source": "g3-ottenere-sblocco", "target": "t13-registrare-blockchain"},
+    {"id": "fcb6885b-a763-428f-80a9-008086dc4633", "type": "istar.ContributionLink", "source": "t2-mantenere-temp", "target": "sg2-reputazione"},
+    {"id": "86110b3f-363c-4446-8bff-acfd75b7c940", "type": "istar.ContributionLink", "source": "t6-raccogliere-dati", "target": "sg1-certezza-pagamento"},
+    {"id": "9b3401be-e3f1-4659-9032-80312ebdfd19", "type": "istar.ContributionLink", "source": "t13-registrare-blockchain", "target": "sg3-ridurre-tempi"},
+    
+    {"id": "ef5c0b7d-ffa7-484a-9ac3-9ffaa94b2be7", "type": "istar.AndRefinementLink", "source": "g1-monitorare-registrare", "target": "t1-rilevare-temperatura"},
+    {"id": "c5367343-fb3a-4c26-bcfb-05db96430f86", "type": "istar.AndRefinementLink", "source": "g1-monitorare-registrare", "target": "t2-rilevare-shock"},
+    {"id": "19dd6f34-9009-4853-b43e-b49fb8799348", "type": "istar.AndRefinementLink", "source": "g1-monitorare-registrare", "target": "t3-rilevare-apertura"},
+    {"id": "abc398e8-612e-405f-a6bc-d30c34d4c18a", "type": "istar.AndRefinementLink", "source": "g1-monitorare-registrare", "target": "t4-verificare-sigillo"},
+    {"id": "47ac365c-f960-4b14-8cd3-20c0c61f973d", "type": "istar.AndRefinementLink", "source": "g1-monitorare-registrare", "target": "t5-registrare-timestamp"},
+    {"id": "f0d235bf-fe5b-4e7c-be09-4c3916dcbd8e", "type": "istar.AndRefinementLink", "source": "g1-monitorare-registrare", "target": "g2-trasmettere-dati"},
+    {"id": "d66d4c22-d2d9-4c2b-9160-cb291c22a2c1", "type": "istar.AndRefinementLink", "source": "t1-rilevare-temperatura", "target": "t6-campionare"},
+    {"id": "98255a78-034d-428d-b8a8-abaad8d8e55d", "type": "istar.AndRefinementLink", "source": "t1-rilevare-temperatura", "target": "t7-verificare-range"},
+    {"id": "edf59a09-32df-4335-88bb-2bd56db0858c", "type": "istar.AndRefinementLink", "source": "g2-trasmettere-dati", "target": "t9-salvare-memoria"},
+    {"id": "ab987893-9b54-4219-86b7-85170bcd6a20", "type": "istar.AndRefinementLink", "source": "g2-trasmettere-dati", "target": "t10-inviare-sistema"},
+    {"id": "25b6c9ae-f049-46c3-a227-413c374a682c", "type": "istar.AndRefinementLink", "source": "g2-trasmettere-dati", "target": "t11-generare-report"},
+    {"id": "3828e5df-a6ed-43ef-ba85-9e12813a3c69", "type": "istar.ContributionLink", "source": "t6-campionare", "target": "sg1-precisione"},
+    {"id": "8ca4c2d5-9ef8-4075-b60c-c330a68a8279", "type": "istar.ContributionLink", "source": "t9-salvare-memoria", "target": "sg2-integrita"},
+    {"id": "d75726ed-fe96-43b0-a2e2-5f80df49e574", "type": "istar.ContributionLink", "source": "t6-campionare", "target": "sg3-autonomia"},
+    
+    {"id": "79837c7d-f48c-4933-b949-3c22a246b593", "type": "istar.AndRefinementLink", "source": "s_resource_blockchain", "target": "s_task_spedizioni"},
+    {"id": "6e9e80b1-95fa-4937-9bfa-f27ec99ae661", "type": "istar.AndRefinementLink", "source": "s_resource_ipfs", "target": "s_task_evidenze"},
+    {"id": "30c1d4c0-b50a-40a4-84f6-0aecc70376c3", "type": "istar.AndRefinementLink", "source": "s_resource_escrow", "target": "s_task_pagamenti"},
+    {"id": "40a7ea01-5041-48d3-ae55-894ec761b952", "type": "istar.AndRefinementLink", "source": "s_task_memorizzazione", "target": "s_task_spedizioni"},
+    {"id": "ff955204-c861-4448-b815-40a0ca8faa3c", "type": "istar.AndRefinementLink", "source": "s_task_validazione_tx", "target": "s_task_spedizioni"},
+    {"id": "7bdb57d5-c2b0-4c2e-9c94-6fab445b45ea", "type": "istar.ContributionLink", "source": "s_task_spedizioni", "target": "s_softgoal_immutabilita"},
+    {"id": "e754bfe8-a44a-49b9-9d88-95e3c0b7b139", "type": "istar.ContributionLink", "source": "s_task_evidenze", "target": "s_softgoal_trasparenza"},
+    {"id": "3e87a136-6f98-42ae-94f0-12a08a056de6", "type": "istar.ContributionLink", "source": "s_task_autorizzazioni", "target": "s_softgoal_sicurezza"},
+    {"id": "48cd866d-1a72-4561-baf3-148b7d2e660c", "type": "istar.AndRefinementLink", "source": "s_goal_main", "target": "s_task_spedizioni"},
+    {"id": "610aa9b5-ffd0-4eb3-b4d3-a5b1a1d1263c", "type": "istar.AndRefinementLink", "source": "s_goal_main", "target": "s_task_evidenze"},
+    {"id": "fe8eaf9a-7945-409e-80b7-17b5f51b915a", "type": "istar.AndRefinementLink", "source": "s_goal_main", "target": "s_task_monitoraggio"},
+    {"id": "7899bac1-e2d5-4520-9123-f85c9570bbd1", "type": "istar.AndRefinementLink", "source": "s_goal_main", "target": "s_task_pagamenti"},
+    {"id": "d2967533-0b18-4993-b464-a909229da3db", "type": "istar.AndRefinementLink", "source": "s_goal_main", "target": "s_task_autorizzazioni"},
+    
+    {"id": "a6398935-b606-46ac-8ba3-6ed3b42f009f", "type": "istar.AndRefinementLink", "source": "a_resource_acl", "target": "a_task_ruoli"},
+    {"id": "45f2dca7-4a1e-4c35-88f6-b43a74dc5b15", "type": "istar.AndRefinementLink", "source": "a_goal_approvazione", "target": "a_task_validazione"},
+    {"id": "0c5bbb46-40f1-43e8-9bea-01fa360bf2a0", "type": "istar.OrRefinementLink", "source": "a_task_approva", "target": "a_goal_approvazione"},
+    {"id": "405012f3-e0b6-4fd2-8c00-7344caa88afe", "type": "istar.OrRefinementLink", "source": "a_task_rifiuta", "target": "a_goal_approvazione"},
+    {"id": "d2307a20-dca3-4eff-b79f-cc820a14a743", "type": "istar.AndRefinementLink", "source": "a_resource_dashboard", "target": "a_task_monitoraggio"},
+    {"id": "c2aa79b1-9806-4481-8e95-a226d71d4d55", "type": "istar.ContributionLink", "source": "a_task_ruoli", "target": "a_softgoal_sicurezza"},
+    {"id": "047b720b-e8af-49c3-bc4f-41f8f5763102", "type": "istar.ContributionLink", "source": "a_task_validazione", "target": "a_softgoal_qualita"},
+    {"id": "2f5374c7-254f-482a-aaa4-ff06253c0f24", "type": "istar.AndRefinementLink", "source": "a_goal_main", "target": "a_task_ruoli"},
+    {"id": "dfe5be55-64f3-4f8d-ba2e-1b4181275cd0", "type": "istar.AndRefinementLink", "source": "a_goal_main", "target": "a_task_validazione"},
+    {"id": "bf0d9604-593a-4810-a9a0-e363b1d54a3b", "type": "istar.AndRefinementLink", "source": "a_goal_main", "target": "a_task_configurazione"},
+    {"id": "1943eb4a-0768-4a0e-8954-662e7b91e619", "type": "istar.AndRefinementLink", "source": "a_goal_main", "target": "a_task_monitoraggio"}
   ],
   "display": {},
   "tool": "pistar.2.1.0",
   "istar": "2.0",
   "diagram": {
-    "width": 3500,
+    "width": 3800,
     "height": 2800,
-    "name": "DUAL-STRIDE Final Corrected"
+    "name": "SD-SR DUAL-STRIDE Complete"
   }
 }
