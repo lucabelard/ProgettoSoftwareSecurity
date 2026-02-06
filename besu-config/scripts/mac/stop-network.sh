@@ -6,6 +6,6 @@ echo "Arresto di tutti i nodi Besu e del Proxy..."
 pkill -f besu
 
 # Kill the proxy script which runs via node
-pkill -f "besu-config/scripts/rpc-proxy.js"
+pkill -f "besu-config/scripts/monitoring/rpc-proxy.js"
 
 echo "Fatto."

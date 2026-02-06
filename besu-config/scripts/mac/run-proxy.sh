@@ -4,7 +4,7 @@
 # Wrapper per rpc-proxy.js capace di chiudere la finestra al termine
 
 PROJECT_ROOT=$1
-PROXY_SCRIPT="$PROJECT_ROOT/besu-config/scripts/rpc-proxy.js"
+PROXY_SCRIPT="$PROJECT_ROOT/besu-config/scripts/monitoring/rpc-proxy.js"
 NODE_NAME="Besu Failover Proxy"
 
 # Imposta titolo
