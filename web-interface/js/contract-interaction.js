@@ -64,6 +64,22 @@ export async function setCPT(evidenceId, cpt) {
         .send({ from: account, gas: 200000, type: '0x0' });
 }
 
+export async function pauseContract() {
+    const account = getCurrentAccount();
+    return await contract.methods.pause()
+        .send({ from: account, gas: 200000, type: '0x0' });
+}
+
+export async function unpauseContract() {
+    const account = getCurrentAccount();
+    return await contract.methods.unpause()
+        .send({ from: account, gas: 200000, type: '0x0' });
+}
+
+export async function isContractPaused() {
+    return await contract.methods.paused().call();
+}
+
 // ===== MITTENTE FUNCTIONS =====
 export async function createShipment(courierAddress, paymentAmount) {
     const account = getCurrentAccount();

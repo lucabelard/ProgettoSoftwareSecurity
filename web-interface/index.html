@@ -181,6 +181,24 @@
                         <h2>⚙️ Pannello Amministratore</h2>
                         <p>Configura le probabilità a priori e le tabelle CPT</p>
                     </div>
+                    
+                    <!-- NEW: Circuit Breaker Controls -->
+                    <div class="circuit-breaker-section">
+                        <h3>🚨 Circuit Breaker (Emergenza)</h3>
+                        <div class="circuit-breaker-status" id="circuitBreakerStatus">
+                            <span class="status-indicator"></span>
+                            <span class="status-text">Stato Contratto: ATTIVO</span>
+                        </div>
+                        <div class="circuit-breaker-controls">
+                            <button class="btn btn-danger" id="pauseContractBtn">PAUSA CONTRATTO</button>
+                            <button class="btn btn-success" id="unpauseContractBtn" style="display: none;">RIPRENDI (UNPAUSE)</button>
+                        </div>
+                        <div class="info-box warning">
+                            <strong>ATTENZIONE:</strong> Mettere in pausa il contratto bloccherà tutte le operazioni critiche (creazione spedizioni, invio evidenze, pagamenti). Usare solo in caso di emergenza.
+                        </div>
+                    </div>
+                    <div class="divider"></div>
+
                     <div class="panel-content">
                         <div class="form-group-row">
                             <div class="form-group">

@@ -128,6 +128,7 @@ contract BNGestoreSpedizioni is BNCore {
         external
         payable
         onlyRole(RUOLO_MITTENTE)
+        whenNotPaused
         returns (uint256)
     {
         if (msg.value == 0) revert PagamentoNullo();
@@ -162,6 +163,7 @@ contract BNGestoreSpedizioni is BNCore {
         external
         payable
         onlyRole(RUOLO_MITTENTE)
+        whenNotPaused
         returns (uint256)
     {
         if (msg.value == 0) revert PagamentoNullo();
@@ -215,6 +217,7 @@ contract BNGestoreSpedizioni is BNCore {
 
         public
         onlyRole(RUOLO_SENSORE)
+        whenNotPaused
     {
         Spedizione storage s = spedizioni[_idSpedizione];
         if (s.mittente == address(0)) revert SpedizioneNonEsistente();
@@ -254,6 +257,7 @@ contract BNGestoreSpedizioni is BNCore {
     function inviaTutteEvidenze(uint256 _idSpedizione, bool[5] calldata _valori)
         external
         onlyRole(RUOLO_SENSORE)
+        whenNotPaused
     {
         Spedizione storage s = spedizioni[_idSpedizione];
         if (s.mittente == address(0)) revert SpedizioneNonEsistente();
@@ -307,7 +311,7 @@ contract BNGestoreSpedizioni is BNCore {
      * @param _id ID della spedizione
      * @dev Solo il mittente può annullare e solo se non ci sono evidenze ancora
      */
-    function annullaSpedizione(uint256 _id) external {
+    function annullaSpedizione(uint256 _id) external whenNotPaused {
         Spedizione storage s = spedizioni[_id];
         
         // SAFETY MONITOR: Solo mittente può annullare
@@ -340,7 +344,7 @@ contract BNGestoreSpedizioni is BNCore {
      *      1. Validazione fallita più volte (tentativiValidazioneFalliti >= 3)
      *      2. Timeout scaduto senza tutte le evidenze
      */
-    function richiediRimborso(uint256 _id) external {
+    function richiediRimborso(uint256 _id) external whenNotPaused {
         Spedizione storage s = spedizioni[_id];
         
         // SAFETY MONITOR S1: Solo mittente può richiedere rimborso
