@@ -1,0 +1,46 @@
+﻿node.exe : [solhint] 
+Warning: Rule 'contra
+ct-name-mixedcase' 
+doesn't exist
+In riga:1 car:1
++ & "C:\Program Files
+\nodejs/node.exe" 
+"C:\Program 
+Files\nodejs/node_mo 
+...
++ ~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~
+    + CategoryInfo   
+           : 
+NotSpecified: ([    
+solhint] Warni...' 
+do    esn't 
+exist:String) [    
+], RemoteException
+    + 
+FullyQualifiedError  
+  Id : 
+NativeCommandErr    
+or
+ 
+[solhint] Warning: 
+Rule 'event-name-mixe
+dcase' doesn't exist
+
+contracts\BNCore.sol
+   4:1  warning  global import of path @openzeppelin/contracts/access/AccessControl.sol is not allowed. Specify names to import individually or bind all exports of the module into a name (import "path" as Name)  no-global-import
+  14:1  warning  Missing @author tag in contract 'BNCore'                                                                                                                                                           use-natspec
+  17:5  warning  Missing @notice tag in variable 'PRECISIONE'                                                                                                                                                       use-natspec
+  18:5  warning  Missing @notice tag in variable 'SOGLIA_PROBABILITA'                                                                                                                                               use-natspec
+  21:5  warning  Missing @notice tag in variable 'RUOLO_ORACOLO'                                                                                                                                                    use-natspec
+  24:5  warning  Missing @notice tag in variable 'p_F1_T'                                                                                                                                                           use-natspec
+  25:5  warning  Missing @notice tag in variable 'p_F2_T'                                                                                                                                                           use-natspec
+
+Ô£û 7 problems (0 errors, 7 warnings)
+
+ -------------------------------------------------------------------------- 
+ ===> Join SOLHINT Community at: https://discord.com/invite/4TYGq3zpjs <=== 
+ -------------------------------------------------------------------------- 
+
