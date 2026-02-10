@@ -23,11 +23,11 @@ contract BNCalcolatoreOnChain is BNPagamenti {
     }
     
     /**
-          * @notice Restituisce informazioni sul sistema
+     * @notice Restituisce informazioni sul sistema
      * @return nome Nome del sistema di calcolo
      * @return versione Versione corrente del sistema
      * @return architettura Architettura modulare utilizzata
-     * @return nome Nome del sistema di calcolo`r`n     * @return versione Versione corrente del sistema`r`n     * @return architettura Architettura modulare utilizzata`r`n     */
+     */
     function getSystemInfo() external pure returns (
         string memory nome,
         string memory versione,

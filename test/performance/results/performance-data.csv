@@ -1,0 +1,4 @@
+Contract,Facts,Evidences,Size(bytes),DeployGas,DeployTime(ms),ConfigGas,ConfigTime(ms),CalcGas,CalcTime(ms)
+BN_Simple,1,2,6403,1372448,2131,142735,24514,34282,45
+BN_Medium,2,3,7457,1598049,2132,197303,32661,57037,41
+BN_Complex,2,5,7927,1699444,2100,297595,47873,75048,34

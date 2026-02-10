@@ -65,7 +65,8 @@ module.exports = {
         });
         return provider;
       },
-      network_id: "2025",  // BESU IBFT network uses 2025
+      network_id: "2024",
+      //network_id: "2025",  // BESU IBFT network uses 2025
       gas: 8000000,
       gasPrice: 1000,
       networkCheckTimeout: 600000,

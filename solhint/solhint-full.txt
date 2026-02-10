@@ -1,0 +1,36 @@
+
+contracts\BNCalcolatoreOnChain.sol
+   4:1   warning  global import of path ./BNPagamenti.sol is not allowed. Specify names to import individually or bind all exports of the module into a name (import "path" as Name)  no-global-import
+  21:19  warning  Code contains empty blocks                                                                                                                                          no-empty-blocks
+  28:5   warning  Missing @return tag in function 'getSystemInfo'                                                                                                                     use-natspec
+  28:5   warning  Mismatch in @return names for function 'getSystemInfo'. Expected: [nome, versione, architettura], Found: []                                                         use-natspec
+
+contracts\BNCore.sol
+   4:1  warning  global import of path @openzeppelin/contracts/access/AccessControl.sol is not allowed. Specify names to import individually or bind all exports of the module into a name (import "path" as Name)  no-global-import
+  14:1  warning  Missing @author tag in contract 'BNCore'                                                                                                                                                           use-natspec
+  17:5  warning  Missing @notice tag in variable 'PRECISIONE'                                                                                                                                                       use-natspec
+  18:5  warning  Missing @notice tag in variable 'SOGLIA_PROBABILITA'                                                                                                                                               use-natspec
+  21:5  warning  Missing @notice tag in variable 'RUOLO_ORACOLO'                                                                                                                                                    use-natspec
+  24:5  warning  Missing @notice tag in variable 'p_F1_T'                                                                                                                                                           use-natspec
+  25:5  warning  Missing @notice tag in variable 'p_F2_T'                                                                                                                                                           use-natspec
+
+contracts\BNGestoreSpedizioni.sol
+   4:1  warning  global import of path ./BNCore.sol is not allowed. Specify names to import individually or bind all exports of the module into a name (import "path" as Name)  no-global-import
+  25:1  warning  Missing @author tag in contract 'BNGestoreSpedizioni'                                                                                                          use-natspec
+  28:5  warning  Missing @notice tag in variable 'RUOLO_MITTENTE'                                                                                                               use-natspec
+  29:5  warning  Missing @notice tag in variable 'RUOLO_SENSORE'                                                                                                                use-natspec
+  40:5  warning  Missing @notice tag in variable 'TIMEOUT_RIMBORSO'                                                                                                             use-natspec
+  55:5  warning  Missing @notice tag in variable 'spedizioni'                                                                                                                   use-natspec
+  56:5  warning  Missing @notice tag in variable '_contatoreIdSpedizione'                                                                                                       use-natspec
+
+contracts\BNPagamenti.sol
+   4:1  warning  global import of path ./BNGestoreSpedizioni.sol is not allowed. Specify names to import individually or bind all exports of the module into a name (import "path" as Name)  no-global-import
+  15:1  warning  Missing @author tag in contract 'BNPagamenti'                                                                                                                               use-natspec
+  56:5  warning  Function body contains 53 lines but allowed no more than 50 lines                                                                                                           function-max-lines
+
+✖ 21 problems (0 errors, 21 warnings)
+
+ -------------------------------------------------------------------------- 
+ ===> Join SOLHINT Community at: https://discord.com/invite/4TYGq3zpjs <=== 
+ -------------------------------------------------------------------------- 
+

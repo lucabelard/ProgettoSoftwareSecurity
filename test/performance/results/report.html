@@ -1,0 +1,281 @@
+
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Analisi Prestazioni Contratti</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        :root {
+            --bg-primary: #0f0f23;
+            --bg-secondary: #1a1a2e;
+            --bg-card: #232342; 
+            --text-primary: #ffffff;
+            --text-secondary: #b8b8d1;
+            --border-color: rgba(255, 255, 255, 0.1);
+            --accent-primary: #667eea;
+            --accent-secondary: #764ba2;
+            --success: #00f2fe;
+            --warning: #fee140;
+            --danger: #f5576c;
+        }
+
+        body { 
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; 
+            margin: 0; 
+            padding: 40px; 
+            background-color: var(--bg-primary); 
+            color: var(--text-primary); 
+        }
+
+        .container { 
+            max-width: 1100px; 
+            margin: 0 auto; 
+            background-color: var(--bg-secondary); 
+            padding: 40px; 
+            border-radius: 16px; 
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5); 
+            border: 1px solid var(--border-color);
+        }
+
+        h1 { 
+            color: var(--text-primary); 
+            text-align: center; 
+            margin-bottom: 40px; 
+            font-weight: 700; 
+            letter-spacing: -0.5px; 
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .stats-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-bottom: 40px; }
+        
+        .stat-card { 
+            background: var(--bg-card); 
+            padding: 24px; 
+            border-radius: 12px; 
+            text-align: center; 
+            border: 1px solid var(--border-color); 
+            transition: transform 0.2s; 
+        }
+        
+        .stat-card:hover { transform: translateY(-4px); border-color: var(--accent-primary); }
+        
+        .stat-card h3 { 
+            margin: 0 0 12px 0; 
+            color: var(--text-secondary); 
+            font-size: 0.85em; 
+            text-transform: uppercase; 
+            letter-spacing: 1px; 
+        }
+        
+        .stat-card .value { font-size: 2em; font-weight: 700; color: var(--text-primary); margin-bottom: 4px; }
+        .stat-card .unit { font-size: 0.9em; color: var(--text-secondary); }
+
+        .charts-container { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; margin-bottom: 50px; }
+        
+        canvas { width: 100% !important; height: 350px !important; }
+
+        h2 { 
+            font-size: 1.4em; 
+            margin-bottom: 24px; 
+            color: var(--text-primary); 
+            border-bottom: 1px solid var(--border-color); 
+            padding-bottom: 12px; 
+        }
+
+        table { width: 100%; border-collapse: collapse; margin-top: 10px; font-size: 0.95em; }
+        
+        th, td { 
+            padding: 16px; 
+            text-align: left; 
+            border-bottom: 1px solid var(--border-color); 
+            color: var(--text-secondary);
+        }
+        
+        th { 
+            font-weight: 600; 
+            color: var(--accent-primary); 
+            text-transform: uppercase; 
+            font-size: 0.8em; 
+            letter-spacing: 0.5px;
+        }
+        
+        td { color: var(--text-primary); }
+        
+        tr:last-child td { border-bottom: none; }
+        tr:hover td { background-color: rgba(255,255,255,0.02); }
+
+        .footer { 
+            text-align: center; 
+            margin-top: 60px; 
+            color: var(--text-secondary); 
+            font-size: 0.85em; 
+            border-top: 1px solid var(--border-color); 
+            padding-top: 24px; 
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>📊 Analisi Prestazioni Smart Contract</h1>
+        
+        <div class="stats-grid">
+            <div class="stat-card">
+                <h3>Miglior Efficienza</h3>
+                <div class="value" style="color: #4facfe">BN_Simple</div>
+                <div class="unit">34.282 gas</div>
+            </div>
+            <div class="stat-card">
+                <h3>Massima Complessità</h3>
+                <div class="value" style="color: #fa709a">BN_Complex</div>
+                <div class="unit">75.048 gas</div>
+            </div>
+            <div class="stat-card">
+                <h3>Trend di Crescita</h3>
+                <div class="value" style="color: #fee140">Lineare</div>
+                <div class="unit">~20k gas / step</div>
+            </div>
+        </div>
+
+        <div class="charts-container">
+            <div>
+                <canvas id="gasChart"></canvas>
+            </div>
+            <div>
+                <canvas id="timeChart"></canvas>
+            </div>
+        </div>
+
+        <h2>📋 Metriche Dettagliate</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Contratto</th>
+                    <th>Config</th>
+                    <th>Dim. Bytecode</th>
+                    <th>Gas Deploy</th>
+                    <th>Gas Config</th>
+                    <th>Gas Calcolo</th>
+                </tr>
+            </thead>
+            <tbody>
+                
+                <tr>
+                    <td><strong>BN_Simple</strong></td>
+                    <td>1F, 2E</td>
+                    <td>6.403</td>
+                    <td>1.372.448</td>
+                    <td>142.735</td>
+                    <td><strong style="color: #4facfe">34.282</strong></td>
+                </tr>
+                
+                <tr>
+                    <td><strong>BN_Medium</strong></td>
+                    <td>2F, 3E</td>
+                    <td>7.457</td>
+                    <td>1.598.049</td>
+                    <td>197.303</td>
+                    <td><strong style="color: #4facfe">57.037</strong></td>
+                </tr>
+                
+                <tr>
+                    <td><strong>BN_Complex</strong></td>
+                    <td>2F, 5E</td>
+                    <td>7.927</td>
+                    <td>1.699.444</td>
+                    <td>297.595</td>
+                    <td><strong style="color: #4facfe">75.048</strong></td>
+                </tr>
+                
+            </tbody>
+        </table>
+
+        <div class="footer">
+            Report generato il 10 febbraio 2026 alle ore 20:17 • Performance Suite v1.1 • Dark Mode Active
+        </div>
+    </div>
+
+    <script>
+        const data = [{"Contract":"BN_Simple","Facts":"1","Evidences":"2","Size(bytes)":"6403","DeployGas":"1372448","DeployTime(ms)":"2131","ConfigGas":"142735","ConfigTime(ms)":"24514","CalcGas":"34282","CalcTime(ms)":"45"},{"Contract":"BN_Medium","Facts":"2","Evidences":"3","Size(bytes)":"7457","DeployGas":"1598049","DeployTime(ms)":"2132","ConfigGas":"197303","ConfigTime(ms)":"32661","CalcGas":"57037","CalcTime(ms)":"41"},{"Contract":"BN_Complex","Facts":"2","Evidences":"5","Size(bytes)":"7927","DeployGas":"1699444","DeployTime(ms)":"2100","ConfigGas":"297595","ConfigTime(ms)":"47873","CalcGas":"75048","CalcTime(ms)":"34"}];
+        const labels = data.map(d => d.Contract);
+
+        Chart.defaults.color = '#b8b8d1';
+        Chart.defaults.borderColor = 'rgba(255, 255, 255, 0.1)';
+
+        // Gas Chart
+        new Chart(document.getElementById('gasChart'), {
+            type: 'bar',
+            data: {
+                labels: labels,
+                datasets: [
+                    {
+                        label: 'Gas Calcolo (Inferenza)',
+                        data: data.map(d => d.CalcGas),
+                        backgroundColor: '#667eea',
+                        borderRadius: 4,
+                        barThickness: 30
+                    },
+                    {
+                        label: 'Gas Configurazione',
+                        data: data.map(d => d.ConfigGas),
+                        backgroundColor: '#232342',
+                        borderColor: '#667eea',
+                        borderWidth: 1,
+                        borderRadius: 4,
+                        barThickness: 30
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    title: { display: true, text: 'Consumo Gas (Minore è meglio)', font: { size: 14, weight: 'bold' }, color: '#ffffff' },
+                    legend: { position: 'bottom', labels: { boxWidth: 12 } }
+                },
+                scales: {
+                    y: { beginAtZero: true, stacked: true, grid: { color: 'rgba(255,255,255,0.05)' } },
+                    x: { stacked: true, grid: { display: false } }
+                }
+            }
+        });
+
+        // Time Chart
+        new Chart(document.getElementById('timeChart'), {
+            type: 'line',
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: 'Tempo di Deploy (ms)',
+                    data: data.map(d => d['DeployTime(ms)']),
+                    borderColor: '#00f2fe',
+                    backgroundColor: 'rgba(0, 242, 254, 0.1)',
+                    borderWidth: 2,
+                    pointBackgroundColor: '#0f0f23',
+                    pointBorderColor: '#00f2fe',
+                    pointRadius: 6,
+                    pointHoverRadius: 8,
+                    fill: true,
+                    tension: 0.4
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    title: { display: true, text: 'Latenza Deploy (ms)', font: { size: 14, weight: 'bold' }, color: '#ffffff' },
+                    legend: { position: 'bottom' }
+                },
+                scales: {
+                    y: { beginAtZero: false, grid: { color: 'rgba(255,255,255,0.05)' } },
+                    x: { grid: { display: false } }
+                }
+            }
+        });
+    </script>
+</body>
+</html>
+    
