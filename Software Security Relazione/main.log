@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2024) (preloaded format=pdflatex 2024.11.25)  27 JAN 2026 15:56
+This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2024) (preloaded format=pdflatex 2024.11.25)  6 FEB 2026 15:55
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -1196,7 +1196,17 @@ LaTeX Font Info:    Font shape `T1/phv/m/n' will be
 
 
 
-])
+]
+<chapter1/image/SR completo con sistema nuovo.png, id=359, 10631.72pt x 8170.525pt>
+File: chapter1/image/SR completo con sistema nuovo.png Graphic file (type png)
+<use chapter1/image/SR completo con sistema nuovo.png>
+Package pdftex.def Info: chapter1/image/SR completo con sistema nuovo.png  used on input line 30.
+(pdftex.def)             Requested size: 352.81554pt x 271.03696pt.
+LaTeX Font Info:    Font shape `T1/phv/m/n' will be
+(Font)              scaled to size 9.49997pt on input line 31.
+LaTeX Font Info:    Font shape `T1/phv/b/n' will be
+(Font)              scaled to size 9.49997pt on input line 31.
+)
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
@@ -1204,7 +1214,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller to compensate:
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
-[3]
+[3 <./chapter1/image/SR completo con sistema nuovo.png>]
 \openout2 = `chapter2/chapter2.aux'.
 
  (./chapter2/chapter2.tex
@@ -1249,11 +1259,6 @@ Capitolo 3.
 
 
 ]
-LaTeX Font Info:    Font shape `T1/phv/m/n' will be
-(Font)              scaled to size 9.49997pt on input line 61.
-LaTeX Font Info:    Font shape `T1/phv/b/n' will be
-(Font)              scaled to size 9.49997pt on input line 61.
-
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
@@ -1630,18 +1635,18 @@ L3 programming layer <2024-02-20>
  ***********
  ) 
 Here is how much of TeX's memory you used:
- 39651 strings out of 474116
- 727527 string characters out of 5743681
+ 39660 strings out of 474116
+ 727947 string characters out of 5743681
  2210187 words of memory out of 5000000
- 60249 multiletter control sequences out of 15000+600000
+ 60257 multiletter control sequences out of 15000+600000
  650251 words of font info for 463 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  111i,15n,131p,2429b,2115s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/mathpazo/fplmr.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/cm-super/sfrm1095.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/urw/courier/ucrb8a.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/urw/courier/ucrr8a.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/urw/courier/ucrro8a.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/urw/helvetic/uhvb8a.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/urw/helvetic/uhvr8a.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/urw/palatino/uplb8a.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/urw/palatino/uplr8a.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/urw/palatino/uplr8a.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/urw/palatino/uplri8a.pfb>
-Output written on main.pdf (42 pages, 332662 bytes).
+Output written on main.pdf (42 pages, 3261405 bytes).
 PDF statistics:
- 1402 PDF objects out of 1440 (max. 8388607)
- 1314 compressed objects within 14 object streams
- 459 named destinations out of 1000 (max. 500000)
- 129250 words of extra memory for PDF output out of 154059 (max. 10000000)
+ 1406 PDF objects out of 1440 (max. 8388607)
+ 1316 compressed objects within 14 object streams
+ 460 named destinations out of 1000 (max. 500000)
+ 129255 words of extra memory for PDF output out of 154059 (max. 10000000)
 
