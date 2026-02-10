@@ -213,12 +213,31 @@ contract BNGestoreSpedizioni is BNCore {
      * @param _idEvidenza ID dell'evidenza (1-5)
      * @param _valore Valore booleano dell'evidenza
      */
-    function inviaEvidenza(uint256 _idSpedizione, uint8 _idEvidenza, bool _valore)
+    // === RATE LIMITING ===
+    /// @notice Mapping per tracciare l'ultimo invio di evidenza per ogni sensore
+    mapping(address => uint256) private _lastEvidenceTimestamp;
+    /// @notice Tempo minimo tra due invii di evidenze dallo stesso sensore
+    uint256 public constant MIN_TIME_BETWEEN_EVIDENCES = 1 minutes;
 
+    error RateLimitExceeded(uint256 timeRemaining);
+
+    /**
+     * @notice Invia un'evidenza per una spedizione
+     * @param _idSpedizione ID della spedizione
+     * @param _idEvidenza ID dell'evidenza (1-5)
+     * @param _valore Valore booleano dell'evidenza
+     */
+    function inviaEvidenza(uint256 _idSpedizione, uint8 _idEvidenza, bool _valore)
         public
         onlyRole(RUOLO_SENSORE)
         whenNotPaused
     {
+        // RATE LIMIT CHECK
+        if (block.timestamp < _lastEvidenceTimestamp[msg.sender] + MIN_TIME_BETWEEN_EVIDENCES) {
+            revert RateLimitExceeded((_lastEvidenceTimestamp[msg.sender] + MIN_TIME_BETWEEN_EVIDENCES) - block.timestamp);
+        }
+        _lastEvidenceTimestamp[msg.sender] = block.timestamp;
+
         Spedizione storage s = spedizioni[_idSpedizione];
         if (s.mittente == address(0)) revert SpedizioneNonEsistente();
         if (s.stato != StatoSpedizione.InAttesa) revert SpedizioneNonInAttesa();
@@ -259,6 +278,12 @@ contract BNGestoreSpedizioni is BNCore {
         onlyRole(RUOLO_SENSORE)
         whenNotPaused
     {
+        // RATE LIMIT CHECK
+        if (block.timestamp < _lastEvidenceTimestamp[msg.sender] + MIN_TIME_BETWEEN_EVIDENCES) {
+            revert RateLimitExceeded((_lastEvidenceTimestamp[msg.sender] + MIN_TIME_BETWEEN_EVIDENCES) - block.timestamp);
+        }
+        _lastEvidenceTimestamp[msg.sender] = block.timestamp;
+
         Spedizione storage s = spedizioni[_idSpedizione];
         if (s.mittente == address(0)) revert SpedizioneNonEsistente();
         if (s.stato != StatoSpedizione.InAttesa) revert SpedizioneNonInAttesa();

@@ -114,7 +114,7 @@ A1 & Critico & & \chk & & & & & \chk & & & & T1.1: manipolazione logica bytecode
 A1 & Critico & & & & & \chk & & & & \chk & & D1.1: blocco contratto (storage bomb) & Gas limits \\
 \hline
 \rowcolor{stripeblue}
-A1 & Critico & & & & & & \chk & & & & \chk & E1.1: privilege escalation admin & Multi-sig Timelock \\
+A1 & Critico & & & & & & \chk & & & & \chk & E1.1: privilege escalation admin & Est. Gnosis Safe Multi-sig \\
 \hline
 
 % A2
@@ -135,7 +135,7 @@ A3 & Critico & & \chk & & & & & \chk & & & & T3.1: reentrancy attack & Reentranc
 \rowcolor{stripeblue}
 A3 & Critico & & & & & \chk & & & & \chk & & D3.1: blocco fondi escrow & Refund logic + timeout \\
 \hline
-A3 & Critico & & & & & & \chk & & & & \chk & E3.1: drenaggio fondi contratto & Access control withdraw \\
+A3 & Critico & & & & & & \chk & & & & \chk & E3.1: drenaggio fondi contratto & Push Payment + ReentrancyGuard \\
 \hline
 
 % A4
@@ -766,17 +766,17 @@ E4.1 & Elevation & CAPEC-122 & privilege Abuse & T1078.004 \\
 \begin{itemize}
 \item Audit formale (CertiK, Trail of Bits)
 \item Verifica formale logica (Certora, K Framework)
-\item Multi-sig deployment (2/3)
-\item Timelock upgrade (48h)
+\item Raccomandato: Gnosis Safe Multi-sig deployment
+\item Timelock upgrade (via governance esterna)
 \item Bug bounty program
 \end{itemize}
 
 \subsection*{A2 - Evidenze IoT}
 \begin{itemize}
-\item Firma digitale ECDSA per ogni evidenza
-\item Challenge-response authentication sensori
-\item Rate limiting invii (max 1 evidenza/sensore/ora)
-\item Ridondanza cross-validation (E1 vs E3 temperatura)
+\item Firma digitale transazione (Sender Auth)
+\item Challenge-response authentication sensori (off-chain)
+\item Rate limiting invii (max 1 evidenza/sensore/minuto)
+\item Ridondanza Probabilistica (modello Bayesiano gestisce incongruenze)
 \item Hardware security module (HSM) per chiavi sensori
 \end{itemize}
 
@@ -784,7 +784,7 @@ E4.1 & Elevation & CAPEC-122 & privilege Abuse & T1078.004 \\
 \begin{itemize}
 \item OpenZeppelin ReentrancyGuard
 \item CEI pattern (Checks-Effects-Interactions)
-\item Pull payment pattern (withdrawal invece di transfer)
+\item Push payment pattern protetto da ReentrancyGuard
 \item Timeout refund automatico (7 giorni)
 \item Emergency pause (CircuitBreaker pattern)
 \end{itemize}
@@ -792,19 +792,19 @@ E4.1 & Elevation & CAPEC-122 & privilege Abuse & T1078.004 \\
 \subsection*{A4 - Ruoli e Permessi}
 \begin{itemize}
 \item OpenZeppelin AccessControl latest version
-\item Multi-sig per grant/revoke RUOLO\_ORACOLO
-\item Timelock ruoli critici
+\item Raccomandato: Gnosis Safe Multi-sig per grant/revoke ruoli critici
+\item Event logging per tutte le assegnazioni ruoli
 \item Event monitoring anomalie assegnazioni
 \item Immutable role setup post-init
 \end{itemize}
 
 \subsection*{A5 - CPT e Probabilità}
 \begin{itemize}
-\item Private visibility + no getter pubblici
-\item Multi-sig 2/3 per modifica CPT
-\item Range validation (1-100)
+\item Private visibility + getter solo per admin (onlyRole)
+\item Raccomandato: Gnosis Safe Multi-sig per modifica CPT
+\item Range validation (0-100) implementata on-chain
 \item Staging test pre-produzione
-\item Hashing parametri sensibili
+\item Circuit Breaker (Pausable) per emergenze
 \end{itemize}
 
 \subsection*{A6 - Dati Spedizioni}
@@ -843,8 +843,8 @@ E4.1 & Elevation & CAPEC-122 & privilege Abuse & T1078.004 \\
 A1 & CRITICAL & Audit + Formal Verification & LOW & $\checkmark$ Accepted \\
 A2 & CRITICAL & HSM + Signatures & MEDIUM & $\checkmark$ Accepted \\
 A3 & CRITICAL & ReentrancyGuard + Timeout & LOW & $\checkmark$ Accepted \\
-A4 & HIGH & Multi-sig + Events & LOW & $\checkmark$ Accepted \\
-A5 & HIGH & Private + Multi-sig & MEDIUM & $\checkmark$ Accepted \\
+A4 & HIGH & AccessControl + Events & LOW & $\checkmark$ Accepted \\
+A5 & HIGH & Private + Input Validation & MEDIUM & $\checkmark$ Accepted \\
 A6 & MEDIUM & Hashing & LOW & $\checkmark$ Accepted \\
 A7 & MEDIUM & HTTPS + CSP & MEDIUM & \textbf{!} User training required \\
 A8 & CRITICAL & HW Wallet recommendation & HIGH & \textbf{!} User responsibility \\
@@ -875,9 +875,12 @@ L'analisi \textbf{DUAL-STRIDE} completa ha identificato:
 \begin{enumerate}
 \item [$\checkmark$] Implementare ReentrancyGuard (già fatto)
 \item [$\checkmark$] Timeout refund 7gg (già fatto)
-\item [\textcolor{red}{$\bullet$}] \textbf{TODO:} Multi-sig per modifica CPT
-\item [\textcolor{red}{$\bullet$}] \textbf{TODO:} HSM per chiavi sensori
-\item [\textcolor{orange}{$\bullet$}] \textbf{Consigliato:} zkSNARK per privacy CPT
+\item [$\checkmark$] Circuit Breaker / Emergency Pause (già fatto)
+\item [$\checkmark$] Rate Limiting sensori (già fatto - 1 min cooldown)
+\item [$\checkmark$] Input Validation CPT range 0-100 (già fatto)
+\item [\textcolor{orange}{$\bullet$}] \textbf{Raccomandato:} Gnosis Safe Multi-sig per governance admin
+\item [\textcolor{orange}{$\bullet$}] \textbf{Raccomandato:} HSM per chiavi sensori IoT
+\item [\textcolor{orange}{$\bullet$}] \textbf{Futuro:} zkSNARK per privacy CPT
 \end{enumerate}
 
 \textbf{Residual Risk Acceptance:}

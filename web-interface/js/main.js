@@ -5,7 +5,7 @@
 
 import { initWeb3, connectWallet, getCurrentAccount, getNetworkId, getWeb3 } from './web3-connection.js';
 
-import { loadContract, createShipment, setPriorProbabilities, setCPT, sendEvidence, validateAndPay, getShipment, getShipmentCounter, getUserRoles, isAdmin, isMittente, isSensore, requestRefund, getContract, pauseContract, unpauseContract, isContractPaused } from './contract-interaction.js';
+import { loadContract, createShipment, setPriorProbabilities, setCPT, sendEvidence, validateAndPay, getShipment, getShipmentCounter, getUserRoles, isAdmin, isMittente, isSensore, requestRefund, getContract, pauseContract, unpauseContract, isContractPaused, checkRateLimit, recordEvidenceSent } from './contract-interaction.js';
 import { showToast, showLoading, hideLoading, updateAccountUI, updateNetworkStatus, renderShipmentCard, clearShipmentsGrid, showPanel, updateRoleSelection, updateRoleBadges, filterPanelsByRole } from './ui-components.js';
 import { handleCancelShipment, handleRequestRefund, checkRefundEligibility, checkCancellationEligibility } from './refund-manager.js';
 
@@ -75,6 +75,16 @@ function setupEventListeners() {
         });
     });
     document.getElementById('sendAllEvidencesBtn')?.addEventListener('click', handleSendAllEvidences);
+
+    // Evidence toggle dynamic labels
+    document.querySelectorAll('.evidence-toggle').forEach(toggle => {
+        toggle.addEventListener('change', (e) => {
+            const textSpan = e.target.closest('.toggle-label').querySelector('.toggle-text');
+            if (textSpan) {
+                textSpan.textContent = e.target.checked ? textSpan.dataset.on : textSpan.dataset.off;
+            }
+        });
+    });
 
     // Courier Panel
     document.getElementById('validatePaymentBtn')?.addEventListener('click', handleValidatePayment);
@@ -378,6 +388,13 @@ async function handleSendEvidence(evidenceId) {
             return;
         }
 
+        // Rate Limit pre-check (synchronous - no contract call)
+        const rateStatus = checkRateLimit();
+        if (!rateStatus.allowed) {
+            showToast(`⏱️ RATE LIMIT: Devi attendere ancora ${rateStatus.secondsRemaining} secondi prima di inviare nuove evidenze.`, 'warning');
+            return;
+        }
+
         // Pre-validate shipment state and evidence status
         showLoading('Verifica spedizione...');
         const shipment = await getShipment(shipmentId);
@@ -424,6 +441,7 @@ async function handleSendEvidence(evidenceId) {
 
         await sendEvidence(shipmentId, evidenceId, value);
 
+        recordEvidenceSent(); // Track timestamp for rate limiting
         showToast(`✅ Evidenza E${evidenceId} inviata!`, 'success');
         await loadShipments();
         hideLoading();
@@ -444,6 +462,13 @@ async function handleSendAllEvidences() {
     try {
         if (await isContractPaused()) {
             showToast('⛔ OPERAZIONE BLOCCATA: Il contratto è in PAUSA di emergenza.', 'warning');
+            return;
+        }
+
+        // Rate Limit pre-check (synchronous - no contract call)
+        const rateStatus = checkRateLimit();
+        if (!rateStatus.allowed) {
+            showToast(`⏱️ RATE LIMIT: Devi attendere ancora ${rateStatus.secondsRemaining} secondi prima di inviare nuove evidenze.`, 'warning');
             return;
         }
 
@@ -494,6 +519,7 @@ async function handleSendAllEvidences() {
         // Send all evidences in ONE transaction
         await sendAllEvidencesBatch(shipmentId, values);
 
+        recordEvidenceSent(); // Track timestamp for rate limiting
         showToast('✅ Tutte le evidenze inviate in una sola transazione!', 'success');
         await loadShipments();
         hideLoading();
@@ -715,6 +741,12 @@ function handleContractError(error) {
     else if (message.includes('Spedizione non in attesa') ||
              (error.data && error.data.message && error.data.message.includes('Spedizione non in attesa'))) {
         message = '⚠️ Spedizione già processata o annullata';
+    }
+    // Check for Rate Limit errors
+    else if (message.includes('RateLimitExceeded') || message.includes('Rate') ||
+             (error.data && error.data.message && error.data.message.includes('RateLimitExceeded'))) {
+        message = '⏱️ RATE LIMIT: Devi attendere almeno 1 minuto tra un invio di evidenze e il prossimo.';
+        type = 'warning';
     }
     // Check for internal JSON-RPC error (often hides the real revert reason)
     else if (message.includes('Internal JSON-RPC error')) {
