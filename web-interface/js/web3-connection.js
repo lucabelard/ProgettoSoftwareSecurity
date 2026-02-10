@@ -82,7 +82,7 @@ export async function connectWallet() {
             window.ethereum.on('accountsChanged', handleAccountsChanged);
             window.ethereum.on('chainChanged', handleChainChanged);
         } else {
-            // Use Ganache accounts
+            // Use Local Node accounts
             accounts = await web3.eth.getAccounts();
             currentAccount = accounts[0];
         }

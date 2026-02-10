@@ -21,9 +21,9 @@ async function initializeApp() {
     const result = await initWeb3();
 
     if (result.success) {
-        showToast(`Provider: ${result.provider}. Clicca "Connect Wallet" per iniziare.`, 'info');
+        showToast(`Web3 pronto. Connetti il wallet per accedere a Filiera Sicura.`, 'info');
     } else {
-        showToast('Errore di connessione. Assicurati che Ganache sia in esecuzione.', 'error');
+        showToast('Errore di connessione. Assicurati che il nodo Besu sia in esecuzione.', 'error');
     }
 }
 
@@ -48,7 +48,8 @@ function setupEventListeners() {
     document.getElementById('themeToggle').addEventListener('click', toggleTheme);
 
     // Connect Wallet
-    document.getElementById('connectWallet').addEventListener('click', handleConnectWallet);
+    document.getElementById('connectWallet')?.addEventListener('click', handleConnectWallet);
+    document.getElementById('connectWalletHero')?.addEventListener('click', handleConnectWallet);
 
     // Role Selection
     document.querySelectorAll('.role-card').forEach(card => {
@@ -117,6 +118,20 @@ function setupEventListeners() {
     });
 }
 
+// ===== VIEW MANAGEMENT =====
+function toggleAppView(showApp) {
+    const landingHero = document.getElementById('landingHero');
+    const appContent = document.getElementById('appContentContainer');
+    
+    if (showApp) {
+        landingHero.style.display = 'none';
+        appContent.style.display = 'block';
+    } else {
+        landingHero.style.display = 'block';
+        appContent.style.display = 'none';
+    }
+}
+
 // ===== WALLET CONNECTION =====
 async function handleConnectWallet() {
     showLoading('Connessione al wallet...');
@@ -130,6 +145,9 @@ async function handleConnectWallet() {
             updateAccountUI();
             const networkId = await getNetworkId();
             updateNetworkStatus(true, networkId);
+            
+            // Switch to App View
+            toggleAppView(true);
 
             // Detect user roles
             const account = getCurrentAccount();
@@ -143,16 +161,17 @@ async function handleConnectWallet() {
             // Auto-select appropriate panel based on roles
             const isAdmin = roles.includes('admin') || roles.includes('oracolo');
             if (isAdmin) {
-                // Admin: don't auto-select, let them choose
-                showToast(`Connesso come Admin! Seleziona un ruolo per continuare.`, 'success');
+                // Admin: auto-select Admin panel (RESTRICTED access to CPTs only)
+                handleRoleSelection('admin');
+                showToast(`Benvenuto Amministratore. Accesso configurazione CPT abilitato.`, 'success');
             } else if (roles.includes('mittente')) {
                 // Auto-select Mittente panel
                 handleRoleSelection('mittente');
-                showToast(`Connesso come Mittente!`, 'success');
+                showToast(`Benvenuto Mittente. Pannello spedizioni attivo.`, 'success');
             } else if (roles.includes('sensore')) {
                 // Auto-select Sensore panel
                 handleRoleSelection('sensore');
-                showToast(`Connesso come Sensore!`, 'success');
+                showToast(`Benvenuto Sensore. Pannello IoT attivo.`, 'success');
             } else {
                 // No specific role, show Corriere by default
                 handleRoleSelection('corriere');
