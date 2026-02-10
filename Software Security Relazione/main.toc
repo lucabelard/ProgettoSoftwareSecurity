@@ -150,28 +150,35 @@
 \contentsline {subsection}{\numberline {6.4.2}Fase 2: Configurazione Naming (-42 warning)}{47}{subsection.6.4.2}%
 \contentsline {subsection}{\numberline {6.4.3}Fase 3: Configurazione Gas (-18 warning)}{47}{subsection.6.4.3}%
 \contentsline {section}{\numberline {6.5}Configurazione Finale}{47}{section.6.5}%
-\contentsline {section}{\numberline {6.6}Risultati Finali}{48}{section.6.6}%
+\contentsline {section}{\numberline {6.6}Risultati Fase Intermedia}{48}{section.6.6}%
 \contentsline {subsection}{\numberline {6.6.1}Metriche Quantitative}{48}{subsection.6.6.1}%
 \contentsline {subsection}{\numberline {6.6.2}Warning Rimanenti}{48}{subsection.6.6.2}%
-\contentsline {section}{\numberline {6.7}Considerazioni Critiche}{48}{section.6.7}%
-\contentsline {paragraph}{Limiti analisi statica}{48}{paragraph*.59}%
-\contentsline {paragraph}{Complementarietà con altri tool}{49}{paragraph*.60}%
-\contentsline {section}{\numberline {6.8}Conclusioni}{49}{section.6.8}%
-\contentsline {subsection}{\numberline {6.8.1}Raccomandazioni}{49}{subsection.6.8.1}%
-\contentsline {chapter}{\numberline {7}Conclusioni e Sviluppi Futuri}{50}{chapter.7}%
-\contentsline {section}{\numberline {7.1}Sintesi dei Risultati}{50}{section.7.1}%
-\contentsline {section}{\numberline {7.2}Limitazioni Attuali}{50}{section.7.2}%
-\contentsline {section}{\numberline {7.3}Sviluppi Futuri}{51}{section.7.3}%
-\contentsline {subsection}{\numberline {7.3.1}Integrazione zk-SNARKs (Privacy)}{51}{subsection.7.3.1}%
-\contentsline {subsection}{\numberline {7.3.2}Oracle Feed decentralizzati (Chainlink)}{51}{subsection.7.3.2}%
-\contentsline {subsection}{\numberline {7.3.3}Hardware Security Module (HSM)}{51}{subsection.7.3.3}%
-\contentsline {chapter}{\numberline {A}Guida al Deployment e Management}{52}{appendix.Alph1}%
-\contentsline {section}{\numberline {A.1}Requisiti di Sistema (Prerequisiti)}{52}{section.Alph1.1}%
-\contentsline {section}{\numberline {A.2}Installazione e Setup}{52}{section.Alph1.2}%
-\contentsline {subsection}{\numberline {A.2.1}Clonazione del Repository}{52}{subsection.Alph1.2.1}%
-\contentsline {subsection}{\numberline {A.2.2}Installazione Dipendenze}{52}{subsection.Alph1.2.2}%
-\contentsline {section}{\numberline {A.3}Avvio della Rete Blockchain}{53}{section.Alph1.3}%
-\contentsline {subsection}{\numberline {A.3.1}Modalità Sviluppo (Ganache)}{53}{subsection.Alph1.3.1}%
-\contentsline {subsection}{\numberline {A.3.2}Modalità Produzione (Hyperledger Besu)}{53}{subsection.Alph1.3.2}%
-\contentsline {section}{\numberline {A.4}Esecuzione degli Script di Simulazione}{53}{section.Alph1.4}%
-\contentsline {section}{\numberline {A.5}Interfaccia Web}{53}{section.Alph1.5}%
+\contentsline {section}{\numberline {6.7}Aggiornamento: Completamento Documentazione NatSpec}{49}{section.6.7}%
+\contentsline {subsection}{\numberline {6.7.1}Analisi Warning NatSpec Residui}{49}{subsection.6.7.1}%
+\contentsline {subsection}{\numberline {6.7.2}Interventi di Completamento}{49}{subsection.6.7.2}%
+\contentsline {subsubsection}{BNCore.sol}{49}{subsubsection*.60}%
+\contentsline {subsubsection}{BNGestoreSpedizioni.sol}{49}{subsubsection*.61}%
+\contentsline {subsection}{\numberline {6.7.3}Risultati Post-Completamento}{50}{subsection.6.7.3}%
+\contentsline {subsection}{\numberline {6.7.4}Metriche Finali Aggiornate}{50}{subsection.6.7.4}%
+\contentsline {section}{\numberline {6.8}Considerazioni Critiche}{51}{section.6.8}%
+\contentsline {paragraph}{Limiti analisi statica}{51}{paragraph*.64}%
+\contentsline {paragraph}{Complementarietà con altri tool}{51}{paragraph*.65}%
+\contentsline {section}{\numberline {6.9}Conclusioni}{51}{section.6.9}%
+\contentsline {subsection}{\numberline {6.9.1}Raccomandazioni}{51}{subsection.6.9.1}%
+\contentsline {chapter}{\numberline {7}Conclusioni e Sviluppi Futuri}{52}{chapter.7}%
+\contentsline {section}{\numberline {7.1}Sintesi dei Risultati}{52}{section.7.1}%
+\contentsline {section}{\numberline {7.2}Limitazioni Attuali}{52}{section.7.2}%
+\contentsline {section}{\numberline {7.3}Sviluppi Futuri}{53}{section.7.3}%
+\contentsline {subsection}{\numberline {7.3.1}Integrazione zk-SNARKs (Privacy)}{53}{subsection.7.3.1}%
+\contentsline {subsection}{\numberline {7.3.2}Oracle Feed decentralizzati (Chainlink)}{53}{subsection.7.3.2}%
+\contentsline {subsection}{\numberline {7.3.3}Hardware Security Module (HSM)}{53}{subsection.7.3.3}%
+\contentsline {chapter}{\numberline {A}Guida al Deployment e Management}{54}{appendix.Alph1}%
+\contentsline {section}{\numberline {A.1}Requisiti di Sistema (Prerequisiti)}{54}{section.Alph1.1}%
+\contentsline {section}{\numberline {A.2}Installazione e Setup}{54}{section.Alph1.2}%
+\contentsline {subsection}{\numberline {A.2.1}Clonazione del Repository}{54}{subsection.Alph1.2.1}%
+\contentsline {subsection}{\numberline {A.2.2}Installazione Dipendenze}{54}{subsection.Alph1.2.2}%
+\contentsline {section}{\numberline {A.3}Avvio della Rete Blockchain}{55}{section.Alph1.3}%
+\contentsline {subsection}{\numberline {A.3.1}Modalità Sviluppo (Ganache)}{55}{subsection.Alph1.3.1}%
+\contentsline {subsection}{\numberline {A.3.2}Modalità Produzione (Hyperledger Besu)}{55}{subsection.Alph1.3.2}%
+\contentsline {section}{\numberline {A.4}Esecuzione degli Script di Simulazione}{55}{section.Alph1.4}%
+\contentsline {section}{\numberline {A.5}Interfaccia Web}{55}{section.Alph1.5}%
