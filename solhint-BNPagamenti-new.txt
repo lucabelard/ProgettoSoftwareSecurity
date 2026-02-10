@@ -1,0 +1,35 @@
+﻿node.exe : [solhint] 
+Warning: Rule 
+'contract-name-mixedcase' 
+doesn't exist
+In riga:1 car:1
++ & "C:\Program 
+Files\nodejs/node.exe" 
+"C:\Program 
+Files\nodejs/node_mo ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~
+    + CategoryInfo          
+    : NotSpecified: ([solh  
+  int] Warni...' doesn't    
+ exist:String) [], Remot    
+eException
+    + FullyQualifiedErrorId 
+    : NativeCommandError
+ 
+[solhint] Warning: Rule 
+'event-name-mixedcase' 
+doesn't exist
+
+contracts\BNPagamenti.sol
+   4:1  warning  global import of path ./BNGestoreSpedizioni.sol is not allowed. Specify names to import individually or bind all exports of the module into a name (import "path" as Name)                             no-global-import
+   5:1  warning  global import of path @openzeppelin/contracts/security/ReentrancyGuard.sol is not allowed. Specify names to import individually or bind all exports of the module into a name (import "path" as Name)  no-global-import
+  58:5  warning  Function body contains 53 lines but allowed no more than 50 lines                                                                                                                                      function-max-lines
+
+Ô£û 3 problems (0 errors, 3 warnings)
+
+ -------------------------------------------------------------------------- 
+ ===> Join SOLHINT Community at: https://discord.com/invite/4TYGq3zpjs <=== 
+ -------------------------------------------------------------------------- 
+

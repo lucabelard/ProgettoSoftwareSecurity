@@ -10,7 +10,8 @@ error PagamentoFallito();
 
 /**
  * @title BNPagamenti
- * @notice Gestisce la validazione e i pagamenti delle spedizioni
+ * @author Blockchain Shipment Tracking Team
+ * @author Blockchain Shipment Tracking Team`r`n * @notice Gestisce la validazione e i pagamenti delle spedizioni
  * @dev Estende BNGestoreSpedizioni - ISOLAMENTO della logica di pagamento
  */
 contract BNPagamenti is BNGestoreSpedizioni, ReentrancyGuard {

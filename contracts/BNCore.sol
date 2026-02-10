@@ -8,20 +8,26 @@ error EvidenzaIDInvalida();
 
 /**
  * @title BNCore
+ * @author Blockchain Shipment Tracking Team
  * @notice Contratto base con logica della Rete Bayesiana
  * @dev Contiene solo i calcoli probabilistici - ISOLAMENTO della logica
  */
 contract BNCore is AccessControl {
     
     // === COSTANTI ===
+    /// @notice Fattore di precisione per i calcoli probabilistici (100 = 100%)
     uint256 public constant PRECISIONE = 100;
+    /// @notice Soglia minima di probabilità per validare una spedizione (95 = 95%)
     uint8 public constant SOGLIA_PROBABILITA = 95; // 95%
     
     // === RUOLI ===
+    /// @notice Identificatore del ruolo per gli oracoli autorizzati a configurare la rete bayesiana
     bytes32 public constant RUOLO_ORACOLO = keccak256("RUOLO_ORACOLO");
     
     // === PROBABILITÀ A PRIORI ===
+    /// @notice Probabilità a priori che il fatto F1 (consegna corretta) sia vero (0-100)
     uint256 public p_F1_T; // P(F1=True)
+    /// @notice Probabilità a priori che il fatto F2 (conformità condizioni) sia vero (0-100)
     uint256 public p_F2_T; // P(F2=True)
     
     // === CPT (Conditional Probability Tables) ===

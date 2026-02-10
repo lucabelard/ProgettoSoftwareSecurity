@@ -1,0 +1,38 @@
+﻿node.exe : [solhint] 
+Warning: Rule 'contra
+ct-name-mixedcase' 
+doesn't exist
+In riga:1 car:1
++ & "C:\Program Files
+\nodejs/node.exe" 
+"C:\Program 
+Files\nodejs/node_mo 
+...
++ ~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~
+    + CategoryInfo   
+           : 
+NotSpecified: ([solh 
+   int] Warni...' 
+doesn't     
+exist:String) [], 
+Remot    eException
+    + FullyQualifiedE
+rrorId     : 
+NativeCommandError
+ 
+[solhint] Warning: 
+Rule 'event-name-mixe
+dcase' doesn't exist
+
+contracts\BNCore.sol
+  4:1  warning  global import of path @openzeppelin/contracts/access/AccessControl.sol is not allowed. Specify names to import individually or bind all exports of the module into a name (import "path" as Name)  no-global-import
+
+Ô£û 1 problem (0 errors, 1 warning)
+
+ -------------------------------------------------------------------------- 
+ ===> Join SOLHINT Community at: https://discord.com/invite/4TYGq3zpjs <=== 
+ -------------------------------------------------------------------------- 
+

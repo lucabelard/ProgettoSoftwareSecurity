@@ -19,13 +19,16 @@ error HashDettagliNonValido();
 
 /**
  * @title BNGestoreSpedizioni
+ * @author Blockchain Shipment Tracking Team
  * @notice Gestisce la creazione e tracciamento delle spedizioni
  * @dev Estende BNCore - ISOLAMENTO della logica di gestione spedizioni
  */
 contract BNGestoreSpedizioni is BNCore {
     
     // === RUOLI ===
+    /// @notice Identificatore del ruolo per i mittenti autorizzati a creare spedizioni
     bytes32 public constant RUOLO_MITTENTE = keccak256("RUOLO_MITTENTE");
+    /// @notice Identificatore del ruolo per i sensori autorizzati a inviare evidenze
     bytes32 public constant RUOLO_SENSORE = keccak256("RUOLO_SENSORE");
     
     // === STATI ===
@@ -37,6 +40,7 @@ contract BNGestoreSpedizioni is BNCore {
     }
     
     // === COSTANTI PER TIMEOUT ===
+    /// @notice Tempo massimo di attesa (7 giorni) dopo il quale il mittente può richiedere rimborso se le evidenze non sono complete
     uint256 public constant TIMEOUT_RIMBORSO = 7 days; // Dopo 7 giorni senza evidenze, rimborso possibile
     
     // === STRUTTURE ===
@@ -52,7 +56,9 @@ contract BNGestoreSpedizioni is BNCore {
     }
     
     // === STORAGE ===
+    /// @notice Mapping che associa ID spedizione alla struttura Spedizione completa
     mapping(uint256 => Spedizione) public spedizioni;
+    /// @notice Contatore incrementale per generare ID univoci per ogni nuova spedizione
     uint256 public _contatoreIdSpedizione;
     
     // === EVENTI ===
