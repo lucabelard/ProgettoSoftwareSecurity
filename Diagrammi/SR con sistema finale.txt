@@ -4,163 +4,93 @@
   "reinforcements": [],
   "actors": [
     {
-      "id": "sr-sensore-main",
-      "text": "Sensore_IoT",
+      "id": "admin_actor",
+      "text": "Admin",
       "type": "istar.Actor",
-      "x": 1798,
-      "y": 181,
+      "x": 1008,
+      "y": 1418,
       "customProperties": {
-        "Description": "Dispositivo IoT per monitoraggio condizioni trasporto"
+        "Description": "Amministratore di sistema"
       },
       "nodes": [
         {
-          "id": "g1-monitorare-registrare",
-          "text": "Monitorare e registrare condizioni trasporto",
+          "id": "a_goal_main",
+          "text": "Amministrare Sistema Efficacemente",
           "type": "istar.Goal",
-          "x": 2176,
-          "y": 222,
+          "x": 1208,
+          "y": 1468,
           "customProperties": {
-            "Description": "Goal principale del sensore"
+            "Description": "Goal principale admin"
           }
         },
         {
-          "id": "t1-rilevare-temperatura",
-          "text": "Rilevare temperatura E1",
+          "id": "a_task_configurazione",
+          "text": "Configurazione Sistema",
           "type": "istar.Task",
-          "x": 1904,
-          "y": 255,
+          "x": 1195,
+          "y": 1604,
           "customProperties": {
-            "Description": "T1: Sensore temperatura"
+            "Description": "Impostazioni sistema"
           }
         },
         {
-          "id": "t2-rilevare-shock",
-          "text": "Rilevare shock E3",
+          "id": "a_task_monitoraggio",
+          "text": "Monitoraggio Sistema",
           "type": "istar.Task",
-          "x": 2025,
-          "y": 312,
+          "x": 1332,
+          "y": 1606,
           "customProperties": {
-            "Description": "T2: Accelerometro"
+            "Description": "Supervisione operazioni"
           }
         },
         {
-          "id": "t3-rilevare-apertura",
-          "text": "Rilevare apertura/luce E4",
-          "type": "istar.Task",
-          "x": 2051,
-          "y": 384,
-          "customProperties": {
-            "Description": "T3: Fotosensore"
-          }
-        },
-        {
-          "id": "t4-verificare-sigillo",
-          "text": "Verificare sigillo elettronico E2",
-          "type": "istar.Task",
-          "x": 2161,
-          "y": 387,
-          "customProperties": {
-            "Description": "T4: Tamper detection"
-          }
-        },
-        {
-          "id": "t5-registrare-timestamp",
-          "text": "Registrare timestamp E5",
-          "type": "istar.Task",
-          "x": 2503,
-          "y": 246,
-          "customProperties": {
-            "Description": "T5: Scan arrivo"
-          }
-        },
-        {
-          "id": "g2-trasmettere-dati",
-          "text": "Trasmettere dati a blockchain",
+          "id": "05414d83-cb3f-42df-b712-731472a3b704",
+          "text": "Gestire Oracolo",
           "type": "istar.Goal",
-          "x": 2270,
-          "y": 281,
+          "x": 1491,
+          "y": 1460,
           "customProperties": {
-            "Description": "G2: Invio dati su blockchain"
+            "Description": ""
           }
         },
         {
-          "id": "t6-campionare",
-          "text": "Campionare ogni 5 minuti",
+          "id": "54b9b5b7-5594-4556-91d9-94dd61b774d5",
+          "text": "Impostare probabilità a priori",
           "type": "istar.Task",
-          "x": 1902,
-          "y": 350,
+          "x": 1469,
+          "y": 1675,
           "customProperties": {
-            "Description": "T6: Frequenza campionamento"
+            "Description": ""
           }
         },
         {
-          "id": "t7-verificare-range",
-          "text": "Verificare range 2-8°C",
+          "id": "c287d675-c8b0-40b1-a642-9b60ecec09c2",
+          "text": "Imposta CPT",
           "type": "istar.Task",
-          "x": 1798,
-          "y": 350,
+          "x": 1675,
+          "y": 1623,
           "customProperties": {
-            "Description": "T7: Controllo soglie"
+            "Description": ""
           }
         },
         {
-          "id": "t9-salvare-memoria",
-          "text": "Salvare in memoria locale",
+          "id": "5f6203f9-43b5-44fd-8065-e13aa0eed253",
+          "text": "Garantire sicurezza contratto",
+          "type": "istar.Goal",
+          "x": 1032,
+          "y": 1500,
+          "customProperties": {
+            "Description": ""
+          }
+        },
+        {
+          "id": "8ba13fa6-6a97-4b63-8e76-db78b5061132",
+          "text": "Bloccare contratto",
           "type": "istar.Task",
-          "x": 2296,
-          "y": 394,
+          "x": 1035.5,
+          "y": 1634,
           "customProperties": {
-            "Description": "T9: Storage locale"
-          }
-        },
-        {
-          "id": "t10-inviare-sistema",
-          "text": "Inviare a Sistema Blockchain",
-          "type": "istar.Task",
-          "x": 2403,
-          "y": 392,
-          "customProperties": {
-            "Description": "T10: Trasmissione a blockchain"
-          }
-        },
-        {
-          "id": "t11-generare-report",
-          "text": "Generare report finale",
-          "type": "istar.Task",
-          "x": 2535,
-          "y": 386,
-          "customProperties": {
-            "Description": "T11: Report E1-E5"
-          }
-        },
-        {
-          "id": "sg1-precisione",
-          "text": "Precisione misurazioni",
-          "type": "istar.Quality",
-          "x": 1812,
-          "y": 484,
-          "customProperties": {
-            "Description": "SG1: Accuratezza dati"
-          }
-        },
-        {
-          "id": "sg2-integrita",
-          "text": "Integrità Dati",
-          "type": "istar.Quality",
-          "x": 2318,
-          "y": 486,
-          "customProperties": {
-            "Description": "SG2: Dati non alterati"
-          }
-        },
-        {
-          "id": "sg3-autonomia",
-          "text": "Autonomia batteria",
-          "type": "istar.Quality",
-          "x": 1956,
-          "y": 484,
-          "customProperties": {
-            "Description": "SG3: Durata batteria"
+            "Description": ""
           }
         }
       ]
@@ -246,26 +176,6 @@
           }
         },
         {
-          "id": "s_resource_ipfs",
-          "text": "IPFS Hash",
-          "type": "istar.Resource",
-          "x": 1868,
-          "y": 1075,
-          "customProperties": {
-            "Description": "Storage evidenze"
-          }
-        },
-        {
-          "id": "s_resource_escrow",
-          "text": "Smart Contract Escrow",
-          "type": "istar.Resource",
-          "x": 2033,
-          "y": 1116,
-          "customProperties": {
-            "Description": "Gestione fondi"
-          }
-        },
-        {
           "id": "s_task_memorizzazione",
           "text": "Memorizzazione Dati",
           "type": "istar.Task",
@@ -296,16 +206,6 @@
           }
         },
         {
-          "id": "s_softgoal_trasparenza",
-          "text": "Trasparenza",
-          "type": "istar.Quality",
-          "x": 1769,
-          "y": 1165,
-          "customProperties": {
-            "Description": "Visibilità operazioni"
-          }
-        },
-        {
           "id": "s_softgoal_immutabilita",
           "text": "Immutabilità",
           "type": "istar.Quality",
@@ -318,149 +218,99 @@
       ]
     },
     {
-      "id": "admin_actor",
-      "text": "Admin",
+      "id": "2e9de05c-0cd0-43a7-a5cd-ea6eee88a0bb",
+      "text": "Sensore_IoT",
       "type": "istar.Actor",
-      "x": 1008,
-      "y": 1418,
+      "x": 1806,
+      "y": 167,
       "customProperties": {
-        "Description": "Amministratore di sistema"
+        "Description": "Dispositivo IoT per monitoraggio condizioni trasporto"
       },
       "nodes": [
         {
-          "id": "a_goal_main",
-          "text": "Amministrare Sistema Efficacemente",
+          "id": "g1-monitorare-registrare",
+          "text": "Monitorare e registrare condizioni trasporto",
           "type": "istar.Goal",
-          "x": 1208,
-          "y": 1468,
+          "x": 2184,
+          "y": 208,
           "customProperties": {
-            "Description": "Goal principale admin"
+            "Description": "Goal principale del sensore"
           }
         },
         {
-          "id": "a_task_ruoli",
-          "text": "Gestione Ruoli",
+          "id": "t1-rilevare-temperatura",
+          "text": "Rilevare temperatura E1",
           "type": "istar.Task",
-          "x": 1058,
-          "y": 1618,
+          "x": 1912,
+          "y": 241,
           "customProperties": {
-            "Description": "Assegnazione ruoli"
+            "Description": "T1: Sensore temperatura"
           }
         },
         {
-          "id": "a_task_validazione",
-          "text": "Validazione Manuale Evidenze",
+          "id": "t2-rilevare-shock",
+          "text": "Rilevare shock E3",
           "type": "istar.Task",
-          "x": 1258,
-          "y": 1618,
+          "x": 2033,
+          "y": 298,
           "customProperties": {
-            "Description": "Intervento manuale casi speciali"
+            "Description": "T2: Accelerometro"
           }
         },
         {
-          "id": "a_task_configurazione",
-          "text": "Configurazione Sistema",
+          "id": "t3-rilevare-apertura",
+          "text": "Rilevare apertura/luce E4",
           "type": "istar.Task",
-          "x": 1458,
-          "y": 1618,
+          "x": 2169,
+          "y": 352,
           "customProperties": {
-            "Description": "Impostazioni sistema"
+            "Description": "T3: Fotosensore"
           }
         },
         {
-          "id": "a_task_monitoraggio",
-          "text": "Monitoraggio Sistema",
+          "id": "t4-verificare-sigillo",
+          "text": "Verificare sigillo elettronico E2",
           "type": "istar.Task",
-          "x": 1657,
-          "y": 1618,
+          "x": 2335,
+          "y": 339,
           "customProperties": {
-            "Description": "Supervisione operazioni"
+            "Description": "T4: Tamper detection"
           }
         },
         {
-          "id": "a_goal_approvazione",
-          "text": "Approvazione Evidenze",
-          "type": "istar.Goal",
-          "x": 1208,
-          "y": 1768,
-          "customProperties": {
-            "Description": "Validazione finale"
-          }
-        },
-        {
-          "id": "a_task_approva",
-          "text": "Approva Evidenza",
+          "id": "t5-registrare-timestamp",
+          "text": "Registrare timestamp E5",
           "type": "istar.Task",
-          "x": 1158,
-          "y": 1898,
+          "x": 2422,
+          "y": 275,
           "customProperties": {
-            "Description": "Conferma evidenza"
+            "Description": "T5: Scan arrivo"
           }
         },
         {
-          "id": "a_task_rifiuta",
-          "text": "Rifiuta Evidenza",
+          "id": "t7-verificare-range",
+          "text": "Verificare range 2-8°C",
           "type": "istar.Task",
-          "x": 1308,
-          "y": 1898,
+          "x": 1806,
+          "y": 336,
           "customProperties": {
-            "Description": "Rifiuta evidenza"
+            "Description": "T7: Controllo soglie"
           }
         },
         {
-          "id": "a_resource_acl",
-          "text": "Access Control List",
-          "type": "istar.Resource",
-          "x": 1022,
-          "y": 1873,
-          "customProperties": {
-            "Description": "Lista controllo accessi"
-          }
-        },
-        {
-          "id": "a_resource_dashboard",
-          "text": "Dashboard Admin",
-          "type": "istar.Resource",
-          "x": 1658,
-          "y": 1768,
-          "customProperties": {
-            "Description": "Interfaccia admin"
-          }
-        },
-        {
-          "id": "a_softgoal_sicurezza",
-          "text": "Sicurezza Sistema",
+          "id": "sg2-integrita",
+          "text": "Integrità Dati",
           "type": "istar.Quality",
-          "x": 1108,
-          "y": 1998,
+          "x": 1978,
+          "y": 405,
           "customProperties": {
-            "Description": "Protezione sistema"
-          }
-        },
-        {
-          "id": "a_softgoal_qualita",
-          "text": "Qualità Evidenze",
-          "type": "istar.Quality",
-          "x": 1511,
-          "y": 1884,
-          "customProperties": {
-            "Description": "Standard qualità"
+            "Description": "SG2: Dati non alterati"
           }
         }
       ]
     }
   ],
   "orphans": [
-    {
-      "id": "1577c81f-97d3-45f7-92d8-fdd223eb5078",
-      "text": "Corriere",
-      "type": "istar.Role",
-      "x": 58,
-      "y": 1141,
-      "customProperties": {
-        "Description": "Compagnia di trasporto farmaceutico"
-      }
-    },
     {
       "id": "483d54b5-b87f-4be4-b549-433b26825176",
       "text": "Mittente",
@@ -469,6 +319,16 @@
       "y": 397,
       "customProperties": {
         "Description": "Farmacia o produttore farmaceutico"
+      }
+    },
+    {
+      "id": "1577c81f-97d3-45f7-92d8-fdd223eb5078",
+      "text": "Corriere",
+      "type": "istar.Role",
+      "x": 58,
+      "y": 1141,
+      "customProperties": {
+        "Description": "Compagnia di trasporto farmaceutico"
       }
     }
   ],
@@ -485,33 +345,11 @@
       "target": "sistema_actor"
     },
     {
-      "id": "dep_validazione_evidenze",
-      "text": "Validazione Evidenze Automatica",
-      "type": "istar.Goal",
-      "x": 607,
-      "y": 238,
-      "reinforcedBy": [],
-      "directionFlow": "inbound",
-      "source": "483d54b5-b87f-4be4-b549-433b26825176",
-      "target": "sistema_actor"
-    },
-    {
       "id": "dep_pagamento_automatico",
       "text": "Pagamento Automatico",
       "type": "istar.Task",
-      "x": 601,
-      "y": 296,
-      "reinforcedBy": [],
-      "directionFlow": "inbound",
-      "source": "483d54b5-b87f-4be4-b549-433b26825176",
-      "target": "sistema_actor"
-    },
-    {
-      "id": "dep_tracciabilita",
-      "text": "Tracciabilità Immutabile",
-      "type": "istar.Quality",
-      "x": 620,
-      "y": 100,
+      "x": 614,
+      "y": 266,
       "reinforcedBy": [],
       "directionFlow": "inbound",
       "source": "483d54b5-b87f-4be4-b549-433b26825176",
@@ -540,77 +378,11 @@
       "target": "sistema_actor"
     },
     {
-      "id": "dep_prova_conformita",
-      "text": "Prova di Conformità",
-      "type": "istar.Resource",
-      "x": 811,
-      "y": 880,
-      "reinforcedBy": [],
-      "directionFlow": "inbound",
-      "source": "1577c81f-97d3-45f7-92d8-fdd223eb5078",
-      "target": "sistema_actor"
-    },
-    {
-      "id": "dep_invio_dati",
-      "text": "Invio Dati Ambientali",
-      "type": "istar.Task",
-      "x": 1529,
-      "y": 240,
-      "reinforcedBy": [],
-      "directionFlow": "outbound",
-      "source": "sr-sensore-main",
-      "target": "sistema_actor"
-    },
-    {
-      "id": "dep_timestamp",
-      "text": "Timestamp Certificato",
-      "type": "istar.Resource",
-      "x": 1476,
-      "y": 172,
-      "reinforcedBy": [],
-      "directionFlow": "outbound",
-      "source": "sr-sensore-main",
-      "target": "sistema_actor"
-    },
-    {
-      "id": "dep_gestione_ruoli",
-      "text": "Gestione Ruoli",
-      "type": "istar.Task",
-      "x": 965,
-      "y": 1022,
-      "reinforcedBy": [],
-      "directionFlow": "outbound",
-      "source": "admin_actor",
-      "target": "sistema_actor"
-    },
-    {
-      "id": "dep_validazione_manuale",
-      "text": "Validazione Manuale Evidenze",
-      "type": "istar.Task",
-      "x": 1068,
-      "y": 1039,
-      "reinforcedBy": [],
-      "directionFlow": "outbound",
-      "source": "admin_actor",
-      "target": "sistema_actor"
-    },
-    {
-      "id": "dep_approvazione_evidenze",
-      "text": "Approvazione Evidenze",
-      "type": "istar.Goal",
-      "x": 1164,
-      "y": 1080,
-      "reinforcedBy": [],
-      "directionFlow": "outbound",
-      "source": "sistema_actor",
-      "target": "admin_actor"
-    },
-    {
       "id": "dep_configurazione_sistema",
-      "text": "Configurazione Sistema",
+      "text": "Configurazione oracolo",
       "type": "istar.Task",
-      "x": 1213,
-      "y": 1161,
+      "x": 1014,
+      "y": 1050,
       "reinforcedBy": [],
       "directionFlow": "outbound",
       "source": "sistema_actor",
@@ -625,29 +397,7 @@
       "reinforcedBy": [],
       "directionFlow": "outbound",
       "source": "sistema_actor",
-      "target": "sr-sensore-main"
-    },
-    {
-      "id": "dep_letture_ambientali",
-      "text": "Richiesta Letture Ambientali",
-      "type": "istar.Resource",
-      "x": 1647,
-      "y": 362,
-      "reinforcedBy": [],
-      "directionFlow": "outbound",
-      "source": "sistema_actor",
-      "target": "sr-sensore-main"
-    },
-    {
-      "id": "dep_conferma_consegna",
-      "text": "Conferma Consegna",
-      "type": "istar.Resource",
-      "x": 813,
-      "y": 704,
-      "reinforcedBy": [],
-      "directionFlow": "outbound",
-      "source": "sistema_actor",
-      "target": "1577c81f-97d3-45f7-92d8-fdd223eb5078"
+      "target": "2e9de05c-0cd0-43a7-a5cd-ea6eee88a0bb"
     },
     {
       "id": "dep_consegna_fisica",
@@ -676,10 +426,10 @@
     },
     {
       "id": "2f2aafdd-4735-4537-b78c-6cad725d3482",
-      "text": "Rimborso automatico",
+      "text": "Rimborso",
       "type": "istar.Goal",
-      "x": 624,
-      "y": 48,
+      "x": 613,
+      "y": 110,
       "customProperties": {
         "Description": ""
       },
@@ -701,9 +451,34 @@
       "directionFlow": "inbound",
       "source": "cd95393e-758a-4f94-ac2d-7b00e852b1c4",
       "target": "sistema_actor"
+    },
+    {
+      "id": "eff3fb12-2680-4e8c-bc76-b986e4704136",
+      "text": "Ricezioni dati ambientali",
+      "type": "istar.Task",
+      "x": 1465,
+      "y": 237,
+      "customProperties": {
+        "Description": ""
+      },
+      "directionFlow": "outbound",
+      "source": "sistema_actor",
+      "target": "2e9de05c-0cd0-43a7-a5cd-ea6eee88a0bb"
     }
   ],
   "links": [
+    {
+      "id": "0bbe12d3-e9e1-42f2-98d5-01957b8be271",
+      "type": "istar.DependencyLink",
+      "source": "eff3fb12-2680-4e8c-bc76-b986e4704136",
+      "target": "2e9de05c-0cd0-43a7-a5cd-ea6eee88a0bb"
+    },
+    {
+      "id": "e8e1ea5c-00b9-4609-8a79-d10f82b96c86",
+      "type": "istar.DependencyLink",
+      "source": "sistema_actor",
+      "target": "eff3fb12-2680-4e8c-bc76-b986e4704136"
+    },
     {
       "id": "f912cdee-ab88-4e39-b073-157008eab6c0",
       "type": "istar.DependencyLink",
@@ -753,34 +528,10 @@
       "target": "dep_consegna_fisica"
     },
     {
-      "id": "92b16204-a6c9-4d6d-907c-2a87aa21ecb2",
-      "type": "istar.DependencyLink",
-      "source": "dep_conferma_consegna",
-      "target": "1577c81f-97d3-45f7-92d8-fdd223eb5078"
-    },
-    {
-      "id": "9cfdf630-e948-4747-bb0e-ffd50a21dfbd",
-      "type": "istar.DependencyLink",
-      "source": "sistema_actor",
-      "target": "dep_conferma_consegna"
-    },
-    {
-      "id": "48461d15-2f31-4c43-9800-e37f8b5fc674",
-      "type": "istar.DependencyLink",
-      "source": "dep_letture_ambientali",
-      "target": "sr-sensore-main"
-    },
-    {
-      "id": "a35330c8-f5f4-41f8-b7b0-d181349e9345",
-      "type": "istar.DependencyLink",
-      "source": "sistema_actor",
-      "target": "dep_letture_ambientali"
-    },
-    {
       "id": "26486254-580f-4caf-b3bb-1ddff67f3a01",
       "type": "istar.DependencyLink",
       "source": "dep_dati_affidabili",
-      "target": "sr-sensore-main"
+      "target": "2e9de05c-0cd0-43a7-a5cd-ea6eee88a0bb"
     },
     {
       "id": "48bfac7b-1470-4a90-a4b0-825f47024bef",
@@ -799,78 +550,6 @@
       "type": "istar.DependencyLink",
       "source": "sistema_actor",
       "target": "dep_configurazione_sistema"
-    },
-    {
-      "id": "fbc12ded-15ea-4a3f-acd5-bf28ca152b7b",
-      "type": "istar.DependencyLink",
-      "source": "dep_approvazione_evidenze",
-      "target": "admin_actor"
-    },
-    {
-      "id": "41edbd42-ad30-457f-9234-e35f51283f5d",
-      "type": "istar.DependencyLink",
-      "source": "sistema_actor",
-      "target": "dep_approvazione_evidenze"
-    },
-    {
-      "id": "af78827f-ce31-4678-be37-106c2a7309d0",
-      "type": "istar.DependencyLink",
-      "source": "dep_validazione_manuale",
-      "target": "sistema_actor"
-    },
-    {
-      "id": "75fc570c-4f38-4b43-ae9b-4ee54f0ffc54",
-      "type": "istar.DependencyLink",
-      "source": "admin_actor",
-      "target": "dep_validazione_manuale"
-    },
-    {
-      "id": "61a2f0ea-922e-4c89-b54e-e379f775a64d",
-      "type": "istar.DependencyLink",
-      "source": "dep_gestione_ruoli",
-      "target": "sistema_actor"
-    },
-    {
-      "id": "1fed6864-3e2b-4b50-a8c7-636ebfc65216",
-      "type": "istar.DependencyLink",
-      "source": "admin_actor",
-      "target": "dep_gestione_ruoli"
-    },
-    {
-      "id": "054738a1-b6bc-44b8-bfc5-f85fc1bf0dbf",
-      "type": "istar.DependencyLink",
-      "source": "dep_timestamp",
-      "target": "sistema_actor"
-    },
-    {
-      "id": "0819a98e-804a-46a5-81b2-95d88dd6b1f4",
-      "type": "istar.DependencyLink",
-      "source": "sr-sensore-main",
-      "target": "dep_timestamp"
-    },
-    {
-      "id": "302b3f7c-a54a-4967-9d45-30dc4eb6f275",
-      "type": "istar.DependencyLink",
-      "source": "dep_invio_dati",
-      "target": "sistema_actor"
-    },
-    {
-      "id": "4618d978-8a6f-419c-8d18-941e819d17ef",
-      "type": "istar.DependencyLink",
-      "source": "sr-sensore-main",
-      "target": "dep_invio_dati"
-    },
-    {
-      "id": "1a50f085-470a-4150-a9be-6f7ce2bd7c24",
-      "type": "istar.DependencyLink",
-      "source": "dep_prova_conformita",
-      "target": "sistema_actor"
-    },
-    {
-      "id": "64ee8a34-a855-4c81-bbaf-41958e736799",
-      "type": "istar.DependencyLink",
-      "source": "1577c81f-97d3-45f7-92d8-fdd223eb5078",
-      "target": "dep_prova_conformita"
     },
     {
       "id": "2b4359d3-a01d-4da4-8187-9680828c8ac6",
@@ -897,18 +576,6 @@
       "target": "dep_registrazione_consegna"
     },
     {
-      "id": "984a773a-de39-4ccc-a115-0a8ef307b42c",
-      "type": "istar.DependencyLink",
-      "source": "dep_tracciabilita",
-      "target": "sistema_actor"
-    },
-    {
-      "id": "54e2ee58-27d7-4f7a-b695-f8e9775c911f",
-      "type": "istar.DependencyLink",
-      "source": "483d54b5-b87f-4be4-b549-433b26825176",
-      "target": "dep_tracciabilita"
-    },
-    {
       "id": "cd5a213b-14eb-4c10-9cfd-942e88ac112b",
       "type": "istar.DependencyLink",
       "source": "dep_pagamento_automatico",
@@ -919,18 +586,6 @@
       "type": "istar.DependencyLink",
       "source": "483d54b5-b87f-4be4-b549-433b26825176",
       "target": "dep_pagamento_automatico"
-    },
-    {
-      "id": "7b85106a-176b-435f-a62a-75351f9d46b4",
-      "type": "istar.DependencyLink",
-      "source": "dep_validazione_evidenze",
-      "target": "sistema_actor"
-    },
-    {
-      "id": "a430cd13-03cd-4e30-8d38-55d93b72b265",
-      "type": "istar.DependencyLink",
-      "source": "483d54b5-b87f-4be4-b549-433b26825176",
-      "target": "dep_validazione_evidenze"
     },
     {
       "id": "2137e755-1331-4e65-8bc5-cf1bd72c19f8",
@@ -963,40 +618,10 @@
       "target": "t4-depositare-fondi"
     },
     {
-      "id": "ada772f8-cc4c-427a-96b0-3a0f7d066ead",
-      "type": "istar.AndRefinementLink",
-      "source": "g1-spedire-farmaci",
-      "target": "g2-verificare-conformita"
-    },
-    {
-      "id": "f09163c6-6e8c-4857-9a3b-7cdd19cccac6",
-      "type": "istar.AndRefinementLink",
-      "source": "g1-spedire-farmaci",
-      "target": "g3-pagare-se-conforme"
-    },
-    {
-      "id": "3d47969f-e086-461d-acf5-ebec7bfa4d5e",
-      "type": "istar.AndRefinementLink",
-      "source": "g2-verificare-conformita",
-      "target": "t5-verificare-evidenze"
-    },
-    {
-      "id": "f7998491-0ec7-4204-aaf1-953a69ec0c7a",
-      "type": "istar.AndRefinementLink",
-      "source": "g2-verificare-conformita",
-      "target": "t6-verificare-certificati"
-    },
-    {
       "id": "9ed3b342-8aba-4671-8734-99ab980858ce",
       "type": "istar.ContributionLink",
       "source": "t3-installare-sensori",
       "target": "sg2-tracciabilita"
-    },
-    {
-      "id": "54f578e7-137d-4199-a0a8-f7b08dc4590c",
-      "type": "istar.ContributionLink",
-      "source": "t4-depositare-fondi",
-      "target": "sg1-protezione-finanziaria"
     },
     {
       "id": "1911e1db-e60b-4a36-9768-e44b1127448c",
@@ -1035,30 +660,6 @@
       "target": "g2-dimostrare-conformita"
     },
     {
-      "id": "66bb4dd8-a2bc-4439-a066-5d44cd179dda",
-      "type": "istar.AndRefinementLink",
-      "source": "g1-consegnare-ricevere",
-      "target": "g3-ottenere-sblocco"
-    },
-    {
-      "id": "22ec30fe-2716-49af-9999-f34606a67179",
-      "type": "istar.AndRefinementLink",
-      "source": "t2-mantenere-temp",
-      "target": "t10-veicolo-refrigerato"
-    },
-    {
-      "id": "b5eda746-8676-475a-9c67-80563232937b",
-      "type": "istar.AndRefinementLink",
-      "source": "t2-mantenere-temp",
-      "target": "t11-monitorare-temp"
-    },
-    {
-      "id": "c7c982b7-1eb0-45b8-af1a-959c261b5483",
-      "type": "istar.AndRefinementLink",
-      "source": "t2-mantenere-temp",
-      "target": "t12-intervenire-anomalie"
-    },
-    {
       "id": "0e1d78a1-7cdf-46a1-a773-5413a04d7be3",
       "type": "istar.AndRefinementLink",
       "source": "g2-dimostrare-conformita",
@@ -1069,30 +670,6 @@
       "type": "istar.AndRefinementLink",
       "source": "g2-dimostrare-conformita",
       "target": "t8-firma-destinatario"
-    },
-    {
-      "id": "cbc2d1d4-947a-4574-b972-0fca32a7be43",
-      "type": "istar.AndRefinementLink",
-      "source": "g3-ottenere-sblocco",
-      "target": "t13-registrare-blockchain"
-    },
-    {
-      "id": "d1557751-1bf1-4d7d-8863-0ce51e7179fc",
-      "type": "istar.ContributionLink",
-      "source": "t2-mantenere-temp",
-      "target": "sg2-reputazione"
-    },
-    {
-      "id": "2882b364-7c0c-478c-b750-7af838e64df8",
-      "type": "istar.ContributionLink",
-      "source": "t6-raccogliere-dati",
-      "target": "sg1-certezza-pagamento"
-    },
-    {
-      "id": "b71225a5-f9d2-4467-be54-e2b444409244",
-      "type": "istar.ContributionLink",
-      "source": "t13-registrare-blockchain",
-      "target": "sg3-ridurre-tempi"
     },
     {
       "id": "fe35284f-90d2-4743-803f-96c21d4812f1",
@@ -1125,58 +702,10 @@
       "target": "t5-registrare-timestamp"
     },
     {
-      "id": "56d35204-1fe9-41f9-9d3d-3e9d4d03e207",
-      "type": "istar.AndRefinementLink",
-      "source": "g1-monitorare-registrare",
-      "target": "g2-trasmettere-dati"
-    },
-    {
-      "id": "8c6a3253-266e-42ed-990b-dc98b5686fbc",
-      "type": "istar.AndRefinementLink",
-      "source": "t1-rilevare-temperatura",
-      "target": "t6-campionare"
-    },
-    {
       "id": "1c110bca-db6b-4ef6-a800-45b0d5cd59b4",
       "type": "istar.AndRefinementLink",
       "source": "t1-rilevare-temperatura",
       "target": "t7-verificare-range"
-    },
-    {
-      "id": "81790112-c71f-48f8-9218-dc8c6bf94113",
-      "type": "istar.AndRefinementLink",
-      "source": "g2-trasmettere-dati",
-      "target": "t9-salvare-memoria"
-    },
-    {
-      "id": "b643613b-27e2-46e2-b109-68be09d1b751",
-      "type": "istar.AndRefinementLink",
-      "source": "g2-trasmettere-dati",
-      "target": "t10-inviare-sistema"
-    },
-    {
-      "id": "f2269f6d-bb5c-41ab-9f90-0903d5d95d40",
-      "type": "istar.AndRefinementLink",
-      "source": "g2-trasmettere-dati",
-      "target": "t11-generare-report"
-    },
-    {
-      "id": "8d1a0eae-11a3-49f6-b46b-bf375c2d6206",
-      "type": "istar.ContributionLink",
-      "source": "t6-campionare",
-      "target": "sg1-precisione"
-    },
-    {
-      "id": "bb6d000a-8d69-4030-829a-c9172c315eed",
-      "type": "istar.ContributionLink",
-      "source": "t9-salvare-memoria",
-      "target": "sg2-integrita"
-    },
-    {
-      "id": "91badd5d-c6e7-4b46-9312-48859d8b655f",
-      "type": "istar.ContributionLink",
-      "source": "t6-campionare",
-      "target": "sg3-autonomia"
     },
     {
       "id": "684a5767-c91c-41a5-86ad-bbd7a346802d",
@@ -1198,49 +727,10 @@
       "label": "make"
     },
     {
-      "id": "84780e83-fffb-461c-a400-21f5773e0444",
-      "type": "istar.ContributionLink",
-      "source": "s_task_evidenze",
-      "target": "s_softgoal_trasparenza",
-      "label": "make"
-    },
-    {
       "id": "934dbb5f-fe86-446c-ac9a-c4b6d5928e83",
       "type": "istar.ContributionLink",
       "source": "s_task_autorizzazioni",
       "target": "s_softgoal_sicurezza",
-      "label": "make"
-    },
-    {
-      "id": "b46c1f08-2087-4bbe-8a80-82d1e79b35b8",
-      "type": "istar.AndRefinementLink",
-      "source": "a_goal_approvazione",
-      "target": "a_task_validazione"
-    },
-    {
-      "id": "f3bc5fd2-7854-468e-88ce-e1649e67f624",
-      "type": "istar.OrRefinementLink",
-      "source": "a_task_approva",
-      "target": "a_goal_approvazione"
-    },
-    {
-      "id": "2c409088-42c8-44f1-af16-a8f19c7923ba",
-      "type": "istar.OrRefinementLink",
-      "source": "a_task_rifiuta",
-      "target": "a_goal_approvazione"
-    },
-    {
-      "id": "3863e339-d33d-4800-b86d-d05d69c69067",
-      "type": "istar.ContributionLink",
-      "source": "a_task_ruoli",
-      "target": "a_softgoal_sicurezza",
-      "label": "make"
-    },
-    {
-      "id": "577a5ee5-3bcc-4d09-92b7-f1a86d5fba76",
-      "type": "istar.ContributionLink",
-      "source": "a_task_validazione",
-      "target": "a_softgoal_qualita",
       "label": "make"
     },
     {
@@ -1274,18 +764,6 @@
       "target": "s_task_autorizzazioni"
     },
     {
-      "id": "adc31893-c186-4362-b042-0c1313d80a0a",
-      "type": "istar.AndRefinementLink",
-      "source": "a_goal_main",
-      "target": "a_task_ruoli"
-    },
-    {
-      "id": "334db04f-a621-44dc-9a42-42780f093416",
-      "type": "istar.AndRefinementLink",
-      "source": "a_goal_main",
-      "target": "a_task_validazione"
-    },
-    {
       "id": "1833e983-fee3-4cdb-8852-2fed37b07307",
       "type": "istar.AndRefinementLink",
       "source": "a_goal_main",
@@ -1296,29 +774,39 @@
       "type": "istar.AndRefinementLink",
       "source": "a_goal_main",
       "target": "a_task_monitoraggio"
+    },
+    {
+      "id": "e5a23b12-0125-4c22-b99e-f771d0797bd8",
+      "type": "istar.AndRefinementLink",
+      "source": "54b9b5b7-5594-4556-91d9-94dd61b774d5",
+      "target": "05414d83-cb3f-42df-b712-731472a3b704"
+    },
+    {
+      "id": "c527cbfd-586b-443f-9e18-ccbd0ebd3317",
+      "type": "istar.AndRefinementLink",
+      "source": "c287d675-c8b0-40b1-a642-9b60ecec09c2",
+      "target": "05414d83-cb3f-42df-b712-731472a3b704"
+    },
+    {
+      "id": "5d00b1f8-70e7-4951-bc05-fa062cc6f598",
+      "type": "istar.AndRefinementLink",
+      "source": "5f6203f9-43b5-44fd-8065-e13aa0eed253",
+      "target": "8ba13fa6-6a97-4b63-8e76-db78b5061132"
     }
   ],
   "display": {
-    "1577c81f-97d3-45f7-92d8-fdd223eb5078": {
-      "width": 744,
-      "height": 552
-    },
     "483d54b5-b87f-4be4-b549-433b26825176": {
-      "width": 501,
-      "height": 423
+      "width": 353,
+      "height": 388
     },
-    "da51bc9f-7e21-4e8c-9bf9-186295fa9c4c": {
-      "vertices": [
-        {
-          "x": 416,
-          "y": 492
-        }
-      ]
+    "1577c81f-97d3-45f7-92d8-fdd223eb5078": {
+      "width": 633,
+      "height": 411
     }
   },
   "tool": "pistar.2.1.0",
   "istar": "2.0",
-  "saveDate": "Tue, 10 Feb 2026 15:07:48 GMT",
+  "saveDate": "Thu, 12 Feb 2026 15:44:12 GMT",
   "diagram": {
     "width": 2661,
     "height": 2200,
