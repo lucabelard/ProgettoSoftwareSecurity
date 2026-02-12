@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2024) (preloaded format=pdflatex 2024.11.25)  10 FEB 2026 17:17
+This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2024) (preloaded format=pdflatex 2024.11.25)  12 FEB 2026 16:38
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -1194,7 +1194,15 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller to compensate:
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
-[4])
+[4]
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 13.59999pt, for example:
+(fancyhdr)                \setlength{\headheight}{13.59999pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+(fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
+
+[5])
 \tf@toc=\write9
 \openout9 = `main.toc'.
 
@@ -1206,7 +1214,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller to compensate:
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
-[5])
+[6])
 \openout2 = `introduction/introduction.aux'.
 
  (./introduction/introduction.tex
@@ -1238,7 +1246,7 @@ LaTeX Font Info:    Font shape `T1/phv/m/n' will be
 
 
 ]
-<chapter1/image/SR completo con sistema nuovo.png, id=406, 10631.72pt x 8170.525pt>
+<chapter1/image/SR completo con sistema nuovo.png, id=468, 10631.72pt x 8170.525pt>
 File: chapter1/image/SR completo con sistema nuovo.png Graphic file (type png)
 <use chapter1/image/SR completo con sistema nuovo.png>
 Package pdftex.def Info: chapter1/image/SR completo con sistema nuovo.png  used on input line 30.
@@ -1349,6 +1357,10 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
 
+Underfull \hbox (badness 2452) in paragraph at lines 183--184
+[]|\T1/ppl/m/n/10 (+20) Push Pay-ment + Reen-tran-cy-
+ []
+
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
@@ -1375,13 +1387,18 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 
 ]
-Overfull \hbox (3.14774pt too wide) in alignment at lines 264--294
- [] [] 
+Underfull \hbox (badness 4229) in paragraph at lines 290--291
+\T1/ppl/b/n/10.95 (+20) Tracciabilità: \T1/ppl/m/n/10.95 (+20) tut-te le tran-sa-zio-ni re-sta-no re-gi-stra-te sul-la
  []
 
 
-Underfull \hbox (badness 2735) in paragraph at lines 324--325
-\T1/ppl/b/n/10.95 (+20) NFR: \T1/ppl/m/n/10.95 (+20) SLA ma-nu-ten-zio-ne sen-so-ri, ca-li-bra-zio-ne se-me-stra-le,
+Underfull \hbox (badness 1365) in paragraph at lines 292--293
+\T1/ppl/b/n/10.95 (+20) Contromisure con-si-glia-te: \T1/ppl/m/n/10.95 (+20) ro-ta-zio-ne pe-rio-di-ca del-le chia-vi
+ []
+
+
+Overfull \hbox (3.14774pt too wide) in alignment at lines 264--294
+ [] [] 
  []
 
 
@@ -1397,13 +1414,23 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
 [12]
-Underfull \hbox (badness 2189) in paragraph at lines 348--349
-[]|\T1/ppl/m/n/10.95 (+20) attaccante de-ploya un con-trat-to mit-ten-te che im-ple-men-ta
+Underfull \hbox (badness 2452) in paragraph at lines 348--349
+[]|\T1/ppl/m/n/10.95 (+20) L'attaccante de-ploya uno smart con-tract ma-le-vo-lo do-ta-to
  []
 
 
-Underfull \hbox (badness 3189) in paragraph at lines 348--349
-\T1/ppl/m/n/10.95 (+20) una fall-back func-tion ma-le-vo-la. Quan-do BN-Co-re ese-gue
+Underfull \hbox (badness 1072) in paragraph at lines 348--349
+\T1/ppl/m/n/10.95 (+20) di una fun-zio-ne \T1/pcr/m/n/10.95 receive() \T1/ppl/m/n/10.95 (+20) che ri-chia-ma au-to-ma-ti-ca-men-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 354--355
+\T1/ppl/m/n/10.95 (+20) 5. BN-Pa-ga-men-ti ese-gue \T1/pcr/m/n/10.95 corriere.call{value:
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 354--355
+\T1/ppl/m/n/10.95 (+20) 6. La fall-back ri-chiama \T1/pcr/m/n/10.95 validaEPaga()\T1/ppl/m/n/10.95 (+20) , \T1/pcr/m/n/10.95 stato ==
  []
 
 
@@ -1419,8 +1446,25 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
 [13]
+Underfull \hbox (badness 4429) in paragraph at lines 386--387
+\T1/ppl/m/n/10.95 (+20) - Nes-su-na va-li-da-zio-ne del check-sum o del-l'i-den-ti-tà del
+ []
+
+
 Overfull \hbox (3.14774pt too wide) in alignment at lines 368--398
  [] [] 
+ []
+
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 13.59999pt, for example:
+(fancyhdr)                \setlength{\headheight}{13.59999pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+(fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
+
+[14]
+Underfull \hbox (badness 2698) in paragraph at lines 426--427
+\T1/ppl/m/n/10.95 (+20) - Più sen-so-ri ven-go-no com-pro-mes-si con-tem-po-ra-nea-men-te
  []
 
 
@@ -1435,12 +1479,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller to compensate:
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
-[14]
-Underfull \hbox (badness 3199) in paragraph at lines 466--467
-\T1/ppl/b/n/10.95 (+20) Mitigation: \T1/ppl/m/n/10.95 (+20) buf-fer lo-ca-le evi-den-ze, tra-smis-sio-ne batch al
- []
-
-
+[15]
 Overfull \hbox (3.14774pt too wide) in alignment at lines 438--468
  [] [] 
  []
@@ -1452,19 +1491,14 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller to compensate:
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
-[15]
+[16]
 Underfull \hbox (badness 10000) in paragraph at lines 494--495
 \T1/ppl/m/n/10.95 (+20) 2. Im-po-sta \T1/pcr/m/n/10.95 P(Esito|Freschezza=false,
  []
 
 
-Underfull \hbox (badness 3019) in paragraph at lines 496--497
-[]|\T1/ppl/m/n/10.95 (+20) - Ad-min ri-du-ce so-glie: \T1/pcr/m/n/10.95 P(Esito|true,true) = 1% \T1/ppl/m/n/10.95 (+20) per
- []
-
-
-Underfull \hbox (badness 6316) in paragraph at lines 502--503
-\T1/ppl/b/n/10.95 (+20) Mitigation: \T1/ppl/m/n/10.95 (+20) Multi-sig go-ver-nan-ce, CPT im-mu-ta-bi-li post-
+Underfull \hbox (badness 1097) in paragraph at lines 494--495
+\T1/ppl/m/n/10.95 (+20) 5. L'in-te-gri-tà del si-ste-ma di cal-co-lo ri-sul-ta com-ple-ta-men-te
  []
 
 
@@ -1479,9 +1513,31 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller to compensate:
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
-[16]
+[17]
+Underfull \hbox (badness 7759) in paragraph at lines 530--531
+\T1/ppl/m/n/10.95 (+20) - L'ad-min in-ver-te la pro-ba-bi-li-tà con-di-zio-na-ta: in-se-ri-sce
+ []
+
+
 Overfull \hbox (3.14774pt too wide) in alignment at lines 508--538
  [] [] 
+ []
+
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 13.59999pt, for example:
+(fancyhdr)                \setlength{\headheight}{13.59999pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+(fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
+
+[18]
+Underfull \hbox (badness 1571) in paragraph at lines 560--561
+[]|\T1/ppl/m/n/10.95 (+20) eventi \T1/pcr/m/n/10.95 SpedizioneCreata\T1/ppl/m/n/10.95 (+20) , \T1/pcr/m/n/10.95 SpedizionePagata\T1/ppl/m/n/10.95 (+20) , in-di-riz-zi
+ []
+
+
+Underfull \hbox (badness 4279) in paragraph at lines 566--567
+\T1/ppl/m/n/10.95 (+20) - Iden-ti-fi-ca-zio-ne del-le va-li-da-zio-ni fal-li-te per in-di-vi-dua-re
  []
 
 
@@ -1496,12 +1552,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller to compensate:
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
-[17]
-Underfull \hbox (badness 10000) in paragraph at lines 602--603
-[]|\T1/ppl/m/n/10.95 (+20) - Fa-ke "Ap-pro-va con-trat-to" $\OMS/zplm/m/n/10.95 !$ \T1/ppl/m/n/10.95 (+20) uten-te fir-ma
- []
-
-
+[19]
 Overfull \hbox (3.14774pt too wide) in alignment at lines 580--610
  [] [] 
  []
@@ -1513,7 +1564,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller to compensate:
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
-[18]
+[20]
 Overfull \hbox (3.14774pt too wide) in alignment at lines 614--644
  [] [] 
  []
@@ -1525,12 +1576,19 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller to compensate:
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
-[19]
+[21]
 Overfull \hbox (3.14774pt too wide) in alignment at lines 650--680
  [] [] 
  []
 
 
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 13.59999pt, for example:
+(fancyhdr)                \setlength{\headheight}{13.59999pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+(fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
+
+[22]
 Overfull \hbox (3.14774pt too wide) in alignment at lines 684--714
  [] [] 
  []
@@ -1542,9 +1600,9 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller to compensate:
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
-[20]
+[23]
 Underfull \hbox (badness 10000) in paragraph at lines 740--741
-[]|\T1/ppl/m/n/10.95 (+20) 1. at-tac-can-te iden-ti-fi-ca func-tion
+[]|\T1/ppl/m/n/10.95 (+20) 1. L'at-tac-can-te iden-ti-fi-ca il se-let-to-re del-la fun-zio-ne
  []
 
 
@@ -1559,17 +1617,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller to compensate:
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
-[21]
-Underfull \hbox (badness 7851) in paragraph at lines 770--771
-[]|\T1/ppl/m/n/10.95 (+20) anche se va-ria-bi-li CPT so-no \T1/pcr/m/n/10.95 private\T1/ppl/m/n/10.95 (+20) , at-tac-can-te usa
- []
-
-
-Underfull \hbox (badness 2951) in paragraph at lines 770--771
-\T1/ppl/m/n/10.95 (+20) com-pi-la by-te-co-de per iden-ti-fi-ca-re map-ping pa-ra-me-tri $\OMS/zplm/m/n/10.95 !$
- []
-
-
+[24]
 Overfull \hbox (3.14774pt too wide) in alignment at lines 756--786
  [] [] 
  []
@@ -1581,7 +1629,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller to compensate:
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
-[22]
+[25]
 Overfull \hbox (17.0pt too wide) in paragraph at lines 806--807
 [][] 
  []
@@ -1593,7 +1641,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller to compensate:
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
-[23]
+[26]
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
@@ -1601,24 +1649,64 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller to compensate:
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
-[24]
-Overfull \hbox (11.39207pt too wide) in paragraph at lines 897--897
-[]|\T1/ppl/b/n/10.95 (-20) Residual 
+[27]
+
+Package tabularx Warning: X Columns too narrow (table too wide)
+(tabularx)                 on input line 897.
+
+
+Overfull \hbox (25.99648pt too wide) in paragraph at lines 897--897
+[]|\T1/ppl/b/n/10.95 (-20) Rischio 
  []
 
 
-Overfull \hbox (15.01912pt too wide) in paragraph at lines 897--897
-[]|\T1/ppl/m/n/10.95 (-20) MEDIUM|  
+Overfull \hbox (8.12961pt too wide) in paragraph at lines 897--897
+\T1/ppl/b/n/10.95 (-20) duo|  
  []
 
 
-Overfull \hbox (15.01912pt too wide) in paragraph at lines 897--897
-[]|\T1/ppl/m/n/10.95 (-20) MEDIUM|  
+Overfull \hbox (23.6573pt too wide) in paragraph at lines 897--897
+[]|\T1/ppl/m/n/10.95 (-20) BASSO|  
  []
 
 
-Overfull \hbox (15.01912pt too wide) in paragraph at lines 897--897
-[]|\T1/ppl/m/n/10.95 (-20) MEDIUM|  
+Overfull \hbox (26.11476pt too wide) in paragraph at lines 897--897
+[]|\T1/ppl/m/n/10.95 (-20) MEDIO|  
+ []
+
+
+Overfull \hbox (23.6573pt too wide) in paragraph at lines 897--897
+[]|\T1/ppl/m/n/10.95 (-20) BASSO|  
+ []
+
+
+Overfull \hbox (23.6573pt too wide) in paragraph at lines 897--897
+[]|\T1/ppl/m/n/10.95 (-20) BASSO|  
+ []
+
+
+Overfull \hbox (26.11476pt too wide) in paragraph at lines 897--897
+[]|\T1/ppl/m/n/10.95 (-20) MEDIO|  
+ []
+
+
+Overfull \hbox (23.6573pt too wide) in paragraph at lines 897--897
+[]|\T1/ppl/m/n/10.95 (-20) BASSO|  
+ []
+
+
+Overfull \hbox (26.11476pt too wide) in paragraph at lines 897--897
+[]|\T1/ppl/m/n/10.95 (-20) MEDIO|  
+ []
+
+
+Overfull \hbox (17.96042pt too wide) in paragraph at lines 897--897
+[]|\T1/ppl/m/n/10.95 (-20) ALTO|  
+ []
+
+
+Overfull \hbox (33.07419pt too wide) in alignment at lines 897--897
+[][][][][] 
  []
 
 
@@ -1633,7 +1721,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller to compensate:
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
-[25])
+[28])
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
@@ -1641,7 +1729,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller to compensate:
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
-[26]
+[29]
 \openout2 = `chapter4/chapter4.aux'.
 
  (./chapter4/chapter4.tex
@@ -1649,7 +1737,7 @@ Capitolo 4.
 Package hyperref Info: bookmark level for unknown lstlisting defaults to 0 on input line 29.
 LaTeX Font Info:    Font shape `T1/pcr/m/it' in size <8> not available
 (Font)              Font shape `T1/pcr/m/sl' tried instead on input line 31.
-[27
+[30
 
 
 
@@ -1693,7 +1781,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller to compensate:
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
-[28])
+[31])
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
@@ -1701,12 +1789,12 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller to compensate:
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
-[29]
+[32]
 \openout2 = `chapter5/chapter5.aux'.
 
  (./chapter5/chapter5.tex
 Capitolo 5.
-[30
+[33
 
 
 
@@ -1727,7 +1815,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller to compensate:
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
-[31]
+[34]
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
 (hyperref)                removing `math shift' on input line 78.
@@ -1759,7 +1847,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller to compensate:
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
-[32]
+[35]
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
 (hyperref)                removing `math shift' on input line 96.
@@ -1771,34 +1859,6 @@ Package hyperref Warning: Token not allowed in a PDF string (Unicode):
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
 (hyperref)                removing `math shift' on input line 96.
-
-
-Package fancyhdr Warning: \headheight is too small (12.0pt): 
-(fancyhdr)                Make it at least 13.59999pt, for example:
-(fancyhdr)                \setlength{\headheight}{13.59999pt}.
-(fancyhdr)                You might also make \topmargin smaller to compensate:
-(fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
-
-[33]
-
-Package fancyhdr Warning: \headheight is too small (12.0pt): 
-(fancyhdr)                Make it at least 13.59999pt, for example:
-(fancyhdr)                \setlength{\headheight}{13.59999pt}.
-(fancyhdr)                You might also make \topmargin smaller to compensate:
-(fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
-
-[34]
-
-Package fancyhdr Warning: \headheight is too small (12.0pt): 
-(fancyhdr)                Make it at least 13.59999pt, for example:
-(fancyhdr)                \setlength{\headheight}{13.59999pt}.
-(fancyhdr)                You might also make \topmargin smaller to compensate:
-(fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
-
-[35]
-Underfull \hbox (badness 10000) in paragraph at lines 203--203
-[]|\T1/ppl/b/n/10.95 (+20) COMPROMISED
- []
 
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
@@ -1824,6 +1884,10 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
 [38]
+Underfull \hbox (badness 10000) in paragraph at lines 203--203
+[]|\T1/ppl/b/n/10.95 (+20) COMPROMISED
+ []
+
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
@@ -1832,6 +1896,30 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
 [39]
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 13.59999pt, for example:
+(fancyhdr)                \setlength{\headheight}{13.59999pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+(fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
+
+[40]
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 13.59999pt, for example:
+(fancyhdr)                \setlength{\headheight}{13.59999pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+(fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
+
+[41]
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 13.59999pt, for example:
+(fancyhdr)                \setlength{\headheight}{13.59999pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+(fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
+
+[42]
 Underfull \hbox (badness 10000) in paragraph at lines 349--349
 []|\T1/ppl/b/n/10.95 (+20) -15% (at-tac-chi
  []
@@ -1868,30 +1956,6 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller to compensate:
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
-[40]
-
-Package fancyhdr Warning: \headheight is too small (12.0pt): 
-(fancyhdr)                Make it at least 13.59999pt, for example:
-(fancyhdr)                \setlength{\headheight}{13.59999pt}.
-(fancyhdr)                You might also make \topmargin smaller to compensate:
-(fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
-
-[41]
-
-Package fancyhdr Warning: \headheight is too small (12.0pt): 
-(fancyhdr)                Make it at least 13.59999pt, for example:
-(fancyhdr)                \setlength{\headheight}{13.59999pt}.
-(fancyhdr)                You might also make \topmargin smaller to compensate:
-(fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
-
-[42])
-
-Package fancyhdr Warning: \headheight is too small (12.0pt): 
-(fancyhdr)                Make it at least 13.59999pt, for example:
-(fancyhdr)                \setlength{\headheight}{13.59999pt}.
-(fancyhdr)                You might also make \topmargin smaller to compensate:
-(fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
-
 [43]
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
@@ -1901,18 +1965,14 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
 [44]
-\openout2 = `chapter6/chapter6.aux'.
 
- (./chapter6/chapter6.tex
-Capitolo 6.
-(/usr/local/texlive/2024/texmf-dist/tex/latex/listings/lstlang1.sty
-File: lstlang1.sty 2024/02/21 1.10 listings language file
-) [45
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 13.59999pt, for example:
+(fancyhdr)                \setlength{\headheight}{13.59999pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+(fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
-
-
-
-]
+[45])
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
@@ -1929,14 +1989,32 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
 [47]
+\openout2 = `chapter6/chapter6.aux'.
 
-Package fancyhdr Warning: \headheight is too small (12.0pt): 
-(fancyhdr)                Make it at least 13.59999pt, for example:
-(fancyhdr)                \setlength{\headheight}{13.59999pt}.
-(fancyhdr)                You might also make \topmargin smaller to compensate:
-(fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
+ (./chapter6/chapter6.tex
+Capitolo 6.
+Package textcomp Info: Symbol \textrightarrow not provided by
+(textcomp)             font family ppl in TS1 encoding.
+(textcomp)             Default family used instead on input line 16.
+Package textcomp Info: Symbol \textrightarrow not provided by
+(textcomp)             font family ppl in TS1 encoding.
+(textcomp)             Default family used instead on input line 16.
+Package textcomp Info: Symbol \textrightarrow not provided by
+(textcomp)             font family ppl in TS1 encoding.
+(textcomp)             Default family used instead on input line 17.
+Package textcomp Info: Symbol \textrightarrow not provided by
+(textcomp)             font family ppl in TS1 encoding.
+(textcomp)             Default family used instead on input line 18.
+[48
 
-[48]
+
+
+
+{/usr/local/texlive/2024/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc}]
+Overfull \hbox (50.11551pt too wide) in paragraph at lines 54--69
+ [][] 
+ []
+
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
@@ -1945,6 +2023,15 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
 [49]
+Overfull \hbox (228.2163pt too wide) in paragraph at lines 111--126
+ [][] 
+ []
+
+(/usr/local/texlive/2024/texmf-dist/tex/latex/listings/lstlang1.sty
+File: lstlang1.sty 2024/02/21 1.10 listings language file
+) (/usr/local/texlive/2024/texmf-dist/tex/latex/listings/lstlang1.sty
+File: lstlang1.sty 2024/02/21 1.10 listings language file
+)
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
@@ -1952,7 +2039,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller to compensate:
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
-[50])
+[50]
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
@@ -1961,16 +2048,37 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
 [51]
-\openout2 = `chapter7/chapter7.aux'.
+Package textcomp Info: Symbol \textdownarrow not provided by
+(textcomp)             font family pcr in TS1 encoding.
+(textcomp)             Default family used instead on input line 267.
+LaTeX Font Info:    Trying to load font information for T1+cmtt on input line 267.
+ (/usr/local/texlive/2024/texmf-dist/tex/latex/base/t1cmtt.fd
+File: t1cmtt.fd 2023/04/13 v2.5m Standard LaTeX font definitions
+)
+Package microtype Info: Loading generic protrusion settings for font family
+(microtype)             `cmtt' (encoding: T1).
+(microtype)             For optimal results, create family-specific settings.
+(microtype)             See the microtype manual for details.
+LaTeX Font Info:    Trying to load font information for TS1+cmtt on input line 267.
+ (/usr/local/texlive/2024/texmf-dist/tex/latex/base/ts1cmtt.fd
+File: ts1cmtt.fd 2023/04/13 v2.5m Standard LaTeX font definitions
+)
+Package microtype Info: Loading generic protrusion settings for font family
+(microtype)             `cmtt' (encoding: TS1).
+(microtype)             For optimal results, create family-specific settings.
+(microtype)             See the microtype manual for details.
+Package textcomp Info: Symbol \textdownarrow not provided by
+(textcomp)             font family pcr in TS1 encoding.
+(textcomp)             Default family used instead on input line 267.
 
- (./chapter7/chapter7.tex
-Capitolo 7.
-[52
 
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 13.59999pt, for example:
+(fancyhdr)                \setlength{\headheight}{13.59999pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+(fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
-
-
-])
+[52]
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
@@ -1979,13 +2087,223 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
 [53]
-\openout2 = `backmatter/appendixA.aux'.
 
- (./backmatter/appendixA.tex
-Appendice A.
-(/usr/local/texlive/2024/texmf-dist/tex/latex/listings/lstlang1.sty
-File: lstlang1.sty 2024/02/21 1.10 listings language file
-) [54
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 13.59999pt, for example:
+(fancyhdr)                \setlength{\headheight}{13.59999pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+(fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
+
+[54]
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 13.59999pt, for example:
+(fancyhdr)                \setlength{\headheight}{13.59999pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+(fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
+
+[55]
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 13.59999pt, for example:
+(fancyhdr)                \setlength{\headheight}{13.59999pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+(fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
+
+[56]
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 13.59999pt, for example:
+(fancyhdr)                \setlength{\headheight}{13.59999pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+(fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
+
+[57]
+Package textcomp Info: Symbol \textrightarrow not provided by
+(textcomp)             font family ppl in TS1 encoding.
+(textcomp)             Default family used instead on input line 611.
+
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 13.59999pt, for example:
+(fancyhdr)                \setlength{\headheight}{13.59999pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+(fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
+
+[58]
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 13.59999pt, for example:
+(fancyhdr)                \setlength{\headheight}{13.59999pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+(fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
+
+[59]
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 13.59999pt, for example:
+(fancyhdr)                \setlength{\headheight}{13.59999pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+(fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
+
+[60]
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 13.59999pt, for example:
+(fancyhdr)                \setlength{\headheight}{13.59999pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+(fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
+
+[61]
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 13.59999pt, for example:
+(fancyhdr)                \setlength{\headheight}{13.59999pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+(fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
+
+[62]
+Underfull \hbox (badness 10000) in paragraph at lines 993--994
+[]|\T1/ppl/m/n/10.95 (+20) OpenZeppelin \T1/pcr/m/n/10.95 AccessControl\T1/ppl/m/n/10.95 (+20) ,
+ []
+
+
+Underfull \hbox (badness 4441) in paragraph at lines 999--1000
+[]|\T1/pcr/m/n/10.95 block.timestamp \T1/ppl/m/n/10.95 (+20) per ti-meout
+ []
+
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 13.59999pt, for example:
+(fancyhdr)                \setlength{\headheight}{13.59999pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+(fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
+
+[63]
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 13.59999pt, for example:
+(fancyhdr)                \setlength{\headheight}{13.59999pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+(fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
+
+[64]
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 13.59999pt, for example:
+(fancyhdr)                \setlength{\headheight}{13.59999pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+(fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
+
+[65]
+Package textcomp Info: Symbol \textrightarrow not provided by
+(textcomp)             font family ppl in TS1 encoding.
+(textcomp)             Default family used instead on input line 1129.
+
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 13.59999pt, for example:
+(fancyhdr)                \setlength{\headheight}{13.59999pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+(fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
+
+[66]
+Package textcomp Info: Symbol \textrightarrow not provided by
+(textcomp)             font family ppl in TS1 encoding.
+(textcomp)             Default family used instead on input line 1216.
+Package textcomp Info: Symbol \textrightarrow not provided by
+(textcomp)             font family ppl in TS1 encoding.
+(textcomp)             Default family used instead on input line 1217.
+
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 13.59999pt, for example:
+(fancyhdr)                \setlength{\headheight}{13.59999pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+(fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
+
+[67]
+Package textcomp Info: Symbol \textrightarrow not provided by
+(textcomp)             font family ppl in TS1 encoding.
+(textcomp)             Default family used instead on input line 1232.
+Package textcomp Info: Symbol \textrightarrow not provided by
+(textcomp)             font family ppl in TS1 encoding.
+(textcomp)             Default family used instead on input line 1238.
+
+Underfull \hbox (badness 5771) in paragraph at lines 1286--1287
+[]|\T1/ppl/m/n/10.95 (+20) Analisi sim-bo-li-ca, se-cu-ri-ty
+ []
+
+
+Underfull \hbox (badness 1087) in paragraph at lines 1287--1288
+[]|\T1/ppl/m/n/10.95 (+20) Fuzzing, property-based te-
+ []
+
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 13.59999pt, for example:
+(fancyhdr)                \setlength{\headheight}{13.59999pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+(fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
+
+[68]
+Package textcomp Info: Symbol \textrightarrow not provided by
+(textcomp)             font family ppl in TS1 encoding.
+(textcomp)             Default family used instead on input line 1332.
+
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 13.59999pt, for example:
+(fancyhdr)                \setlength{\headheight}{13.59999pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+(fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
+
+[69]
+Package textcomp Info: Symbol \textrightarrow not provided by
+(textcomp)             font family ppl in TS1 encoding.
+(textcomp)             Default family used instead on input line 1371.
+
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 13.59999pt, for example:
+(fancyhdr)                \setlength{\headheight}{13.59999pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+(fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
+
+[70]
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 13.59999pt, for example:
+(fancyhdr)                \setlength{\headheight}{13.59999pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+(fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
+
+[71]
+Package textcomp Info: Symbol \textrightarrow not provided by
+(textcomp)             font family ppl in TS1 encoding.
+(textcomp)             Default family used instead on input line 1507.
+
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 13.59999pt, for example:
+(fancyhdr)                \setlength{\headheight}{13.59999pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+(fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
+
+[72])
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 13.59999pt, for example:
+(fancyhdr)                \setlength{\headheight}{13.59999pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+(fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
+
+[73]
+\openout2 = `chapter7/chapter7.aux'.
+
+ (./chapter7/chapter7.tex
+Capitolo 7.
+[74
 
 
 
@@ -1998,7 +2316,25 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller to compensate:
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
-[55]
+[75]
+\openout2 = `backmatter/appendixA.aux'.
+
+ (./backmatter/appendixA.tex
+Appendice A.
+[76
+
+
+
+
+])
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 13.59999pt, for example:
+(fancyhdr)                \setlength{\headheight}{13.59999pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+(fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
+
+[77]
 
 Package glossaries Warning: No \printglossary or \printglossaries found. 
 (Remove \makeglossaries if you don't want any glossaries.) 
@@ -2011,18 +2347,18 @@ L3 programming layer <2024-02-20>
  ***********
  ) 
 Here is how much of TeX's memory you used:
- 40602 strings out of 474116
- 743417 string characters out of 5743681
- 2225187 words of memory out of 5000000
- 61058 multiletter control sequences out of 15000+600000
- 651174 words of font info for 475 fonts, out of 8000000 for 9000
+ 41125 strings out of 474116
+ 751211 string characters out of 5743681
+ 2284187 words of memory out of 5000000
+ 61230 multiletter control sequences out of 15000+600000
+ 652717 words of font info for 489 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 111i,15n,131p,2429b,2111s stack positions out of 10000i,1000n,20000p,200000b,200000s
-</usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/mathpazo/fplmr.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/symbols/msam10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/urw/courier/ucrb8a.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/urw/courier/ucrr8a.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/urw/courier/ucrro8a.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/urw/helvetic/uhvb8a.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/urw/helvetic/uhvr8a.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/urw/palatino/uplb8a.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/urw/palatino/uplr8a.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/urw/palatino/uplr8a.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/urw/palatino/uplri8a.pfb>
-Output written on main.pdf (61 pages, 3329188 bytes).
+ 111i,15n,131p,2429b,2108s stack positions out of 10000i,1000n,20000p,200000b,200000s
+</usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/mathpazo/fplmr.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/symbols/msam10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/cm-super/sfrm1095.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/cm-super/sftt1095.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/urw/courier/ucrb8a.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/urw/courier/ucrr8a.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/urw/courier/ucrro8a.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/urw/helvetic/uhvb8a.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/urw/helvetic/uhvr8a.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/urw/palatino/uplb8a.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/urw/palatino/uplr8a.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/urw/palatino/uplr8a.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/urw/palatino/uplri8a.pfb>
+Output written on main.pdf (84 pages, 3407409 bytes).
 PDF statistics:
- 1686 PDF objects out of 1728 (max. 8388607)
- 1575 compressed objects within 16 object streams
- 565 named destinations out of 1000 (max. 500000)
- 128927 words of extra memory for PDF output out of 154059 (max. 10000000)
+ 2282 PDF objects out of 2487 (max. 8388607)
+ 2138 compressed objects within 22 object streams
+ 890 named destinations out of 1000 (max. 500000)
+ 130695 words of extra memory for PDF output out of 154059 (max. 10000000)
 

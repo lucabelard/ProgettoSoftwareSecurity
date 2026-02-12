@@ -221,8 +221,8 @@
       "id": "2e9de05c-0cd0-43a7-a5cd-ea6eee88a0bb",
       "text": "Sensore_IoT",
       "type": "istar.Actor",
-      "x": 1798,
-      "y": 181,
+      "x": 1806,
+      "y": 167,
       "customProperties": {
         "Description": "Dispositivo IoT per monitoraggio condizioni trasporto"
       },
@@ -231,8 +231,8 @@
           "id": "g1-monitorare-registrare",
           "text": "Monitorare e registrare condizioni trasporto",
           "type": "istar.Goal",
-          "x": 2176,
-          "y": 222,
+          "x": 2184,
+          "y": 208,
           "customProperties": {
             "Description": "Goal principale del sensore"
           }
@@ -241,8 +241,8 @@
           "id": "t1-rilevare-temperatura",
           "text": "Rilevare temperatura E1",
           "type": "istar.Task",
-          "x": 1904,
-          "y": 255,
+          "x": 1912,
+          "y": 241,
           "customProperties": {
             "Description": "T1: Sensore temperatura"
           }
@@ -251,8 +251,8 @@
           "id": "t2-rilevare-shock",
           "text": "Rilevare shock E3",
           "type": "istar.Task",
-          "x": 2025,
-          "y": 312,
+          "x": 2033,
+          "y": 298,
           "customProperties": {
             "Description": "T2: Accelerometro"
           }
@@ -261,8 +261,8 @@
           "id": "t3-rilevare-apertura",
           "text": "Rilevare apertura/luce E4",
           "type": "istar.Task",
-          "x": 2051,
-          "y": 384,
+          "x": 2169,
+          "y": 352,
           "customProperties": {
             "Description": "T3: Fotosensore"
           }
@@ -271,8 +271,8 @@
           "id": "t4-verificare-sigillo",
           "text": "Verificare sigillo elettronico E2",
           "type": "istar.Task",
-          "x": 2161,
-          "y": 387,
+          "x": 2335,
+          "y": 339,
           "customProperties": {
             "Description": "T4: Tamper detection"
           }
@@ -281,100 +281,30 @@
           "id": "t5-registrare-timestamp",
           "text": "Registrare timestamp E5",
           "type": "istar.Task",
-          "x": 2503,
-          "y": 246,
+          "x": 2422,
+          "y": 275,
           "customProperties": {
             "Description": "T5: Scan arrivo"
-          }
-        },
-        {
-          "id": "g2-trasmettere-dati",
-          "text": "Trasmettere dati a blockchain",
-          "type": "istar.Goal",
-          "x": 2270,
-          "y": 281,
-          "customProperties": {
-            "Description": "G2: Invio dati su blockchain"
-          }
-        },
-        {
-          "id": "t6-campionare",
-          "text": "Campionare ogni 5 minuti",
-          "type": "istar.Task",
-          "x": 1902,
-          "y": 350,
-          "customProperties": {
-            "Description": "T6: Frequenza campionamento"
           }
         },
         {
           "id": "t7-verificare-range",
           "text": "Verificare range 2-8°C",
           "type": "istar.Task",
-          "x": 1798,
-          "y": 350,
+          "x": 1806,
+          "y": 336,
           "customProperties": {
             "Description": "T7: Controllo soglie"
-          }
-        },
-        {
-          "id": "t9-salvare-memoria",
-          "text": "Salvare in memoria locale",
-          "type": "istar.Task",
-          "x": 2296,
-          "y": 394,
-          "customProperties": {
-            "Description": "T9: Storage locale"
-          }
-        },
-        {
-          "id": "t10-inviare-sistema",
-          "text": "Inviare a Sistema Blockchain",
-          "type": "istar.Task",
-          "x": 2403,
-          "y": 392,
-          "customProperties": {
-            "Description": "T10: Trasmissione a blockchain"
-          }
-        },
-        {
-          "id": "t11-generare-report",
-          "text": "Generare report finale",
-          "type": "istar.Task",
-          "x": 2535,
-          "y": 386,
-          "customProperties": {
-            "Description": "T11: Report E1-E5"
-          }
-        },
-        {
-          "id": "sg1-precisione",
-          "text": "Precisione misurazioni",
-          "type": "istar.Quality",
-          "x": 1812,
-          "y": 484,
-          "customProperties": {
-            "Description": "SG1: Accuratezza dati"
           }
         },
         {
           "id": "sg2-integrita",
           "text": "Integrità Dati",
           "type": "istar.Quality",
-          "x": 2318,
-          "y": 486,
+          "x": 1978,
+          "y": 405,
           "customProperties": {
             "Description": "SG2: Dati non alterati"
-          }
-        },
-        {
-          "id": "sg3-autonomia",
-          "text": "Autonomia batteria",
-          "type": "istar.Quality",
-          "x": 1956,
-          "y": 484,
-          "customProperties": {
-            "Description": "SG3: Durata batteria"
           }
         }
       ]
@@ -772,58 +702,10 @@
       "target": "t5-registrare-timestamp"
     },
     {
-      "id": "56d35204-1fe9-41f9-9d3d-3e9d4d03e207",
-      "type": "istar.AndRefinementLink",
-      "source": "g1-monitorare-registrare",
-      "target": "g2-trasmettere-dati"
-    },
-    {
-      "id": "8c6a3253-266e-42ed-990b-dc98b5686fbc",
-      "type": "istar.AndRefinementLink",
-      "source": "t1-rilevare-temperatura",
-      "target": "t6-campionare"
-    },
-    {
       "id": "1c110bca-db6b-4ef6-a800-45b0d5cd59b4",
       "type": "istar.AndRefinementLink",
       "source": "t1-rilevare-temperatura",
       "target": "t7-verificare-range"
-    },
-    {
-      "id": "81790112-c71f-48f8-9218-dc8c6bf94113",
-      "type": "istar.AndRefinementLink",
-      "source": "g2-trasmettere-dati",
-      "target": "t9-salvare-memoria"
-    },
-    {
-      "id": "b643613b-27e2-46e2-b109-68be09d1b751",
-      "type": "istar.AndRefinementLink",
-      "source": "g2-trasmettere-dati",
-      "target": "t10-inviare-sistema"
-    },
-    {
-      "id": "f2269f6d-bb5c-41ab-9f90-0903d5d95d40",
-      "type": "istar.AndRefinementLink",
-      "source": "g2-trasmettere-dati",
-      "target": "t11-generare-report"
-    },
-    {
-      "id": "8d1a0eae-11a3-49f6-b46b-bf375c2d6206",
-      "type": "istar.ContributionLink",
-      "source": "t6-campionare",
-      "target": "sg1-precisione"
-    },
-    {
-      "id": "bb6d000a-8d69-4030-829a-c9172c315eed",
-      "type": "istar.ContributionLink",
-      "source": "t9-salvare-memoria",
-      "target": "sg2-integrita"
-    },
-    {
-      "id": "91badd5d-c6e7-4b46-9312-48859d8b655f",
-      "type": "istar.ContributionLink",
-      "source": "t6-campionare",
-      "target": "sg3-autonomia"
     },
     {
       "id": "684a5767-c91c-41a5-86ad-bbd7a346802d",
@@ -924,7 +806,7 @@
   },
   "tool": "pistar.2.1.0",
   "istar": "2.0",
-  "saveDate": "Thu, 12 Feb 2026 15:25:29 GMT",
+  "saveDate": "Thu, 12 Feb 2026 15:44:12 GMT",
   "diagram": {
     "width": 2661,
     "height": 2200,
