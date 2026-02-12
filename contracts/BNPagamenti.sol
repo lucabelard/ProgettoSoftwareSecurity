@@ -55,7 +55,12 @@ contract BNPagamenti is BNGestoreSpedizioni, ReentrancyGuard {
      * @param _id ID della spedizione da validare
      * @dev Verifica tutte le evidenze, calcola probabilità Bayesiane e paga se >= 95%
      */
-    function validaEPaga(uint256 _id) external nonReentrant {
+    /**
+     * @notice Valida le evidenze e paga il corriere se conformi
+     * @param _id ID della spedizione da validare
+     * @dev Verifica tutte le evidenze, calcola probabilità Bayesiane e paga se >= 95%
+     */
+    function validaEPaga(uint256 _id) external nonReentrant whenNotPaused {
         Spedizione storage s = spedizioni[_id];
         
         // SAFETY MONITOR S5: Courier Authorization

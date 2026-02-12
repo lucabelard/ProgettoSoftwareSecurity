@@ -37,24 +37,13 @@ const adminAccount = web3.eth.accounts.privateKeyToAccount(accounts.admin.privat
 web3.eth.accounts.wallet.add(adminAccount);
 
 async function deployAndSetup() {
-    console.log('\n========================================');
-    console.log('DEPLOY E SETUP COMPLETO (CON LOGGING)');
-    console.log('========================================\n');
+    console.log('\n=== DEPLOY E SETUP SMART CONTRACT ===\n');
 
     try {
-        // Verifica connessione
         const chainId = await web3.eth.getChainId();
-        console.log(`✓ Connesso a Chain ID: ${chainId}`);
-
         const initialBalance = await web3.eth.getBalance(adminAccount.address);
-        console.log(`✓ Admin: ${adminAccount.address}`);
-        console.log(`✓ Balance: ${web3.utils.fromWei(initialBalance, 'ether')} ETH`);
-
-        // Get Gas Price for Legacy Transactions
         const gasPrice = await web3.eth.getGasPrice();
-        console.log(`✓ Gas Price: ${gasPrice} wei\n`);
-
-        // ============ INIZIO SESSIONE LOGGING ============
+        
         logger.startDeploymentSession(chainId, adminAccount.address, initialBalance);
 
         // Carica l'artifact del contratto
@@ -74,11 +63,10 @@ async function deployAndSetup() {
             gasPrice: gasPrice
         });
 
-        // Log del deployment - ottieni receipt dal blocco più recente
+        // Log del deployment
         const blockNumber = await web3.eth.getBlockNumber();
         const block = await web3.eth.getBlock(blockNumber, true);
         if (block && block.transactions && block.transactions.length > 0) {
-            // Trova la transazione di deployment (quella senza 'to')
             const deployTxData = block.transactions.find(tx => !tx.to);
             if (deployTxData) {
                 const receipt = await web3.eth.getTransactionReceipt(deployTxData.hash);
@@ -93,10 +81,9 @@ async function deployAndSetup() {
             }
         }
 
-        console.log(`✅ Contratto deployato!`);
-        console.log(`📍 Indirizzo: ${deployedContract.options.address}\n`);
+        console.log(`✅ Contratto deployato a: ${deployedContract.options.address}\n`);
 
-        // Salva l'indirizzo
+        // Aggiorna file JSON
         contractJson.networks = contractJson.networks || {};
         contractJson.networks[chainId.toString()] = {
             events: {},
@@ -109,13 +96,11 @@ async function deployAndSetup() {
         const webInterfacePath = path.join(__dirname, 'web-interface', 'BNCalcolatoreOnChain.json');
         fs.copyFileSync(contractPath, webInterfacePath);
 
-        console.log('👥 Assegnazione Ruoli...\n');
+        console.log('👥 Assegnazione Ruoli...');
 
-        // Ottieni i ruoli hash
         const RUOLO_SENSORE = await deployedContract.methods.RUOLO_SENSORE().call();
         const RUOLO_MITTENTE = await deployedContract.methods.RUOLO_MITTENTE().call();
 
-        // Helper per eseguire transazione con logging
         async function sendAndLog(method, methodName) {
             txStartTime = Date.now();
             const result = await method.send({
@@ -123,105 +108,54 @@ async function deployAndSetup() {
                 gas: 300000,
                 gasPrice: gasPrice
             });
-            
-            // Ottieni receipt
             const receipt = await web3.eth.getTransactionReceipt(result.transactionHash);
             logger.logTransaction(receipt, methodName, 0, txStartTime);
-            
             return result;
         }
 
-        // Assegna ruolo SENSORE
         await sendAndLog(
             deployedContract.methods.grantRole(RUOLO_SENSORE, accounts.sensore.address),
             'grantRole(SENSORE)'
         );
-        console.log(`✓ Ruolo SENSORE assegnato a: ${accounts.sensore.address} (${accounts.sensore.name})`);
-
-        // Assegna ruolo MITTENTE  
+        
         await sendAndLog(
             deployedContract.methods.grantRole(RUOLO_MITTENTE, accounts.mittente.address),
             'grantRole(MITTENTE)'
         );
-        console.log(`✓ Ruolo MITTENTE assegnato a: ${accounts.mittente.address} (${accounts.mittente.name})`);
 
-        console.log(`\n✓ Admin mantiene ruoli DEFAULT_ADMIN_ROLE e RUOLO_ORACOLO`);
-        console.log(`✓ Corriere (${accounts.corriere.address}) non ha ruoli speciali\n`);
+        console.log('✓ Ruoli assegnati correttametne.\n');
 
-        console.log('⚙️  Setup Probabilità (CPT)...\n');
+        console.log('⚙️  Configurazione Probabilità (CPT)...');
 
-        // Probabilità a priori
         await sendAndLog(
             deployedContract.methods.impostaProbabilitaAPriori(99, 99),
             'impostaProbabilitaAPriori'
         );
-        console.log('✓ Probabilità a priori impostate (P(F1)=99%, P(F2)=99%)');
 
-        // CPT per evidenze positive (E1, E2, E5)
         const cptPositiva = { p_FF: 5, p_FT: 30, p_TF: 50, p_TT: 99 };
-
-        // CPT per evidenze negative (E3, E4)
         const cptNegativa = { p_FF: 95, p_FT: 70, p_TF: 50, p_TT: 1 };
 
-        // E1 (Temperatura)
-        await sendAndLog(
-            deployedContract.methods.impostaCPT(1, cptPositiva),
-            'impostaCPT(E1_Temperatura)'
-        );
+        await sendAndLog(deployedContract.methods.impostaCPT(1, cptPositiva), 'impostaCPT(E1)');
+        await sendAndLog(deployedContract.methods.impostaCPT(2, cptPositiva), 'impostaCPT(E2)');
+        await sendAndLog(deployedContract.methods.impostaCPT(3, cptNegativa), 'impostaCPT(E3)');
+        await sendAndLog(deployedContract.methods.impostaCPT(4, cptNegativa), 'impostaCPT(E4)');
+        await sendAndLog(deployedContract.methods.impostaCPT(5, cptPositiva), 'impostaCPT(E5)');
 
-        // E2 (Sigillo)
-        await sendAndLog(
-            deployedContract.methods.impostaCPT(2, cptPositiva),
-            'impostaCPT(E2_Sigillo)'
-        );
+        console.log('✓ CPT configurate.\n');
 
-        // E3 (Shock)
-        await sendAndLog(
-            deployedContract.methods.impostaCPT(3, cptNegativa),
-            'impostaCPT(E3_Shock)'
-        );
-
-        // E4 (Luce)
-        await sendAndLog(
-            deployedContract.methods.impostaCPT(4, cptNegativa),
-            'impostaCPT(E4_Luce)'
-        );
-
-        // E5 (Scan)
-        await sendAndLog(
-            deployedContract.methods.impostaCPT(5, cptPositiva),
-            'impostaCPT(E5_Scan)'
-        );
-
-        console.log('✓ Setup delle CPT per E1-E5 completato\n');
-
-        // ============ FINE SESSIONE LOGGING ============
         const finalBalance = await web3.eth.getBalance(adminAccount.address);
         const summary = logger.endDeploymentSession(finalBalance);
 
         console.log('========================================');
-        console.log('✅ SETUP COMPLETATO CON SUCCESSO!');
+        console.log('SETUP COMPLETATO CON SUCCESSO');
         console.log('========================================');
-        console.log('\n📋 RIEPILOGO ACCOUNT:\n');
-        console.log(`  Admin/Oracolo: ${accounts.admin.address}`);
-        console.log(`  Mittente:      ${accounts.mittente.address}`);
-        console.log(`  Sensore:       ${accounts.sensore.address}`);
-        console.log(`  Corriere:      ${accounts.corriere.address}`);
-        console.log('\n📊 RIEPILOGO DEPLOYMENT:');
-        console.log(`  Transazioni:   ${summary.totals.count}`);
-        console.log(`  Gas Totale:    ${logger.formatNumber(summary.totals.gasUsed)}`);
-        console.log(`  Costo Totale:  ${summary.totals.costEth.toFixed(8)} ETH`);
-        console.log(`  Durata:        ${summary.totals.durationSeconds.toFixed(1)}s`);
-        console.log('\n📁 LOG FILES GENERATI:');
-        console.log(`  - besu-config/logs/deployment.log`);
-        console.log(`  - besu-config/logs/gas_report.log`);
-        console.log(`  - besu-config/logs/session_summary.json`);
-        console.log('\n✨ Ora puoi connettere MetaMask con questi account!\n');
+        console.log(`Gas Totale: ${logger.formatNumber(summary.totals.gasUsed)}`);
+        console.log(`Costo:      ${summary.totals.costEth.toFixed(8)} ETH`);
+        console.log(`Tempo:      ${summary.totals.durationSeconds.toFixed(1)}s`);
+        console.log('\nLog salvati in besu-config/logs/');
 
     } catch (error) {
-        console.error('\n❌ ERRORE durante il deploy:');
-        console.error(error.message);
-        console.error(error.stack);
+        console.error('\n❌ ERRORE:', error.message);
         process.exit(1);
     }
 }

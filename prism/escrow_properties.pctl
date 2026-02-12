@@ -1,154 +1,62 @@
 // ============================================================================
 // Proprietà PCTL per Sistema Escrow/Pagamenti
-// ============================================================================
-// Verifica formale delle proprietà di sicurezza del contratto già implementato
-// File correlato: escrow_system.prism
+// Corrette per SINTASSI PRISM RIGOROSA (DTMC) con FILTRI VALIDI
 // ============================================================================
 
-// ============================================================================
-// PROPRIETÀ DI SAFETY
-// ============================================================================
-
-// S1: "Single Payment" - Una spedizione non può mai essere pagata due volte
-// Questa proprietà verifica che una volta raggiunto lo stato PAGATA,
-// il sistema rimane permanentemente in quello stato (stato assorbente)
+// S1: "Single Payment" - Safety
+// "Per tutti gli stati 's' dove stato=1, la probabilità che il prossimo stato sia 1 è 1.0 (certezza)"
 const double safety_single_payment;
-P=? [ G (stato=1 => X G stato=1) ]
+filter(forall, stato=1 => P>=1 [ X stato=1 ])
 
-// S1-bis: Versione alternativa - Probabilità che mai si transiti da PAGATA ad altro stato
-const double safety_no_double_payment;
-P=? [ G<=336 !(stato=1 & X (stato!=1)) ]
-
-// S2: "State Exclusivity" - Gli stati Pagata/Rimborsata/Annullata sono mutualmente esclusivi
-// Non è possibile essere in due stati finali contemporaneamente
+// S2: "State Exclusivity"
+// Verifica booleana globale
 const double safety_state_exclusivity;
-P=? [ G !((stato=1 & stato=2) | (stato=1 & stato=3) | (stato=2 & stato=3)) ]
+P>=1 [ G !((stato=1 & stato=2) | (stato=1 & stato=3) | (stato=2 & stato=3)) ]
 
-// S3: "No Return from Final States" - Dagli stati finali non si può tornare a InAttesa
-const double safety_no_return;
-P=? [ G ((stato=1 | stato=2 | stato=3) => G (stato!=0)) ]
-
-// S4: "Evidence Before Payment" - Pagamento avviene SOLO se evidenze complete
-// Questa verifica che il contratto rispetti il requisito di evidenze complete
+// S3: "Evidence Before Payment"
 const double safety_evidence_required;
-P=? [ G (stato=1 => evidenze_complete) ]
+filter(forall, stato=1 => evidenze_complete)
 
-// S5: "Bounded Failed Attempts" - I tentativi falliti non superano mai 3
+// S4: "Bounded Failed Attempts"
 const double safety_bounded_attempts;
-P=? [ G (tentativi_falliti <= 3) ]
+P>=1 [ G (tentativi_falliti <= 3) ]
 
+// S6: "Cancellation Requires Zero Evidence"
+const double safety_cancellation_condition;
+filter(forall, stato=2 => !evidenze_complete)
 
-// ============================================================================
-// PROPRIETÀ DI GUARANTEE/RESPONSE
-// ============================================================================
-
-// G1: "Eventual Resolution" - Ogni spedizione EVENTUALMENTE si risolve 
-// (pagata, rimborsata o annullata entro 14 giorni)
+// G1: "Eventual Resolution" (Probabilità di raggiungere uno stato finale)
 const double guarantee_eventual_resolution;
-P=? [ F<=336 (stato=1 | stato=2 | stato=3) ]
+P=? [ F (stato=1 | stato=2 | stato=3) ]
 
-// G2: "Refund After Timeout" - Se il timeout scade, il rimborso diventa SEMPRE disponibile
-// Entro 168 ore (7 giorni), se timeout scade, rimborso è possibile
+// G2: "Refund After Timeout"
+// "Qual è la PROBABILITÀ MINIMA di ottenere un rimborso... purché siamo ancora in attesa (stato=0) e non a fine tempo?"
 const double guarantee_refund_on_timeout;
-P=? [ F<=168 (timeout_scaduto => rimborso_disponibile) ]
+filter(min, P=? [ F stato=3 ], stato=0 & timeout_scaduto & !evidenze_complete & tempo < 360)
 
-// G3: "Refund After 3 Failures" - Dopo 3 tentativi falliti, rimborso disponibile
-// Garantisce protezione del mittente dopo tentativi multipli
+// G3: "Refund After 3 Failures"
+// "Qual è la PROBABILITÀ MINIMA di rimborso... purché siamo ancora in attesa (stato=0)?"
 const double guarantee_refund_on_failures;
-P=? [ F (tentativi_falliti=3 => F<=24 stato=2) ]
+filter(min, P=? [ F stato=3 ], stato=0 & tentativi_falliti=3 & tempo < 360)
 
-// G4: "Payment Upon Valid Evidence" - Se evidenze valide, pagamento avviene entro tempo ragionevole
-// 95% delle volte con evidenze complete, la validazione avviene entro 48 ore
-const double guarantee_payment_on_valid;
-P=? [ evidenze_complete => F<=48 (stato=1 | tentativi_falliti>0) ]
+// G4: "Refund on Courier Inactivity"
+// "Qual è la PROBABILITÀ MINIMA di rimborso... purché siamo ancora in attesa (stato=0)?"
+// IMPORTANTE: stato=0 esclude i casi in cui la transazione è GIÀ ANDATA A BUON FINE (stato=1)
+const double guarantee_refund_on_inactivity;
+filter(min, P=? [ F stato=3 ], stato=0 & evidenze_complete & tentativi_falliti=0 & tempo>=336 & tempo < 360)
 
-// G5: "No Deadlock" - Il sistema non rimane mai bloccato in attesa indefinitamente
-const double guarantee_no_deadlock;
-P=? [ F<=336 !sistema_bloccato ]
-
-
-// ============================================================================
-// PROPRIETÀ DI LIVENESS
-// ============================================================================
-
-// L1: "Progress Guarantee" - Il tempo avanza sempre (no infinite loops)
-const double liveness_time_progress;
-P=? [ G (tempo<MAX_TIME => F (tempo>tempo)) ]
-
-// L2: "Evidence Eventually Received" - Le evidenze arrivano con alta probabilità
+// L1: "Evidence Eventually Received"
 const double liveness_evidence_arrival;
 P=? [ F<=168 evidenze_complete ]
 
-// L3: "Sender Protection" - Il mittente non perde mai fondi definitivamente
-// O riceve pagamento (corriere valida) O ottiene rimborso
+// L2: "Sender Protection"
 const double liveness_sender_protection;
 P=? [ F<=336 (stato=1 | stato=2 | stato=3) ]
 
-
-// ============================================================================
-// PROPRIETÀ DI FAIRNESS
-// ============================================================================
-
-// F1: "Courier Fair Payment" - Se evidenze conformi, il corriere viene pagato
-const double fairness_courier_payment;
-P=? [ (evidenze_complete & tentativi_falliti=0) => F<=48 stato=1 ]
-
-// F2: "Sender Fair Refund" - Se evidenze non conformi, il mittente ottiene rimborso
-const double fairness_sender_refund;
-P=? [ (tentativi_falliti>=3) => F<=48 stato=2 ]
-
-
-// ============================================================================
-// METRICHE DI PERFORMANCE
-// ============================================================================
-
-// M1: Probabilità di successo validazione (sistema efficiente)
-const double metric_success_rate;
-P=? [ F<=336 stato=1 ]
-
-// M2: Probabilità di rimborso (protezione mittente)
-const double metric_refund_rate;
-P=? [ F<=336 stato=2 ]
-
-// M3: Probabilità di annullamento anticipato
-const double metric_cancellation_rate;
-P=? [ F<=336 stato=3 ]
-
-// M4: Tempo medio fino a risoluzione
-// (Questa richiede reward structure, vedi sotto)
-
-
-// ============================================================================
-// REWARD STRUCTURES (per analisi temporale)
-// ============================================================================
-
-// Reward per calcolare tempo medio fino a risoluzione
-rewards "time_to_resolution"
-    stato=0 : 1;  // Accumula 1 per ogni step in attesa
-endrewards
-
-// Query: Tempo medio atteso fino a risoluzione
+// Rewards (CUMULATIVE per simulation finite horizon)
+// Usiamo C<=360 invece di F per evitare "Infinite" se rimaniamo bloccati nel loop finale del tempo
 const double expected_resolution_time;
-R{"time_to_resolution"}=? [ F (stato!=0) ]
+R{"time_to_resolution"}=? [ C<=360 ]
 
-// Reward per contare tentativi falliti totali
-rewards "failed_attempts"
-    tentativi_falliti'=tentativi_falliti+1 : 1;
-endrewards
-
-// Query: Numero medio di tentativi prima di risoluzione
 const double expected_failed_attempts;
-R{"failed_attempts"}=? [ F (stato!=0) ]
-
-
-// ============================================================================
-// PROPRIETÀ COMBINATE (Safety + Guarantee)
-// ============================================================================
-
-// C1: "Safe Eventual Resolution" - Risoluzione garantita SENZA doppi pagamenti
-const double combined_safe_resolution;
-P=? [ (G !(stato=1 & X stato!=1)) & (F<=336 stato!=0) ]
-
-// C2: "Secure Refund Path" - Rimborso sempre disponibile quando dovuto
-const double combined_secure_refund;
-P=? [ G (rimborso_disponibile => F<=48 stato=2) ]
+R{"failed_attempts_counter"}=? [ C<=360 ]

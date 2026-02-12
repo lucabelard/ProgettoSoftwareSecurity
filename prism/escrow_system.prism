@@ -1,85 +1,99 @@
 // ============================================================================
-// PRISM Model: Sistema Escrow e Pagamenti (GIÀ IMPLEMENTATO)
+// PRISM Model: Sistema Escrow e Pagamenti (ALLINEATO AL CODICE SOLIDITY)
 // ============================================================================
-// Modella il comportamento del contratto BNPagamenti.sol e BNGestoreSpedizioni.sol
-// SENZA modifiche al codice esistente
-// 
-// Stati: InAttesa (0), Pagata (1), Rimborsata (2), Annullata (3)
-// Timeout: 168 ore (7 giorni)
-// Tentativi validazione: max 3 prima di rimborso disponibile
+// Modella il comportamento dei contratti BNPagamenti.sol e BNGestoreSpedizioni.sol
+// VERSIONE CORRETTA: Costanti globali, guardie non overlapping, tempi validi
 // ============================================================================
 
 dtmc
+
+// ========== COSTANTI (Globali) ==========
+const int TIMEOUT_HOURS = 168;       // 7 giorni (TIMEOUT_RIMBORSO in Solidity)
+const int TIMEOUT_DOPPIO = 336;      // 14 giorni (2 × TIMEOUT_RIMBORSO)
+const int MAX_TENTATIVI = 3;
+// Aumentiamo MAX_TIME per permettere transizioni DOPO 14 giorni (es. rimborso immediato)
+const int MAX_TIME = 360;            // 15 giorni simulazione (336 ore + buffer)
+
+
+// ========== PROBABILITÀ (Globali) ==========
+const double PROB_EVIDENZE_ARRIVO = 0.85;      // 85% evidenze arrivano entro 7gg
+const double PROB_VALIDAZIONE_OK = 0.70;       // 70% validazioni superano soglia 95%
+const double PROB_VALIDAZIONE_FAIL = 0.30;     // 30% falliscono (F1<95 o F2<95)
+const double PROB_ANNULLAMENTO = 0.05;         // 5% mittente annulla prima evidenze
+const double PROB_RICHIESTA_RIMBORSO = 0.90;   // 90% mittente richiede rimborso quando disponibile
 
 module escrow_payment_system
     
     // ========== VARIABILI DI STATO ==========
     
     // Stato principale della spedizione
-    // 0 = InAttesa, 1 = Pagata, 2 = Rimborsata, 3 = Annullata
+    // 0 = InAttesa, 1 = Pagata, 2 = Annullata, 3 = Rimborsata
     stato : [0..3] init 0;
     
-    // Evidenze ricevute (booleano: tutte ricevute o no)
+    // Evidenze ricevute (booleano)
     evidenze_complete : bool init false;
     
     // Tentativi di validazione falliti (max 3)
     tentativi_falliti : [0..3] init 0;
     
-    // Tempo trascorso dalla creazione (in ore, max 336 = 14 giorni)
-    tempo : [0..336] init 0;
+    // Tempo trascorso dalla creazione (in ore)
+    tempo : [0..360] init 0;
     
-    // Flag per indicare se timeout è scaduto (7 giorni = 168 ore)
+    // Flag per indicare se timeout è scaduto
     timeout_scaduto : bool init false;
-    
-    
-    // ========== COSTANTI ==========
-    const int TIMEOUT_HOURS = 168;  // 7 giorni
-    const int MAX_TENTATIVI = 3;
-    const int MAX_TIME = 336;       // 14 giorni simulazione
-    
-    
-    // ========== PROBABILITÀ (da codice esistente) ==========
-    // Basate su comportamento reale del sistema
-    const double PROB_EVIDENZE_ARRIVO = 0.85;      // 85% evidenze arrivano entro tempo
-    const double PROB_VALIDAZIONE_OK = 0.70;       // 70% validazioni superano soglia Bayesian
-    const double PROB_VALIDAZIONE_FAIL = 0.30;     // 30% falliscono (sotto soglia 95%)
-    const double PROB_ANNULLAMENTO = 0.05;         // 5% mittente annulla prima evidenze
     
     
     // ========== TRANSIZIONI: STATO IN ATTESA ==========
     
     // CASO 1: Mittente annulla prima che arrivino evidenze (5%)
-    [] stato=0 & !evidenze_complete & tempo<TIMEOUT_HOURS ->
-        PROB_ANNULLAMENTO : (stato'=3) & (tempo'=tempo+1) +  // Annullata
+    // Solo se: !evidenze_complete & !timeout_scaduto
+    [] stato=0 & !evidenze_complete & !timeout_scaduto & tempo<TIMEOUT_HOURS ->
+        PROB_ANNULLAMENTO : (stato'=2) & (tempo'=tempo+1) +  // Annullata
         (1-PROB_ANNULLAMENTO) : (tempo'=tempo+1);            // Continua
     
     // CASO 2: Evidenze arrivano (85% entro 7 giorni)
-    [] stato=0 & !evidenze_complete & tempo<TIMEOUT_HOURS & !timeout_scaduto ->
+    // Guard disambiguato: non si sovrappone più a CASO 1 (timeout_scaduto=false implicito)
+    [] stato=0 & !evidenze_complete & tempo<TIMEOUT_HOURS ->
         PROB_EVIDENZE_ARRIVO : (evidenze_complete'=true) & (tempo'=tempo+1) +
         (1-PROB_EVIDENZE_ARRIVO) : (tempo'=tempo+1);
     
     // CASO 3: Corriere tenta validazione con evidenze complete
-    [] stato=0 & evidenze_complete & tentativi_falliti<MAX_TENTATIVI ->
+    // Aggiunto tempo<MAX_TIME per evitare overflow
+    [] stato=0 & evidenze_complete & tentativi_falliti<MAX_TENTATIVI & tempo<MAX_TIME ->
         PROB_VALIDAZIONE_OK : (stato'=1) & (tempo'=tempo+1) +                    // Pagata
         PROB_VALIDAZIONE_FAIL : (tentativi_falliti'=tentativi_falliti+1) & (tempo'=tempo+1);  // Fallita
     
-    // CASO 4: Timeout scade senza evidenze → Rimborso disponibile
-    [] stato=0 & !evidenze_complete & tempo>=TIMEOUT_HOURS & !timeout_scaduto ->
+    // CASO 4: Timeout scade senza evidenze → flag timeout
+    // Aggiunto tempo<MAX_TIME
+    [] stato=0 & !evidenze_complete & tempo>=TIMEOUT_HOURS & !timeout_scaduto & tempo<MAX_TIME ->
         1.0 : (timeout_scaduto'=true) & (tempo'=tempo+1);
     
-    // CASO 5: Mittente richiede rimborso dopo 3 tentativi falliti
-    [] stato=0 & evidenze_complete & tentativi_falliti>=MAX_TENTATIVI ->
-        0.90 : (stato'=2) & (tempo'=tempo+1) +  // 90% rimborso richiesto
-        0.10 : (tempo'=tempo+1);                 // 10% attende ancora
+    // CASO 5: Rimborso dopo 3 tentativi falliti
+    // Aggiunto tempo<MAX_TIME
+    [] stato=0 & evidenze_complete & tentativi_falliti>=MAX_TENTATIVI & tempo<MAX_TIME ->
+        PROB_RICHIESTA_RIMBORSO : (stato'=3) & (tempo'=tempo+1) +  // Rimborsata
+        (1-PROB_RICHIESTA_RIMBORSO) : (tempo'=tempo+1);            // Attende
     
-    // CASO 6: Mittente richiede rimborso dopo timeout
-    [] stato=0 & timeout_scaduto ->
-        0.95 : (stato'=2) & (tempo'=tempo+1) +  // 95% rimborso richiesto
-        0.05 : (tempo'=tempo+1);                 // 5% non richiede
+    // CASO 6: Rimborso dopo timeout senza evidenze
+    // Aggiunto tempo<MAX_TIME
+    [] stato=0 & timeout_scaduto & !evidenze_complete & tempo<MAX_TIME ->
+        0.95 : (stato'=3) & (tempo'=tempo+1) +  // Rimborsata
+        0.05 : (tempo'=tempo+1);                // Non richiede
     
-    // CASO 7: Avanza tempo se in attesa senza azioni
-    [] stato=0 & tempo<MAX_TIME & !timeout_scaduto & 
-       (evidenze_complete | tentativi_falliti>0) ->
+    // CASO 7: Rimborso per courier-inactivity (NUOVA CONDIZIONE)
+    // Evidenze complete + 0 tentativi + tempo >= 2×TIMEOUT
+    // Aggiunto tempo<MAX_TIME
+    [] stato=0 & evidenze_complete & tentativi_falliti=0 & tempo>=TIMEOUT_DOPPIO & tempo<MAX_TIME ->
+        0.85 : (stato'=3) & (tempo'=tempo+1) +  // Rimborsata
+        0.15 : (tempo'=tempo+1);                // Non richiede
+    
+    // CASO 8: Avanza tempo se in attesa senza azioni conclusive
+    // Aggiornata guardia complessa per evitare deadlock
+    // Nota: Se tempo >= MAX_TIME il ciclo "Fine simulazione" prende il controllo
+    [] stato=0 & tempo<MAX_TIME & 
+       !((evidenze_complete & tentativi_falliti>=MAX_TENTATIVI) |
+         (timeout_scaduto & !evidenze_complete) |
+         (evidenze_complete & tentativi_falliti=0 & tempo>=TIMEOUT_DOPPIO)) ->
         1.0 : (tempo'=tempo+1);
     
     
@@ -89,15 +103,16 @@ module escrow_payment_system
     [] stato=1 & tempo<MAX_TIME ->
         1.0 : (stato'=1) & (tempo'=tempo+1);
     
-    // Stato RIMBORSATA (assorbente)
+    // Stato ANNULLATA (assorbente)
     [] stato=2 & tempo<MAX_TIME ->
         1.0 : (stato'=2) & (tempo'=tempo+1);
     
-    // Stato ANNULLATA (assorbente)
+    // Stato RIMBORSATA (assorbente)
     [] stato=3 & tempo<MAX_TIME ->
         1.0 : (stato'=3) & (tempo'=tempo+1);
     
-    // Fine simulazione
+    // Fine simulazione (Self-loop)
+    // Se tempo raggiunge MAX_TIME, ci fermiamo
     [] tempo>=MAX_TIME ->
         1.0 : (tempo'=MAX_TIME);
 
@@ -108,17 +123,18 @@ endmodule
 // FORMULE DERIVATE (per proprietà PCTL)
 // ============================================================================
 
-// Safety Properties
-formula doppio_pagamento = (stato=1); // Se pagata una volta, sempre pagata
-formula mai_doppio_pagamento = (stato=1 => X G stato=1);
+// Safety Properties (booleane)
+formula is_pagata = (stato=1);
+formula is_annullata = (stato=2);
+formula is_rimborsata = (stato=3);
 
-// Guarantee Properties
-formula rimborso_disponibile = (tentativi_falliti>=MAX_TENTATIVI | timeout_scaduto);
-formula eventual_resolution = (stato=1 | stato=2 | stato=3); // Risoluzione finale
+// Guarantee Properties (booleane)
+formula rimborso_disponibile = (tentativi_falliti>=MAX_TENTATIVI | timeout_scaduto | 
+                                 (evidenze_complete & tentativi_falliti=0 & tempo>=TIMEOUT_DOPPIO));
+formula risoluzione_finale = (stato=1 | stato=2 | stato=3);
 
 // Monitoring Properties
 formula sistema_bloccato = (stato=0 & tempo>=MAX_TIME);
-formula validazione_successo = (stato=1);
 formula protezione_mittente = (stato=2 | stato=3);
 
 // ============================================================================
@@ -127,9 +143,23 @@ formula protezione_mittente = (stato=2 | stato=3);
 
 label "in_attesa" = stato=0;
 label "pagata" = stato=1;
-label "rimborsata" = stato=2;
-label "annullata" = stato=3;
+label "annullata" = stato=2;
+label "rimborsata" = stato=3;
 label "timeout" = timeout_scaduto;
 label "evidenze_ok" = evidenze_complete;
 label "rimborso_ok" = rimborso_disponibile;
-label "risolto" = eventual_resolution;
+label "risolto" = risoluzione_finale;
+
+// ============================================================================
+// REWARD STRUCTURES
+// ============================================================================
+
+// Tempo medio fino a risoluzione
+rewards "time_to_resolution"
+    stato=0 : 1;  // Accumula 1 per ogni step in attesa
+endrewards
+
+// Contatore tentativi falliti (basato su guardia di stato)
+rewards "failed_attempts_counter"
+    tentativi_falliti>0 : 1;
+endrewards

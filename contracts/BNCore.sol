@@ -2,6 +2,7 @@
 pragma solidity ^0.8.19;
 
 import "@openzeppelin/contracts/access/AccessControl.sol";
+import "@openzeppelin/contracts/security/Pausable.sol";
 
 // Custom Errors
 error EvidenzaIDInvalida();
@@ -12,7 +13,7 @@ error EvidenzaIDInvalida();
  * @notice Contratto base con logica della Rete Bayesiana
  * @dev Contiene solo i calcoli probabilistici - ISOLAMENTO della logica
  */
-contract BNCore is AccessControl {
+contract BNCore is AccessControl, Pausable {
     
     // === COSTANTI ===
     /// @notice Fattore di precisione per i calcoli probabilistici (100 = 100%)
@@ -90,6 +91,24 @@ contract BNCore is AccessControl {
         _grantRole(RUOLO_ORACOLO, msg.sender);
     }
     
+    // === CIRCUIT BREAKER (EMERGENCY PAUSE) ===
+    
+    /**
+     * @notice Mette in pausa il contratto in caso di emergenza
+     * @dev Blocca tutte le funzioni con modifier whenNotPaused
+     */
+    function pause() external onlyRole(DEFAULT_ADMIN_ROLE) {
+        _pause();
+    }
+
+    /**
+     * @notice Ripristina il funzionamento normale del contratto
+     * @dev Riabilita tutte le funzioni con modifier whenNotPaused
+     */
+    function unpause() external onlyRole(DEFAULT_ADMIN_ROLE) {
+        _unpause();
+    }
+    
     // === FUNZIONI AMMINISTRATIVE ===
     /**
      * @notice Imposta le probabilità a priori per i fatti F1 e F2
@@ -99,6 +118,7 @@ contract BNCore is AccessControl {
     function impostaProbabilitaAPriori(uint256 _p_F1_T, uint256 _p_F2_T)
         external
         onlyRole(RUOLO_ORACOLO)
+        whenNotPaused
     {
         p_F1_T = _p_F1_T;
         p_F2_T = _p_F2_T;
@@ -113,6 +133,7 @@ contract BNCore is AccessControl {
     function impostaCPT(uint8 _idEvidenza, CPT calldata _cpt)
         external
         onlyRole(RUOLO_ORACOLO)
+        whenNotPaused
     {
         // ✅ VALIDAZIONE INPUT: Tutti i valori CPT devono essere validi (0-100)
         require(_cpt.p_FF <= PRECISIONE, "CPT: p_FF invalido");

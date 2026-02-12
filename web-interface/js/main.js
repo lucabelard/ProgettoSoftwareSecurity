@@ -5,7 +5,7 @@
 
 import { initWeb3, connectWallet, getCurrentAccount, getNetworkId, getWeb3 } from './web3-connection.js';
 
-import { loadContract, createShipment, setPriorProbabilities, setCPT, sendEvidence, validateAndPay, getShipment, getShipmentCounter, getUserRoles, isAdmin, isMittente, isSensore, requestRefund, getContract } from './contract-interaction.js';
+import { loadContract, createShipment, setPriorProbabilities, setCPT, sendEvidence, validateAndPay, getShipment, getShipmentCounter, getUserRoles, isAdmin, isMittente, isSensore, requestRefund, getContract, pauseContract, unpauseContract, isContractPaused, checkRateLimit, recordEvidenceSent } from './contract-interaction.js';
 import { showToast, showLoading, hideLoading, updateAccountUI, updateNetworkStatus, renderShipmentCard, clearShipmentsGrid, showPanel, updateRoleSelection, updateRoleBadges, filterPanelsByRole } from './ui-components.js';
 import { handleCancelShipment, handleRequestRefund, checkRefundEligibility, checkCancellationEligibility } from './refund-manager.js';
 
@@ -21,9 +21,9 @@ async function initializeApp() {
     const result = await initWeb3();
 
     if (result.success) {
-        showToast(`Provider: ${result.provider}. Clicca "Connect Wallet" per iniziare.`, 'info');
+        showToast(`Web3 pronto. Connetti il wallet per accedere a Filiera Sicura.`, 'info');
     } else {
-        showToast('Errore di connessione. Assicurati che Ganache sia in esecuzione.', 'error');
+        showToast('Errore di connessione. Assicurati che il nodo Besu sia in esecuzione.', 'error');
     }
 }
 
@@ -48,7 +48,8 @@ function setupEventListeners() {
     document.getElementById('themeToggle').addEventListener('click', toggleTheme);
 
     // Connect Wallet
-    document.getElementById('connectWallet').addEventListener('click', handleConnectWallet);
+    document.getElementById('connectWallet')?.addEventListener('click', handleConnectWallet);
+    document.getElementById('connectWalletHero')?.addEventListener('click', handleConnectWallet);
 
     // Role Selection
     document.querySelectorAll('.role-card').forEach(card => {
@@ -58,6 +59,8 @@ function setupEventListeners() {
     // Admin Panel
     document.getElementById('setPriorBtn')?.addEventListener('click', handleSetPrior);
     document.getElementById('setCPTBtn')?.addEventListener('click', handleSetCPT);
+    document.getElementById('pauseContractBtn')?.addEventListener('click', handlePauseContract);
+    document.getElementById('unpauseContractBtn')?.addEventListener('click', handleUnpauseContract);
 
     // Mittente Panel
     document.getElementById('createShipmentBtn')?.addEventListener('click', handleCreateShipment);
@@ -72,6 +75,16 @@ function setupEventListeners() {
         });
     });
     document.getElementById('sendAllEvidencesBtn')?.addEventListener('click', handleSendAllEvidences);
+
+    // Evidence toggle dynamic labels
+    document.querySelectorAll('.evidence-toggle').forEach(toggle => {
+        toggle.addEventListener('change', (e) => {
+            const textSpan = e.target.closest('.toggle-label').querySelector('.toggle-text');
+            if (textSpan) {
+                textSpan.textContent = e.target.checked ? textSpan.dataset.on : textSpan.dataset.off;
+            }
+        });
+    });
 
     // Courier Panel
     document.getElementById('validatePaymentBtn')?.addEventListener('click', handleValidatePayment);
@@ -117,6 +130,20 @@ function setupEventListeners() {
     });
 }
 
+// ===== VIEW MANAGEMENT =====
+function toggleAppView(showApp) {
+    const landingHero = document.getElementById('landingHero');
+    const appContent = document.getElementById('appContentContainer');
+    
+    if (showApp) {
+        landingHero.style.display = 'none';
+        appContent.style.display = 'block';
+    } else {
+        landingHero.style.display = 'block';
+        appContent.style.display = 'none';
+    }
+}
+
 // ===== WALLET CONNECTION =====
 async function handleConnectWallet() {
     showLoading('Connessione al wallet...');
@@ -130,6 +157,9 @@ async function handleConnectWallet() {
             updateAccountUI();
             const networkId = await getNetworkId();
             updateNetworkStatus(true, networkId);
+            
+            // Switch to App View
+            toggleAppView(true);
 
             // Detect user roles
             const account = getCurrentAccount();
@@ -143,16 +173,17 @@ async function handleConnectWallet() {
             // Auto-select appropriate panel based on roles
             const isAdmin = roles.includes('admin') || roles.includes('oracolo');
             if (isAdmin) {
-                // Admin: don't auto-select, let them choose
-                showToast(`Connesso come Admin! Seleziona un ruolo per continuare.`, 'success');
+                // Admin: auto-select Admin panel (RESTRICTED access to CPTs only)
+                handleRoleSelection('admin');
+                showToast(`Benvenuto Amministratore. Accesso configurazione CPT abilitato.`, 'success');
             } else if (roles.includes('mittente')) {
                 // Auto-select Mittente panel
                 handleRoleSelection('mittente');
-                showToast(`Connesso come Mittente!`, 'success');
+                showToast(`Benvenuto Mittente. Pannello spedizioni attivo.`, 'success');
             } else if (roles.includes('sensore')) {
                 // Auto-select Sensore panel
                 handleRoleSelection('sensore');
-                showToast(`Connesso come Sensore!`, 'success');
+                showToast(`Benvenuto Sensore. Pannello IoT attivo.`, 'success');
             } else {
                 // No specific role, show Corriere by default
                 handleRoleSelection('corriere');
@@ -174,6 +205,9 @@ async function handleConnectWallet() {
 function handleRoleSelection(role) {
     updateRoleSelection(role);
     showToast(`Ruolo selezionato: ${role}`, 'info');
+    if (role === 'admin' || role === 'oracolo') {
+        updateCircuitBreakerUI();
+    }
 }
 
 // ===== ADMIN FUNCTIONS =====
@@ -184,6 +218,11 @@ async function handleSetPrior() {
     }
 
     try {
+        if (await isContractPaused()) {
+            showToast('⛔ OPERAZIONE BLOCCATA: Il contratto è in PAUSA di emergenza.', 'warning');
+            return;
+        }
+
         showLoading('Impostazione probabilità a priori...');
 
         const pF1T = document.getElementById('pF1T').value;
@@ -194,7 +233,7 @@ async function handleSetPrior() {
         showToast('Probabilità a priori impostate!', 'success');
         hideLoading();
     } catch (error) {
-        showToast(`Errore: ${error.message}`, 'error');
+        handleContractError(error);
         hideLoading();
     }
 }
@@ -206,6 +245,11 @@ async function handleSetCPT() {
     }
 
     try {
+        if (await isContractPaused()) {
+            showToast('⛔ OPERAZIONE BLOCCATA: Il contratto è in PAUSA di emergenza.', 'warning');
+            return;
+        }
+
         showLoading('Impostazione CPT...');
 
         const evidenceId = document.getElementById('cptEvidenceSelect').value;
@@ -221,7 +265,7 @@ async function handleSetCPT() {
         showToast(`CPT per E${evidenceId} impostata!`, 'success');
         hideLoading();
     } catch (error) {
-        showToast(`Errore: ${error.message}`, 'error');
+        handleContractError(error);
         hideLoading();
     }
 }
@@ -234,6 +278,11 @@ async function handleCreateShipment() {
     }
 
     try {
+        if (await isContractPaused()) {
+            showToast('⛔ OPERAZIONE BLOCCATA: Il contratto è in PAUSA di emergenza. Riprova più tardi.', 'warning');
+            return;
+        }
+
         showLoading('Creazione spedizione...');
 
         const corriereAddress = document.getElementById('corriereAddress').value;
@@ -258,7 +307,7 @@ async function handleCreateShipment() {
         await loadShipments();
         hideLoading();
     } catch (error) {
-        showToast(`Errore: ${error.message}`, 'error');
+        handleContractError(error);
         hideLoading();
     }
 }
@@ -334,6 +383,18 @@ async function handleSendEvidence(evidenceId) {
     }
 
     try {
+        if (await isContractPaused()) {
+            showToast('⛔ OPERAZIONE BLOCCATA: Il contratto è in PAUSA di emergenza.', 'warning');
+            return;
+        }
+
+        // Rate Limit pre-check (synchronous - no contract call)
+        const rateStatus = checkRateLimit();
+        if (!rateStatus.allowed) {
+            showToast(`⏱️ RATE LIMIT: Devi attendere ancora ${rateStatus.secondsRemaining} secondi prima di inviare nuove evidenze.`, 'warning');
+            return;
+        }
+
         // Pre-validate shipment state and evidence status
         showLoading('Verifica spedizione...');
         const shipment = await getShipment(shipmentId);
@@ -380,11 +441,12 @@ async function handleSendEvidence(evidenceId) {
 
         await sendEvidence(shipmentId, evidenceId, value);
 
+        recordEvidenceSent(); // Track timestamp for rate limiting
         showToast(`✅ Evidenza E${evidenceId} inviata!`, 'success');
         await loadShipments();
         hideLoading();
     } catch (error) {
-        showToast(`Errore: ${error.message}`, 'error');
+        handleContractError(error);
         hideLoading();
     }
 }
@@ -398,6 +460,18 @@ async function handleSendAllEvidences() {
     }
 
     try {
+        if (await isContractPaused()) {
+            showToast('⛔ OPERAZIONE BLOCCATA: Il contratto è in PAUSA di emergenza.', 'warning');
+            return;
+        }
+
+        // Rate Limit pre-check (synchronous - no contract call)
+        const rateStatus = checkRateLimit();
+        if (!rateStatus.allowed) {
+            showToast(`⏱️ RATE LIMIT: Devi attendere ancora ${rateStatus.secondsRemaining} secondi prima di inviare nuove evidenze.`, 'warning');
+            return;
+        }
+
         // Pre-validate shipment state
         showLoading('Verifica spedizione...');
         const shipment = await getShipment(shipmentId);
@@ -445,11 +519,12 @@ async function handleSendAllEvidences() {
         // Send all evidences in ONE transaction
         await sendAllEvidencesBatch(shipmentId, values);
 
+        recordEvidenceSent(); // Track timestamp for rate limiting
         showToast('✅ Tutte le evidenze inviate in una sola transazione!', 'success');
         await loadShipments();
         hideLoading();
     } catch (error) {
-        showToast(`Errore: ${error.message}`, 'error');
+        handleContractError(error);
         hideLoading();
     }
 }
@@ -464,6 +539,11 @@ async function handleValidatePayment() {
     }
 
     try {
+        if (await isContractPaused()) {
+            showToast('⛔ OPERAZIONE BLOCCATA: Il contratto è in PAUSA di emergenza.', 'warning');
+            return;
+        }
+
         showLoading('Validazione e pagamento...');
 
         // First, try to simulate the call to get the revert reason if it fails
@@ -488,49 +568,7 @@ async function handleValidatePayment() {
         await loadShipments();
         hideLoading();
     } catch (error) {
-        console.error('Errore validazione:', error);
-        console.error('Error details:', {
-            message: error.message,
-            data: error.data,
-            code: error.code
-        });
-
-        let errorMessage = 'Validazione fallita';
-
-        // Extract revert reason from error
-        if (error.message) {
-            // Try to extract revert reason from different error formats
-            if (error.message.includes('Requisiti di conformita non superati') ||
-                (error.data && error.data.message && error.data.message.includes('Requisiti di conformita non superati'))) {
-                errorMessage = '❌ Evidenze non valide - probabilità sotto la soglia del 95%';
-            } else if (error.message.includes('Evidenze mancanti') ||
-                (error.data && error.data.message && error.data.message.includes('Evidenze mancanti'))) {
-                errorMessage = '⚠️ Evidenze incomplete - attendi tutte le 5 evidenze';
-            } else if (error.message.includes('Non sei il corriere') ||
-                (error.data && error.data.message && error.data.message.includes('Non sei il corriere'))) {
-                errorMessage = '🚫 Solo il corriere assegnato può richiedere il pagamento';
-            } else if (error.message.includes('Spedizione non in attesa') ||
-                (error.data && error.data.message && error.data.message.includes('Spedizione non in attesa'))) {
-                errorMessage = '⚠️ Spedizione già processata o annullata';
-            } else if (error.message.includes('Internal JSON-RPC error')) {
-                // Generic MetaMask error - try to get more info from data
-                if (error.data && error.data.message) {
-                    errorMessage = `❌ ${error.data.message}`;
-                } else {
-                    errorMessage = '❌ Validazione fallita - controlla che tutte le evidenze siano state inviate e che le probabilità siano corrette';
-                }
-            } else if (error.message.includes('Parameter decoding error')) {
-                errorMessage = '🚫 ACCESSO NEGATO: Questo account non è il corriere di questa spedizione! Cambia account o crea una nuova spedizione assegnata a te.';
-            } else if (error.message.includes('revert')) {
-                // Generic revert message extraction
-                const match = error.message.match(/revert\s+(.+?)(?:"|$)/);
-                if (match && match[1]) {
-                    errorMessage = match[1].trim();
-                }
-            }
-        }
-
-        showToast(errorMessage, 'error');
+        handleContractError(error);
         hideLoading();
     }
 }
@@ -600,4 +638,124 @@ function filterShipments() {
 
         card.style.display = matchesSearch && matchesStatus ? 'block' : 'none';
     });
+}
+
+// ===== CIRCUIT BREAKER HANDLERS =====
+async function handlePauseContract() {
+    if (!confirm('Sei SICURO di voler mettere in PAUSA il contratto? Tutte le operazioni saranno bloccate.')) return;
+    
+    showLoading('Mettendo in pausa il contratto...');
+    try {
+        await pauseContract();
+        showToast('Contratto messo in PAUSA con successo', 'warning');
+        await updateCircuitBreakerUI();
+    } catch (error) {
+        showToast('Errore durante la messa in pausa: ' + error.message, 'error');
+    } finally {
+        hideLoading();
+    }
+}
+
+async function handleUnpauseContract() {
+    showLoading('Ripristinando il contratto...');
+    try {
+        await unpauseContract();
+        showToast('Contratto RIPRISTINATO con successo', 'success');
+        await updateCircuitBreakerUI();
+    } catch (error) {
+        handleContractError(error);
+    } finally {
+        hideLoading();
+    }
+}
+
+async function updateCircuitBreakerUI() {
+    try {
+        const isPaused = await isContractPaused();
+        const statusText = document.querySelector('#circuitBreakerStatus .status-text');
+        const statusIndicator = document.querySelector('#circuitBreakerStatus .status-indicator');
+        const pauseBtn = document.getElementById('pauseContractBtn');
+        const unpauseBtn = document.getElementById('unpauseContractBtn');
+
+        if (!statusText || !statusIndicator) return;
+
+        if (isPaused) {
+            statusText.textContent = 'Stato Contratto: IN PAUSA ⚠️';
+            statusText.style.color = 'red';
+            statusIndicator.style.backgroundColor = 'red';
+            pauseBtn.style.display = 'none';
+            unpauseBtn.style.display = 'inline-block';
+            
+            // Show persistent warning if admin panel is visible
+            if (document.getElementById('adminPanel') && document.getElementById('adminPanel').style.display !== 'none') {
+                showToast('ATTENZIONE: Il contratto è attualmente in PAUSA', 'warning');
+            }
+        } else {
+            statusText.textContent = 'Stato Contratto: ATTIVO ✅';
+            statusText.style.color = 'green';
+            statusIndicator.style.backgroundColor = 'green';
+            pauseBtn.style.display = 'inline-block';
+            unpauseBtn.style.display = 'none';
+        }
+    } catch (error) {
+        console.error('Errore updateCircuitBreakerUI:', error);
+    }
+}
+
+// ===== CENTRALIZED ERROR HANDLING =====
+function handleContractError(error) {
+    console.error('Contract Error:', error);
+    
+    let message = error.message || 'Errore sconosciuto';
+    let type = 'error';
+    
+    // Check for "Pausable: paused" revert reason
+    if (message.includes('Pausable: paused') || 
+        (error.data && error.data.message && error.data.message.includes('Pausable: paused'))) {
+        message = '⛔ OPERAZIONE BLOCCATA: Il contratto è in PAUSA di emergenza. Riprova più tardi.';
+        type = 'warning';
+        // Force update of the status indicator
+        updateCircuitBreakerUI();
+    }
+    // Check for AccessControl errors
+    else if (message.includes('AccessControl') || 
+             (error.data && error.data.message && error.data.message.includes('AccessControl'))) {
+        message = '🚫 ACCESSO NEGATO: Non hai i permessi necessari (serve Admin/Mittente/Corriere).';
+    }
+    // Check for Compliance Requirements (Probability < 95%)
+    else if (message.includes('Requisiti di conformita non superati') ||
+             (error.data && error.data.message && error.data.message.includes('Requisiti di conformita non superati'))) {
+        message = '❌ Evidenze non valide - probabilità sotto la soglia del 95%';
+    }
+    // Check for Missing Evidences
+    else if (message.includes('Evidenze mancanti') ||
+             (error.data && error.data.message && error.data.message.includes('Evidenze mancanti'))) {
+        message = '⚠️ Evidenze incomplete - attendi tutte le 5 evidenze';
+    }
+    // Check for Wrong Account (Courier validation)
+    else if (message.includes('Non sei il corriere') ||
+             (error.data && error.data.message && error.data.message.includes('Non sei il corriere'))) {
+        message = '🚫 Solo il corriere assegnato può richiedere il pagamento';
+    }
+    // Check for Wrong State
+    else if (message.includes('Spedizione non in attesa') ||
+             (error.data && error.data.message && error.data.message.includes('Spedizione non in attesa'))) {
+        message = '⚠️ Spedizione già processata o annullata';
+    }
+    // Check for Rate Limit errors
+    else if (message.includes('RateLimitExceeded') || message.includes('Rate') ||
+             (error.data && error.data.message && error.data.message.includes('RateLimitExceeded'))) {
+        message = '⏱️ RATE LIMIT: Devi attendere almeno 1 minuto tra un invio di evidenze e il prossimo.';
+        type = 'warning';
+    }
+    // Check for internal JSON-RPC error (often hides the real revert reason)
+    else if (message.includes('Internal JSON-RPC error')) {
+        if (error.data && error.data.message) {
+            message = `❌ ${error.data.message}`;
+        } else {
+            message = '❌ Errore RPC - controlla console per dettagli';
+        }
+    }
+    
+    showToast(message, type);
 }

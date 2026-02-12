@@ -64,6 +64,22 @@ export async function setCPT(evidenceId, cpt) {
         .send({ from: account, gas: 200000, type: '0x0' });
 }
 
+export async function pauseContract() {
+    const account = getCurrentAccount();
+    return await contract.methods.pause()
+        .send({ from: account, gas: 200000, type: '0x0' });
+}
+
+export async function unpauseContract() {
+    const account = getCurrentAccount();
+    return await contract.methods.unpause()
+        .send({ from: account, gas: 200000, type: '0x0' });
+}
+
+export async function isContractPaused() {
+    return await contract.methods.paused().call();
+}
+
 // ===== MITTENTE FUNCTIONS =====
 export async function createShipment(courierAddress, paymentAmount) {
     const account = getCurrentAccount();
@@ -104,6 +120,43 @@ export async function sendAllEvidencesBatch(shipmentId, values) {
     const account = getCurrentAccount();
     return await contract.methods.inviaTutteEvidenze(shipmentId, values)
         .send({ from: account, gas: 400000, type: '0x0' }); // Higher gas for batch operation
+}
+
+/**
+ * Client-side Rate Limit tracker.
+ * Mirrors the contract's MIN_TIME_BETWEEN_EVIDENCES (60 seconds).
+ * Tracks per-account last evidence send timestamp.
+ */
+const RATE_LIMIT_SECONDS = 60;
+const _lastEvidenceSendTime = {}; // { account: timestamp_ms }
+
+/**
+ * Check if the current sensor is allowed to send evidence.
+ * @returns {{allowed: boolean, secondsRemaining: number}}
+ */
+export function checkRateLimit() {
+    const account = getCurrentAccount();
+    if (!account) return { allowed: true, secondsRemaining: 0 };
+    
+    const lastSend = _lastEvidenceSendTime[account.toLowerCase()] || 0;
+    const now = Date.now();
+    const elapsedSeconds = (now - lastSend) / 1000;
+    
+    if (elapsedSeconds < RATE_LIMIT_SECONDS) {
+        const remaining = Math.ceil(RATE_LIMIT_SECONDS - elapsedSeconds);
+        return { allowed: false, secondsRemaining: remaining };
+    }
+    return { allowed: true, secondsRemaining: 0 };
+}
+
+/**
+ * Record that evidence was successfully sent (call AFTER successful tx).
+ */
+export function recordEvidenceSent() {
+    const account = getCurrentAccount();
+    if (account) {
+        _lastEvidenceSendTime[account.toLowerCase()] = Date.now();
+    }
 }
 
 // ===== COURIER FUNCTIONS =====

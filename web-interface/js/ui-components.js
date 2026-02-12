@@ -51,9 +51,27 @@ export function updateAccountUI() {
     const accountElement = document.getElementById('accountAddress');
     
     if (account) {
-        accountElement.textContent = `${account.substring(0, 6)}...${account.substring(38)}`;
-        document.getElementById('connectWallet').textContent = 'Connesso';
-        document.getElementById('connectWallet').disabled = true;
+        if (accountElement) {
+            accountElement.textContent = `${account.substring(0, 6)}...${account.substring(38)}`;
+        }
+        
+        const connectBtn = document.getElementById('connectWallet');
+        if (connectBtn) {
+            connectBtn.textContent = 'Connesso';
+            connectBtn.disabled = true;
+        }
+
+        const heroBtn = document.getElementById('connectWalletHero');
+        if (heroBtn) {
+            heroBtn.innerHTML = `
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M20 6L9 17l-5-5"/>
+                </svg>
+                Wallet Connesso
+            `;
+            heroBtn.disabled = true;
+            heroBtn.classList.add('btn-success');
+        }
     }
 }
 
@@ -64,7 +82,7 @@ export function updateNetworkStatus(connected, networkId) {
     
     if (connected) {
         statusDot.classList.add('connected');
-        networkNameElement.textContent = networkId === 5777n || networkId === 5777 ? 'Ganache' : `Network ${networkId}`;
+        networkNameElement.textContent = networkId === 5777n || networkId === 1337n || networkId === 1337 ? 'Besu Private' : `Network ${networkId}`;
     } else {
         statusDot.classList.remove('connected');
         networkNameElement.textContent = 'Disconnected';
@@ -233,9 +251,21 @@ export function updateRoleBadges(roles) {
         'sensore': 'Sensore',
         'corriere': 'Corriere'
     };
+
+    // Filter roles for display:
+    // If user is Admin (or Oracolo), show ONLY Admin badge (hide Oracolo, Mittente, Sensore)
+    let displayRoles = [...roles];
+    const isAdmin = displayRoles.includes('admin') || displayRoles.includes('oracolo');
+
+    if (isAdmin) {
+        if (!displayRoles.includes('admin')) {
+            displayRoles.push('admin');
+        }
+        displayRoles = displayRoles.filter(r => !['oracolo', 'mittente', 'sensore'].includes(r));
+    }
     
     // If no contract roles, show Corriere (since anyone can be a courier)
-    if (roles.length === 0) {
+    if (displayRoles.length === 0) {
         const badge = document.createElement('span');
         badge.className = 'role-badge role-corriere';
         badge.textContent = '🚚 Corriere';
@@ -243,7 +273,7 @@ export function updateRoleBadges(roles) {
         return;
     }
     
-    roles.forEach(role => {
+    displayRoles.forEach(role => {
         const badge = document.createElement('span');
         badge.className = `role-badge role-${role}`;
         badge.textContent = `${roleIcons[role] || '🔑'} ${roleLabels[role] || role}`;
@@ -261,10 +291,10 @@ export function filterPanelsByRole(roles) {
     });
     
     // Admin sees everything
+    // Admin sees ONLY admin panel (restricted access)
     if (isAdminUser) {
-        document.querySelectorAll('.role-card').forEach(card => {
-            card.style.display = 'block';
-        });
+        const adminCard = document.querySelector('.role-card[data-role="admin"]');
+        if (adminCard) adminCard.style.display = 'block';
         return;
     }
     
