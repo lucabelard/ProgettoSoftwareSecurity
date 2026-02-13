@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2024) (preloaded format=pdflatex 2024.11.25)  13 FEB 2026 16:21
+This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2024) (preloaded format=pdflatex 2024.11.25)  13 FEB 2026 16:26
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -975,8 +975,7 @@ File: t1ppl.fd 2001/06/04 font definitions for T1/ppl.
 File: l3backend-pdftex.def 2024-02-20 L3 backend support: PDF output (pdfTeX)
 \l__color_backend_stack_int=\count394
 \l__pdf_internal_box=\box86
-)
-No file main.aux.
+) (./main.aux (./frontmatter/tocs.aux) (./introduction/introduction.aux) (./chapter1/chapter1.aux) (./chapter2/chapter2.aux) (./chapter3/chapter3.aux) (./chapter4/chapter4.aux) (./chapter5/chapter5.aux) (./chapter6/chapter6.aux) (./chapter7/chapter7.aux) (./backmatter/appendixA.aux))
 \openout1 = `main.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 54.
@@ -999,7 +998,7 @@ LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 54.
 LaTeX Font Info:    ... okay on input line 54.
 LaTeX Info: Redefining \it@ocap on input line 54.
 LaTeX Info: Redefining \it@ccap on input line 54.
-(./main.glsdefs)
+ (./main.glsdefs)
 Package backref Info: ** backref set up for natbib ** on input line 54.
 Package gensymb Info: Math companion symbols found on input line 54.
 LaTeX Info: Redefining \degree on input line 54.
@@ -1159,17 +1158,16 @@ Package microtype Info: Loading generic protrusion settings for font family
 (microtype)             `phv' (encoding: T1).
 (microtype)             For optimal results, create family-specific settings.
 (microtype)             See the microtype manual for details.
+ (./main.toc [1
 
-No file main.toc.
+
+
+
+] [2] [3] [4])
 \tf@toc=\write9
 \openout9 = `main.toc'.
 
-[1
-
-
-
-
-])
+ [5])
 \openout2 = `introduction/introduction.aux'.
 
  (./introduction/introduction.tex
@@ -1189,7 +1187,7 @@ l.22     \item \textbf
 
 
 ]
-<chapter1/image/SR completo con sistema nuovo.png, id=30, 10631.72pt x 8170.525pt>
+<chapter1/image/SR completo con sistema nuovo.png, id=462, 10631.72pt x 8170.525pt>
 File: chapter1/image/SR completo con sistema nuovo.png Graphic file (type png)
 <use chapter1/image/SR completo con sistema nuovo.png>
 Package pdftex.def Info: chapter1/image/SR completo con sistema nuovo.png  used on input line 39.
@@ -1205,12 +1203,12 @@ LaTeX Font Info:    Font shape `T1/phv/b/n' will be
 Capitolo 1.
 LaTeX Font Info:    Font shape `T1/phv/m/n' will be
 (Font)              scaled to size 23.63593pt on input line 1.
-<chapter1/image/sd_as_is.png, id=49, 6239.31pt x 3621.53pt>
+<chapter1/image/sd_as_is.png, id=475, 6239.31pt x 3621.53pt>
 File: chapter1/image/sd_as_is.png Graphic file (type png)
 <use chapter1/image/sd_as_is.png>
 Package pdftex.def Info: chapter1/image/sd_as_is.png  used on input line 19.
 (pdftex.def)             Requested size: 441.01775pt x 255.96445pt.
-<chapter1/image/sd_to_be.png, id=50, 3866.445pt x 3115.64pt>
+<chapter1/image/sd_to_be.png, id=476, 3866.445pt x 3115.64pt>
 File: chapter1/image/sd_to_be.png Graphic file (type png)
 <use chapter1/image/sd_to_be.png>
 Package pdftex.def Info: chapter1/image/sd_to_be.png  used on input line 33.
@@ -1228,26 +1226,17 @@ LaTeX Warning: Text page 5 contains only floats.
 Overfull \vbox (3.77505pt too high) has occurred while \output is active []
 
  [5 <./chapter1/image/sd_as_is.png> <./chapter1/image/sd_to_be.png>]
-<chapter1/image/sd_attackers.png, id=68, 12181.51pt x 7399.645pt>
+<chapter1/image/sd_attackers.png, id=489, 12181.51pt x 7399.645pt>
 File: chapter1/image/sd_attackers.png Graphic file (type png)
 <use chapter1/image/sd_attackers.png>
 Package pdftex.def Info: chapter1/image/sd_attackers.png  used on input line 49.
 (pdftex.def)             Requested size: 441.01775pt x 267.82097pt.
-
-./chapter1/chapter1.tex:56: Dimension too large.
-<argument> \wd \@tempboxa 
-                          
-l.56 ...ectratio]{chapter1/image/sr_attackers.png}
-                                                  
-I can't work with sizes bigger than about 19 feet.
-Continue and I'll use the largest value I can.
-
-<chapter1/image/sr_attackers.png, id=69, 17140.035pt x 6440.06pt>
+<chapter1/image/sr_attackers.png, id=490, 4015.0pt x 1508.63625pt>
 File: chapter1/image/sr_attackers.png Graphic file (type png)
 <use chapter1/image/sr_attackers.png>
 Package pdftex.def Info: chapter1/image/sr_attackers.png  used on input line 56.
-(pdftex.def)             Requested size: 441.01775pt x 173.34348pt.
-[6 <./chapter1/image/sd_attackers.png>] [7 <./chapter1/image/sr_attackers.png>] [8]
+(pdftex.def)             Requested size: 441.01775pt x 165.69728pt.
+ [6 <./chapter1/image/sd_attackers.png>] [7 <./chapter1/image/sr_attackers.png>] [8]
 *geometry* verbose mode - [ newgeometry ] result:
 * driver: pdftex
 * paper: a4paper
@@ -1284,10 +1273,6 @@ Package pdftex.def Info: chapter1/image/sr_attackers.png  used on input line 56.
 Underfull \hbox (badness 2452) in paragraph at lines 211--212
 []|\T1/ppl/m/n/10 (+20) Push Pay-ment + Reen-tran-cy-
  []
-
-
-Package longtable Warning: Column widths have changed
-(longtable)                in table 1.2 on input line 262.
 
 [9
 
@@ -1535,7 +1520,7 @@ Capitolo 2.
 
 
 ] [30] [31]
-<chapter2/image/Grafico_Markov_Chain.png, id=241, 1445.4pt x 813.0375pt>
+<chapter2/image/Grafico_Markov_Chain.png, id=631, 1445.4pt x 813.0375pt>
 File: chapter2/image/Grafico_Markov_Chain.png Graphic file (type png)
 <use chapter2/image/Grafico_Markov_Chain.png>
 Package pdftex.def Info: chapter2/image/Grafico_Markov_Chain.png  used on input line 78.
@@ -1771,32 +1756,25 @@ Package glossaries Warning: No \printglossary or \printglossaries found.
 (Remove \makeglossaries if you don't want any glossaries.) 
 This document will not have a glossary.
 
-
-Package longtable Warning: Table widths have changed. Rerun LaTeX.
-
 (./main.aux (./frontmatter/tocs.aux) (./introduction/introduction.aux) (./chapter1/chapter1.aux) (./chapter2/chapter2.aux) (./chapter3/chapter3.aux) (./chapter4/chapter4.aux) (./chapter5/chapter5.aux) (./chapter6/chapter6.aux) (./chapter7/chapter7.aux) (./backmatter/appendixA.aux))
  ***********
 LaTeX2e <2023-11-01> patch level 1
 L3 programming layer <2024-02-20>
  ***********
-
-
-LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
-
  ) 
 Here is how much of TeX's memory you used:
- 41177 strings out of 474116
- 751733 string characters out of 5743681
+ 41217 strings out of 474116
+ 752509 string characters out of 5743681
  2284187 words of memory out of 5000000
- 61241 multiletter control sequences out of 15000+600000
+ 61253 multiletter control sequences out of 15000+600000
  657734 words of font info for 534 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  111i,15n,131p,2429b,2108s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/mathpazo/fplmr.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/symbols/msam10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/cm-super/sfrm1095.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/cm-super/sftt1095.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/urw/courier/ucrb8a.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/urw/courier/ucrr8a.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/urw/courier/ucrro8a.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/urw/helvetic/uhvb8a.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/urw/helvetic/uhvr8a.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/urw/palatino/uplb8a.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/urw/palatino/uplr8a.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/urw/palatino/uplr8a.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/urw/palatino/uplri8a.pfb>
-Output written on main.pdf (83 pages, 11161421 bytes).
+Output written on main.pdf (87 pages, 8645917 bytes).
 PDF statistics:
- 2089 PDF objects out of 2487 (max. 8388607)
- 1939 compressed objects within 20 object streams
- 895 named destinations out of 1000 (max. 500000)
+ 2315 PDF objects out of 2487 (max. 8388607)
+ 2159 compressed objects within 22 object streams
+ 899 named destinations out of 1000 (max. 500000)
  134824 words of extra memory for PDF output out of 154059 (max. 10000000)
 
