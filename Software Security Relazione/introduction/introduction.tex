@@ -12,3 +12,30 @@ In questo contesto, la tecnologia Blockchain offre un cambio di paradigma fondam
 Questo progetto propone una soluzione ibrida che integra Hyperledger Besu, una blockchain permissioned adatta a contesti enterprise, con un sistema di **Oracoli Bayesiani**. L'approccio innovativo risiede nell'utilizzare l'inferenza probabilistica on-chain per validare la coerenza delle letture multisensoriali (temperatura, umidità, shock, luce, integrità sigillo) prima di finalizzare la transazione di consegna. In questo modo, il sistema non si limita a registrare i dati, ma agisce come un decisore autonomo capace di accettare o rifiutare un lotto in base a politiche di rischio matematicamente definite.
 
 Questa tesi illustra il design, l'implementazione e la verifica di tale architettura sicura, mettendo in luce come l'integrazione tra DLT (Distributed Ledger Technology) e metodi formali possa elevare gli standard di sicurezza e affidabilità nella logistica farmaceutica 4.0.
+
+\section{Il problema della Catena del Freddo}
+La spedizione di medicinali sensibili è un processo ad alto rischio. Secondo l'Organizzazione Mondiale della Sanità (OMS), una percentuale significativa di vaccini viene sprecata ogni anno a causa di interruzioni nella catena del freddo.
+I problemi principali sono:
+\begin{itemize}
+    \item \textbf{Mancanza di visibilità end-to-end}: I dati di transito sono spesso disponibili solo a posteriori.
+    \item \textbf{Conflitto di interessi}: Il trasportatore, responsabile del mantenimento della temperatura, è spesso anche colui che fornisce i dati di monitoraggio, creando un incentivo alla manipolazione in caso di guasti.
+    \item \textbf{Silos informativi}: Produttori, distributori e farmacie utilizzano sistemi ERP diversi che non comunicano in tempo reale.
+\end{itemize}
+
+\section{Obiettivi del Progetto}
+Il sistema proposto mira a risolvere queste problematiche attraverso tre pilastri fondamentali:
+
+\subsection{1. Automazione tramite Smart Contract}
+Eliminare l'intermediazione umana e burocratica nei processi di verifica e pagamento. Il contratto intelligente (Smart Contract) agisce come un deposito a garanzia (Escrow), sbloccando i fondi al corriere solo se tutte le condizioni di qualità sono matematicamente soddisfatte.
+
+\subsection{2. Sicurezza del Dato (Data Integrity)}
+Garantire che, una volta acquisito, il dato non possa essere alterato (Tamper-Proof). Questo è assicurato dalla crittografia sottostante la blockchain e dal meccanismo di consenso IBFT 2.0 di Hyperledger Besu.
+
+\subsection{3. Validazione Logica (Data Validity)}
+Garantire che il dato acquisito rifletta la realtà. Qui interviene l'Oracolo Bayesiano, che correla letture diverse (es. "Temperatura Alta" + "Sigillo Rotto" + "Luce Rilevata") per calcolare la probabilità posteriore di un evento avverso, distinguendo tra falsi positivi dei sensori e reali compromissioni del carico.
+
+\begin{figure}[ht!]
+    \centering
+    \includegraphics[width=0.8\textwidth]{chapter1/image/SR completo con sistema nuovo.png}
+    \caption{Panoramica del Sistema di Validazione}
+\end{figure}

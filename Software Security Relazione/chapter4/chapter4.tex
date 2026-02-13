@@ -59,7 +59,8 @@ I dati sensibili (es. farmaco, destinazione) non vengono salvati sullo Smart Con
 Il ponte tra mondo fisico e blockchain è gestito dallo script \texttt{simula\_oracolo.js}.
 Questo componente è fondamentale perché la blockchain non può interrogare direttamente i sensori.
 
-\subsection{Flow del Dato (Sensore $\rightarrow$ Blockchain)}
+\subsection{Flow del Dato (Sensore \texorpdfstring{$\rightarrow$}{->} Blockchain)}
+
 \begin{enumerate}
     \item \textbf{Generazione}: Lo script genera valori casuali per i 5 sensori (Temperatura, Umidità, Shock, Luce, Sigillo), simulando scenari normali (90\% probabilità) o di guasto.
     \item \textbf{Firma}: Ogni lettura viene impacchettata in una transazione firmata dalla chiave privata del \texttt{RUOLO\_SENSORE}.

@@ -75,7 +75,7 @@ La struttura a stati del modello vulnerabile si configura come segue:
 
 \subsection{Logica delle Transizioni: Sistema Vulnerabile}
 
-\subsubsection{Sensore OK $\to$ OK, FAILED, o COMPROMISED}
+\subsubsection{Sensore OK \texorpdfstring{$\to$}{->} OK, FAILED, o COMPROMISED}
 \begin{lstlisting}[style=mystyle, language=Prolog]
     [] e1=0 & time<200 -> 
         0.80 : (e1'=0) & (time'=time+1) +     // Rimane OK
@@ -84,7 +84,7 @@ La struttura a stati del modello vulnerabile si configura come segue:
 \end{lstlisting}
 Questa regola di transizione codifica tre possibili esiti per un sensore nello stato OK. Con probabilità 80\% il sensore rimane operativo, con probabilità 5\% si verifica un guasto hardware naturale, e con probabilità 15\% si verifica un attacco riuscito che porta il sensore allo stato COMPROMISED. Quest'ultima transizione rappresenta il punto critico del sistema vulnerabile, in quanto senza contromisure di sicurezza, gli attacchi di Spoofing (5\%) e Tampering (10\%) hanno successo con probabilità significativa, trasferendo il sensore in uno stato dal quale non può recuperare.
 
-\subsubsection{Sensore FAILED $\to$ OK, FAILED, o COMPROMISED}
+\subsubsection{Sensore FAILED \texorpdfstring{$\to$}{->} OK, FAILED, o COMPROMISED}
 \begin{lstlisting}[style=mystyle, language=Prolog]
     [] e1=1 & time<200 -> 
         0.60 : (e1'=0) & (time'=time+1) +     // Recovery manuale
@@ -93,7 +93,7 @@ Questa regola di transizione codifica tre possibili esiti per un sensore nello s
 \end{lstlisting}
 Per un sensore in stato FAILED, la regola modella il processo di recovery manuale che, in assenza di meccanismi di Auto-Failover, presenta un tasso di successo del 60\%, inferiore rispetto al modello protetto. La probabilità del 30\% di permanenza nello stato guasto e del 10\% di compromissione evidenzia la maggiore vulnerabilità dei sensori non operativi, confermando che i dispositivi in condizione di guasto rappresentano target più favorevoli per gli attaccanti.
 
-\subsubsection{Sensore COMPROMISED $\to$ COMPROMISED (Stato Assorbente)}
+\subsubsection{Sensore COMPROMISED \texorpdfstring{$\to$}{->} COMPROMISED (Stato Assorbente)}
 \begin{lstlisting}[style=mystyle, language=Prolog]
     [] e1=2 & time<200 -> 
         1.00 : (e1'=2) & (time'=time+1);      // Rimane compromesso
