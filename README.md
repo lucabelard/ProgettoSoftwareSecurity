@@ -16,7 +16,7 @@ Assicurarsi che le seguenti dipendenze siano installate nell'ambiente di esecuzi
 
 *   **Node.js** (v14 o superiore)
 *   **Java JDK** (v11 o v17 raccomandata per Besu)
-*   **Hyperledger Besu v25.12.0** (Binari necessari nel PATH)
+*   **Hyperledger Besu v25.11.0** (Binari necessari nel PATH)
     *   [Scarica Besu](https://github.com/hyperledger/besu/releases)
     *   *Nota:* Assicurati che il comando `besu --version` funzioni nel terminale.
 *   **MetaMask** (Estensione Browser)
