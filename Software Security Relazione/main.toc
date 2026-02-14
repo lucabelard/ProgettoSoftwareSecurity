@@ -1,187 +1,97 @@
 \babel@toc {italian}{}\relax 
 \babel@toc {italian}{}\relax 
 \contentsline {chapter}{Indice}{i}{section*.2}%
-\contentsline {chapter}{Introduzione}{1}{section*.4}%
-\contentsline {section}{\numberline {0.1}Il problema della Catena del Freddo}{1}{section.0.1}%
-\contentsline {section}{\numberline {0.2}Obiettivi del Progetto}{2}{section.0.2}%
-\contentsline {subsection}{\numberline {0.2.1}1. Automazione tramite Smart Contract}{2}{subsection.0.2.1}%
-\contentsline {subsection}{\numberline {0.2.2}2. Sicurezza del Dato (Data Integrity)}{2}{subsection.0.2.2}%
-\contentsline {subsection}{\numberline {0.2.3}3. Validazione Logica (Data Validity)}{2}{subsection.0.2.3}%
-\contentsline {chapter}{\numberline {1}Valutazione del Rischio}{4}{chapter.1}%
-\contentsline {section}{\numberline {1.1}Modellazione Strategica e Attori}{4}{section.1.1}%
-\contentsline {section}{\numberline {1.2}Analisi delle Minacce DUAL-STRIDE}{8}{section.1.2}%
-\contentsline {section}{\numberline {1.3}Analisi Dettagliata degli Scenari (Abuse e Misuse Cases)}{10}{section.1.3}%
-\contentsline {subsection}{\numberline {1.3.1}Integrità dei Dati IoT (Asset A2)}{10}{subsection.1.3.1}%
-\contentsline {subsection}{\numberline {1.3.2}Sicurezza dei Pagamenti e Fondi (Asset A3)}{12}{subsection.1.3.2}%
-\contentsline {subsection}{\numberline {1.3.3}Configurazione e Logica Bayesiana (Asset A5 e A6)}{15}{subsection.1.3.3}%
-\contentsline {subsection}{\numberline {1.3.4}Interfaccia Utente e Credenziali (Asset A7 e A8)}{19}{subsection.1.3.4}%
-\contentsline {section}{\numberline {1.4}Standard Internazionali e Mitigazioni}{23}{section.1.4}%
-\contentsline {section}{\numberline {1.5}Conclusioni e Rischio Residuo}{24}{section.1.5}%
-\contentsline {chapter}{\numberline {2}Analisi e Progettazione Architetturale}{25}{chapter.2}%
-\contentsline {section}{\numberline {2.1}Design Architetturale e Strategie di Sicurezza}{25}{section.2.1}%
-\contentsline {subsection}{\numberline {2.1.1}Architettura Distribuita, Ridondante e Diversificata}{25}{subsection.2.1.1}%
-\contentsline {subsection}{\numberline {2.1.2}Interazione Utente e Strumenti di Sviluppo}{25}{subsection.2.1.2}%
-\contentsline {subsection}{\numberline {2.1.3}Monitoraggio, Isolamento e Offuscamento}{26}{subsection.2.1.3}%
-\contentsline {section}{\numberline {2.2}Design degli Asset e Linee Guida di Sicurezza}{26}{section.2.2}%
-\contentsline {section}{\numberline {2.3}Modellazione Markov Chain e Verifica Formale con PRISM}{26}{section.2.3}%
-\contentsline {subsection}{\numberline {2.3.1}Definizione e Dinamica del Modello}{27}{subsection.2.3.1}%
-\contentsline {subsection}{\numberline {2.3.2}Verifica delle Proprietà PCTL}{28}{subsection.2.3.2}%
-\contentsline {subsubsection}{Analisi di Safety: Integrità Finanziaria}{28}{subsubsection*.12}%
-\contentsline {subsubsection}{Analisi di Guarantee: Resilienza e Rimborsi}{28}{subsubsection*.13}%
-\contentsline {section}{\numberline {2.4}Monitoraggio Runtime e Enforcement della Sicurezza}{28}{section.2.4}%
-\contentsline {subsection}{\numberline {2.4.1}Enforcement della Proprietà di Safety (S4: Probability Threshold)}{29}{subsection.2.4.1}%
-\contentsline {subsection}{\numberline {2.4.2}Enforcement della Proprietà di Guarantee (G1: Payment Validity)}{29}{subsection.2.4.2}%
-\contentsline {subsection}{\numberline {2.4.3}Adozione di Librerie Standard (OpenZeppelin)}{29}{subsection.2.4.3}%
-\contentsline {section}{\numberline {2.5}Architettura Modulare del Frontend}{30}{section.2.5}%
-\contentsline {section}{\numberline {2.6}Motivazione delle Scelte Tecnologiche}{30}{section.2.6}%
-\contentsline {subsection}{\numberline {2.6.1}Analisi di Resistenza, Ambiguità e Sopravvivenza}{30}{subsection.2.6.1}%
-\contentsline {subsection}{\numberline {2.6.2}Mitigazione delle Debolezze}{30}{subsection.2.6.2}%
-\contentsline {chapter}{\numberline {3}Programmazione Sicura e Dettagli Implementativi}{32}{chapter.3}%
-\contentsline {section}{\numberline {3.1}Smart Contract e Logica On-Chain}{32}{section.3.1}%
-\contentsline {subsection}{\numberline {3.1.1}BNCore: Il Motore Inferenziale}{32}{subsection.3.1.1}%
-\contentsline {subsection}{\numberline {3.1.2}BNGestoreSpedizioni: Sicurezza Operativa}{32}{subsection.3.1.2}%
-\contentsline {subsection}{\numberline {3.1.3}BNPagamenti: L'Attuatore Finanziario}{32}{subsection.3.1.3}%
-\contentsline {subsection}{\numberline {3.1.4}Privacy e Offuscamento Dati}{33}{subsection.3.1.4}%
-\contentsline {section}{\numberline {3.2}Sistema Oracolo e Simulazione IoT}{33}{section.3.2}%
-\contentsline {subsection}{\numberline {3.2.1}Flow del Dato (Sensore $\rightarrow $ Blockchain)}{33}{subsection.3.2.1}%
-\contentsline {section}{\numberline {3.3}Interfaccia Web (Dashboard Utente)}{33}{section.3.3}%
-\contentsline {subsection}{\numberline {3.3.1}Ruolo: Mittente (Sender)}{34}{subsection.3.3.1}%
-\contentsline {subsection}{\numberline {3.3.2}Ruolo: Corriere (Carrier)}{34}{subsection.3.3.2}%
-\contentsline {subsection}{\numberline {3.3.3}Ruolo: Admin/Sensore (IoT Simulator)}{34}{subsection.3.3.3}%
-\contentsline {section}{\numberline {3.4}Integrazione Web3 e Gestione Eventi}{34}{section.3.4}%
-\contentsline {chapter}{\numberline {4}Verifica, Validazione e Modellazione Formale}{35}{chapter.4}%
-\contentsline {section}{\numberline {4.1}Introduzione: Obiettivo della Modellazione}{35}{section.4.1}%
-\contentsline {subsection}{\numberline {4.1.1}Contesto del Sistema}{35}{subsection.4.1.1}%
-\contentsline {subsection}{\numberline {4.1.2}Scopo dell'Analisi di Markov Chain}{35}{subsection.4.1.2}%
-\contentsline {subsection}{\numberline {4.1.3}Minacce Modellate}{35}{subsection.4.1.3}%
-\contentsline {subsection}{\numberline {4.1.4}Contromisure Implementate}{35}{subsection.4.1.4}%
-\contentsline {section}{\numberline {4.2}Modello PRISM: Sistema SENZA Contromisure}{36}{section.4.2}%
-\contentsline {subsection}{\numberline {4.2.1}Struttura del Modello}{36}{subsection.4.2.1}%
-\contentsline {subsubsection}{Dichiarazione del Tipo di Modello}{36}{subsubsection*.14}%
-\contentsline {subsubsection}{Variabili di Stato (Senza Active Defense)}{36}{subsubsection*.15}%
-\contentsline {subsection}{\numberline {4.2.2}Matrice di Transizione: Sistema SENZA Contromisure}{36}{subsection.4.2.2}%
-\contentsline {paragraph}{Diagramma di Stati: Sistema SENZA Contromisure}{37}{paragraph*.17}%
-\contentsline {subsection}{\numberline {4.2.3}Logica delle Transizioni: Sistema Vulnerabile}{37}{subsection.4.2.3}%
-\contentsline {subsubsection}{Sensore OK $\to $ OK, FAILED, o COMPROMISED}{37}{subsubsection*.18}%
-\contentsline {subsubsection}{Sensore FAILED $\to $ OK, FAILED, o COMPROMISED}{37}{subsubsection*.19}%
-\contentsline {subsubsection}{Sensore COMPROMISED $\to $ COMPROMISED (Stato Assorbente)}{37}{subsubsection*.20}%
-\contentsline {subsection}{\numberline {4.2.4}Formule Derivate}{38}{subsection.4.2.4}%
-\contentsline {section}{\numberline {4.3}Proprietà PCTL Verificate: Sistema SENZA Contromisure}{38}{section.4.3}%
-\contentsline {subsection}{\numberline {4.3.1}Proprietà di Safety (S1)}{38}{subsection.4.3.1}%
-\contentsline {subsubsection}{Codice PCTL}{38}{subsubsection*.21}%
-\contentsline {subsubsection}{Spiegazione della Formula}{38}{subsubsection*.22}%
-\contentsline {subsubsection}{Interpretazione}{38}{subsubsection*.23}%
-\contentsline {subsubsection}{Risultato PRISM}{38}{subsubsection*.24}%
-\contentsline {subsubsection}{Analisi del Risultato}{38}{subsubsection*.25}%
-\contentsline {subsection}{\numberline {4.3.2}Proprietà di Guarantee/Response (G1)}{38}{subsection.4.3.2}%
-\contentsline {subsubsection}{Codice PCTL}{38}{subsubsection*.26}%
-\contentsline {subsubsection}{Spiegazione della Formula}{39}{subsubsection*.27}%
-\contentsline {subsubsection}{Interpretazione}{39}{subsubsection*.28}%
-\contentsline {subsubsection}{Risultato PRISM}{39}{subsubsection*.29}%
-\contentsline {subsubsection}{Analisi del Risultato}{39}{subsubsection*.30}%
-\contentsline {section}{\numberline {4.4}Modello PRISM: Sistema CON Contromisure}{39}{section.4.4}%
-\contentsline {subsection}{\numberline {4.4.1}Struttura del Modello}{39}{subsection.4.4.1}%
-\contentsline {subsubsection}{Dichiarazione del Tipo di Modello}{39}{subsubsection*.31}%
-\contentsline {subsubsection}{Variabili di Stato del Sensore E1 (con Active Defense)}{39}{subsubsection*.32}%
-\contentsline {subsubsection}{Altri Sensori e Contatore Temporale}{40}{subsubsection*.33}%
-\contentsline {subsection}{\numberline {4.4.2}Matrice di Transizione: Sistema CON Contromisure}{40}{subsection.4.4.2}%
-\contentsline {paragraph}{Diagramma di Stati: Sistema CON Contromisure}{40}{paragraph*.35}%
-\contentsline {subsection}{\numberline {4.4.3}Logica delle Transizioni: Active Defense}{40}{subsection.4.4.3}%
-\contentsline {subsubsection}{CASO 1: Sensore Normale (OK, Non Bloccato)}{40}{subsubsection*.36}%
-\contentsline {subsubsection}{CASO 2: System Lock (Dopo 3 Tentativi)}{41}{subsubsection*.37}%
-\contentsline {subsubsection}{CASO 3: Stato Locked (Bloccato - Safe)}{41}{subsubsection*.38}%
-\contentsline {subsubsection}{CASO 4: Sensore Guasto (FAILED)}{41}{subsubsection*.39}%
-\contentsline {subsubsection}{CASO 5: COMPROMISED (Stato Teorico Irraggiungibile)}{42}{subsubsection*.40}%
-\contentsline {subsection}{\numberline {4.4.4}Formule Derivate}{42}{subsection.4.4.4}%
-\contentsline {section}{\numberline {4.5}Proprietà PCTL Verificate: Sistema CON Contromisure}{42}{section.4.5}%
-\contentsline {subsection}{\numberline {4.5.1}Proprietà di Safety (S1)}{42}{subsection.4.5.1}%
-\contentsline {subsubsection}{Codice PCTL}{42}{subsubsection*.41}%
-\contentsline {subsubsection}{Spiegazione della Formula}{42}{subsubsection*.42}%
-\contentsline {subsubsection}{Interpretazione}{42}{subsubsection*.43}%
-\contentsline {subsubsection}{Risultato PRISM}{42}{subsubsection*.44}%
-\contentsline {subsubsection}{Analisi del Risultato}{42}{subsubsection*.45}%
-\contentsline {subsection}{\numberline {4.5.2}Proprietà di Guarantee/Response (G1)}{43}{subsection.4.5.2}%
-\contentsline {subsubsection}{Codice PCTL}{43}{subsubsection*.46}%
-\contentsline {subsubsection}{Spiegazione della Formula}{43}{subsubsection*.47}%
-\contentsline {subsubsection}{Interpretazione}{43}{subsubsection*.48}%
-\contentsline {subsubsection}{Risultato PRISM}{43}{subsubsection*.49}%
-\contentsline {subsubsection}{Analisi del Risultato}{43}{subsubsection*.50}%
-\contentsline {subsection}{\numberline {4.5.3}Proprietà di Active Defense Verification}{43}{subsection.4.5.3}%
-\contentsline {subsubsection}{Codice PCTL}{43}{subsubsection*.51}%
-\contentsline {subsubsection}{Spiegazione della Formula}{43}{subsubsection*.52}%
-\contentsline {subsubsection}{Interpretazione}{43}{subsubsection*.53}%
-\contentsline {subsubsection}{Analisi}{44}{subsubsection*.54}%
-\contentsline {section}{\numberline {4.6}Confronto Quantitativo: Con vs Senza Contromisure}{44}{section.4.6}%
-\contentsline {subsection}{\numberline {4.6.1}Confronto delle Matrici di Transizione}{44}{subsection.4.6.1}%
-\contentsline {subsection}{\numberline {4.6.2}Tabella Comparativa dei Risultati PRISM}{44}{subsection.4.6.2}%
-\contentsline {subsection}{\numberline {4.6.3}Analisi delle Differenze}{45}{subsection.4.6.3}%
-\contentsline {subsubsection}{Safety: Impatto delle Contromisure Anti-Attacco}{45}{subsubsection*.57}%
-\contentsline {subsubsection}{Guarantee/Response: Impatto dell'Auto-Failover}{45}{subsubsection*.58}%
-\contentsline {subsection}{\numberline {4.6.4}Spazio degli Stati}{45}{subsection.4.6.4}%
-\contentsline {section}{\numberline {4.7}Conclusioni Analisi Formale}{46}{section.4.7}%
-\contentsline {subsection}{\numberline {4.7.1}Efficacia delle Contromisure}{46}{subsection.4.7.1}%
-\contentsline {subsection}{\numberline {4.7.2}Validità del Modello}{46}{subsection.4.7.2}%
-\contentsline {subsection}{\numberline {4.7.3}Limitazioni e Assunzioni}{46}{subsection.4.7.3}%
-\contentsline {section}{\numberline {4.8}Testing su Blockchain Privata (Besu)}{46}{section.4.8}%
-\contentsline {subsection}{\numberline {4.8.1}Ambienti di Test}{47}{subsection.4.8.1}%
-\contentsline {subsection}{\numberline {4.8.2}Simulazione con Oracolo Scriptato}{47}{subsection.4.8.2}%
-\contentsline {subsection}{\numberline {4.8.3}Risultati}{47}{subsection.4.8.3}%
-\contentsline {chapter}{\numberline {5}Analisi della Qualità del Codice (Solhint)}{48}{chapter.5}%
-\contentsline {section}{\numberline {5.1}Introduzione}{48}{section.5.1}%
-\contentsline {subsection}{\numberline {5.1.1}Contesto: Sicurezza Smart Contract}{48}{subsection.5.1.1}%
-\contentsline {subsection}{\numberline {5.1.2}Perché Analisi Statica}{49}{subsection.5.1.2}%
-\contentsline {subsection}{\numberline {5.1.3}Solhint nel Progetto}{49}{subsection.5.1.3}%
-\contentsline {section}{\numberline {5.2}Metodologia}{49}{section.5.2}%
-\contentsline {subsection}{\numberline {5.2.1}Solhint: Caratteristiche}{49}{subsection.5.2.1}%
-\contentsline {subsection}{\numberline {5.2.2}Installazione ed Esecuzione}{50}{subsection.5.2.2}%
-\contentsline {section}{\numberline {5.3}Risultati Iniziali}{50}{section.5.3}%
-\contentsline {subsection}{\numberline {5.3.1}Distribuzione Warning per Contratto}{51}{subsection.5.3.1}%
-\contentsline {subsection}{\numberline {5.3.2}Analisi Dettagliata Warning NatSpec}{51}{subsection.5.3.2}%
-\contentsline {section}{\numberline {5.4}Analisi Architetturale dei Contratti}{52}{section.5.4}%
-\contentsline {subsection}{\numberline {5.4.1}Pattern Architetturale: Inheritance Chain}{52}{subsection.5.4.1}%
-\contentsline {subsection}{\numberline {5.4.2}BNCore.sol - Analisi Dettagliata}{52}{subsection.5.4.2}%
-\contentsline {subsection}{\numberline {5.4.3}BNGestoreSpedizioni.sol - Analisi Dettagliata}{53}{subsection.5.4.3}%
-\contentsline {subsection}{\numberline {5.4.4}BNPagamenti.sol - Analisi Dettagliata}{54}{subsection.5.4.4}%
-\contentsline {section}{\numberline {5.5}Processo di Ottimizzazione}{54}{section.5.5}%
-\contentsline {subsection}{\numberline {5.5.1}Fase 1: Miglioramenti al Codice (-56 warning)}{55}{subsection.5.5.1}%
-\contentsline {subsubsection}{Documentazione NatSpec (31 warning)}{55}{subsubsection*.64}%
-\contentsline {subsubsection}{Ottimizzazioni Gas (3 warning)}{56}{subsubsection*.65}%
-\contentsline {subsubsection}{Refactoring Funzioni (2 warning)}{58}{subsubsection*.66}%
-\contentsline {subsection}{\numberline {5.5.2}Fase 2: Configurazione Naming (-42 warning)}{60}{subsection.5.5.2}%
-\contentsline {subsection}{\numberline {5.5.3}Fase 3: Configurazione Gas (-18 warning)}{60}{subsection.5.5.3}%
-\contentsline {section}{\numberline {5.6}Configurazione Finale}{60}{section.5.6}%
-\contentsline {section}{\numberline {5.7}Risultati Finali}{61}{section.5.7}%
-\contentsline {subsection}{\numberline {5.7.1}Metriche Quantitative}{61}{subsection.5.7.1}%
-\contentsline {subsection}{\numberline {5.7.2}Warning Rimanenti}{61}{subsection.5.7.2}%
-\contentsline {section}{\numberline {5.8}Benchmark e Confronto con Standard Industriali}{61}{section.5.8}%
-\contentsline {subsection}{\numberline {5.8.1}Confronto Densità Warning}{61}{subsection.5.8.1}%
-\contentsline {subsection}{\numberline {5.8.2}NatSpec Coverage Comparison}{62}{subsection.5.8.2}%
-\contentsline {subsection}{\numberline {5.8.3}Analisi Pattern di Sicurezza Implementati}{62}{subsection.5.8.3}%
-\contentsline {subsection}{\numberline {5.8.4}Metriche di Qualità Codice Avanzate}{62}{subsection.5.8.4}%
-\contentsline {subsubsection}{Maintainability Index}{62}{subsubsection*.73}%
-\contentsline {subsubsection}{Technical Debt Ratio}{63}{subsubsection*.75}%
-\contentsline {subsection}{\numberline {5.8.5}Gas Efficiency Benchmarks}{63}{subsection.5.8.5}%
-\contentsline {section}{\numberline {5.9}Considerazioni Critiche}{64}{section.5.9}%
-\contentsline {section}{\numberline {5.10}Conclusioni}{64}{section.5.10}%
-\contentsline {subsection}{\numberline {5.10.1}Risultati Quantitativi Complessivi}{64}{subsection.5.10.1}%
-\contentsline {subsection}{\numberline {5.10.2}Lezioni Apprese e Best Practices}{65}{subsection.5.10.2}%
-\contentsline {subsubsection}{1. documentazione NatSpec Non È Opzionale}{65}{subsubsection*.78}%
-\contentsline {subsubsection}{2. Gas Optimization: Analisi Costi-Benefici}{65}{subsubsection*.79}%
-\contentsline {subsubsection}{3. Naming Conventions: Domain-Specific vs. Solidity Style}{65}{subsubsection*.80}%
-\contentsline {subsubsection}{4. Complessità Funzioni: Quando Refactoring È Necessario}{66}{subsubsection*.81}%
-\contentsline {subsection}{\numberline {5.10.3}Raccomandazioni per Sviluppi Futuri}{66}{subsection.5.10.3}%
-\contentsline {subsubsection}{Integrazione CI/CD}{66}{subsubsection*.82}%
-\contentsline {subsubsection}{Toolchain Complementare}{66}{subsubsection*.83}%
-\contentsline {subsubsection}{Monitoraggio Continuo}{67}{subsubsection*.85}%
-\contentsline {subsection}{\numberline {5.10.4}Conclusioni Finali}{67}{subsection.5.10.4}%
-\contentsline {section}{\numberline {5.11}Aggiornamento: Completamento Documentazione NatSpec}{68}{section.5.11}%
-\contentsline {subsection}{\numberline {5.11.1}Analisi Warning NatSpec Residui}{68}{subsection.5.11.1}%
-\contentsline {subsection}{\numberline {5.11.2}Interventi di Completamento}{68}{subsection.5.11.2}%
-\contentsline {subsubsection}{BNCore.sol}{68}{subsubsection*.87}%
-\contentsline {subsubsection}{BNGestoreSpedizioni.sol}{69}{subsubsection*.88}%
-\contentsline {subsection}{\numberline {5.11.3}Risultati Post-Completamento}{69}{subsection.5.11.3}%
-\contentsline {subsection}{\numberline {5.11.4}Metriche Finali Aggiornate}{70}{subsection.5.11.4}%
-\contentsline {subsection}{\numberline {5.11.5}Conclusioni Aggiornate}{70}{subsection.5.11.5}%
-\contentsline {chapter}{\numberline {A}Analisi delle Performance e Scalabilità}{71}{appendix.Alph1}%
-\contentsline {section}{\numberline {A.1}Metodologia di Test e Scenari}{71}{section.Alph1.1}%
-\contentsline {section}{\numberline {A.2}Analisi dei Risultati}{71}{section.Alph1.2}%
+\contentsline {chapter}{\numberline {1}Introduzione}{1}{chapter.1}%
+\contentsline {section}{\numberline {1.1}Il problema della Catena del Freddo}{1}{section.1.1}%
+\contentsline {section}{\numberline {1.2}Obiettivi del Progetto}{2}{section.1.2}%
+\contentsline {chapter}{\numberline {2}Valutazione del Rischio}{3}{chapter.2}%
+\contentsline {section}{\numberline {2.1}Modellazione Strategica e Attori}{3}{section.2.1}%
+\contentsline {subsection}{\numberline {2.1.1}Scenario As-Is: Supply Chain Tradizionale}{3}{subsection.2.1.1}%
+\contentsline {subsection}{\numberline {2.1.2}Scenario To-Be: Introduzione del Sistema Blockchain}{4}{subsection.2.1.2}%
+\contentsline {subsection}{\numberline {2.1.3}Scenario di Minaccia: Analisi degli Attaccanti}{5}{subsection.2.1.3}%
+\contentsline {section}{\numberline {2.2}Analisi delle Minacce DUAL-STRIDE}{6}{section.2.2}%
+\contentsline {section}{\numberline {2.3}Analisi Dettagliata degli Scenari (Abuse e Misuse Cases)}{8}{section.2.3}%
+\contentsline {subsection}{\numberline {2.3.1}Integrità dei Dati IoT (Asset A2)}{8}{subsection.2.3.1}%
+\contentsline {subsection}{\numberline {2.3.2}Sicurezza dei Pagamenti e Fondi (Asset A3)}{10}{subsection.2.3.2}%
+\contentsline {subsection}{\numberline {2.3.3}Configurazione e Logica Bayesiana (Asset A5 e A6)}{13}{subsection.2.3.3}%
+\contentsline {subsection}{\numberline {2.3.4}Interfaccia Utente e Credenziali (Asset A7 e A8)}{17}{subsection.2.3.4}%
+\contentsline {section}{\numberline {2.4}Standard Internazionali e Mitigazioni}{21}{section.2.4}%
+\contentsline {section}{\numberline {2.5}Conclusioni e Rischio Residuo}{22}{section.2.5}%
+\contentsline {chapter}{\numberline {3}Analisi e Progettazione Architetturale}{23}{chapter.3}%
+\contentsline {section}{\numberline {3.1}Design Architetturale e Strategie di Sicurezza}{23}{section.3.1}%
+\contentsline {subsection}{\numberline {3.1.1}Architettura Distribuita, Ridondante e Diversificata}{23}{subsection.3.1.1}%
+\contentsline {subsection}{\numberline {3.1.2}Interazione Utente e Strumenti di Sviluppo}{23}{subsection.3.1.2}%
+\contentsline {subsection}{\numberline {3.1.3}Monitoraggio, Isolamento e Offuscamento}{24}{subsection.3.1.3}%
+\contentsline {section}{\numberline {3.2}Design degli Asset e Linee Guida di Sicurezza}{24}{section.3.2}%
+\contentsline {section}{\numberline {3.3}Modellazione Markov Chain e Verifica Formale con PRISM}{24}{section.3.3}%
+\contentsline {subsection}{\numberline {3.3.1}Definizione e Dinamica del Modello}{25}{subsection.3.3.1}%
+\contentsline {subsection}{\numberline {3.3.2}Verifica delle Proprietà PCTL}{26}{subsection.3.3.2}%
+\contentsline {subsubsection}{Analisi di Safety: Integrità Finanziaria}{26}{subsubsection*.8}%
+\contentsline {subsubsection}{Analisi di Guarantee: Resilienza e Rimborsi}{26}{subsubsection*.9}%
+\contentsline {section}{\numberline {3.4}Monitoraggio Runtime e Enforcement della Sicurezza}{26}{section.3.4}%
+\contentsline {subsection}{\numberline {3.4.1}Enforcement della Proprietà di Safety (S4: Probability Threshold)}{27}{subsection.3.4.1}%
+\contentsline {subsection}{\numberline {3.4.2}Enforcement della Proprietà di Guarantee (G1: Payment Validity)}{27}{subsection.3.4.2}%
+\contentsline {subsection}{\numberline {3.4.3}Adozione di Librerie Standard (OpenZeppelin)}{27}{subsection.3.4.3}%
+\contentsline {section}{\numberline {3.5}Architettura Modulare del Frontend}{28}{section.3.5}%
+\contentsline {section}{\numberline {3.6}Motivazione delle Scelte Tecnologiche}{28}{section.3.6}%
+\contentsline {subsection}{\numberline {3.6.1}Analisi di Resistenza, Ambiguità e Sopravvivenza}{28}{subsection.3.6.1}%
+\contentsline {subsection}{\numberline {3.6.2}Mitigazione delle Debolezze}{28}{subsection.3.6.2}%
+\contentsline {chapter}{\numberline {4}Analisi della Qualità del Codice (Solhint)}{30}{chapter.4}%
+\contentsline {section}{\numberline {4.1}Introduzione}{30}{section.4.1}%
+\contentsline {subsection}{\numberline {4.1.1}Contesto: Sicurezza Smart Contract}{30}{subsection.4.1.1}%
+\contentsline {subsection}{\numberline {4.1.2}Perché Analisi Statica}{31}{subsection.4.1.2}%
+\contentsline {subsection}{\numberline {4.1.3}Solhint nel Progetto}{31}{subsection.4.1.3}%
+\contentsline {section}{\numberline {4.2}Metodologia}{31}{section.4.2}%
+\contentsline {subsection}{\numberline {4.2.1}Solhint: Caratteristiche}{31}{subsection.4.2.1}%
+\contentsline {subsection}{\numberline {4.2.2}Installazione ed Esecuzione}{32}{subsection.4.2.2}%
+\contentsline {section}{\numberline {4.3}Risultati Iniziali}{32}{section.4.3}%
+\contentsline {subsection}{\numberline {4.3.1}Distribuzione Warning per Contratto}{33}{subsection.4.3.1}%
+\contentsline {subsection}{\numberline {4.3.2}Analisi Dettagliata Warning NatSpec}{33}{subsection.4.3.2}%
+\contentsline {section}{\numberline {4.4}Analisi Architetturale dei Contratti}{34}{section.4.4}%
+\contentsline {subsection}{\numberline {4.4.1}Pattern Architetturale: Inheritance Chain}{34}{subsection.4.4.1}%
+\contentsline {subsection}{\numberline {4.4.2}BNCore.sol - Analisi Dettagliata}{34}{subsection.4.4.2}%
+\contentsline {subsection}{\numberline {4.4.3}BNGestoreSpedizioni.sol - Analisi Dettagliata}{35}{subsection.4.4.3}%
+\contentsline {subsection}{\numberline {4.4.4}BNPagamenti.sol - Analisi Dettagliata}{36}{subsection.4.4.4}%
+\contentsline {section}{\numberline {4.5}Processo di Ottimizzazione}{36}{section.4.5}%
+\contentsline {subsection}{\numberline {4.5.1}Fase 1: Miglioramenti al Codice (-56 warning)}{37}{subsection.4.5.1}%
+\contentsline {subsubsection}{Documentazione NatSpec (31 warning)}{37}{subsubsection*.15}%
+\contentsline {subsubsection}{Ottimizzazioni Gas (3 warning)}{38}{subsubsection*.16}%
+\contentsline {subsubsection}{Refactoring Funzioni (2 warning)}{40}{subsubsection*.17}%
+\contentsline {subsection}{\numberline {4.5.2}Fase 2: Configurazione Naming (-42 warning)}{42}{subsection.4.5.2}%
+\contentsline {subsection}{\numberline {4.5.3}Fase 3: Configurazione Gas (-18 warning)}{42}{subsection.4.5.3}%
+\contentsline {section}{\numberline {4.6}Configurazione Finale}{42}{section.4.6}%
+\contentsline {section}{\numberline {4.7}Risultati Finali}{43}{section.4.7}%
+\contentsline {subsection}{\numberline {4.7.1}Metriche Quantitative}{43}{subsection.4.7.1}%
+\contentsline {subsection}{\numberline {4.7.2}Warning Rimanenti}{43}{subsection.4.7.2}%
+\contentsline {section}{\numberline {4.8}Benchmark e Confronto con Standard Industriali}{43}{section.4.8}%
+\contentsline {subsection}{\numberline {4.8.1}Confronto Densità Warning}{43}{subsection.4.8.1}%
+\contentsline {subsection}{\numberline {4.8.2}NatSpec Coverage Comparison}{44}{subsection.4.8.2}%
+\contentsline {subsection}{\numberline {4.8.3}Analisi Pattern di Sicurezza Implementati}{44}{subsection.4.8.3}%
+\contentsline {subsection}{\numberline {4.8.4}Metriche di Qualità Codice Avanzate}{44}{subsection.4.8.4}%
+\contentsline {subsubsection}{Maintainability Index}{44}{subsubsection*.24}%
+\contentsline {subsubsection}{Technical Debt Ratio}{45}{subsubsection*.26}%
+\contentsline {subsection}{\numberline {4.8.5}Gas Efficiency Benchmarks}{45}{subsection.4.8.5}%
+\contentsline {section}{\numberline {4.9}Considerazioni Critiche}{46}{section.4.9}%
+\contentsline {section}{\numberline {4.10}Conclusioni}{46}{section.4.10}%
+\contentsline {subsection}{\numberline {4.10.1}Risultati Quantitativi Complessivi}{46}{subsection.4.10.1}%
+\contentsline {subsection}{\numberline {4.10.2}Lezioni Apprese e Best Practices}{47}{subsection.4.10.2}%
+\contentsline {subsubsection}{1. documentazione NatSpec Non È Opzionale}{47}{subsubsection*.29}%
+\contentsline {subsubsection}{2. Gas Optimization: Analisi Costi-Benefici}{47}{subsubsection*.30}%
+\contentsline {subsubsection}{3. Naming Conventions: Domain-Specific vs. Solidity Style}{47}{subsubsection*.31}%
+\contentsline {subsubsection}{4. Complessità Funzioni: Quando Refactoring È Necessario}{48}{subsubsection*.32}%
+\contentsline {subsection}{\numberline {4.10.3}Raccomandazioni per Sviluppi Futuri}{48}{subsection.4.10.3}%
+\contentsline {subsubsection}{Integrazione CI/CD}{48}{subsubsection*.33}%
+\contentsline {subsubsection}{Toolchain Complementare}{48}{subsubsection*.34}%
+\contentsline {subsubsection}{Monitoraggio Continuo}{49}{subsubsection*.36}%
+\contentsline {subsection}{\numberline {4.10.4}Conclusioni Finali}{49}{subsection.4.10.4}%
+\contentsline {section}{\numberline {4.11}Aggiornamento: Completamento Documentazione NatSpec}{50}{section.4.11}%
+\contentsline {subsection}{\numberline {4.11.1}Analisi Warning NatSpec Residui}{50}{subsection.4.11.1}%
+\contentsline {subsection}{\numberline {4.11.2}Interventi di Completamento}{50}{subsection.4.11.2}%
+\contentsline {subsubsection}{BNCore.sol}{50}{subsubsection*.38}%
+\contentsline {subsubsection}{BNGestoreSpedizioni.sol}{51}{subsubsection*.39}%
+\contentsline {subsection}{\numberline {4.11.3}Risultati Post-Completamento}{51}{subsection.4.11.3}%
+\contentsline {subsection}{\numberline {4.11.4}Metriche Finali Aggiornate}{52}{subsection.4.11.4}%
+\contentsline {subsection}{\numberline {4.11.5}Conclusioni Aggiornate}{52}{subsection.4.11.5}%
+\contentsline {chapter}{\numberline {A}Analisi delle Performance e Scalabilità}{53}{appendix.Alph1}%
+\contentsline {section}{\numberline {A.1}Metodologia di Test e Scenari}{53}{section.Alph1.1}%
+\contentsline {section}{\numberline {A.2}Analisi dei Risultati}{53}{section.Alph1.2}%

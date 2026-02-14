@@ -57,7 +57,6 @@ contract BNPagamenti is BNGestoreSpedizioni, ReentrancyGuard {
      */
     function validaEPaga(uint256 _id) external nonReentrant whenNotPaused {
         Spedizione storage s = spedizioni[_id];
-        
         // SAFETY MONITOR S5: Courier Authorization
         if (s.corriere != msg.sender) {
             emit MonitorSafetyViolation("CourierAuth", _id, msg.sender, "Non sei il corriere");
@@ -98,14 +97,11 @@ contract BNPagamenti is BNGestoreSpedizioni, ReentrancyGuard {
             // IMPORTANT: Return instead of revert to allow counter increment to persist
             return;
         }
-        
         // GUARANTEE MONITOR G1: Payment Upon Valid Evidence
         uint256 importo = s.importoPagamento;
         s.stato = StatoSpedizione.Pagata;
-        
         emit MonitorGuaranteeSuccess("PaymentOnValidEvidence", _id);
         emit SpedizionePagata(_id, s.corriere, importo);
-        
         // Trasferisci fondi
         (bool success, ) = s.corriere.call{value: importo}("");
         if (!success) revert PagamentoFallito();

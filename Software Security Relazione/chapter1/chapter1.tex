@@ -5,44 +5,70 @@ In questo capitolo viene presentata un'analisi approfondita della sicurezza del 
 \end{preamble}
 
 \section{Modellazione Strategica e Attori}
-Per comprendere appieno il contesto organizzativo e tecnico, l'analisi parte dalla realizzazione di modelli i* che evidenziano le relazioni tra attori, obiettivi (Goals), compiti (Tasks) e risorse (Resources).
+Per comprendere appieno le dinamiche organizzative e di sicurezza, abbiamo adottato il framework \textbf{i* (iStar)}, che permette di modellare non solo gli aspetti funzionali ma anche le intenzioni, le dipendenze strategiche e le vulnerabilità sociali del sistema.
 
-Il primo passo è stato analizzare la **Supply Chain As-Is** (senza sistema blockchain). Come mostrato nella Figura \ref{fig:sd_as_is}, il modello Strategic Dependency (SD) evidenzia una criticità fondamentale: esistono dipendenze di "fiducia cieca" tra Produttore, Distributore e Farmacia. Il Produttore dipende dal Distributore per la corretta conservazione, ma non possiede mezzi diretti per verificarne l'operato, generando un softgoal "integrità non verificabile".
+L'analisi si articola in tre scenari evolutivi: lo stato attuale (As-Is), lo stato futuro con l'introduzione della blockchain (To-Be) e, infine, uno scenario di minaccia che modella esplicitamente gli attaccanti.
+
+\subsection{Scenario As-Is: Supply Chain Tradizionale}
+Nel modello iniziale, raffigurato in Figura \ref{fig:sd_as_is}, osserviamo le relazioni tra i tre attori principali della filiera: il \textit{Mittente} (farmacia o produttore), il \textit{Corriere} e il sistema di sensoristica isolata (\textit{Sensore IoT}).
+
+In questo scenario, il \textit{Mittente} dipende quasi interamente dal \textit{Corriere} per il raggiungimento dei suoi obiettivi critici. Il goal primario "Spedire farmaci in catena del freddo" si decompone in task operativi come la selezione del vettore e la preparazione dell'imballaggio. Tuttavia, la criticità emerge nella dipendenza per la risorsa "Specifiche spedizione": il Mittente deve fidarsi che il Corriere rispetti le condizioni pattuite (temperatura, integrità, scadenze).
+
+Il \textit{Corriere}, a sua volta, ha l'obiettivo di "Effettuare consegna" e "Dimostrare integrità del pacco". Qui sorge un conflitto di interessi strutturale: per ottenere lo sblocco del pagamento (goal "Ottenere sblocco pagamento"), il Corriere è l'unico certificatore della propria qualità. Sebbene esistano sensori IoT, questi non sono integrati in un sistema tamper-proof; pertanto, il Mittente non ha garanzie matematiche che i report delle evidenze ("Report evidenze") non siano stati manipolati o omessi.
+
+Il softgoal "Protezione finanziaria" del Mittente è quindi costantemente a rischio, dipendendo da una fiducia cieca verso l'operato logistico. Non esiste un meccanismo di *enforcement* automatico per eventuali rimborsi in caso di non conformità ("Ottenere rimborso per non-conformità").
 
 \begin{figure}[ht!]
     \centering
     \includegraphics[width=\linewidth, keepaspectratio]{chapter1/image/sd_as_is.png}
-    \caption{Modello SD/SR senza sistema}
+    \caption{Modello SD: Supply Chain As-Is (Senza Sistema)}
     \label{fig:sd_as_is}
 \end{figure}
 
-L'introduzione del sistema modifica radicalmente queste dinamiche, creando lo scenario **To-Be**. L'ingresso di nuovi attori tecnici, quali lo Smart Contract e l'Oracolo IoT, permette di soddisfare il softgoal di integrità grazie alla risorsa "registro immutabile". Gli attori umani smettono di dipendere dalla fiducia reciproca e iniziano a dipendere dal sistema per la validazione oggettiva dei dati (Figura \ref{fig:sd_to_be}).
+\subsection{Scenario To-Be: Introduzione del Sistema Blockchain}
+L'introduzione dello Smart Contract (raffigurato come attore \textit{Sistema}) ridefinisce le dipendenze strategiche, centralizzando la fiducia in un'entità imparziale e automatizzata. Come emerge dal modello, il \textit{Sistema} funge da intermediario tra Mittente, Corriere e Sensori, garantendo che le interazioni avvengano secondo regole certe.
+
+Il \textit{Mittente} non dipende più dalla parola del Corriere, ma si affida al Sistema per una serie di obiettivi cruciali:
+\begin{itemize}
+    \item \textbf{Validazione Evidenze} e \textbf{Pagamento Automatico}: Il Mittente delega al contratto la verifica dei dati e l'esecuzione condizionale del pagamento.
+    \item \textbf{Tracciabilità Immutabile}: Un softgoal soddisfatto intrinsecamente dalla tecnologia blockchain.
+    \item \textbf{Rimborso Automatico}: In caso di violazione delle condizioni contrattuali, il Sistema garantisce il ritorno dei fondi depositati senza necessità di arbitrato esterno.
+\end{itemize}
+
+Il \textit{Corriere} dipende dal Sistema per la "Ricezione Pagamento", che avviene solo a fronte della "Conferma Consegna" e della verifica delle condizioni ambientali. Non esiste più discrezionalità umana nel rilascio dei fondi.
+
+Un ruolo chiave è svolto dall'attore \textit{Sensore}, che interagisce direttamente con il Sistema fornendo le "Letture Ambientali". In cambio, il Sistema fornisce un "Timestamp Certificato", assicurando che ogni dato registrato sia temporalmente collocato in modo inalterabile.
+
+Infine, l'attore \textit{Admin} gestisce la governance tecnica, occupandosi della "Configurazione Sistema" (es. parametri bayesiani) e della "Gestione Ruoli", ricevendo in cambio dal sistema la garanzia di "Dati Affidabili".
 
 \begin{figure}[ht!]
     \centering
-    \includegraphics[width=\linewidth, keepaspectratio]{chapter1/image/sd_to_be.png}
-    \caption{Modello SD: Supply Chain To-Be (Con Sistema Blockchain)}
-    \label{fig:sd_to_be}
+    \includegraphics[width=\linewidth, keepaspectratio]{chapter1/image/sr_to_be.png}
+    \caption{Modello SR: Supply Chain To-Be (Con Smart Contract)}
+    \label{fig:sr_to_be}
 \end{figure}
 
-Tuttavia, l'introduzione di tecnologia espone a nuove superfici d'attacco. Sono stati modellati tre profili di avversari: l'\textbf{Attaccante Interno} (es. operatore logistico corrotto), l'\textbf{Attaccante Esterno} (hacker remoto) e l'\textbf{Utente Maldestro} (operatore che commette errori non intenzionali). I diagrammi SR seguenti includono alberi di attacco che decompongono gli obiettivi malevoli in task operativi specifici.
+\subsection{Scenario di Minaccia: Analisi degli Attaccanti}
+Nonostante i miglioramenti, il sistema espone nuove superfici di attacco. La Figura \ref{fig:sr_attackers} modella tre profili di avversari che minacciano gli asset del sistema: l'\textit{Attaccante Interno}, l'\textit{Attaccante Esterno} e l'\textit{Utente Maldestro}.
+
+L'\textbf{Attaccante Interno} è modellato come un amministratore infedele o compromesso. Il suo goal "Abuso privilegi" si raffina in attacchi specifici come la "Manipolazione CPT" (T5.1-A). Avendo accesso legittimo alle funzioni di configurazione, può alterare le probabilità della rete bayesiana ("Eseguire impostaCPT()") per favorire falsi positivi o negativi, sabotando l'affidabilità del sistema dall'interno senza violare controlli crittografici esterni.
+
+L'\textbf{Attaccante Esterno} punta a "Compromettere sistema" sfruttando vulnerabilità tecniche e umane. I suoi vettori di attacco principali includono:
+\begin{itemize}
+    \item \textit{Spoofing Sensore} (S2.1-A): Tenta di iniettare dati falsi intercettando o replicando le comunicazioni dei dispositivi IoT ("Replay dati vecchi", "Iniettare dati falsi").
+    \item \textit{Attacco Reentrancy} (T3.1-A): Mira a drenare i fondi del contratto sfruttando vulnerabilità nella logica di prelievo ("Pubblicazione contratto malevolo").
+    \item \textit{Phishing} (S7.1-A): Punta a sottrarre le credenziali degli utenti clonando l'interfaccia web ("Clonare interfaccia") o tramite ingegneria sociale.
+    \item \textit{Data Mining} (I6.1-A): Analizza la blockchain pubblica per estrarre informazioni commerciali riservate ("Scraping blockchain").
+\end{itemize}
+
+Infine, l'\textbf{Utente Maldestro} rappresenta una minaccia non intenzionale ma altrettanto dannosa. Il suo comportamento è guidato dal goal negativo "Errore operativo". Questo include errori di configurazione ("Errore di battitura numerico", "Overflow non gestito"), errori nei pagamenti ("Importo errato", "Destinatario errato") e negligenza nella gestione delle chiavi private ("Screenshot seed", "Caricamento su cloud pubblico"). Questi "Misuse Cases" evidenziano come la sicurezza non dipenda solo dalla robustezza del codice, ma anche dall'usabilità e dalla formazione degli operatori.
 
 \begin{figure}[ht!]
     \centering
-    \includegraphics[width=\linewidth, keepaspectratio]{chapter1/image/sd_attackers.png}
-    \caption{Modello SD: Sistema e Attaccanti con Alberi di Attacco}
-    \label{fig:sd_attackers}
+    \includegraphics[width=12cm, keepaspectratio]{chapter1/image/sr_attackers.png}
+    \caption{Modello SR: Analisi degli Attaccanti e Alberi di Attacco}
+    \label{fig:sr_attackers}
 \end{figure}
-
-\newpage
-\begin{landscape}
-    \begin{figure}[p]
-        \centering
-        \includegraphics[width=\linewidth, height=0.9\textheight, keepaspectratio]{chapter1/image/sr_attackers.png}
-        \caption{Modello SR: Analisi degli Attaccanti}
-        \label{fig:sr_attackers}
-    \end{figure}
-\end{landscape}
 
 \section{Analisi delle Minacce DUAL-STRIDE}
 L'analisi è stata condotta raggruppando gli asset secondo il paradigma DUAL-STRIDE, che estende il classico STRIDE (focalizzato sulla sicurezza) includendo aspetti di affidabilità e resilienza (DUAL).
@@ -92,7 +118,7 @@ La tabella successiva offre una visione d'insieme delle minacce identificate per
 \rotheader{T}{ampering} & 
 \rotheader{R}{epudiation} & 
 \rotheader{I}{nformation disclosure} & 
-\rotheader{D}{enaial of service} & 
+\rotheader{D}{enial of service} & 
 \rotheader{E}{levation of privilege} & 
 \rotheader{D}{anger} & 
 \rotheader{U}{nreliability} & 
@@ -703,7 +729,7 @@ L'analisi non si è limitata all'identificazione dei rischi, ma ha provveduto a 
 \toprule
 \textbf{Threat ID} & \textbf{STRIDE} & \textbf{CAPEC ID} & \textbf{CAPEC Name} & \textbf{ATT\&CK TTP} \\
 \midrule
-S2.1 & Spoofing & CAPEC-151 & identity Spoofing & T1134 \\
+S2.1 & Spoofing & CAPEC-151 & Identity Spoofing & T1134 \\
 T2.1 & Tampering & CAPEC-94 & man-in-the-Middle & T1557 \\
 T3.1 & Tampering & CAPEC-194 & fake Resource Injection & - \\
 T5.1 & Tampering & CAPEC-1 & accessing Functionality Not Properly Constrained & T1078 \\
