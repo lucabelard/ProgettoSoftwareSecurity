@@ -407,6 +407,8 @@ INPUT /usr/local/texlive/2024/texmf-dist/tex/latex/bookmark/bkm-pdftex.def
 INPUT /usr/local/texlive/2024/texmf-dist/tex/latex/bookmark/bkm-pdftex.def
 INPUT /usr/local/texlive/2024/texmf-dist/tex/latex/subfig/subfig.sty
 INPUT /usr/local/texlive/2024/texmf-dist/tex/latex/subfig/subfig.sty
+INPUT /usr/local/texlive/2024/texmf-dist/tex/latex/incgraph/incgraph.sty
+INPUT /usr/local/texlive/2024/texmf-dist/tex/latex/incgraph/incgraph.sty
 INPUT /usr/local/texlive/2024/texmf-dist/tex/latex/listings/listings.sty
 INPUT /usr/local/texlive/2024/texmf-dist/tex/latex/listings/listings.sty
 INPUT /usr/local/texlive/2024/texmf-dist/tex/latex/listings/lstpatch.sty

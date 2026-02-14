@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2024) (preloaded format=pdflatex 2024.11.25)  13 FEB 2026 16:26
+This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2024) (preloaded format=pdflatex 2024.11.25)  14 FEB 2026 15:31
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -943,26 +943,31 @@ Package: subfig 2005/06/28 ver: 1.3 subfig package
 \c@lotdepth=\count385
 \sf@top=\skip124
 \sf@bottom=\skip125
+) (/usr/local/texlive/2024/texmf-dist/tex/latex/incgraph/incgraph.sty
+Package: incgraph 2021/10/20 version 1.2.0 LaTeX special graphics inclusion
+\igrbox=\box84
+\igr@length=\dimen341
+\c@igrtarget=\count386
 ) (/usr/local/texlive/2024/texmf-dist/tex/latex/listings/listings.sty
-\lst@mode=\count386
-\lst@gtempboxa=\box84
+\lst@mode=\count387
+\lst@gtempboxa=\box85
 \lst@token=\toks69
-\lst@length=\count387
-\lst@currlwidth=\dimen341
-\lst@column=\count388
-\lst@pos=\count389
-\lst@lostspace=\dimen342
-\lst@width=\dimen343
-\lst@newlines=\count390
-\lst@lineno=\count391
-\lst@maxwidth=\dimen344
+\lst@length=\count388
+\lst@currlwidth=\dimen342
+\lst@column=\count389
+\lst@pos=\count390
+\lst@lostspace=\dimen343
+\lst@width=\dimen344
+\lst@newlines=\count391
+\lst@lineno=\count392
+\lst@maxwidth=\dimen345
  (/usr/local/texlive/2024/texmf-dist/tex/latex/listings/lstpatch.sty
 File: lstpatch.sty 2024/02/21 1.10 (Carsten Heinz)
 ) (/usr/local/texlive/2024/texmf-dist/tex/latex/listings/lstmisc.sty
 File: lstmisc.sty 2024/02/21 1.10 (Carsten Heinz)
-\c@lstnumber=\count392
-\lst@skipnumbers=\count393
-\lst@framebox=\box85
+\c@lstnumber=\count393
+\lst@skipnumbers=\count394
+\lst@framebox=\box86
 ) (/usr/local/texlive/2024/texmf-dist/tex/latex/listings/listings.cfg
 File: listings.cfg 2024/02/21 1.10 listings configuration
 ))
@@ -973,8 +978,8 @@ LaTeX Font Info:    Trying to load font information for T1+ppl on input line 54.
 File: t1ppl.fd 2001/06/04 font definitions for T1/ppl.
 ) (/usr/local/texlive/2024/texmf-dist/tex/latex/l3backend/l3backend-pdftex.def
 File: l3backend-pdftex.def 2024-02-20 L3 backend support: PDF output (pdfTeX)
-\l__color_backend_stack_int=\count394
-\l__pdf_internal_box=\box86
+\l__color_backend_stack_int=\count395
+\l__pdf_internal_box=\box87
 ) (./main.aux (./frontmatter/tocs.aux) (./introduction/introduction.aux) (./chapter1/chapter1.aux) (./chapter2/chapter2.aux) (./chapter3/chapter3.aux) (./chapter4/chapter4.aux) (./chapter5/chapter5.aux) (./chapter6/chapter6.aux) (./chapter7/chapter7.aux) (./backmatter/appendixA.aux))
 \openout1 = `main.aux'.
 
@@ -1009,16 +1014,16 @@ Package gensymb Info: Using \textohm for \ohm on input line 54.
 Package gensymb Info: Using \textmu for \micro on input line 54.
  (/usr/local/texlive/2024/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count395
-\scratchdimen=\dimen345
-\scratchbox=\box87
-\nofMPsegments=\count396
-\nofMParguments=\count397
+\scratchcounter=\count396
+\scratchdimen=\dimen346
+\scratchbox=\box88
+\nofMPsegments=\count397
+\nofMParguments=\count398
 \everyMPshowfont=\toks70
-\MPscratchCnt=\count398
-\MPscratchDim=\dimen346
-\MPnumerator=\count399
-\makeMPintoPDFobject=\count400
+\MPscratchCnt=\count399
+\MPscratchDim=\dimen347
+\MPnumerator=\count400
+\makeMPintoPDFobject=\count401
 \everyMPtoPDFconversion=\toks71
 ) (/usr/local/texlive/2024/texmf-dist/tex/latex/epstopdf-pkg/epstopdf-base.sty
 Package: epstopdf-base 2020-01-24 v2.11 Base part for package epstopdf
@@ -1088,7 +1093,7 @@ Package microtype Info: No adjustment of character kerning.
 File: mt-ppl.cfg 2005/11/16 v1.6 microtype config. file: Palatino (RS)
 )
 Package hyperref Info: Link coloring ON on input line 54.
-\c@lstlisting=\count401
+\c@lstlisting=\count402
  (./frontmatter/frontispiece.tex
 <frontmatter/images/logo.png, id=7, 332.24126pt x 332.24126pt>
 File: frontmatter/images/logo.png Graphic file (type png)
@@ -1231,12 +1236,16 @@ File: chapter1/image/sd_attackers.png Graphic file (type png)
 <use chapter1/image/sd_attackers.png>
 Package pdftex.def Info: chapter1/image/sd_attackers.png  used on input line 49.
 (pdftex.def)             Requested size: 441.01775pt x 267.82097pt.
-<chapter1/image/sr_attackers.png, id=490, 4015.0pt x 1508.63625pt>
+ [6 <./chapter1/image/sd_attackers.png>]
+<chapter1/image/sr_attackers.png, id=499, 4113.6084pt x 1545.6144pt>
 File: chapter1/image/sr_attackers.png Graphic file (type png)
 <use chapter1/image/sr_attackers.png>
-Package pdftex.def Info: chapter1/image/sr_attackers.png  used on input line 56.
-(pdftex.def)             Requested size: 441.01775pt x 165.69728pt.
- [6 <./chapter1/image/sd_attackers.png>] [7 <./chapter1/image/sr_attackers.png>] [8]
+Package pdftex.def Info: chapter1/image/sr_attackers.png  used on input line 59.
+(pdftex.def)             Requested size: 688.50801pt x 258.6945pt.
+ [7 <./chapter1/image/sr_attackers.png>] [8
+
+
+] [9]
 *geometry* verbose mode - [ newgeometry ] result:
 * driver: pdftex
 * paper: a4paper
@@ -1270,23 +1279,23 @@ Package pdftex.def Info: chapter1/image/sr_attackers.png  used on input line 56.
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
 
-Underfull \hbox (badness 2452) in paragraph at lines 211--212
+Underfull \hbox (badness 2452) in paragraph at lines 215--216
 []|\T1/ppl/m/n/10 (+20) Push Pay-ment + Reen-tran-cy-
- []
-
-[9
-
-
-]
-Overfull \hbox (17.0pt too wide) in paragraph at lines 283--284
-[][] 
  []
 
 [10
 
 
 ]
-LaTeX Font Info:    Trying to load font information for T1+pcr on input line 313.
+Overfull \hbox (17.0pt too wide) in paragraph at lines 287--288
+[][] 
+ []
+
+[11
+
+
+]
+LaTeX Font Info:    Trying to load font information for T1+pcr on input line 317.
  (/usr/local/texlive/2024/texmf-dist/tex/latex/psnfss/t1pcr.fd
 File: t1pcr.fd 2001/06/04 font definitions for T1/pcr.
 )
@@ -1295,237 +1304,237 @@ Package microtype Info: Loading generic protrusion settings for font family
 (microtype)             For optimal results, create family-specific settings.
 (microtype)             See the microtype manual for details.
 
-Underfull \hbox (badness 4229) in paragraph at lines 319--320
+Underfull \hbox (badness 4229) in paragraph at lines 323--324
 \T1/ppl/b/n/10.95 (+20) Tracciabilità: \T1/ppl/m/n/10.95 (+20) tut-te le tran-sa-zio-ni re-sta-no re-gi-stra-te sul-la
  []
 
 
-Underfull \hbox (badness 1365) in paragraph at lines 321--322
+Underfull \hbox (badness 1365) in paragraph at lines 325--326
 \T1/ppl/b/n/10.95 (+20) Contromisure con-si-glia-te: \T1/ppl/m/n/10.95 (+20) ro-ta-zio-ne pe-rio-di-ca del-le chia-vi
  []
 
 
-Overfull \hbox (3.14774pt too wide) in alignment at lines 293--323
+Overfull \hbox (3.14774pt too wide) in alignment at lines 297--327
  [] [] 
  []
 
 
-Overfull \hbox (3.14774pt too wide) in alignment at lines 327--357
- [] [] 
- []
-
-[11]
-Underfull \hbox (badness 2452) in paragraph at lines 377--378
-[]|\T1/ppl/m/n/10.95 (+20) L'attaccante de-ploya uno smart con-tract ma-le-vo-lo do-ta-to
- []
-
-
-Underfull \hbox (badness 1072) in paragraph at lines 377--378
-\T1/ppl/m/n/10.95 (+20) di una fun-zio-ne \T1/pcr/m/n/10.95 receive() \T1/ppl/m/n/10.95 (+20) che ri-chia-ma au-to-ma-ti-ca-men-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 383--384
-\T1/ppl/m/n/10.95 (+20) 5. BN-Pa-ga-men-ti ese-gue \T1/pcr/m/n/10.95 corriere.call{value:
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 383--384
-\T1/ppl/m/n/10.95 (+20) 6. La fall-back ri-chiama \T1/pcr/m/n/10.95 validaEPaga()\T1/ppl/m/n/10.95 (+20) , \T1/pcr/m/n/10.95 stato ==
- []
-
-
-Overfull \hbox (3.14774pt too wide) in alignment at lines 363--393
+Overfull \hbox (3.14774pt too wide) in alignment at lines 331--361
  [] [] 
  []
 
 [12]
-Underfull \hbox (badness 4429) in paragraph at lines 415--416
-\T1/ppl/m/n/10.95 (+20) - Nes-su-na va-li-da-zio-ne del check-sum o del-l'i-den-ti-tà del
+Underfull \hbox (badness 2452) in paragraph at lines 381--382
+[]|\T1/ppl/m/n/10.95 (+20) L'attaccante de-ploya uno smart con-tract ma-le-vo-lo do-ta-to
  []
 
 
-Overfull \hbox (3.14774pt too wide) in alignment at lines 397--427
+Underfull \hbox (badness 1072) in paragraph at lines 381--382
+\T1/ppl/m/n/10.95 (+20) di una fun-zio-ne \T1/pcr/m/n/10.95 receive() \T1/ppl/m/n/10.95 (+20) che ri-chia-ma au-to-ma-ti-ca-men-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 387--388
+\T1/ppl/m/n/10.95 (+20) 5. BN-Pa-ga-men-ti ese-gue \T1/pcr/m/n/10.95 corriere.call{value:
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 387--388
+\T1/ppl/m/n/10.95 (+20) 6. La fall-back ri-chiama \T1/pcr/m/n/10.95 validaEPaga()\T1/ppl/m/n/10.95 (+20) , \T1/pcr/m/n/10.95 stato ==
+ []
+
+
+Overfull \hbox (3.14774pt too wide) in alignment at lines 367--397
  [] [] 
  []
 
 [13]
-Underfull \hbox (badness 2698) in paragraph at lines 455--456
-\T1/ppl/m/n/10.95 (+20) - Più sen-so-ri ven-go-no com-pro-mes-si con-tem-po-ra-nea-men-te
+Underfull \hbox (badness 4429) in paragraph at lines 419--420
+\T1/ppl/m/n/10.95 (+20) - Nes-su-na va-li-da-zio-ne del check-sum o del-l'i-den-ti-tà del
  []
 
 
-Overfull \hbox (3.14774pt too wide) in alignment at lines 433--463
+Overfull \hbox (3.14774pt too wide) in alignment at lines 401--431
  [] [] 
  []
 
 [14]
-Overfull \hbox (3.14774pt too wide) in alignment at lines 467--497
+Underfull \hbox (badness 2698) in paragraph at lines 459--460
+\T1/ppl/m/n/10.95 (+20) - Più sen-so-ri ven-go-no com-pro-mes-si con-tem-po-ra-nea-men-te
+ []
+
+
+Overfull \hbox (3.14774pt too wide) in alignment at lines 437--467
  [] [] 
  []
 
 [15]
-Underfull \hbox (badness 10000) in paragraph at lines 523--524
-\T1/ppl/m/n/10.95 (+20) 2. Im-po-sta \T1/pcr/m/n/10.95 P(Esito|Freschezza=false,
- []
-
-
-Underfull \hbox (badness 1097) in paragraph at lines 523--524
-\T1/ppl/m/n/10.95 (+20) 5. L'in-te-gri-tà del si-ste-ma di cal-co-lo ri-sul-ta com-ple-ta-men-te
- []
-
-
-Overfull \hbox (3.14774pt too wide) in alignment at lines 503--533
+Overfull \hbox (3.14774pt too wide) in alignment at lines 471--501
  [] [] 
  []
 
 [16]
-Underfull \hbox (badness 7759) in paragraph at lines 559--560
-\T1/ppl/m/n/10.95 (+20) - L'ad-min in-ver-te la pro-ba-bi-li-tà con-di-zio-na-ta: in-se-ri-sce
+Underfull \hbox (badness 10000) in paragraph at lines 527--528
+\T1/ppl/m/n/10.95 (+20) 2. Im-po-sta \T1/pcr/m/n/10.95 P(Esito|Freschezza=false,
  []
 
 
-Overfull \hbox (3.14774pt too wide) in alignment at lines 537--567
+Underfull \hbox (badness 1097) in paragraph at lines 527--528
+\T1/ppl/m/n/10.95 (+20) 5. L'in-te-gri-tà del si-ste-ma di cal-co-lo ri-sul-ta com-ple-ta-men-te
+ []
+
+
+Overfull \hbox (3.14774pt too wide) in alignment at lines 507--537
  [] [] 
  []
 
 [17]
-Underfull \hbox (badness 1571) in paragraph at lines 589--590
-[]|\T1/ppl/m/n/10.95 (+20) eventi \T1/pcr/m/n/10.95 SpedizioneCreata\T1/ppl/m/n/10.95 (+20) , \T1/pcr/m/n/10.95 SpedizionePagata\T1/ppl/m/n/10.95 (+20) , in-di-riz-zi
+Underfull \hbox (badness 7759) in paragraph at lines 563--564
+\T1/ppl/m/n/10.95 (+20) - L'ad-min in-ver-te la pro-ba-bi-li-tà con-di-zio-na-ta: in-se-ri-sce
  []
 
 
-Underfull \hbox (badness 4279) in paragraph at lines 595--596
-\T1/ppl/m/n/10.95 (+20) - Iden-ti-fi-ca-zio-ne del-le va-li-da-zio-ni fal-li-te per in-di-vi-dua-re
- []
-
-
-Overfull \hbox (3.14774pt too wide) in alignment at lines 573--603
+Overfull \hbox (3.14774pt too wide) in alignment at lines 541--571
  [] [] 
  []
 
 [18]
-Overfull \hbox (3.14774pt too wide) in alignment at lines 609--639
+Underfull \hbox (badness 1571) in paragraph at lines 593--594
+[]|\T1/ppl/m/n/10.95 (+20) eventi \T1/pcr/m/n/10.95 SpedizioneCreata\T1/ppl/m/n/10.95 (+20) , \T1/pcr/m/n/10.95 SpedizionePagata\T1/ppl/m/n/10.95 (+20) , in-di-riz-zi
+ []
+
+
+Underfull \hbox (badness 4279) in paragraph at lines 599--600
+\T1/ppl/m/n/10.95 (+20) - Iden-ti-fi-ca-zio-ne del-le va-li-da-zio-ni fal-li-te per in-di-vi-dua-re
+ []
+
+
+Overfull \hbox (3.14774pt too wide) in alignment at lines 577--607
  [] [] 
  []
 
 [19]
-Overfull \hbox (3.14774pt too wide) in alignment at lines 643--673
+Overfull \hbox (3.14774pt too wide) in alignment at lines 613--643
  [] [] 
  []
 
 [20]
-Overfull \hbox (3.14774pt too wide) in alignment at lines 679--709
+Overfull \hbox (3.14774pt too wide) in alignment at lines 647--677
  [] [] 
  []
 
 [21]
-Overfull \hbox (3.14774pt too wide) in alignment at lines 713--743
+Overfull \hbox (3.14774pt too wide) in alignment at lines 683--713
  [] [] 
  []
 
 [22]
-Underfull \hbox (badness 10000) in paragraph at lines 769--770
-[]|\T1/ppl/m/n/10.95 (+20) 1. L'at-tac-can-te iden-ti-fi-ca il se-let-to-re del-la fun-zio-ne
- []
-
-
-Overfull \hbox (3.14774pt too wide) in alignment at lines 749--779
+Overfull \hbox (3.14774pt too wide) in alignment at lines 717--747
  [] [] 
  []
 
 [23]
-Overfull \hbox (3.14774pt too wide) in alignment at lines 785--815
+Underfull \hbox (badness 10000) in paragraph at lines 773--774
+[]|\T1/ppl/m/n/10.95 (+20) 1. L'at-tac-can-te iden-ti-fi-ca il se-let-to-re del-la fun-zio-ne
+ []
+
+
+Overfull \hbox (3.14774pt too wide) in alignment at lines 753--783
  [] [] 
  []
 
 [24]
-Overfull \hbox (17.0pt too wide) in paragraph at lines 834--835
+Overfull \hbox (3.14774pt too wide) in alignment at lines 789--819
+ [] [] 
+ []
+
+[25]
+Overfull \hbox (17.0pt too wide) in paragraph at lines 838--839
 [][] 
  []
 
-[25] [26]
+[26] [27]
 
 Package tabularx Warning: X Columns too narrow (table too wide)
-(tabularx)                 on input line 925.
+(tabularx)                 on input line 929.
 
 
-Overfull \hbox (25.99648pt too wide) in paragraph at lines 925--925
+Overfull \hbox (25.99648pt too wide) in paragraph at lines 929--929
 []|\T1/ppl/b/n/10.95 (-20) Rischio 
  []
 
 
-Overfull \hbox (8.12961pt too wide) in paragraph at lines 925--925
+Overfull \hbox (8.12961pt too wide) in paragraph at lines 929--929
 \T1/ppl/b/n/10.95 (-20) duo|  
  []
 
 
-Overfull \hbox (23.6573pt too wide) in paragraph at lines 925--925
+Overfull \hbox (23.6573pt too wide) in paragraph at lines 929--929
 []|\T1/ppl/m/n/10.95 (-20) BASSO|  
  []
 
 
-Overfull \hbox (26.11476pt too wide) in paragraph at lines 925--925
+Overfull \hbox (26.11476pt too wide) in paragraph at lines 929--929
 []|\T1/ppl/m/n/10.95 (-20) MEDIO|  
  []
 
 
-Overfull \hbox (23.6573pt too wide) in paragraph at lines 925--925
+Overfull \hbox (23.6573pt too wide) in paragraph at lines 929--929
 []|\T1/ppl/m/n/10.95 (-20) BASSO|  
  []
 
 
-Overfull \hbox (23.6573pt too wide) in paragraph at lines 925--925
+Overfull \hbox (23.6573pt too wide) in paragraph at lines 929--929
 []|\T1/ppl/m/n/10.95 (-20) BASSO|  
  []
 
 
-Overfull \hbox (26.11476pt too wide) in paragraph at lines 925--925
+Overfull \hbox (26.11476pt too wide) in paragraph at lines 929--929
 []|\T1/ppl/m/n/10.95 (-20) MEDIO|  
  []
 
 
-Overfull \hbox (23.6573pt too wide) in paragraph at lines 925--925
+Overfull \hbox (23.6573pt too wide) in paragraph at lines 929--929
 []|\T1/ppl/m/n/10.95 (-20) BASSO|  
  []
 
 
-Overfull \hbox (26.11476pt too wide) in paragraph at lines 925--925
+Overfull \hbox (26.11476pt too wide) in paragraph at lines 929--929
 []|\T1/ppl/m/n/10.95 (-20) MEDIO|  
  []
 
 
-Overfull \hbox (17.96042pt too wide) in paragraph at lines 925--925
+Overfull \hbox (17.96042pt too wide) in paragraph at lines 929--929
 []|\T1/ppl/m/n/10.95 (-20) ALTO|  
  []
 
 
-Overfull \hbox (33.07419pt too wide) in alignment at lines 925--925
+Overfull \hbox (33.07419pt too wide) in alignment at lines 929--929
 [][][][][] 
  []
 
 
-Overfull \hbox (17.0pt too wide) in paragraph at lines 925--926
+Overfull \hbox (17.0pt too wide) in paragraph at lines 929--930
 [][] 
  []
 
-[27]) [28]
+[28]) [29]
 \openout2 = `chapter2/chapter2.aux'.
 
  (./chapter2/chapter2.tex
 Capitolo 2.
-[29
+[30
 
 
 
 
-] [30] [31]
-<chapter2/image/Grafico_Markov_Chain.png, id=631, 1445.4pt x 813.0375pt>
+] [31] [32]
+<chapter2/image/Grafico_Markov_Chain.png, id=635, 1445.4pt x 813.0375pt>
 File: chapter2/image/Grafico_Markov_Chain.png Graphic file (type png)
 <use chapter2/image/Grafico_Markov_Chain.png>
 Package pdftex.def Info: chapter2/image/Grafico_Markov_Chain.png  used on input line 78.
 (pdftex.def)             Requested size: 441.01775pt x 248.06912pt.
-) [32] [33 <./chapter2/image/Grafico_Markov_Chain.png (PNG copy)>]
+) [33] [34 <./chapter2/image/Grafico_Markov_Chain.png (PNG copy)>]
 \openout2 = `chapter3/chapter3.aux'.
 
  (./chapter3/chapter3.tex)
@@ -1536,7 +1545,7 @@ Capitolo 3.
 Package hyperref Info: bookmark level for unknown lstlisting defaults to 0 on input line 29.
 LaTeX Font Info:    Font shape `T1/pcr/m/it' in size <8> not available
 (Font)              Font shape `T1/pcr/m/sl' tried instead on input line 31.
-[34
+[35
 
 
 
@@ -1563,12 +1572,12 @@ LaTeX Font Info:    Font shape `U/msb/m/n' will be
 (Font)              scaled to size 7.29405pt on input line 62.
 (/usr/local/texlive/2024/texmf-dist/tex/latex/listings/lstlang1.sty
 File: lstlang1.sty 2024/02/21 1.10 listings language file
-) [35]) [36]
+) [36]) [37]
 \openout2 = `chapter5/chapter5.aux'.
 
  (./chapter5/chapter5.tex
 Capitolo 4.
-[37
+[38
 
 
 
@@ -1582,12 +1591,12 @@ Underfull \hbox (badness 10000) in paragraph at lines 60--60
 []|\T1/ppl/b/n/10.95 (+20) COMPROMISED
  []
 
-[38] [39] [40] [41] [42]
+[39] [40] [41] [42] [43]
 Underfull \hbox (badness 10000) in paragraph at lines 203--203
 []|\T1/ppl/b/n/10.95 (+20) COMPROMISED
  []
 
-[43] [44] [45] [46]
+[44] [45] [46] [47]
 Underfull \hbox (badness 10000) in paragraph at lines 349--349
 []|\T1/ppl/b/n/10.95 (+20) -15% (at-tac-chi
  []
@@ -1617,7 +1626,7 @@ Underfull \hbox (badness 5217) in paragraph at lines 364--364
 \T1/ppl/m/n/10.95 (+20) re-co-ve-ry com-ple-to
  []
 
-[47] [48] [49]) [50] [51]
+[48] [49] [50]) [51] [52]
 \openout2 = `chapter6/chapter6.aux'.
 
  (./chapter6/chapter6.tex
@@ -1634,7 +1643,7 @@ Package textcomp Info: Symbol \textrightarrow not provided by
 Package textcomp Info: Symbol \textrightarrow not provided by
 (textcomp)             font family ppl in TS1 encoding.
 (textcomp)             Default family used instead on input line 18.
-[52
+[53
 
 
 
@@ -1644,7 +1653,7 @@ Overfull \hbox (50.11551pt too wide) in paragraph at lines 54--69
  [][] 
  []
 
-[53]
+[54]
 Overfull \hbox (228.2163pt too wide) in paragraph at lines 111--126
  [][] 
  []
@@ -1653,7 +1662,7 @@ Overfull \hbox (228.2163pt too wide) in paragraph at lines 111--126
 File: lstlang1.sty 2024/02/21 1.10 listings language file
 ) (/usr/local/texlive/2024/texmf-dist/tex/latex/listings/lstlang1.sty
 File: lstlang1.sty 2024/02/21 1.10 listings language file
-) [54] [55]
+) [55] [56]
 Package textcomp Info: Symbol \textdownarrow not provided by
 (textcomp)             font family pcr in TS1 encoding.
 (textcomp)             Default family used instead on input line 267.
@@ -1676,11 +1685,11 @@ Package microtype Info: Loading generic protrusion settings for font family
 Package textcomp Info: Symbol \textdownarrow not provided by
 (textcomp)             font family pcr in TS1 encoding.
 (textcomp)             Default family used instead on input line 267.
- [56] [57] [58] [59] [60] [61]
+ [57] [58] [59] [60] [61] [62]
 Package textcomp Info: Symbol \textrightarrow not provided by
 (textcomp)             font family ppl in TS1 encoding.
 (textcomp)             Default family used instead on input line 611.
- [62] [63] [64] [65] [66]
+ [63] [64] [65] [66] [67]
 Underfull \hbox (badness 10000) in paragraph at lines 993--994
 []|\T1/ppl/m/n/10.95 (+20) OpenZeppelin \T1/pcr/m/n/10.95 AccessControl\T1/ppl/m/n/10.95 (+20) ,
  []
@@ -1690,18 +1699,18 @@ Underfull \hbox (badness 4441) in paragraph at lines 999--1000
 []|\T1/pcr/m/n/10.95 block.timestamp \T1/ppl/m/n/10.95 (+20) per ti-meout
  []
 
-[67] [68] [69]
+[68] [69] [70]
 Package textcomp Info: Symbol \textrightarrow not provided by
 (textcomp)             font family ppl in TS1 encoding.
 (textcomp)             Default family used instead on input line 1129.
- [70]
+ [71]
 Package textcomp Info: Symbol \textrightarrow not provided by
 (textcomp)             font family ppl in TS1 encoding.
 (textcomp)             Default family used instead on input line 1216.
 Package textcomp Info: Symbol \textrightarrow not provided by
 (textcomp)             font family ppl in TS1 encoding.
 (textcomp)             Default family used instead on input line 1217.
- [71]
+ [72]
 Package textcomp Info: Symbol \textrightarrow not provided by
 (textcomp)             font family ppl in TS1 encoding.
 (textcomp)             Default family used instead on input line 1232.
@@ -1718,39 +1727,39 @@ Underfull \hbox (badness 1087) in paragraph at lines 1287--1288
 []|\T1/ppl/m/n/10.95 (+20) Fuzzing, property-based te-
  []
 
-[72]
+[73]
 Package textcomp Info: Symbol \textrightarrow not provided by
 (textcomp)             font family ppl in TS1 encoding.
 (textcomp)             Default family used instead on input line 1332.
- [73]
+ [74]
 Package textcomp Info: Symbol \textrightarrow not provided by
 (textcomp)             font family ppl in TS1 encoding.
 (textcomp)             Default family used instead on input line 1371.
- [74] [75]
+ [75] [76]
 Package textcomp Info: Symbol \textrightarrow not provided by
 (textcomp)             font family ppl in TS1 encoding.
 (textcomp)             Default family used instead on input line 1507.
- [76]) [77]
+ [77]) [78]
 \openout2 = `chapter7/chapter7.aux'.
 
  (./chapter7/chapter7.tex
 Capitolo 6.
-[78
+[79
 
 
 
 
-]) [79]
+]) [80]
 \openout2 = `backmatter/appendixA.aux'.
 
  (./backmatter/appendixA.tex
 Appendice A.
-[80
+[81
 
 
 
 
-]) [81]
+]) [82]
 
 Package glossaries Warning: No \printglossary or \printglossaries found. 
 (Remove \makeglossaries if you don't want any glossaries.) 
@@ -1763,18 +1772,18 @@ L3 programming layer <2024-02-20>
  ***********
  ) 
 Here is how much of TeX's memory you used:
- 41217 strings out of 474116
- 752509 string characters out of 5743681
+ 41598 strings out of 474116
+ 761207 string characters out of 5743681
  2284187 words of memory out of 5000000
- 61253 multiletter control sequences out of 15000+600000
+ 61629 multiletter control sequences out of 15000+600000
  657734 words of font info for 534 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  111i,15n,131p,2429b,2108s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/mathpazo/fplmr.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/symbols/msam10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/cm-super/sfrm1095.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/cm-super/sftt1095.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/urw/courier/ucrb8a.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/urw/courier/ucrr8a.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/urw/courier/ucrro8a.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/urw/helvetic/uhvb8a.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/urw/helvetic/uhvr8a.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/urw/palatino/uplb8a.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/urw/palatino/uplr8a.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/urw/palatino/uplr8a.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/urw/palatino/uplri8a.pfb>
-Output written on main.pdf (87 pages, 8645917 bytes).
+Output written on main.pdf (88 pages, 11176748 bytes).
 PDF statistics:
- 2315 PDF objects out of 2487 (max. 8388607)
- 2159 compressed objects within 22 object streams
- 899 named destinations out of 1000 (max. 500000)
+ 2319 PDF objects out of 2487 (max. 8388607)
+ 2162 compressed objects within 22 object streams
+ 900 named destinations out of 1000 (max. 500000)
  134824 words of extra memory for PDF output out of 154059 (max. 10000000)
 
