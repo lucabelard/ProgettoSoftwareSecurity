@@ -16,10 +16,10 @@ Prima di iniziare, assicurati di avere installato i seguenti componenti. Le vers
 
 | Componente | Versione Richiesta | Note |
 | :--- | :--- | :--- |
-| **Node.js** | `v18.x` o superiore | Gestore runtime JS. |
-| **Java JDK** | `v17` (Consigliato) o `v11` | Necessario per eseguire Besu. |
-| **Hyperledger Besu** | `v25.11.0` | **CRITICO:** Versioni differenti possono causare errori di consenso. |
-| **MetaMask** | Estensione Browser | Wallet per interagire con la blockchain. |
+| **Node.js** | `v18.x` o superiore | gestore runtime JS. |
+| **Java JDK** | `v17` (Consigliato) o `v11` | necessario per eseguire Besu. |
+| **Hyperledger Besu** | `v25.11.0` | **CRITICO:** versioni differenti possono causare errori di consenso. |
+| **MetaMask** | Estensione Browser | wallet per interagire con la blockchain. |
 
 ### 📥 1. Installazione automatica dipendenze (JS)
 Il file `package.json` è configurato per gestire le dipendenze JavaScript (Truffle, Web3, OpenZeppelin).
@@ -127,7 +127,13 @@ Avvia il cluster e il proxy aprendo automaticamente nuovi terminali per ogni nod
 
 ## 🦊 Configurazione MetaMask
 
-Configura MetaMask con i seguenti parametri per connetterti alla rete locale.
+
+
+Per configurare la rete su MetaMask:
+1.  Clicca sulle **3 linee** in alto a destra (o sull'icona del profilo).
+2.  Vai su **Impostazioni > Reti** (Settings > Networks).
+3.  Clicca su **"Aggiungi una rete"** (Add a network) > **"Aggiungi una rete manualmente"**.
+4.  Inserisci i seguenti parametri:
 
 | Parametro | Valore |
 | :--- | :--- |
@@ -207,21 +213,21 @@ Avvia l'interfaccia utente per interagire con il sistema distribuito.
 
 ### 👑 Pannello amministratore
 Accesso tramite account **Admin**.
-*   **Monitoraggio Spedizioni:** Visualizzazione in tempo reale dello stato.
-*   **Circuit Breaker:** Arresto di emergenza (*Ricaricare la pagina dopo la modifica*).
-*   **Parametri:** Regolazione soglie e affidabilità.
+*   **Monitoraggio Spedizioni:** visualizzazione in tempo reale dello stato.
+*   **Circuit Breaker:** arresto di emergenza (*Ricaricare la pagina dopo la modifica*).
+*   **Parametri:** regolazione soglie e affidabilità.
 
 ### ✅ Flusso standard (Consegna riuscita)
-1.  **Mittente:** Crea la spedizione (Indirizzo Corriere + Importo ETH).
-2.  **Sensore:** Inserisce ID Spedizione e invia Conferma/Evidenze (senza anomalie).
-3.  **Corriere:** Esegue la Validazione Consegna -> Fondi rilasciati.
+1.  **Mittente:** crea la spedizione (indirizzo corriere + importo ETH).
+2.  **Sensore:** inserisce ID spedizione e invia conferma/evidenze (senza anomalie).
+3.  **Corriere:** esegue la validazione consegna -> fondi rilasciati.
 
 ### ❌ Scenario di rimborso (Mancata consegna)
-1.  **Mittente:** Crea la spedizione.
-2.  **Sensore:** Modifica i dati ambientali (es. Temp/Umidità fuori soglia) -> Invia Evidenze (Non Conforme).
-3.  **Corriere:** Tenta la Validazione -> Transazione Respinta.
+1.  **Mittente:** crea la spedizione.
+2.  **Sensore:** modifica i dati ambientali (es. temp/umidità fuori soglia) -> invia evidenze (non conforme).
+3.  **Corriere:** tenta la validazione -> transazione respinta.
     *   *Requisito:* 3 tentativi falliti per attivare il rimborso.
-4.  **Mittente:** Richiede il Rimborso -> Fondi restituiti.
+4.  **Mittente:** richiede il rimborso -> fondi restituiti.
 
 ---
 
@@ -229,9 +235,9 @@ Accesso tramite account **Admin**.
 
 | Problema | Soluzione |
 | :--- | :--- |
-| **Genesis Mismatch** | Inconsistenza dati Blockchain.<br>**Win:** `.\besu-config\scripts\windows\clean-data.bat`<br>**Mac:** `./besu-config/scripts/mac/clean-data.sh`<br>Riavviare la rete dopo la pulizia. |
-| **Errore Nonce** | Si verifica dopo il riavvio della rete.<br>**Azione:** MetaMask -> Impostazioni > Avanzate > Cancella dati attività tab. |
-| **Contratti assenti** | Assicurarsi di aver eseguito il deploy (`node deploy-complete.js` o `truffle migrate`) **dopo** l'avvio della rete. |
-| **Interfaccia non aggiornata** | Se lo stato del contratto non cambia (es. dopo blocca/sblocca), **aggiornare la pagina** del browser. |
+| **Genesis Mismatch** | inconsistenza dati Blockchain.<br>**Win:** `.\besu-config\scripts\windows\clean-data.bat`<br>**Mac:** `./besu-config/scripts/mac/clean-data.sh`<br>Riavviare la rete dopo la pulizia. |
+| **Errore Nonce** | si verifica dopo il riavvio della rete.<br>**Azione:** MetaMask -> Impostazioni > Avanzate > Cancella dati attività tab. |
+| **Contratti assenti** | assicurarsi di aver eseguito il deploy (`node deploy-complete.js` o `truffle migrate`) **dopo** l'avvio della rete. |
+| **Interfaccia non aggiornata** | se lo stato del contratto non cambia (es. dopo blocca/sblocca), **aggiornare la pagina** del browser. |
 
 ---
