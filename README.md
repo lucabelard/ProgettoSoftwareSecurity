@@ -177,6 +177,12 @@ truffle migrate --network besu
 
 Per interagire con il sistema, importa i seguenti account pre-finanziati nel tuo wallet MetaMask.
 
+**Procedura di Importazione:**
+1.  Clicca sull'icona circolare dell'account in alto a destra.
+2.  Seleziona **"Aggiungi account o hardware wallet"** (o "Add account").
+3.  Clicca su **"Importa account"**.
+4.  Incolla la **Chiave Privata** (dalla tabella sottostante) e conferma.
+
 | Ruolo | Indirizzo Pubblico | Chiave Privata (SOLO PER TESTNET) |
 | :--- | :--- | :--- |
 | **👑 Admin** | `0xfe3b557e8fb62b89f4916b721be55ceb828dbd73` | `0x8f2a55949038a9610f50fb23b5883af3b4ecb3c3bb792cbcefbd1542c692be63` |
