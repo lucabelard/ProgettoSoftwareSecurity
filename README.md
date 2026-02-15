@@ -133,13 +133,18 @@ Configura MetaMask con i seguenti parametri per connetterti alla rete locale.
 | :--- | :--- |
 | **Nome Rete** | Localhost 8545 |
 | **RPC URL** | `http://127.0.0.1:8545` |
-| **Chain ID (Windows)** | `2024` |
-| **Chain ID (Mac)** | `2025` |
+| **Chain ID** | `2024` |
+| **Simbolo Valuta** | `ETH` |
 
 > [!NOTE]
 > Andare su *Settings > General* e attivare **"Show native token as main balance"** per visualizzare correttamente i fondi.
 
----
+### ⚠️ Risoluzione Problemi macOS (Chain ID)
+In alcuni ambienti macOS, potresti riscontrare errori di connessione con Chain ID 2024.
+**Soluzione:**
+1.  Apri `truffle-config.js` e modifica `network_id` da `2024` a `2025`.
+2.  Riavvia la rete Besu.
+3.  In MetaMask, usa **Chain ID: 2025**.
 
 ## 📜 2. Deploy degli Smart Contracts
 
