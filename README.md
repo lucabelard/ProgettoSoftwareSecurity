@@ -139,6 +139,23 @@ Configura MetaMask con i seguenti parametri per connetterti alla rete locale.
 > [!NOTE]
 > Andare su *Settings > General* e attivare **"Show native token as main balance"** per visualizzare correttamente i fondi.
 
+### � Importazione Account di Test
+Per interagire con il sistema, importa i seguenti account pre-finanziati nel tuo wallet MetaMask.
+
+**Procedura di Importazione:**
+1.  Clicca sull'icona circolare dell'account (generalmente in alto a sinistra).
+2.  Seleziona **"Add wallet"** (o "Add account").
+3.  Clicca su **"Importa account"**.
+4.  Incolla la **Chiave Privata** (dalla tabella sottostante) e conferma.
+5.  Ripeti per tutti gli account che vuoi usare.
+
+| Ruolo | Indirizzo Pubblico | Chiave Privata (SOLO PER TESTNET) |
+| :--- | :--- | :--- |
+| **👑 Admin** | `0xfe3b557e8fb62b89f4916b721be55ceb828dbd73` | `0x8f2a55949038a9610f50fb23b5883af3b4ecb3c3bb792cbcefbd1542c692be63` |
+| **📦 Mittente** | `0x627306090abaB3A6e1400e9345bC60c78a8BEf57` | `0xc87509a1c067bbde78beb793e6fa76530b6382a4c0241e5e4a9ec0a0f44dc0d3` |
+| **📡 Sensore** | `0xf17f52151EbEF6C7334FAD080c5704D77216b732` | `0xae6ae8e5ccbfb04590405997ee2d52d2b330726137b875053c36d94e974d162f` |
+| **🚚 Corriere** | `0xC5fdf4076b8F3A5357c5E395ab970B5B54098Fef` | `0x0dbbe8e4ae425a6d2687f1a7e3ba17bc98c673636790f1b8ad91193c05875ef1` |
+
 ### ⚠️ Risoluzione Problemi macOS (Chain ID)
 In alcuni ambienti macOS, potresti riscontrare errori di connessione con Chain ID 2024.
 **Soluzione:**
@@ -173,27 +190,9 @@ truffle migrate --network besu
 
 ---
 
-## 👤 3. Account di Test
 
-Per interagire con il sistema, importa i seguenti account pre-finanziati nel tuo wallet MetaMask.
 
-**Procedura di Importazione:**
-1.  Clicca sull'icona circolare dell'account (generalmente in alto a sinistra).
-2.  Seleziona **"Add wallet"** (o "Add account").
-3.  Clicca su **"Importa account"**.
-4.  Incolla la **Chiave Privata** (dalla tabella sottostante) e conferma.
-5.  Ripeti per tutti gli account che vuoi usare.
-
-| Ruolo | Indirizzo Pubblico | Chiave Privata (SOLO PER TESTNET) |
-| :--- | :--- | :--- |
-| **👑 Admin** | `0xfe3b557e8fb62b89f4916b721be55ceb828dbd73` | `0x8f2a55949038a9610f50fb23b5883af3b4ecb3c3bb792cbcefbd1542c692be63` |
-| **📦 Mittente** | `0x627306090abaB3A6e1400e9345bC60c78a8BEf57` | `0xc87509a1c067bbde78beb793e6fa76530b6382a4c0241e5e4a9ec0a0f44dc0d3` |
-| **📡 Sensore** | `0xf17f52151EbEF6C7334FAD080c5704D77216b732` | `0xae6ae8e5ccbfb04590405997ee2d52d2b330726137b875053c36d94e974d162f` |
-| **🚚 Corriere** | `0xC5fdf4076b8F3A5357c5E395ab970B5B54098Fef` | `0x0dbbe8e4ae425a6d2687f1a7e3ba17bc98c673636790f1b8ad91193c05875ef1` |
-
----
-
-## 💻 4. Interfaccia Web
+## 💻 3. Interfaccia Web
 
 Avvia l'interfaccia utente per interagire con il sistema distribuito.
 
@@ -204,7 +203,7 @@ Avvia l'interfaccia utente per interagire con il sistema distribuito.
 
 ---
 
-## 🔄 5. Flussi Operativi (Workflows)
+## 🔄 4. Flussi Operativi (Workflows)
 
 ### 👑 Pannello Amministratore
 Accesso tramite account **Admin**.
