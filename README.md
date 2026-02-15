@@ -10,23 +10,79 @@ Il presente documento fornisce una guida tecnica completa per l'installazione, l
 
 ---
 
-## 🛠️ Prerequisiti di Sistema
+### 🛠️ Prerequisiti di Sistema
 
-Assicurarsi che le seguenti dipendenze siano installate nell'ambiente di esecuzione:
+Prima di iniziare, assicurati di avere installato i seguenti componenti. Le versioni sono **vincolanti** per il corretto funzionamento.
 
-*   **Node.js** (v14 o superiore)
-*   **Java JDK** (v11 o v17 raccomandata per Besu)
-*   **Hyperledger Besu v25.11.0** (Binari necessari nel PATH)
-    *   [Scarica Besu](https://github.com/hyperledger/besu/releases)
-    *   *Nota:* Assicurati che il comando `besu --version` funzioni nel terminale.
-*   **MetaMask** (Estensione Browser)
+| Componente | Versione Richiesta | Note |
+| :--- | :--- | :--- |
+| **Node.js** | `v18.x` o superiore | Gestore runtime JS. |
+| **Java JDK** | `v17` (Consigliato) o `v11` | Necessario per eseguire Besu. |
+| **Hyperledger Besu** | `v25.11.0` | **CRITICO:** Versioni differenti possono causare errori di consenso. |
+| **MetaMask** | Estensione Browser | Wallet per interagire con la blockchain. |
 
-### 📦 Installazione Dipendenze
-Eseguire il seguente comando nella root del progetto per installare Truffle (globale) e le dipendenze locali:
+### 📥 1. Installazione Automatica Dipendenze (JS)
+Il file `package.json` è configurato per gestire le dipendenze JavaScript (Truffle, Web3, OpenZeppelin).
+
+1.  Apri il terminale nella cartella del progetto.
+2.  Esegui il comando:
+    ```bash
+    npm install
+    ```
+    *Questo installerà `truffle` localmente, garantendo che tutti utilizzino la stessa versione.*
+
+---
+
+## ⚙️ 2. Installazione System-Level (Manuale)
+
+Le dipendenze di sistema (Besu, Java) devono essere configurate manualmente o tramite script, poiché variano in base al Sistema Operativo.
+
+### 🪟 Windows Setup
+
+#### 1. Java JDK
+Assicurarsi di avere Java installato. Verifica con `java -version`. Se mancante, scaricare e installare [Java JDK 17](https://www.oracle.com/java/technologies/downloads/#java17).
+
+#### 2. Hyperledger Besu (v25.11.0)
+Besu non si installa tramite `npm`. Va scaricato e aggiunto al PATH.
+
+1.  **Download:** Scarica lo zip di Besu v25.11.0 da [GitHub Releases](https://github.com/hyperledger/besu/releases/tag/25.11.0) (es. `besu-25.11.0.zip`).
+2.  **Estrazione:** Estrai il contenuto in una cartella stabile, ad esempio `C:\Besu`.
+3.  **Configurazione PATH (Variabili d'Ambiente):**
+    *   Premi `Win + R`, digita `sysdm.cpl` e premi Invio.
+    *   Vai su **Avanzate** > **Variabili d'ambiente**.
+    *   Nella sezione **Variabili di sistema**, trova la variabile `Path` e clicca **Modifica**.
+    *   Clicca **Nuovo** e incolla il percorso alla cartella `bin` di Besu (es. `C:\Besu\besu-25.11.0\bin`).
+    *   Conferma tutto con OK.
+4.  **Verifica:** Apri un **nuovo** terminale (CMD o PowerShell) e digita:
+    ```bash
+    besu --version
+    ```
+    *Dovresti vedere l'output confermare la versione 25.11.0.*
+
+### 🍎 Mac / Linux Setup
+
+#### 1. Java JDK
+Verifica con `java -version`. Se necessario, installalo tramite Homebrew:
 ```bash
-npm install -g truffle
-npm install
+brew install openjdk@17
 ```
+
+#### 2. Hyperledger Besu (v25.11.0)
+Puoi usare Homebrew (se la versione corrisponde) o l'installazione manuale (consigliata per versioni specifiche).
+
+**Metodo Manuale (Consigliato per v25.11.0):**
+1.  Scarica il pacchetto `.tar.gz` o `.zip` da [Besu Releases](https://github.com/hyperledger/besu/releases/tag/25.11.0).
+2.  Estrai l'archivio:
+    ```bash
+    tar -xvf besu-25.11.0.tar.gz
+    sudo mv besu-25.11.0 /usr/local/besu
+    ```
+3.  Aggiungi al PATH nel tuo `~/.zshrc` o `~/.bash_profile`:
+    ```bash
+    export PATH=$PATH:/usr/local/besu/bin
+    ```
+4.  Ricarica la configurazione: `source ~/.zshrc`
+5.  Verifica: `besu --version`
 
 ---
 
