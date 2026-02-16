@@ -207,6 +207,23 @@ Avvia l'interfaccia utente per interagire con il sistema distribuito.
 
 🔗 **URL di Accesso:** `http://127.0.0.1:8080`
 
+![Home Page Filiera Sicura](docs/images/home.png)
+<sub> 1) Pagina principale del sistema</sub>
+
+![Pannello Admin - Vista 1](docs/images/vista_admin1.png)
+
+![Pannello Admin - Vista 2](docs/images/vista_admin2.png)
+<sub>2) Vista Admin</sub>
+
+![Vista Mittente](docs/images/vista_mittente.png)
+<sub>3) Vista Mittente</sub>
+
+![Vista Sensori](docs/images/vista_sensori.png)
+<sub>4) Vista Sensori</sub>
+
+![Vista Corriere](docs/images/vista_corriere.png)
+<sub>5) Vista Corriere</sub>
+
 ---
 
 ## 🔄 4. Flussi operativi
@@ -216,6 +233,8 @@ Accesso tramite account **Admin**.
 *   **Monitoraggio Spedizioni:** visualizzazione in tempo reale dello stato.
 *   **Circuit Breaker:** arresto di emergenza (*Ricaricare la pagina dopo la modifica*).
 *   **Parametri:** regolazione soglie e affidabilità.
+
+
 
 ### ✅ Flusso standard (Consegna riuscita)
 1.  **Mittente:** crea la spedizione (indirizzo corriere + importo ETH).
