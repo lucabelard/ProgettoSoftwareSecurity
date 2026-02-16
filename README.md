@@ -1,7 +1,7 @@
 
 # 📦 Progetto Software Security - Monitoraggio Blockchain
 
-![Besu](https://img.shields.io/badge/Hyperledger%20Besu-Latest-blue?style=for-the-badge&logo=hyperledger)
+![Besu](https://img.shields.io/badge/Hyperledger%20Besu-v25.11.0-blue?style=for-the-badge&logo=hyperledger)
 ![Truffle](https://img.shields.io/badge/Truffle-Suite-orange?style=for-the-badge&logo=truffle)
 ![Node.js](https://img.shields.io/badge/Node.js-v18+-green?style=for-the-badge&logo=node.js)
 ![MetaMask](https://img.shields.io/badge/MetaMask-Compatible-orange?style=for-the-badge&logo=metamask)
@@ -223,10 +223,12 @@ Avvia l'interfaccia utente per interagire con il sistema distribuito.
 ![Pannello Admin - Vista 2](docs/images/vista_admin2.png)
 <sub>2) Vista Admin</sub>
 
-![Vista Mittente](docs/images/vista_mittente.png)
+![Vista Mittente](docs/images/vista_mittente1.png)
+
+![Vista Mittente](docs/images/vista_mittente2.png)
 <sub>3) Vista Mittente</sub>
 
-![Vista Sensori](docs/images/vista_sensori.png)
+![Vista Sensori](docs/images/vista_sensore.png)
 <sub>4) Vista Sensori</sub>
 
 ![Vista Corriere](docs/images/vista_corriere.png)

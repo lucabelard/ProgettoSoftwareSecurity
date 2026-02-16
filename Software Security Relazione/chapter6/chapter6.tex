@@ -30,26 +30,28 @@ La configurazione tramite file \texttt{.solhint.json} permette di abilitare o di
 
 \begin{table}[H]
 \centering
+\resizebox{\textwidth}{!}{
 \begin{tabular}{l p{0.7\textwidth}}
 \toprule
-\textbf{Categoria} \& \textbf{Descrizione} \\
+\textbf{Categoria} & \textbf{Descrizione} \\
 \midrule
-\textbf{Best Practices} \& Convenzioni consolidate: naming, visibility, custom errors. Prevengono bug comuni (es. \texttt{tx.origin} vs \texttt{msg.sender}). \\
+\textbf{Best Practices} & Convenzioni consolidate: naming, visibility, custom errors. Prevengono bug comuni (es. \texttt{tx.origin} vs \texttt{msg.sender}). \\
 \addlinespace
-\textbf{Gas Optimization} \& Micro-ottimizzazioni: pre-increment, calldata vs memory, strict inequalities. Riducono costi transazione. \\
+\textbf{Gas Optimization} & Micro-ottimizzazioni: pre-increment, calldata vs memory, strict inequalities. Riducono costi transazione. \\
 \addlinespace
-\textbf{Security} \& Pattern pericolosi: reentrancy, overflow, delegatecall non protetto. Prevengono vulnerabilità critiche. \\
+\textbf{Security} & Pattern pericolosi: reentrancy, overflow, delegatecall non protetto. Prevengono vulnerabilità critiche. \\
 \addlinespace
-\textbf{Style Guide} \& Conformità Solidity Style Guide ufficiale: ordering, naming conventions, indentazione. Migliora leggibilità. \\
+\textbf{Style Guide} & Conformità Solidity Style Guide ufficiale: ordering, naming conventions, indentazione. Migliora leggibilità. \\
 \addlinespace
-\textbf{Documentation} \& NatSpec coverage, commenti funzioni/eventi. Essenziale per audit e manutenzione. \\
+\textbf{Documentation} & NatSpec coverage, commenti funzioni/eventi. Essenziale per audit e manutenzione. \\
 \bottomrule
 \end{tabular}
+}
 \end{table}
 
 L'analisi statica presenta tuttavia alcuni limiti intrinseci. Innanzitutto, \textbf{non rileva bug logici}: se il codice è sintatticamente corretto ma logicamente errato, Solhint non è in grado di identificare il problema. Inoltre possono verificarsi \textbf{falsi positivi}, dove pattern legittimi generano warning rendendo necessaria una configurazione mirata. Infine, l'assenza di \textbf{runtime analysis} significa che Solhint non simula l'esecuzione effettiva, quindi non può rilevare il gas usage reale o comportamenti emergenti a runtime.
 
-Per questi motivi, Solhint deve essere utilizzato in complementarietà con altri strumenti specializzati:  \texttt{Slither} offre analisi statica avanzata con dataflow e taint analysis, \texttt{Mythril} fornisce analisi simbolica per la ricerca approfondita di vulnerabilità, \text tt{Echidna} implementa fuzzing e property-based testing, mentre \texttt{Hardhat tests} copre il testing funzionale end-to-end del sistema completo.
+Per questi motivi, Solhint deve essere utilizzato in complementarietà con altri strumenti specializzati:  \texttt{Slither} offre analisi statica avanzata con dataflow e taint analysis, \texttt{Mythril} fornisce analisi simbolica per la ricerca approfondita di vulnerabilità, \texttt{Echidna} implementa fuzzing e property-based testing, mentre \texttt{Hardhat tests} copre il testing funzionale end-to-end del sistema completo.
 
 \subsection{Installazione ed Esecuzione}
 
@@ -106,6 +108,7 @@ L'analisi iniziale ha rivelato una distribuzione non uniforme dei warning tra i 
 \begin{table}[H]
 \centering
 \caption{Warning per contratto - Analisi baseline}
+\resizebox{\textwidth}{!}{
 \begin{tabular}{lccccc}
 \toprule
 \textbf{Contratto} & \textbf{NatSpec} & \textbf{Naming} & \textbf{Gas} & \textbf{Altri} & \textbf{Totale} \\
@@ -118,6 +121,7 @@ BNCalcolatoreOnChain.sol & 6 & 7 & 3 & 1 & 17 \\
 \textbf{Totale} & \textbf{57} & \textbf{48} & \textbf{25} & \textbf{7} & \textbf{137} \\
 \bottomrule
 \end{tabular}
+}
 \end{table}
 
 \textbf{Osservazioni chiave}:
@@ -135,6 +139,7 @@ I 57 warning NatSpec iniziali erano così distribuiti:
 \begin{table}[H]
 \centering
 \caption{Breakdown warning NatSpec per tipo}
+\resizebox{\textwidth}{!}{
 \begin{tabular}{lcp{7cm}}
 \toprule
 \textbf{Tipo Warning} & \textbf{Count} & \textbf{Elementi Mancanti} \\
@@ -149,6 +154,7 @@ I 57 warning NatSpec iniziali erano così distribuiti:
 \textbf{Totale} & \textbf{57} & \\
 \bottomrule
 \end{tabular}
+}
 \end{table}
 
 La mancanza di documentazione NatSpec ha un impatto significativo su diversi aspetti del progetto. Dal punto di vista della \textbf{sicurezza utenti}, MetaMask non può mostrare descrizioni chiare durante la conferma delle transazioni, compromettendo la trasparenza. Per quanto riguarda gli \textbf{audit}, gli auditor devono dedurre il comportamento esaminando direttamente il codice invece di poter fare affidamento su una specifica chiara, causando ritardi. Inoltre, emerge un \textbf{rischio di integrazione}: i frontend developer potrebbero fraintendere le interfacce in assenza di documentazione esplicita. Infine, si verifica una \textbf{non-compliance con gli standard}, in particolare con EIP-2535 (Diamond Standard) che richiede NatSpec completo.
@@ -337,13 +343,7 @@ Il processo è stato condotto in tre fasi successive.
 
 \textbf{Cos'è NatSpec}: Natural Language Specification è il formato di documentazione standard Ethereum, ispirato a Doxygen. Utilizza commenti speciali con tag:
 
-\begin{itemize}
-    \item \texttt{@title}: Nome descrittivo del contratto
-    \item \texttt{@notice}: Descrizione user-facing (per utenti finali)
-    \item \texttt{@dev}: Note tecniche per sviluppatori
-    \item \texttt{@param}: Descrizione parametri funzione
-    \item \texttt{@return}: Descrizione valori di ritorno
-\end{itemize}
+Il formato utilizza commenti speciali con tag specifici: \texttt{@title} per il nome del contratto, \texttt{@notice} per le descrizioni user-facing, \texttt{@dev} per le note tecniche, \texttt{@param} per i parametri delle funzioni e \texttt{@return} per i valori di ritorno.
 
 \textbf{Perché è fondamentale}:
 
@@ -370,22 +370,14 @@ event ProbabilitaAPrioriImpostate(
     \item \textbf{Audit e Code Review}
     
     Gli auditor possono:
-    \begin{itemize}
-        \item Comprendere rapidamente l'intento del codice
-        \item Verificare che l'implementazione corrisponda alla specifica
-        \item Identificare discrepanze tra documentazione e logica
-    \end{itemize}
+Gli auditor possono comprendere rapidamente l'intento del codice, verificare che l'implementazione corrisponda alla specifica e identificare discrepanze tra documentazione e logica.
     
     \textbf{Esempio}: Se \texttt{@notice} dice ``Rimborsa il mittente'' ma il codice trasferisce al corriere, l'auditor rileva immediatamente il bug.
     
     \item \textbf{Generazione Automatica Documentazione}
     
     Tool come \texttt{solidity-docgen} estraggono NatSpec per generare:
-    \begin{itemize}
-        \item Documentazione HTML/Markdown
-        \item File ABI arricchiti
-        \item Integration docs per frontend developers
-    \end{itemize}
+Tool come \texttt{solidity-docgen} estraggono NatSpec per generare documentazione HTML/Markdown, file ABI arricchiti e integration docs per frontend developers.
     
     \item \textbf{Conformità Standard Industriali}
     
@@ -411,11 +403,7 @@ event ProbabilitaAPrioriImpostate(
 \subsubsection{Ottimizzazioni Gas (3 warning)}
 
 \textbf{Contesto}: Su Ethereum ogni operazione consuma \textit{gas}, pagato in ETH. Ridurre i costi è fondamentale per:
-\begin{itemize}
-    \item \textbf{Utenti}: Transazioni meno costose
-    \item \textbf{Scalabilità}: Più transazioni per blocco
-    \item \textbf{Competitività}: Contratti più economici attraggono più utenti
-\end{itemize}
+Ridurre i costi è fondamentale per garantire agli \textbf{utenti} transazioni meno costose, migliorare la \textbf{scalabilità} permettendo più transazioni per blocco e aumentare la \textbf{competitività}, poiché contratti più economici attraggono più utenti.
 
 \textbf{1. Pre-increment vs Post-increment}
 
@@ -441,11 +429,7 @@ _contatoreIdSpedizione++;
 \end{lstlisting}
 
 \textbf{Risparmio}: ~5 gas per operazione
-\begin{itemize}
-    \item Gas saved = eliminazione di 1 operazione TEMP storage
-    \item In media 1000 spedizioni/anno: 5000 gas totali risparmiati
-    \item Costo evitato: ~\$0.10/anno @ \$2000 ETH, 50 gwei
-\end{itemize}
+Il risparmio è di circa 5 gas per operazione, derivante dall'eliminazione di un'operazione TEMP storage. Considerando una media di 1000 spedizioni l'anno, si risparmiano 5000 gas totali, con un costo evitato di circa \$0.10 all'anno (con ETH a \$2000 e 50 gwei).
 
 \textbf{2. Custom Errors vs Require Strings}
 
@@ -462,18 +446,7 @@ require(
 \end{lstlisting}
 
 \textbf{Costi require string}:
-\begin{itemize}
-    \item \textbf{Deploy}: +200 bytes bytecode per stringa
-        \begin{itemize}
-            \item Costo: 200 gas/byte = 40,000 gas extra
-            \item @ 50 gwei, \$2000 ETH: ~\$4 per stringa
-        \end{itemize}
-    \item \textbf{Revert runtime}: +1000 gas per encoding stringa
-        \begin{itemize}
-            \item ABI encoding della stringa richiede MSTORE loops
-            \item Costo fisso ~500 gas + length * 20 gas
-        \end{itemize}
-\end{itemize}
+Le stringhe di errore comportano costi significativi sia in fase di deploy che di runtime. Durante il \textbf{deploy}, ogni stringa aggiunge circa 200 bytes al bytecode, costando 40,000 gas extra (circa \$4 per stringa). In fase di \textbf{runtime}, l'encoding della stringa per il revert costa circa 1000 gas, a causa dei loop MSTORE necessari.
 
 \begin{lstlisting}[language=Solidity]
 // DOPO: Custom error
@@ -484,19 +457,7 @@ if (_hashedDetails == bytes32(0))
 \end{lstlisting}
 
 \textbf{Vantaggi custom errors}:
-\begin{itemize}
-    \item \textbf{Deploy}: Solo 4 bytes per error (selector hash)
-        \begin{itemize}
-            \item Riduzione: 200 → 4 bytes (-98\%)
-            \item Risparmio deploy: ~39,600 gas per error
-        \end{itemize}
-    \item \textbf{Revert}: Solo 4 bytes trasmessi on-chain
-        \begin{itemize}
-            \item Risparmio runtime: ~1000 gas per revert
-            \item Più efficiente per debugging (typed errors)
-        \end{itemize}
-    \item \textbf{Type safety}: Errori tipizzati catturabili programmaticamente
-\end{itemize}
+I custom errors offrono notevoli vantaggi. In fase di \textbf{deploy}, occupano solo 4 bytes per error (il selector hash), riducendo le dimensioni del 98\% e risparmiando circa 39,600 gas per errore. Durante il \textbf{revert}, vengono trasmessi on-chain solo 4 bytes, risparmiando circa 1000 gas e rendendo il debugging più efficiente grazie agli errori tipizzati. Infine, garantiscono una maggiore \textbf{type safety}, permettendo di catturare gli errori programmaticamente.
 
 \textbf{Calcolo risparmio complessivo} (9 custom errors nel progetto):
 \begin{align*}
@@ -528,59 +489,25 @@ function inviaTutteEvidenze(
 \end{lstlisting}
 
 \textbf{Differenza memory vs calldata}:
-\begin{itemize}
-    \item \textbf{calldata}: Area read-only con dati transazione
-        \begin{itemize}
-            \item Accesso diretto: 3 gas per CALLDATALOAD
-            \item Immutabile, non può essere modificato
-        \end{itemize}
-    \item \textbf{memory}: Area temporanea modificabile
-        \begin{itemize}
-            \item Richiede COPY: 3 gas * N elementi
-            \item MSTORE operations: 3-6 gas per word
-        \end{itemize}
-\end{itemize}
+La differenza principale risiede nel fatto che \textbf{calldata} è un'area read-only contenente i dati della transazione, accessibile direttamente (3 gas per CALLDATALOAD) e immutabile. Al contrario, \textbf{memory} è un'area temporanea modificabile che richiede operazioni di COPY (3 gas per elemento) e MSTORE (3-6 gas per word).
 
 \textbf{Risparmio}: Per array[5]: 5 $\times$ (MSTORE - CALLDATALOAD) $\approx$ 15 gas
 
 \textbf{Quando usare calldata}:
-\begin{itemize}
-    \item Parametri \texttt{external} function mai modificati
-    \item Array/struct passati come input
-    \item Dati read-only nel function body
-\end{itemize}
+È preferibile usare \textbf{calldata} quando i parametri di una funzione \texttt{external} non vengono mai modificati, per array o struct passati come input, e per dati read-only nel corpo della funzione.
 
 \textbf{Quando usare memory}:
-\begin{itemize}
-    \item Parametri che devono essere modificati
-    \item Funzioni \texttt{public} (chiamate anche internamente)
-    \item Strutture dati costruite in-function
-\end{itemize}
+Si deve invece usare \textbf{memory} per parametri che devono essere modificati, per funzioni \texttt{public} (che possono essere chiamate anche internamente) e per strutture dati costruite all'interno della funzione.
 
 \subsubsection{Refactoring Funzioni (2 warning)}
 
 Solhint warning: \texttt{function-max-lines}, \texttt{code-complexity}
 
 \textbf{Problema}: Funzione \texttt{\_calcolaProbabilitaCombinata} originale aveva 66 linee, superando:
-\begin{itemize}
-    \item Limite raccomandato: 50 linee
-    \item Complessità ciclomatica: 12 (alta)
-    \item Difficoltà testing: Troppi branch da testare
-\end{itemize}
+La funzione originale superava il limite raccomandato di 50 linee, presentava un'alta complessità ciclomatica (12) e comportava difficoltà nel testing a causa dei troppi branch da verificare.
 
 \textbf{Cos'è la complessità ciclomatica}:
-\begin{itemize}
-    \item Metrica di McCabe che misura numero di percorsi indipendenti attraverso il codice
-    \item Calcolata come: $M = E - N + 2P$ dove E=edges, N=nodes, P=connected components nel control flow graph
-    \item Praticamente: ogni \texttt{if}, \texttt{else}, \texttt{for}, \texttt{while}, \texttt{?:} aumenta la complessità
-    \item \textbf{Soglie}:
-        \begin{itemize}
-            \item 1-10: Semplice, basso rischio
-            \item 11-20: Moderato, testare accuratamente
-            \item 21-50: Complesso, alto rischio bug
-            \item 50+: Non testabile, refactoring necessario
-        \end{itemize}
-\end{itemize}
+La complessità ciclomatica è una metrica di McCabe che misura il numero di percorsi indipendenti attraverso il codice, calcolata come $M = E - N + 2P$ (dove E=edges, N=nodes, P=connected components nel control flow graph). In pratica, ogni \texttt{if}, \texttt{else}, \texttt{for}, \texttt{while} o operatore ternario aumenta la complessità. I valori di riferimento indicano che un punteggio tra 1-10 rappresenta un codice semplice a basso rischio, 11-20 moderato ma da testare accuratamente, 21-50 complesso ad alto rischio di bug, mentre oltre 50 il codice è considerato non testabile e richiede refactoring.
 
 \textbf{Codice originale} (66 linee, complessità 12):
 \begin{lstlisting}[language=Solidity]
@@ -610,12 +537,7 @@ function _calcolaProbabilitaCombinata(...) {
 \end{lstlisting}
 
 \textbf{Problemi}:
-\begin{enumerate}
-    \item \textbf{Duplicazione}: Stesso pattern ripetuto 5 volte
-    \item \textbf{Manutenibilità}: Modificare logica CPT richiede 5 cambiamenti
-    \item \textbf{Testing}: Necessari $2^5 = 32$ test per coverage completo
-    \item \textbf{Leggibilità}: Difficile capire l'intento ad alto livello
-\end{enumerate}
+I problemi principali riguardavano la \textbf{duplicazione}, con lo stesso pattern ripetuto 5 volte, e la \textbf{manutenibilità}, poiché modificare la logica CPT richiedeva 5 cambiamenti distinti. Inoltre, il \textbf{testing} risultava oneroso, richiedendo $2^5 = 32$ test per una coverage completa, e la \textbf{leggibilità} era compromessa, rendendo difficile comprendere l'intento ad alto livello.
 
 \textbf{Soluzione}: Estrazione helper function \texttt{\_applicaCPT}
 
@@ -690,12 +612,7 @@ Manutenibilità Index \& Basso \& Alto \\
 \end{table}
 
 \textbf{Principi applicati}:
-\begin{itemize}
-    \item \textbf{DRY (Don't Repeat Yourself)}: Eliminata duplicazione
-    \item \textbf{Single Responsibility}: \texttt{\_applicaCPT} fa UNA cosa
-    \item \textbf{Separation of Concerns}: Logica CPT isolata dalla combinazione
-    \item \textbf{Testability}: Unit test indipendenti per helper function
-\end{itemize}
+I principi applicati includono il \textbf{DRY (Don't Repeat Yourself)} eliminando la duplicazione, la \textbf{Single Responsibility} assegnando a \texttt{\_applicaCPT} un unico compito, la \textbf{Separation of Concerns} isolando la logica CPT dalla combinazione, e la \textbf{Testability} permettendo unit test indipendenti per la helper function.
 
 Benefici: \textbf{modularità}, \textbf{testabilità}, \textbf{manutenibilità}.
 
@@ -790,6 +707,7 @@ Fase 3 (Gas) & \textbf{21} & \textbf{-18} & \textbf{-85\%} \\
 \begin{table}[H]
 \centering
 \caption{Breakdown warning finali}
+\resizebox{\textwidth}{!}{
 \begin{tabular}{lcp{7cm}}
 \toprule
 \textbf{Categoria} & \textbf{N.} & \textbf{Motivazione} \\
@@ -802,6 +720,7 @@ Naming/style & 12 & Convenzioni progettuali \\
 \textbf{Totale} & \textbf{21} & \\
 \bottomrule
 \end{tabular}
+}
 \end{table}
 
 Tutti i warning residui sono giustificati da scelte architetturali deliberate.
@@ -818,6 +737,7 @@ Per contestualizzare i risultati ottenuti, confrontiamo le metriche del progetto
 \begin{table}[H]
 \centering
 \caption{Warning density - Confronto progetti blockchain}
+\resizebox{\textwidth}{!}{
 \begin{tabular}{lccc}
 \toprule
 \textbf{Progetto} & \textbf{LOC} & \textbf{Warning Solhint} & \textbf{Warning/KLOC} \\
@@ -831,6 +751,7 @@ Aave V3 Protocol & 8,500 & 68 & 8.0 \\
 Media progetti DeFi & - & - & 5.1 \\
 \bottomrule
 \end{tabular}
+}
 \end{table}
 
 \textbf{Nota}: I warning residui del progetto sono tutti \textit{best practice} (import style, naming), non critici. Normalizzando per warning critici: \textbf{0.0 warning/KLOC}.
@@ -840,6 +761,7 @@ Media progetti DeFi & - & - & 5.1 \\
 \begin{table}[H]
 \centering
 \caption{Completezza documentazione NatSpec}
+\resizebox{\textwidth}{!}{
 \begin{tabular}{lcccc}
 \toprule
 \textbf{Progetto} & \textbf{Functions} & \textbf{Events} & \textbf{Variables} & \textbf{Coverage \%} \\
@@ -853,6 +775,7 @@ Aave V3 & 92\% & 90\% & 80\% & 87\% \\
 Media industria & 91\% & 90\% & 75\% & 85\% \\
 \bottomrule
 \end{tabular}
+}
 \end{table}
 
 \textbf{Risultato eccezionale}: Il progetto supera la media industriale del +13\%, posizionandosi al livello di progetti con milioni di dollar in audit.
@@ -864,6 +787,7 @@ Confronto con \textbf{DASP Top 10} (Decentralized Application Security Project):
 \begin{table}[H]
 \centering
 \caption{Protezioni contro vulnerabilità comuni}
+\resizebox{\textwidth}{!}{
 \begin{tabular}{lcp{6cm}}
 \toprule
 \textbf{Vulnerabilità} & \textbf{Protezione} & \textbf{Implementazione} \\
@@ -879,17 +803,13 @@ Time Manipulation & \textbf{[P]} & \texttt{block.timestamp} per timeout (tollera
 Short Address Attack & \checkmark & Solidity 0.8+ built-in protection \\
 \bottomrule
 \end{tabular}
+}
 \end{table}
 
 \textbf{Legend}: \checkmark = Protetto, \textbf{[P]} = Parzialmente protetto, \textbf{[X]} = Non protetto, N/A = Non applicabile
 
 \textbf{Punti di forza sicurezza}:
-\begin{itemize}
-    \item \textbf{Zero vulnerabilità critiche} rilevate da Solhint
-    \item \textbf{Custom Errors} per gas efficiency e type safety
-    \item \textbf{Event-based monitoring} per runtime verification
-    \item \textbf{Pausable} per emergenze (circuit breaker pattern)
-\end{itemize}
+I punti di forza della sicurezza includono l'assenza di vulnerabilità critiche rilevate da Solhint, l'uso di Custom Errors per efficienza e type safety, il monitoraggio basato su eventi per la verifica a runtime e l'implementazione del pattern Pausable come circuito di emergenza.
 
 \subsection{Metriche di Qualità Codice Avanzate}
 
@@ -906,6 +826,7 @@ dove $V$ = Halstead Volume, $CC$ = Cyclomatic Complexity, $LOC$ = Lines of Code.
 \begin{table}[H]
 \centering
 \caption{Maintainability Index per contratto}
+\resizebox{\textwidth}{!}{
 \begin{tabular}{lcccl}
 \toprule
 \textbf{Contratto} & \textbf{MI} & \textbf{CC Avg} & \textbf{LOC} & \textbf{Rating} \\
@@ -918,15 +839,11 @@ BNCalcolatoreOnChain.sol & 78 & 2.8 & 100 & Molto Alto \\
 \textbf{Media progetto} & \textbf{73} & \textbf{4.1} & \textbf{243} & \textbf{Alto} \\
 \bottomrule
 \end{tabular}
+}
 \end{table}
 
 \textbf{Interpretazione MI}:
-\begin{itemize}
-    \item 85-100: Molto alto (eccellente)
-    \item 65-84: Alto (buono)
-    \item 20-64: Moderato (accettabile)
-    \item 0-19: Basso (refactoring necessario)
-\end{itemize}
+L'indice MI viene interpretato secondo scale standard: un valore tra 85-100 è considerato eccellente (molto alto), 65-84 buono (alto), 20-64 accettabile (moderato), mentre un valore tra 0-19 è basso e richiede un refactoring.
 
 Media progetto 73 = \textbf{``Alto''}, sopra soglia raccomandazione Microsoft (65+).
 
@@ -944,12 +861,7 @@ Stima del \textbf{debito tecnico} basato su warning Solhint:
 \end{align*}
 
 \textbf{Benchmark industria}:
-\begin{itemize}
-    \item \textbf{Eccellente}: \textless 5\% (questo progetto: 2.7\%)
-    \item \textbf{Buono}: 5-10\%
-    \item \textbf{Accettabile}: 10-20\%
-    \item \textbf{Problematico}: \textgreater 20\%
-\end{itemize}
+I benchmark industriali considerano eccellente un debito tecnico inferiore al 5\% (come in questo progetto, al 2.7\%), buono tra il 5-10\%, accettabile tra il 10-20\% e problematico se superiore al 20\%.
 
 \subsection{Gas Efficiency Benchmarks}
 
@@ -958,6 +870,7 @@ Stima costi gas operazioni chiave vs. progetti comparabili:
 \begin{table}[H]
 \centering
 \caption{Gas cost comparison - Operazioni tipiche}
+\resizebox{\textwidth}{!}{
 \begin{tabular}{lccc}
 \toprule
 \textbf{Operazione} & \textbf{Questo Progetto} & \textbf{Media DeFi} & \textbf{$\Delta$\%} \\
@@ -969,15 +882,11 @@ Validazione e pagamento & 95,000 & 110,000 & \textcolor{green}{-14\%} \\
 Rimborso & 42,000 & 50,000 & \textcolor{green}{-16\%} \\
 \bottomrule
 \end{tabular}
+}
 \end{table}
 
 \textbf{Ottimizzazioni chiave}:
-\begin{itemize}
-    \item \textbf{Batch evidence submission}: \texttt{inviaTutteEvidenze} risparmia 51\% vs. 5 chiamate separate
-    \item \textbf{Custom errors}: -40,000 gas deploy vs. require strings
-    \item \textbf{Pre-increment}: -5 gas/operazione
-    \item \textbf{Calldata parameters}: -15 gas/chiamata array
-\end{itemize}
+Le ottimizzazioni chiave includono l'invio batch delle evidenze tramite \texttt{inviaTutteEvidenze} (risparmio del 51\%), l'uso di custom errors (-40,000 gas al deploy), il pre-increment (-5 gas/operazione) e l'uso di calldata per i parametri array (-15 gas/chiamata).
 
 \textbf{ROI ottimizzazioni} (assumendo 1000 spedizioni/anno):
 \begin{align*}
@@ -992,11 +901,7 @@ Piccolo risparmio assoluto, ma \textbf{competitivo} in mercato dove utenti scelg
 %===========================================
 
 \textbf{Limiti analisi statica}:
-\begin{itemize}
-    \item Non identifica vulnerabilità logiche (richiede testing/audit)
-    \item Possibili false positivi su pattern legittimi
-    \item Necessità configurazione domain-specific
-\end{itemize}
+L'analisi statica presenta alcuni limiti, come l'incapacità di identificare vulnerabilità logiche (che richiedono testing e audit), la possibilità di falsi positivi su pattern legittimi e la necessità di una configurazione specifica per il dominio.
 
 \textbf{Complementarietà con altri tool}:
 Solhint dovrebbe essere integrato con Slither (vulnerabilità), Mythril (analisi simbolica), Echidna (fuzzing), Hardhat (testing).
@@ -1007,11 +912,7 @@ Solhint dovrebbe essere integrato con Slither (vulnerabilità), Mythril (analisi
 
 L'analisi Solhint ha ridotto i warning dell'85\% (137 → 21) attraverso:
 
-\begin{enumerate}
-    \item \textbf{Miglioramenti codice}: NatSpec, gas optimization, refactoring
-    \item \textbf{Configurazione consapevole}: Disabilitazione regole incompatibili
-    \item \textbf{Trade-off analizzati}: Leggibilità prioritizzata su micro-ottimizzazioni
-\end{enumerate}
+L'analisi Solhint ha ridotto i warning dell'85\% (da 137 a 21) grazie a miglioramenti mirati al codice (NatSpec, ottimizzazione gas, refactoring), una configurazione consapevole che ha disabilitato regole incompatibili, e una ponderata analisi dei trade-off, prioritizzando la leggibilità sulle micro-ottimizzazioni.
 
 I 21 warning residui sono giustificati. Il progetto raggiunge metriche eccezionali (~6 warning/KLOC, 95\% documentation) posizionandosi significativamente sopra gli standard industriali.
 
@@ -1216,28 +1117,14 @@ Il progetto Bayesian Network Smart Contract ha raggiunto un livello di qualità 
 \end{itemize}
 
 \textbf{Impatto pratico}:
-\begin{enumerate}
-    \item \textbf{Sicurezza}: Pattern difensivi (CEI, ReentrancyGuard) prevengono vulnerabilità comuni
-    \item \textbf{UX migliorata}: NatSpec completo migliora trasparenza transazioni MetaMask
-    \item \textbf{Audit facilitato}: Documentazione completa riduce costi e tempi audit
-    \item \textbf{Manutenibilità}: Bassa complessità e debito tecnico facilitano evoluzioni future
-\end{enumerate}
+L'impatto pratico si concretizza in una maggiore sicurezza grazie a pattern difensivi come CEI e ReentrancyGuard, un'esperienza utente migliorata con NatSpec che chiarisce le transazioni in MetaMask, audit facilitati dalla documentazione completa e una migliore manutenibilità dovuta alla bassa complessità e al ridotto debito tecnico.
 
 Solhint si conferma strumento \textbf{essenziale} per progetti blockchain professionali, quando utilizzato con:
-\begin{itemize}
-    \item \textbf{Consapevolezza critica}: Non applicare regole ciecamente, valutare trade-off
-    \item \textbf{Configurazione domain-specific}: Adattare regole al contesto progetto
-    \item \textbf{Integrazione CI/CD}: Automatizzare controlli, bloccare regressioni qualità
-    \item \textbf{Approccio olistico}: Combinare con altri tool (Slither, Mythril, tests)
-\end{itemize}
+Solhint si conferma uno strumento essenziale per progetti blockchain professionali, a patto di essere utilizzato con consapevolezza critica (valutando i trade-off), con una configurazione specifica per il dominio del progetto, integrato in una pipeline CI/CD per automatizzare i controlli e in combinazione olistica con altri tool come Slither e Mythril.
 
 Il progetto è ora \textbf{production-ready} dal punto di vista qualità codice, con metriche paragonabili a protocolli DeFi consolidati.
 
-\begin{itemize}
-    \item \textbf{CI/CD}: Integrare Solhint nel pipeline
-    \item \textbf{Pre-commit hooks}: Analisi automatiche prima di ogni commit
-    \item \textbf{Revisione periodica}: Aggiornare configurazione con nuove versioni tool
-\end{itemize}
+Il progetto è ora considerabile "production-ready", e per il futuro si raccomanda di integrare Solhint nella pipeline CI/CD, utilizzare pre-commit hooks per analisi automatiche e revisionare periodicamente la configurazione con le nuove versioni dei tool.
 
 Solhint si conferma strumento essenziale per progetti blockchain professionali, quando utilizzato con consapevolezza critica.
 
@@ -1347,12 +1234,7 @@ BNCalcolatoreOnChain.sol \& 4 \& 3 \& -25\% \\
 \end{table}
 
 \textbf{Warning residui}:
-\begin{itemize}
-    \item \textbf{no-global-import} (5): Import globali per compatibilità custom errors
-    \item \textbf{function-max-lines} (1): Funzione \texttt{validaEPaga} - 53/50 linee (algoritmo critico)
-    \item \textbf{no-empty-blocks} (1): Constructor vuoto (ereditarietà)
-    \item \textbf{use-natspec} (1): Duplicazione tag @return (correzione minore richiesta)
-\end{itemize}
+I warning residui includono 5 casi di \texttt{no-global-import} necessari per i custom errors, 1 per la lunghezza della funzione \texttt{validaEPaga} (algoritmo critico), 1 costruttore vuoto giustificato dall'ereditarietà e 1 duplicazione di tag NatSpec minore.
 
 Tutti warning residui sono \textbf{best practice} (non critici), nessun warning di sicurezza.
 
@@ -1375,11 +1257,7 @@ Dopo Fase 1-3 \& 21 \& -85\% \& Ottimizzazioni codice \\
 \textbf{Qualità documentazione}: \textbf{98\%} coverage NatSpec su contratti pubblici.
 
 \textbf{Score Solhint}: \textbf{9.2/10}
-\begin{itemize}
-    \item Sicurezza: 10/10 (0 warning critici)
-    \item Documentazione: 10/10 (NatSpec completo)
-    \item Best Practices: 8/10 (warning import/complessità)
-\end{itemize}
+Il progetto ottiene uno score Solhint di 9.2/10, con un punteggio perfetto (10/10) in sicurezza e documentazione, e un 8/10 nelle best practices a causa dei warning residui su import e complessità.
 
 \subsection{Conclusioni Aggiornate}
 
@@ -1388,9 +1266,5 @@ Il completamento della documentazione NatSpec ha portato il progetto da \textbf{
 I contratti \textbf{BNCore} e \textbf{BNGestoreSpedizioni} hanno raggiunto la \textbf{perfezione documentale} con 1 solo warning ciascuno (import style), posizionando il progetto tra i migliori standard industriali.
 
 \textbf{Impatto pratico}:
-\begin{itemize}
-    \item \textbf{Audit facilit ato}: Documentazione completa accelera revisioni
-    \item \textbf{Manutenibilità}: NatSpec riduce onboarding nuovi sviluppatori
-    \item \textbf{UX migliorata}: MetaMask mostra descrizioni chiare nelle transazioni
-\end{itemize}
+In definitiva, l'impatto pratico si traduce in audit facilitati dalla documentazione completa, migliore manutenibilità per i futuri sviluppatori e un'esperienza utente superiore grazie alla trasparenza delle transazioni in MetaMask.
 
