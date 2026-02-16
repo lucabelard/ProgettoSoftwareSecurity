@@ -3,7 +3,7 @@
 
 ![Besu](https://img.shields.io/badge/Hyperledger%20Besu-Latest-blue?style=for-the-badge&logo=hyperledger)
 ![Truffle](https://img.shields.io/badge/Truffle-Suite-orange?style=for-the-badge&logo=truffle)
-![Node.js](https://img.shields.io/badge/Node.js-v14+-green?style=for-the-badge&logo=node.js)
+![Node.js](https://img.shields.io/badge/Node.js-v18+-green?style=for-the-badge&logo=node.js)
 ![MetaMask](https://img.shields.io/badge/MetaMask-Compatible-orange?style=for-the-badge&logo=metamask)
 
 Il presente documento fornisce una guida tecnica completa per l'installazione, la configurazione e l'utilizzo del Sistema di Tracciamento basato su Blockchain. L'architettura comprende una rete Blockchain Besu privata, Smart Contracts dedicati e un'interfaccia Web per l'interazione utente.
@@ -21,7 +21,15 @@ Prima di iniziare, assicurati di avere installato i seguenti componenti. Le vers
 | **Hyperledger Besu** | `v25.11.0` | **CRITICO:** versioni differenti possono causare errori di consenso. |
 | **MetaMask** | Estensione Browser | wallet per interagire con la blockchain. |
 
-### 📥 1. Installazione automatica dipendenze (JS)
+### 📥 0. Download del Progetto
+Inizia clonando il repository e posizionandoti nella cartella di lavoro:
+
+```bash
+git clone https://github.com/lucabelard/ProgettoSoftwareSecurity.git
+cd ProgettoSoftwareSecurity
+```
+
+### 📦 1. Installazione automatica dipendenze (JS)
 Il file `package.json` è configurato per gestire le dipendenze JavaScript (Truffle, Web3, OpenZeppelin).
 
 1.  Apri il terminale nella cartella del progetto.
@@ -175,7 +183,7 @@ Dopo l'inizializzazione della rete, procedere con il deploy e la configurazione 
 
 ### 🪟 Windows
 ```cmd
-# Compilazione (Opzionale)
+# Compilazione (Obbligatoria al primo avvio)
 truffle compile
 
 # Deploy e Configurazione Completa
