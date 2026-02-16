@@ -1,7 +1,7 @@
 
 # 📦 Progetto Software Security - Monitoraggio Blockchain
 
-![Besu](https://img.shields.io/badge/Hyperledger%20Besu-Latest-blue?style=for-the-badge&logo=hyperledger)
+![Besu](https://img.shields.io/badge/Hyperledger%20Besu-v25.11.0-blue?style=for-the-badge&logo=hyperledger)
 ![Truffle](https://img.shields.io/badge/Truffle-Suite-orange?style=for-the-badge&logo=truffle)
 ![Node.js](https://img.shields.io/badge/Node.js-v18+-green?style=for-the-badge&logo=node.js)
 ![MetaMask](https://img.shields.io/badge/MetaMask-Compatible-orange?style=for-the-badge&logo=metamask)
@@ -216,23 +216,28 @@ Avvia l'interfaccia utente per interagire con il sistema distribuito.
 🔗 **URL di Accesso:** `http://127.0.0.1:8080`
 
 ![Home Page Filiera Sicura](docs/images/home.png)
-<sub> 1) Pagina principale del sistema</sub>
+<br>
+<sub>**1) Pagina principale del sistema**</sub>
 
 ![Pannello Admin - Vista 1](docs/images/vista_admin1.png)
-
+<br>
 ![Pannello Admin - Vista 2](docs/images/vista_admin2.png)
-<sub>2) Vista Admin</sub>
+<br>
+<sub>**2) Vista Admin**</sub>
 
 ![Vista Mittente](docs/images/vista_mittente1.png)
-
+<br>
 ![Vista Mittente](docs/images/vista_mittente2.png)
-<sub>3) Vista Mittente</sub>
+<br>
+<sub>**3) Vista Mittente**</sub>
 
 ![Vista Sensori](docs/images/vista_sensore.png)
-<sub>4) Vista Sensori</sub>
+<br>
+<sub>**4) Vista Sensori**</sub>
 
 ![Vista Corriere](docs/images/vista_corriere.png)
-<sub>5) Vista Corriere</sub>
+<br>
+<sub>**5) Vista Corriere**</sub>
 
 ---
 
@@ -251,12 +256,28 @@ Accesso tramite account **Admin**.
 2.  **Sensore:** inserisce ID spedizione e invia conferma/evidenze (senza anomalie).
 3.  **Corriere:** esegue la validazione consegna -> fondi rilasciati.
 
-### ❌ Scenario di rimborso (Mancata consegna)
+### 🚫 Annullamento Anticipato (Pre-Evidenze)
 1.  **Mittente:** crea la spedizione.
-2.  **Sensore:** modifica i dati ambientali (es. temp/umidità fuori soglia) -> invia evidenze (non conforme).
-3.  **Corriere:** tenta la validazione -> transazione respinta.
-    *   *Requisito:* 3 tentativi falliti per attivare il rimborso.
-4.  **Mittente:** richiede il rimborso -> fondi restituiti.
+2.  **Azione:** se il sensore non ha ancora inviato evidenze, il mittente può annullare la spedizione.
+3.  **Risultato:** i fondi vengono restituiti immediatamente al mittente.
+    *   *Vincolo:* se le evidenze sono già state registrate, l'annullamento è disabilitato.
+
+### ❌ Scenari di Rimborso (Failure Modes)
+Il rimborso automatico viene attivato in tre casi specifici per garantire la protezione dei fondi:
+
+**1. Merce Non Conforme (Danneggiata)**
+1.  **Sensore:** rileva anomalie (es. temperatura fuori soglia) e invia le evidenze.
+2.  **Corriere:** tenta la validazione, che fallisce.
+3.  **Azione:** dopo **3 tentativi falliti** di validazione, il contratto sblocca il rimborso.
+4.  **Mittente:** recupera i fondi.
+
+**2. Timeout Evidenze (7 Giorni)**
+*   Se il sensore non invia alcuna evidenza entro **7 giorni** dalla creazione, la spedizione è considerata "persa" o "non partita".
+*   Il mittente può richiedere il rimborso immediato.
+
+**3. Inattività Corriere (14 Giorni)**
+*   Se le evidenze sono valide ma il corriere non finalizza la consegna entro **14 giorni**, il sistema presume inadempienza.
+*   Il mittente può forzare il rimborso per recuperare i fondi bloccati.
 
 ---
 
