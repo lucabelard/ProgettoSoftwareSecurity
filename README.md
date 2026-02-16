@@ -262,12 +262,22 @@ Accesso tramite account **Admin**.
 3.  **Risultato:** i fondi vengono restituiti immediatamente al mittente.
     *   *Vincolo:* se le evidenze sono già state registrate, l'annullamento è disabilitato.
 
-### ❌ Scenario di rimborso (Mancata consegna)
-1.  **Mittente:** crea la spedizione.
-2.  **Sensore:** modifica i dati ambientali (es. temp/umidità fuori soglia) -> invia evidenze (non conforme).
-3.  **Corriere:** tenta la validazione -> transazione respinta.
-    *   *Requisito:* 3 tentativi falliti per attivare il rimborso.
-4.  **Mittente:** richiede il rimborso -> fondi restituiti.
+### ❌ Scenari di Rimborso (Failure Modes)
+Il rimborso automatico viene attivato in tre casi specifici per garantire la protezione dei fondi:
+
+**1. Merce Non Conforme (Danneggiata)**
+1.  **Sensore:** rileva anomalie (es. temperatura fuori soglia) e invia le evidenze.
+2.  **Corriere:** tenta la validazione, che fallisce.
+3.  **Azione:** dopo **3 tentativi falliti** di validazione, il contratto sblocca il rimborso.
+4.  **Mittente:** recupera i fondi.
+
+**2. Timeout Evidenze (7 Giorni)**
+*   Se il sensore non invia alcuna evidenza entro **7 giorni** dalla creazione, la spedizione è considerata "persa" o "non partita".
+*   Il mittente può richiedere il rimborso immediato.
+
+**3. Inattività Corriere (14 Giorni)**
+*   Se le evidenze sono valide ma il corriere non finalizza la consegna entro **14 giorni**, il sistema presume inadempienza.
+*   Il mittente può forzare il rimborso per recuperare i fondi bloccati.
 
 ---
 
