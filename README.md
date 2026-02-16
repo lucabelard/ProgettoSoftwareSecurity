@@ -45,7 +45,7 @@ Assicurarsi di avere Java installato. Verifica con `java -version`. Se mancante,
 #### 2. Hyperledger Besu (v25.11.0)
 Besu non si installa tramite `npm`. Va scaricato e aggiunto al PATH.
 
-1.  **Download:** Scarica lo zip di Besu v25.11.0 da [GitHub Releases](https://github.com/hyperledger/besu/releases/tag/25.11.0) (es. `besu-25.11.0.zip`).
+1.  **Download:** Scarica lo zip di Besu v25.11.0 direttamente [qui](https://github.com/hyperledger/besu/releases/download/25.11.0/besu-25.11.0.zip).
 2.  **Estrazione:** Estrai il contenuto in una cartella stabile, ad esempio `C:\Besu`.
 3.  **Configurazione PATH (Variabili d'Ambiente):**
     *   Premi `Win + R`, digita `sysdm.cpl` e premi Invio.
@@ -71,7 +71,7 @@ brew install openjdk@17
 Puoi usare Homebrew (se la versione corrisponde) o l'installazione manuale (consigliata per versioni specifiche).
 
 **Metodo Manuale (Consigliato per v25.11.0):**
-1.  Scarica il pacchetto `.tar.gz` o `.zip` da [Besu Releases](https://github.com/hyperledger/besu/releases/tag/25.11.0).
+1.  Scarica il pacchetto `.tar.gz` direttamente [qui](https://github.com/hyperledger/besu/releases/download/25.11.0/besu-25.11.0.tar.gz).
 2.  Estrai l'archivio:
     ```bash
     tar -xvf besu-25.11.0.tar.gz
@@ -202,7 +202,7 @@ truffle migrate --network besu
 
 Avvia l'interfaccia utente per interagire con il sistema distribuito.
 
-*   **🪟 Windows:** Eseguire `avvia-sito.bat`
+*   **🪟 Windows:** Eseguire `.\besu-config\scripts\windows\avvia-sito.bat`
 *   **🍎 Mac/Linux:** Eseguire `./besu-config/scripts/mac/avvia-sito.sh`
 
 🔗 **URL di Accesso:** `http://127.0.0.1:8080`
