@@ -9,76 +9,10 @@ In questo capitolo vengono presentati i risultati dell'analisi statica e dell'au
 
 L'analisi della qualità del codice rappresenta un aspetto \textbf{fondamentale} nello sviluppo di smart contract su blockchain Ethereum. Data la natura \textit{immutabile} di tali applicazioni, dove errori possono portare a perdite economiche significative, l'adozione di strumenti di analisi statica è \textbf{necessaria}.
 
-\subsection{Contesto: Sicurezza Smart Contract}
-
-\textbf{Esempi storici di vulnerabilità}:
-\begin{itemize}
-    \item \textbf{The DAO (2016)}: Attacco reentrancy → \$60M rubati → Hard fork Ethereum
-    \item \textbf{Parity Wallet (2017)}: Bug in library → \$280M congelati permanentemente
-    \item \textbf{Poly Network (2021)}: Cross-chain vulnerability → \$611M rubati (poi restituiti)
-\end{itemize}
-
-\textbf{Caratteristiche blockchain che rendono critici i bug}:
-\begin{enumerate}
-    \item \textbf{Immutabilità}: Una volta deployato, il codice è permanente
-        \begin{itemize}
-            \item Non è possibile fare \textit{hotfix} come in applicazioni tradizionali
-            \item Upgrade pattern (proxy) aggiungono complessità e rischi
-        \end{itemize}
-    
-    \item \textbf{Trasparenza}: Codice pubblicamente visibile
-        \begin{itemize}
-            \item Attaccanti possono studiare il codice per trovare vulnerabilità
-            \item Security through obscurity non applicabile
-        \end{itemize}
-    
-    \item \textbf{Incentivo economico}: Smart contract gestiscono asset reali
-        \begin{itemize}
-            \item Valore totale bloccato (TVL) in DeFi: >\$50B
-            \item Bug minor può portare a perdite milionarie
-        \end{itemize}
-    
-    \item \textbf{Composability}: Contratti interagiscono tra loro
-        \begin{itemize}
-            \item Vulnerabilità in un contratto può propagarsi
-            \item Attack surface aumenta esponenzialmente
-        \end{itemize}
-\end{enumerate}
-
-\subsection{Perché Analisi Statica}
-
-\textbf{Vantaggi rispetto ad approcci alternativi}:
-
-\begin{table}[H]
-\centering
-\begin{tabular}{l p{0.35\textwidth} p{0.35\textwidth}}
-\toprule
-\textbf{Approccio} \& \textbf{Pro} \& \textbf{Contro} \\
-\midrule
-Manual Review \& Trova bug logici complessi \& Costoso, lento, non scalabile \\
-\addlinespace
-Unit Testing \& Verifica comportamento specifico \& Coverage limitato, non esaustivo \\
-\addlinespace
-\textbf{Static Analysis} \& \textbf{Veloce, automatico, scalabile} \& \textbf{Falsi positivi, no bug logici} \\
-\addlinespace
-Fuzzing \& Trova edge case \& Richiede setup, coverage non garantito \\
-\addlinespace
-Formal Verification \& Prova matematica correttezza \& Estremamente costoso, richiede spec formali \\
-\bottomrule
-\end{tabular}
-\end{table}
-
-\textbf{Posizionamento ottimale}: Analisi statica come \textit{prima linea di difesa}, integrata con testing e audit manuale per coverage completo.
 
 \subsection{Solhint nel Progetto}
 
-Nel presente progetto si è utilizzato \textbf{Solhint}, uno dei principali linter per smart contract Ethereum, per:
-\begin{itemize}
-    \item Garantire conformità alle best practices industriali
-    \item Ridurre il debito tecnico e migliorare manutenibilità
-    \item Ottimizzare costi gas per gli utenti finali
-    \item Migliorare documentazione per audit e sviluppo frontend
-\end{itemize}
+Nel presente progetto si è utilizzato \textbf{Solhint}, uno dei principali linter per smart contract Ethereum, con l'obiettivo di garantire conformità alle best practices industriali, ridurre il debito tecnico migliorando la manutenibilità, ottimizzare i costi gas per gli utenti finali, e migliorare la documentazione per facilitare audit e sviluppo frontend.
 
 %===========================================
 \section{Metodologia}
@@ -88,21 +22,9 @@ Nel presente progetto si è utilizzato \textbf{Solhint}, uno dei principali lint
 
 Solhint è un linter open-source per Solidity che esegue \textbf{analisi statica} del codice senza eseguirlo, analizzando l'\textit{Abstract Syntax Tree} (AST) generato dal compilatore Solidity.
 
-\textbf{Come funziona}:
-\begin{enumerate}
-    \item \textbf{Parsing}: Solhint usa il parser Solidity per convertire il codice in AST
-    \item \textbf{Traversal}: Visita ogni nodo dell'AST (contract, function, statement, expression)
-    \item \textbf{Rule Matching}: Per ogni nodo, applica le regole configurate
-    \item \textbf{Reporting}: Genera warning/error con posizione (file:line:column)
-\end{enumerate}
+Il funzionamento di Solhint si articola in quattro fasi sequenziali: nella prima fase di \textbf{parsing}, Solhint utilizza il parser Solidity per convertire il codice sorgente in Abstract Syntax Tree; successivamente, durante il \textbf{traversal}, visita ogni nodo dell'AST attraversando contratti, funzioni, statements ed expressions; nella terza fase di \textbf{rule matching} applica le regole configurate a ciascun nodo visitato; infine, il \textbf{reporting} genera warning o errori con indicazione precisa della posizione nel formato file:line:column.
 
-\textbf{Configurazione}: File \texttt{.solhint.json} permette:
-\begin{itemize}
-    \item Enable/disable regole specifiche
-    \item Severity level (error, warning, off)
-    \item Parametri regola (es. max function lines)
-    \item Estensione preset (\texttt{solhint:recommended}, \texttt{solhint:all})
-\end{itemize}
+La configurazione tramite file \texttt{.solhint.json} permette di abilitare o disabilitare regole specifiche, impostare i livelli di severity (error, warning, off), definire parametri personalizzati per ciascuna regola come il massimo numero di linee per funzione, ed estendere preset predefiniti quali \texttt{solhint:recommended} o \texttt{solhint:all}.
 
 \textbf{Categorie principali di regole}:
 
@@ -125,20 +47,9 @@ Solhint è un linter open-source per Solidity che esegue \textbf{analisi statica
 \end{tabular}
 \end{table}
 
-\textbf{Limiti analisi statica}:
-\begin{itemize}
-    \item \textbf{Non rileva bug logici}: Se codice è sintatticamente corretto ma logicamente errato, Solhint non lo rileva
-    \item \textbf{Falsi positivi}: Pattern legittimi possono generare warning (configurazione richiesta)
-    \item \textbf{No runtime analysis}: Non simula esecuzione, non rileva gas usage effettivo
-\end{itemize}
+L'analisi statica presenta tuttavia alcuni limiti intrinseci. Innanzitutto, \textbf{non rileva bug logici}: se il codice è sintatticamente corretto ma logicamente errato, Solhint non è in grado di identificare il problema. Inoltre possono verificarsi \textbf{falsi positivi}, dove pattern legittimi generano warning rendendo necessaria una configurazione mirata. Infine, l'assenza di \textbf{runtime analysis} significa che Solhint non simula l'esecuzione effettiva, quindi non può rilevare il gas usage reale o comportamenti emergenti a runtime.
 
-\textbf{Complementare a}:
-\begin{itemize}
-    \item \texttt{Slither}: Analisi statica avanzata (dataflow, taint analysis)
-    \item \texttt{Mythril}: Analisi simbolica, ricerca vulnerabilità
-    \item \texttt{Echidna}: Fuzzing, property-based testing
-    \item \texttt{Hardhat tests}: Testing funzionale end-to-end
-\end{itemize}
+Per questi motivi, Solhint deve essere utilizzato in complementarietà con altri strumenti specializzati:  \texttt{Slither} offre analisi statica avanzata con dataflow e taint analysis, \texttt{Mythril} fornisce analisi simbolica per la ricerca approfondita di vulnerabilità, \text tt{Echidna} implementa fuzzing e property-based testing, mentre \texttt{Hardhat tests} copre il testing funzionale end-to-end del sistema completo.
 
 \subsection{Installazione ed Esecuzione}
 
@@ -240,13 +151,7 @@ I 57 warning NatSpec iniziali erano così distribuiti:
 \end{tabular}
 \end{table}
 
-\textbf{Impatto mancanza NatSpec}:
-\begin{enumerate}
-    \item \textbf{Sicurezza utenti}: MetaMask non può mostrare descrizioni chiare durante conferma transazioni
-    \item \textbf{Audit delays}: Auditor devono dedurre comportamento dal codice invece che da specifica
-    \item \textbf{Rischio integrazione}: Frontend developer potrebbero fraintendere interfacce
-    \item \textbf{Conformità standard}: Non-compliance con EIP-2535 (Diamond Standard) che richiede NatSpec completo
-\end{enumerate}
+La mancanza di documentazione NatSpec ha un impatto significativo su diversi aspetti del progetto. Dal punto di vista della \textbf{sicurezza utenti}, MetaMask non può mostrare descrizioni chiare durante la conferma delle transazioni, compromettendo la trasparenza. Per quanto riguarda gli \textbf{audit}, gli auditor devono dedurre il comportamento esaminando direttamente il codice invece di poter fare affidamento su una specifica chiara, causando ritardi. Inoltre, emerge un \textbf{rischio di integrazione}: i frontend developer potrebbero fraintendere le interfacce in assenza di documentazione esplicita. Infine, si verifica una \textbf{non-compliance con gli standard}, in particolare con EIP-2535 (Diamond Standard) che richiede NatSpec completo.
 
 %===========================================
 \section{Analisi Architetturale dei Contratti}
@@ -266,26 +171,13 @@ BNGestoreSpedizioni (gestione spedizioni)
 BNPagamenti (validazione e pagamenti)
 \end{verbatim}
 
-\textbf{Vantaggi pattern}:
-\begin{itemize}
-    \item \textbf{Separation of Concerns}: Ogni contratto ha responsabilità ben definita
-    \item \textbf{Testabilità}: Unit test isolati per ciascun livello
-    \item \textbf{Upgradability}: Possibile sostituire BNPagamenti mantenendo logica core
-    \item \textbf{Gas efficiency}: Evita duplicazione codice tra contratti
-\end{itemize}
+Questo pattern architetturale offre molteplici vantaggi: garantisce \textbf{separation of concerns} poiché ogni contratto ha responsabilità ben definite; migliora la \textbf{testabilità} permettendo unit test isolati per ciascun livello dell'ereditarietà; facilita l'\textbf{upgrade ability} rendendo possibile sostituire BNPagamenti mantenendo intatta la logica core; e assicura \textbf{gas efficiency} evitando la duplicazione di codice tra i diversi contratti.
 
 \subsection{BNCore.sol - Analisi Dettagliata}
 
 \textbf{Responsabilità}: Implementazione algoritmo Bayesian Network per inferenza probabilistica.
 
-\textbf{Metriche codice}:
-\begin{itemize}
-    \item Linee codice: 302 LOC
-    \item Funzioni: 12 (8 public/external, 4 internal/private)
-    \item Eventi: 5
-    \item Complessità ciclomatica media: 4.2
-    \item Coverage NatSpec post-fix: 98\%
-\end{itemize}
+Le metriche del contratto rivelano una struttura solida: il codice si estende per 302 linee, suddivise in 12 funzioni di cui 8 pubbliche o esterne e 4 internal o private; sono definiti 5 eventi per il monitoraggio; la complessità ciclomatica media si attesta a 4.2, valore considerato eccellente; la coverage NatSpec post-ottimizzazione raggiunge il 98\%.
 
 \textbf{Componenti chiave}:
 
@@ -354,50 +246,37 @@ enum StatoSpedizione {
 }
 \end{lstlisting}
 
-\textbf{Protezioni implementate}:
+Il contratto implementa tre protezioni fondamentali. La prima è il \textbf{rate limiting sensori}, che previene spam di evidenze imponendo un limite di 1 evidenza ogni 60 secondi per sensore:
 
-\begin{enumerate}
-    \item \textbf{Rate Limiting sensori}:
-    \begin{lstlisting}[language=Solidity]
+\begin{lstlisting}[language=Solidity]
 if (block.timestamp < _lastEvidenceTimestamp[msg.sender] 
     + MIN_TIME_BETWEEN_EVIDENCES) {
     revert RateLimitExceeded(...);
 }
-    \end{lstlisting}
-    
-    Previene spam di evidenze, limite: 1 evidenza/60 secondi per sensore.
-    
-    \item \textbf{Hashing dettagli sensibili}:
-    \begin{lstlisting}[language=Solidity]
+\end{lstlisting}
+
+La seconda protezione riguarda l'\textbf{hashing di dettagli sensibili}, implementando un design privacy-preserving dove i dettagli della spedizione (destinatario, contenuto) vengono salvati off-chain mentre solo l'hash è memorizzato on-chain:
+
+\begin{lstlisting}[language=Solidity]
 bytes32 hashedDetails = keccak256(
     abi.encodePacked(_dettagli));
 spedizioni[id].hashedDetails = hashedDetails;
-    \end{lstlisting}
-    
-    Privacy-preserving: dettagli spedizione (destinatario, contenuto) salvati off-chain, solo hash on-chain.
-    
-    \item \textbf{Timeout rimborso automatico}:
-    \begin{lstlisting}[language=Solidity]
+\end{lstlisting}
+
+Infine, il \textbf{timeout per rimborso automatico} garantisce che i fondi non rimangano bloccati indefinitamente in caso di mancata ricezione delle evidenze:
+
+\begin{lstlisting}[language=Solidity]
 if (block.timestamp >= s.timestampCreazione 
     + TIMEOUT_RIMBORSO) {
     // Auto-rimborso se evidenze non pervenute
 }
-    \end{lstlisting}
-    
-    Garantisce fondi non bloccati indefinitamente.
-\end{enumerate}
+\end{lstlisting}
 
 \subsection{BNPagamenti.sol - Analisi Dettagliata}
 
 \textbf{Responsabilità}: Validazione finale, pagamenti, monitoring runtime properties.
 
-\textbf{Metriche codice}:
-\begin{itemize}
-    \item Linee codice: 143 LOC
-    \item Funzioni: 2 (validaEPaga, verificaValidita)
-    \item Protezione reentrancy: \texttt{nonReentrant} modifier
-    \item Eventi monitoring: 3 (safety, guarantee, tracking)
-\end{itemize}
+Le metriche evidenziano un contratto snello ma efficace: 143 linee di codice organizzate in 2 funzioni principali (validaEPaga e verificaValidita), protezione reentrancy implementata tramite il modifier \texttt{nonReentrant}, e 3 eventi dedicati al monitoring di safety, guarantee e tracking properties.
 
 \textbf{Runtime Verification tramite eventi}:
 
