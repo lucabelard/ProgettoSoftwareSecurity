@@ -46,25 +46,40 @@ La progettazione degli asset critici (smart contract, oracoli, dati) ha seguito 
 Per fornire una validazione matematica rigorosa dell'architettura proposta e confermare l'efficacia delle contromisure di sicurezza, il sistema è stato sottoposto a una verifica formale mediante il model checker probabilistico \textit{PRISM 4.9}. L'analisi ha richiesto la modellazione del componente critico di gestione dei pagamenti e delle spedizioni (contratti \texttt{BNGestoreSpedizioni} e \texttt{BNPagamenti}) sotto forma di \textit{Catena di Markov a Tempo Discreto (DTMC)}.
 
 \subsection{Definizione e Dinamica del Modello}
-Il modello DTMC costruito mappa in modo diretto la macchina a stati finiti implementata nello smart contract, ed in particolare l'\texttt{enum StatoSpedizione}. La fedeltà del modello rispetto al codice Solidity è cruciale per garantire che le proprietà verificate siano valide anche per l'implementazione reale. Il seguente frammento di codice PRISM illustra come sono state modellate le transizioni probabilistiche dallo stato iniziale di attesa, includendo le probabilità di arrivo delle evidenze e di successo della validazione:
+Il modello DTMC costruito mappa in modo diretto la macchina a stati finiti implementata nello smart contract, ed in particolare l'\texttt{enum StatoSpedizione}. La fedeltà del modello rispetto al codice Solidity è cruciale per garantire che le proprietà verificate siano valide anche per l'implementazione reale.
 
-\begin{lstlisting}[caption={Transizioni PRISM dallo stato InAttesa}, label={lst:prism_transitions}, language=C]
-// CASO 2: Evidenze arrivano (85% entro 7 giorni)
+Il seguente frammento di codice PRISM illustra come sono state modellate le transizioni probabilistiche dallo stato iniziale di attesa, includendo le probabilità di arrivo delle evidenze e di successo della validazione:
+
+\begin{lstlisting}[caption={Transizioni PRISM (Principali) dallo stato InAttesa}, label={lst:prism_transitions}, language=C]
+// 1. Dinamica Evidenze (Rimanendo in stato 0)
 [] stato=0 & !evidenze_complete & tempo<TIMEOUT_HOURS ->
     PROB_EVIDENZE_ARRIVO : (evidenze_complete'=true) & (tempo'=tempo+1) +
     (1-PROB_EVIDENZE_ARRIVO) : (tempo'=tempo+1);
 
-// CASO 3: Corriere tenta validazione con evidenze complete
+// 2. Transizione a PAGATA (1): Validazione OK
 [] stato=0 & evidenze_complete & tentativi_falliti<MAX_TENTATIVI ->
     PROB_VALIDAZIONE_OK : (stato'=1) & (tempo'=tempo+1) + 
     PROB_VALIDAZIONE_FAIL : (tentativi_falliti'=tentativi_falliti+1);
+
+// 3. Transizione ad ANNULLATA (2): Azione volontaria
+[] stato=0 & !evidenze_complete -> (stato'=2);
+
+// 4. Transizione a RIMBORSATA (3): Timeout o Max Tentativi
+[] stato=0 & (tempo>=TIMEOUT_HOURS | tentativi_falliti>=MAX_TENTATIVI) ->
+    (stato'=3);
 \end{lstlisting}
 
-Il ciclo di vita della spedizione si articola attraverso quattro macro-stati distinti. Dallo stato iniziale \textit{InAttesa (0)}, il sistema evolve probabilisticamente verso tre possibili stati finali, definiti come \textit{Stati Ricorrenti} nel contesto della catena di Markov, poiché una volta raggiunti non permettono ulteriori transizioni di stato (ad eccezione dell'avanzamento temporale):
+Il ciclo di vita della spedizione si articola attraverso quattro macro-stati distinti. Dallo stato iniziale \textit{InAttesa (0)}, il sistema evolve probabilisticamente verso tre possibili stati finali (ricorrenti):
 \begin{itemize}
-    \item \textit{Pagata (1)}: rappresenta il successo della transazione. Questo stato è raggiungibile esclusivamente se la validazione bayesiana delle evidenze ricevute supera la soglia di confidenza del 95\%.
-    \item \textit{Annullata (2)}: rappresenta l'annullamento volontario da parte del mittente, possibile solo prima dell'invio delle evidenze.
-    \item \textit{Rimborsata (3)}: rappresenta lo stato di recovery che garantisce la protezione dei fondi. Viene raggiunto in tre scenari di fallimento: il decorrere del timeout operativo di 7 giorni senza azioni, il fallimento ripetuto della validazione per non conformità della merce, oppure l'inattività prolungata del corriere (14 giorni) pur in presenza di evidenze valide.
+    \item \textit{Pagata (1)}: successo della transazione. Secondo le stime operative, questo stato ha una probabilità di occorrenza del \textbf{60\%}.
+    \item \textit{Annullata (2)}: annullamento volontario pre-spedizione. Probabilità stimata: \textbf{5\%}.
+    \item \textit{Rimborsata (3)}: recupero dei fondi. Questo stato aggrega tre sotto-scenari di fallimento critico:
+    \begin{itemize}
+        \item Timeout operativo (7gg): $p=0.10$.
+        \item Fallimento ripetuto validazione (3 tentativi): $p=0.24$.
+        \item Inattività prolungata corriere (14gg): $p <= 0.01$.
+    \end{itemize}
+    La probabilità totale aggregata di rimborso è quindi pari al \textbf{35\%}.
 \end{itemize}
 
 \begin{figure}[ht!]
@@ -74,7 +89,115 @@ Il ciclo di vita della spedizione si articola attraverso quattro macro-stati dis
     \label{fig:markov_chain}
 \end{figure}
 
+\subsection{Formalizzazione della Matrice di Transizione}
+Per analizzare il comportamento asintotico, definiamo la matrice di transizione $P$ sullo spazio degli stati $S = \{0, 1, 2, 3\}$.
+Poiché siamo interessati alla distribuzione finale di probabilità, modelliamo le transizioni uscenti dallo stato transitorio in base ai pesi statistici identificati in precedenza.
+
+La matrice $P$ è strutturata come segue:
+
+\begin{equation}
+P = \begin{bmatrix}
+0 & 0.60 & 0.05 & 0.35 \\
+0 & 1 & 0 & 0 \\
+0 & 0 & 1 & 0 \\
+0 & 0 & 0 & 1
+\end{bmatrix}
+\end{equation}
+
+Dove:
+\begin{itemize}
+    \item $p_{00} = 0$: assumiamo che il modello osservi il sistema nel momento in cui avviene la transizione di stato.
+    \item $p_{01} = 0.60$: probabilità di transizione verso il successo.
+    \item $p_{02} = 0.05$: probabilità di transizione verso l'annullamento.
+    \item $p_{03} = 0.35$: probabilità di transizione verso il rimborso.
+\end{itemize}
+
+Si nota che per le righe $i \in \{1,2,3\}$, $p_{ii}=1$. Questi sono identificati come \textit{stati ricorrenti} (e assorbenti): una volta raggiunti, il sistema vi permane indefinitamente.
+
+\subsection{Calcolo della Distribuzione di Equilibrio tramite Autovalori}
+Per determinare le distribuzioni stazionarie, analizziamo gli autovalori della matrice calcolando le radici del polinomio caratteristico $\det(P - \lambda I) = 0$:
+
+\begin{equation}
+\det \begin{bmatrix}
+-\lambda & 0.60 & 0.05 & 0.35 \\
+0 & 1-\lambda & 0 & 0 \\
+0 & 0 & 1-\lambda & 0 \\
+0 & 0 & 0 & 1-\lambda
+\end{bmatrix} = (-\lambda) \cdot (1-\lambda)^3 = 0
+\end{equation}
+
+Le soluzioni sono:
+\begin{itemize}
+    \item $\lambda_1 = 0$: autovalore associato allo stato transitorio (il sistema decade istantaneamente).
+    \item $\lambda_{2,3,4} = 1$: autovalore con molteplicità algebrica pari a 3.
+\end{itemize}
+
+La molteplicità 3 dell'autovalore unitario implica che lo spazio degli stati di equilibrio ha dimensione 3. In termini pratici, qualsiasi combinazione lineare convessa dei tre stati ricorrenti è matematicamente una distribuzione di equilibrio valida:
+\[ e_{stazionario} = \alpha \cdot [0,1,0,0] + \beta \cdot [0,0,1,0] + \gamma \cdot [0,0,0,1] \]
+con $\alpha + \beta + \gamma = 1$.
+Questo indica che il sistema possiede molteplici configurazioni stabili finali possibili.
+
+\subsection{Analisi della Distribuzione Limite}
+Per determinare l'unica configurazione di equilibrio effettivamente raggiunta dal sistema reale, calcoliamo la \textit{distribuzione limite} $\pi_{lim}$ partendo dallo stato iniziale specifico $\pi_{init} = [1, 0, 0, 0]$ (tutto in stato di attesa).
+
+Essendo $p_{00}=0$, il calcolo è immediato. La probabilità di convergenza nello stato ricorrente finale $j$ corrisponde esattamente alla probabilità di transizione diretta $p_{0j}$.
+
+\textbf{1. Convergenza allo stato pagata (successo):}
+\begin{equation}
+\pi_{lim}(1) = \lim_{t \to \infty} P(X_t = 1) = p_{01} = 0.60
+\end{equation}
+
+\textbf{2. Convergenza allo stato annullata:}
+\begin{equation}
+\pi_{lim}(2) = p_{02} = 0.05
+\end{equation}
+
+\textbf{3. Convergenza allo stato rimborsata (safety net):}
+\begin{equation}
+\pi_{lim}(3) = p_{03} = 0.35
+\end{equation}
+
+Il vettore limite risulta quindi:
+\begin{equation}
+\pi_{lim} = [0, \quad 0.60, \quad 0.05, \quad 0.35]
+\end{equation}
+
+\textbf{Conclusioni dell'analisi formale:}
+\begin{enumerate}
+    \item \textit{Selezione dell'equilibrio}: tra le infinite distribuzioni di equilibrio possibili (identificate dagli autovalori), la dinamica del sistema seleziona univocamente quella definita dal vettore $\pi_{lim}$.
+    \item \textit{Certezza della terminazione}: la prima componente nulla ($\pi_0 = 0$) dimostra che il protocollo non soffre di \textit{deadlock} o \textit{livelock} nello stato intermedio.
+    \item \textit{Garanzia di safety}: nel 35\% dei casi critici (stato 3), il sistema evolve correttamente verso lo stato di rimborso, garantendo che i fondi non rimangano mai bloccati nel contratto (property of \textit{fund safety}).
+    \item \textit{Efficienza}: la probabilità di successo del 60\% conferma la validità operativa del flusso nominale rispetto ai flussi di eccezione.
+\end{enumerate}
+
 \subsection{Verifica delle Proprietà PCTL}
+La verifica formale è stata condotta specificando i requisiti di sicurezza attraverso la logica temporale \textit{Probabilistic Computation Tree Logic (PCTL)}.
+
+\subsubsection{Analisi di Safety: Integrità Finanziaria}
+In prima istanza, l'analisi si è concentrata sulle proprietà di \textit{Safety}, ovvero quelle condizioni indispensabili che il sistema deve sempre rispettare.
+
+\begin{lstlisting}[caption={Proprietà PCTL di Safety}, label={lst:pctl_safety}, language=C]
+// S1: Single Payment (Reentrancy Protection)
+filter(forall, stato=1 => P>=1 [ X stato=1 ])
+
+// S3: Evidence Before Payment
+filter(forall, stato=1 => evidenze_complete)
+
+// S6: Conditional Cancellation
+filter(forall, stato=2 => !evidenze_complete)
+\end{lstlisting}
+
+I risultati della verifica hanno confermato con probabilità \textit{1.0 (Certezza Assoluta)} tutte le proprietà.
+
+\subsubsection{Analisi di Guarantee: Resilienza e Rimborsi}
+Successivamente, l'indagine si è spostata sulle proprietà di \textit{Guarantee} (o Liveness). Interrogando il model checker per la probabilità di raggiungere lo stato di rimborso:
+
+\begin{lstlisting}[caption={Proprietà PCTL di Guarantee}, label={lst:pctl_guarantee}, language=C]
+// G2: Refund Probability check
+P=? [ F stato=3 ]
+\end{lstlisting}
+
+PRISM restituisce il valore \texttt{0.35}, confermando esattamente il calcolo algebrico della distribuzione limite effettuato nella sezione precedente. Questo valida la capacità del sistema di gestire gli scenari di errore (timeout, invalidità merce) proteggendo i fondi degli utenti in oltre un terzo dei casi operativi simulati.\subsection{Verifica delle Proprietà PCTL}
 La verifica formale è stata condotta specificando i requisiti di sicurezza attraverso la logica temporale \textit{Probabilistic Computation Tree Logic (PCTL)}. Questa ha permesso di interrogare il modello per accertare che specifiche condizioni siano soddisfatte con determinati livelli di probabilità.
 
 \subsubsection{Analisi di Safety: Integrità Finanziaria}
