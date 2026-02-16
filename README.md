@@ -3,7 +3,7 @@
 
 ![Besu](https://img.shields.io/badge/Hyperledger%20Besu-Latest-blue?style=for-the-badge&logo=hyperledger)
 ![Truffle](https://img.shields.io/badge/Truffle-Suite-orange?style=for-the-badge&logo=truffle)
-![Node.js](https://img.shields.io/badge/Node.js-v14+-green?style=for-the-badge&logo=node.js)
+![Node.js](https://img.shields.io/badge/Node.js-v18+-green?style=for-the-badge&logo=node.js)
 ![MetaMask](https://img.shields.io/badge/MetaMask-Compatible-orange?style=for-the-badge&logo=metamask)
 
 Il presente documento fornisce una guida tecnica completa per l'installazione, la configurazione e l'utilizzo del Sistema di Tracciamento basato su Blockchain. L'architettura comprende una rete Blockchain Besu privata, Smart Contracts dedicati e un'interfaccia Web per l'interazione utente.
@@ -21,7 +21,15 @@ Prima di iniziare, assicurati di avere installato i seguenti componenti. Le vers
 | **Hyperledger Besu** | `v25.11.0` | **CRITICO:** versioni differenti possono causare errori di consenso. |
 | **MetaMask** | Estensione Browser | wallet per interagire con la blockchain. |
 
-### 📥 1. Installazione automatica dipendenze (JS)
+### 📥 0. Download del Progetto
+Inizia clonando il repository e posizionandoti nella cartella di lavoro:
+
+```bash
+git clone https://github.com/lucabelard/ProgettoSoftwareSecurity.git
+cd ProgettoSoftwareSecurity
+```
+
+### 📦 1. Installazione automatica dipendenze (JS)
 Il file `package.json` è configurato per gestire le dipendenze JavaScript (Truffle, Web3, OpenZeppelin).
 
 1.  Apri il terminale nella cartella del progetto.
@@ -45,7 +53,7 @@ Assicurarsi di avere Java installato. Verifica con `java -version`. Se mancante,
 #### 2. Hyperledger Besu (v25.11.0)
 Besu non si installa tramite `npm`. Va scaricato e aggiunto al PATH.
 
-1.  **Download:** Scarica lo zip di Besu v25.11.0 da [GitHub Releases](https://github.com/hyperledger/besu/releases/tag/25.11.0) (es. `besu-25.11.0.zip`).
+1.  **Download:** Scarica lo zip di Besu v25.11.0 direttamente [qui](https://github.com/hyperledger/besu/releases/download/25.11.0/besu-25.11.0.zip).
 2.  **Estrazione:** Estrai il contenuto in una cartella stabile, ad esempio `C:\Besu`.
 3.  **Configurazione PATH (Variabili d'Ambiente):**
     *   Premi `Win + R`, digita `sysdm.cpl` e premi Invio.
@@ -71,7 +79,7 @@ brew install openjdk@17
 Puoi usare Homebrew (se la versione corrisponde) o l'installazione manuale (consigliata per versioni specifiche).
 
 **Metodo Manuale (Consigliato per v25.11.0):**
-1.  Scarica il pacchetto `.tar.gz` o `.zip` da [Besu Releases](https://github.com/hyperledger/besu/releases/tag/25.11.0).
+1.  Scarica il pacchetto `.tar.gz` direttamente [qui](https://github.com/hyperledger/besu/releases/download/25.11.0/besu-25.11.0.tar.gz).
 2.  Estrai l'archivio:
     ```bash
     tar -xvf besu-25.11.0.tar.gz
@@ -175,7 +183,7 @@ Dopo l'inizializzazione della rete, procedere con il deploy e la configurazione 
 
 ### 🪟 Windows
 ```cmd
-# Compilazione (Opzionale)
+# Compilazione (Obbligatoria al primo avvio)
 truffle compile
 
 # Deploy e Configurazione Completa
@@ -202,7 +210,7 @@ truffle migrate --network besu
 
 Avvia l'interfaccia utente per interagire con il sistema distribuito.
 
-*   **🪟 Windows:** Eseguire `avvia-sito.bat`
+*   **🪟 Windows:** Eseguire `.\besu-config\scripts\windows\avvia-sito.bat`
 *   **🍎 Mac/Linux:** Eseguire `./besu-config/scripts/mac/avvia-sito.sh`
 
 🔗 **URL di Accesso:** `http://127.0.0.1:8080`
