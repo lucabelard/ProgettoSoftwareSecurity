@@ -216,23 +216,28 @@ Avvia l'interfaccia utente per interagire con il sistema distribuito.
 🔗 **URL di Accesso:** `http://127.0.0.1:8080`
 
 ![Home Page Filiera Sicura](docs/images/home.png)
-<sub> 1) Pagina principale del sistema</sub>
+<br>
+<sub>**1) Pagina principale del sistema**</sub>
 
 ![Pannello Admin - Vista 1](docs/images/vista_admin1.png)
-
+<br>
 ![Pannello Admin - Vista 2](docs/images/vista_admin2.png)
-<sub>2) Vista Admin</sub>
+<br>
+<sub>**2) Vista Admin**</sub>
 
 ![Vista Mittente](docs/images/vista_mittente1.png)
-
+<br>
 ![Vista Mittente](docs/images/vista_mittente2.png)
-<sub>3) Vista Mittente</sub>
+<br>
+<sub>**3) Vista Mittente**</sub>
 
 ![Vista Sensori](docs/images/vista_sensore.png)
-<sub>4) Vista Sensori</sub>
+<br>
+<sub>**4) Vista Sensori**</sub>
 
 ![Vista Corriere](docs/images/vista_corriere.png)
-<sub>5) Vista Corriere</sub>
+<br>
+<sub>**5) Vista Corriere**</sub>
 
 ---
 
@@ -250,6 +255,12 @@ Accesso tramite account **Admin**.
 1.  **Mittente:** crea la spedizione (indirizzo corriere + importo ETH).
 2.  **Sensore:** inserisce ID spedizione e invia conferma/evidenze (senza anomalie).
 3.  **Corriere:** esegue la validazione consegna -> fondi rilasciati.
+
+### 🚫 Annullamento Anticipato (Pre-Evidenze)
+1.  **Mittente:** crea la spedizione.
+2.  **Azione:** se il sensore non ha ancora inviato evidenze, il mittente può annullare la spedizione.
+3.  **Risultato:** i fondi vengono restituiti immediatamente al mittente.
+    *   *Vincolo:* se le evidenze sono già state registrate, l'annullamento è disabilitato.
 
 ### ❌ Scenario di rimborso (Mancata consegna)
 1.  **Mittente:** crea la spedizione.
