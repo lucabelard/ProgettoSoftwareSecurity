@@ -202,7 +202,7 @@ truffle migrate --network besu
 
 Avvia l'interfaccia utente per interagire con il sistema distribuito.
 
-*   **🪟 Windows:** Eseguire `avvia-sito.bat`
+*   **🪟 Windows:** Eseguire `.\besu-config\scripts\windows\avvia-sito.bat`
 *   **🍎 Mac/Linux:** Eseguire `./besu-config/scripts/mac/avvia-sito.sh`
 
 🔗 **URL di Accesso:** `http://127.0.0.1:8080`
