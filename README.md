@@ -223,10 +223,12 @@ Avvia l'interfaccia utente per interagire con il sistema distribuito.
 ![Pannello Admin - Vista 2](docs/images/vista_admin2.png)
 <sub>2) Vista Admin</sub>
 
-![Vista Mittente](docs/images/vista_mittente.png)
+![Vista Mittente](docs/images/vista_mittente1.png)
+
+![Vista Mittente](docs/images/vista_mittente2.png)
 <sub>3) Vista Mittente</sub>
 
-![Vista Sensori](docs/images/vista_sensori.png)
+![Vista Sensori](docs/images/vista_sensore.png)
 <sub>4) Vista Sensori</sub>
 
 ![Vista Corriere](docs/images/vista_corriere.png)
