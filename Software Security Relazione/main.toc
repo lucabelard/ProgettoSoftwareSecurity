@@ -43,17 +43,17 @@
 \contentsline {subsection}{\numberline {4.2.1}Solhint: Caratteristiche}{30}{subsection.4.2.1}%
 \contentsline {subsection}{\numberline {4.2.2}Installazione ed Esecuzione}{31}{subsection.4.2.2}%
 \contentsline {section}{\numberline {4.3}Risultati Iniziali}{31}{section.4.3}%
-\contentsline {subsection}{\numberline {4.3.1}Distribuzione Warning per Contratto}{32}{subsection.4.3.1}%
-\contentsline {subsection}{\numberline {4.3.2}Analisi Dettagliata Warning NatSpec}{32}{subsection.4.3.2}%
-\contentsline {section}{\numberline {4.4}Analisi Architetturale dei Contratti}{33}{section.4.4}%
+\contentsline {subsection}{\numberline {4.3.1}Analisi Dettagliata Warning NatSpec}{32}{subsection.4.3.1}%
+\contentsline {section}{\numberline {4.4}Analisi Architetturale dei Contratti}{32}{section.4.4}%
 \contentsline {subsection}{\numberline {4.4.1}Pattern Architetturale: Inheritance Chain}{33}{subsection.4.4.1}%
 \contentsline {subsection}{\numberline {4.4.2}BNCore.sol - Analisi Dettagliata}{33}{subsection.4.4.2}%
 \contentsline {subsection}{\numberline {4.4.3}BNGestoreSpedizioni.sol - Analisi Dettagliata}{34}{subsection.4.4.3}%
-\contentsline {subsection}{\numberline {4.4.4}BNPagamenti.sol - Analisi Dettagliata}{35}{subsection.4.4.4}%
+\contentsline {subsection}{\numberline {4.4.4}BNPagamenti.sol - Analisi Dettagliata}{34}{subsection.4.4.4}%
 \contentsline {section}{\numberline {4.5}Processo di Ottimizzazione}{35}{section.4.5}%
 \contentsline {subsection}{\numberline {4.5.1}Fase 1: Miglioramenti al Codice (-56 warning)}{35}{subsection.4.5.1}%
-\contentsline {subsubsection}{Documentazione NatSpec (31 warning)}{35}{subsubsection*.14}%
-\contentsline {subsubsection}{Ottimizzazioni Gas (3 warning)}{36}{subsubsection*.15}%
+\contentsline {subsubsection}{Documentazione NatSpec (31 warning)}{35}{subsubsection*.13}%
+\contentsline {subsubsection}{Ottimizzazioni Gas (3 warning)}{36}{subsubsection*.14}%
+\contentsline {subsubsection}{Completamento Documentazione NatSpec (Iterazione Finale)}{36}{subsubsection*.15}%
 \contentsline {subsubsection}{Refactoring Funzioni (2 warning)}{38}{subsubsection*.16}%
 \contentsline {subsection}{\numberline {4.5.2}Fase 2: Configurazione Naming (-42 warning)}{39}{subsection.4.5.2}%
 \contentsline {subsection}{\numberline {4.5.3}Fase 3: Configurazione Gas (-18 warning)}{40}{subsection.4.5.3}%
@@ -61,35 +61,14 @@
 \contentsline {section}{\numberline {4.7}Risultati Finali}{40}{section.4.7}%
 \contentsline {subsection}{\numberline {4.7.1}Metriche Quantitative}{40}{subsection.4.7.1}%
 \contentsline {subsection}{\numberline {4.7.2}Warning Rimanenti}{41}{subsection.4.7.2}%
-\contentsline {section}{\numberline {4.8}Benchmark e Confronto con Standard Industriali}{41}{section.4.8}%
-\contentsline {subsection}{\numberline {4.8.1}Confronto Densità Warning}{41}{subsection.4.8.1}%
-\contentsline {subsection}{\numberline {4.8.2}NatSpec Coverage Comparison}{42}{subsection.4.8.2}%
-\contentsline {subsection}{\numberline {4.8.3}Analisi Pattern di Sicurezza Implementati}{42}{subsection.4.8.3}%
-\contentsline {subsection}{\numberline {4.8.4}Metriche di Qualità Codice Avanzate}{42}{subsection.4.8.4}%
-\contentsline {subsubsection}{Maintainability Index}{42}{subsubsection*.23}%
-\contentsline {subsubsection}{Technical Debt Ratio}{43}{subsubsection*.25}%
-\contentsline {subsection}{\numberline {4.8.5}Gas Efficiency Benchmarks}{43}{subsection.4.8.5}%
-\contentsline {section}{\numberline {4.9}Considerazioni Critiche}{44}{section.4.9}%
-\contentsline {section}{\numberline {4.10}Conclusioni}{44}{section.4.10}%
-\contentsline {subsection}{\numberline {4.10.1}Risultati Quantitativi Complessivi}{44}{subsection.4.10.1}%
-\contentsline {subsection}{\numberline {4.10.2}Lezioni Apprese e Best Practices}{44}{subsection.4.10.2}%
-\contentsline {subsubsection}{1. documentazione NatSpec Non È Opzionale}{44}{subsubsection*.28}%
-\contentsline {subsubsection}{2. Gas Optimization: Analisi Costi-Benefici}{45}{subsubsection*.29}%
-\contentsline {subsubsection}{3. Naming Conventions: Domain-Specific vs. Solidity Style}{45}{subsubsection*.30}%
-\contentsline {subsubsection}{4. Complessità Funzioni: Quando Refactoring È Necessario}{45}{subsubsection*.31}%
-\contentsline {subsection}{\numberline {4.10.3}Raccomandazioni per Sviluppi Futuri}{46}{subsection.4.10.3}%
-\contentsline {subsubsection}{Integrazione CI/CD}{46}{subsubsection*.32}%
-\contentsline {subsubsection}{Toolchain Complementare}{46}{subsubsection*.33}%
-\contentsline {subsubsection}{Monitoraggio Continuo}{47}{subsubsection*.35}%
-\contentsline {subsection}{\numberline {4.10.4}Conclusioni Finali}{47}{subsection.4.10.4}%
-\contentsline {section}{\numberline {4.11}Aggiornamento: Completamento Documentazione NatSpec}{47}{section.4.11}%
-\contentsline {subsection}{\numberline {4.11.1}Analisi Warning NatSpec Residui}{47}{subsection.4.11.1}%
-\contentsline {subsection}{\numberline {4.11.2}Interventi di Completamento}{48}{subsection.4.11.2}%
-\contentsline {subsubsection}{BNCore.sol}{48}{subsubsection*.37}%
-\contentsline {subsubsection}{BNGestoreSpedizioni.sol}{48}{subsubsection*.38}%
-\contentsline {subsection}{\numberline {4.11.3}Risultati Post-Completamento}{49}{subsection.4.11.3}%
-\contentsline {subsection}{\numberline {4.11.4}Metriche Finali Aggiornate}{49}{subsection.4.11.4}%
-\contentsline {subsection}{\numberline {4.11.5}Conclusioni Aggiornate}{49}{subsection.4.11.5}%
-\contentsline {chapter}{\numberline {A}Analisi delle Performance e Scalabilità}{50}{appendix.Alph1}%
-\contentsline {section}{\numberline {A.1}Metodologia di Test e Scenari}{50}{section.Alph1.1}%
-\contentsline {section}{\numberline {A.2}Analisi dei Risultati}{50}{section.Alph1.2}%
+\contentsline {section}{\numberline {4.8}Conclusioni}{41}{section.4.8}%
+\contentsline {subsection}{\numberline {4.8.1}Risultati Quantitativi Complessivi}{41}{subsection.4.8.1}%
+\contentsline {subsection}{\numberline {4.8.2}Lezioni Apprese e Best Practices}{41}{subsection.4.8.2}%
+\contentsline {subsubsection}{1. Documentazione NatSpec}{41}{subsubsection*.21}%
+\contentsline {subsubsection}{2. Gas Optimization: Analisi Costi-Benefici}{42}{subsubsection*.22}%
+\contentsline {subsubsection}{3. Naming Conventions: Domain-Specific vs. Solidity Style}{42}{subsubsection*.23}%
+\contentsline {subsubsection}{4. Complessità Funzioni: Quando Refactoring È Necessario}{42}{subsubsection*.24}%
+\contentsline {subsection}{\numberline {4.8.3}Conclusioni Finali}{43}{subsection.4.8.3}%
+\contentsline {chapter}{\numberline {A}Analisi delle Performance e Scalabilità}{44}{appendix.Alph1}%
+\contentsline {section}{\numberline {A.1}Metodologia di Test e Scenari}{44}{section.Alph1.1}%
+\contentsline {section}{\numberline {A.2}Analisi dei Risultati}{44}{section.Alph1.2}%

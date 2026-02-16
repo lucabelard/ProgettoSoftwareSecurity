@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2024) (preloaded format=pdflatex 2024.11.25)  16 FEB 2026 16:53
+This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2024) (preloaded format=pdflatex 2024.11.25)  16 FEB 2026 18:01
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -1168,11 +1168,11 @@ Package microtype Info: Loading generic protrusion settings for font family
 
 
 
-] [2])
+])
 \tf@toc=\write9
 \openout9 = `main.toc'.
 
- [3])
+ [2])
 \openout2 = `introduction/introduction.aux'.
 
  (./introduction/introduction.tex
@@ -1199,7 +1199,7 @@ l.17
 
  (./chapter1/chapter1.tex
 Capitolo 2.
-<chapter1/image/sd_as_is.png, id=229, 6239.31pt x 3621.53pt>
+<chapter1/image/sd_as_is.png, id=182, 6239.31pt x 3621.53pt>
 File: chapter1/image/sd_as_is.png Graphic file (type png)
 <use chapter1/image/sd_as_is.png>
 Package pdftex.def Info: chapter1/image/sd_as_is.png  used on input line 23.
@@ -1214,13 +1214,13 @@ LaTeX Font Info:    Font shape `T1/phv/b/n' will be
 
 
 ]
-<chapter1/image/sr_to_be.png, id=237, 10178.025pt x 6548.465pt>
+<chapter1/image/sr_to_be.png, id=190, 10178.025pt x 6548.465pt>
 File: chapter1/image/sr_to_be.png Graphic file (type png)
 <use chapter1/image/sr_to_be.png>
 Package pdftex.def Info: chapter1/image/sr_to_be.png  used on input line 46.
 (pdftex.def)             Requested size: 441.01775pt x 283.67686pt.
  [4 <./chapter1/image/sd_as_is.png>] [5 <./chapter1/image/sr_to_be.png>]
-<chapter1/image/sr_attackers.png, id=252, 2409.0pt x 904.37875pt>
+<chapter1/image/sr_attackers.png, id=206, 2409.0pt x 904.37875pt>
 File: chapter1/image/sr_attackers.png Graphic file (type png)
 <use chapter1/image/sr_attackers.png>
 Package pdftex.def Info: chapter1/image/sr_attackers.png  used on input line 68.
@@ -1431,7 +1431,7 @@ File: lstlang1.sty 2024/02/21 1.10 listings language file
 File: lstmisc.sty 2024/02/21 1.10 (Carsten Heinz)
 )
 Package hyperref Info: bookmark level for unknown lstlisting defaults to 0 on input line 51.
-<chapter2/image/Grafico_Markov_Chain.png, id=355, 1445.4pt x 813.0375pt>
+<chapter2/image/Grafico_Markov_Chain.png, id=309, 1445.4pt x 813.0375pt>
 File: chapter2/image/Grafico_Markov_Chain.png Graphic file (type png)
 <use chapter2/image/Grafico_Markov_Chain.png>
 Package pdftex.def Info: chapter2/image/Grafico_Markov_Chain.png  used on input line 72.
@@ -1459,11 +1459,11 @@ Capitolo 4.
 File: lstlang1.sty 2024/02/21 1.10 listings language file
 ) (/usr/local/texlive/2024/texmf-dist/tex/latex/listings/lstlang1.sty
 File: lstlang1.sty 2024/02/21 1.10 listings language file
-) [31] [32]
+) [31]
 Package textcomp Info: Symbol \textdownarrow not provided by
 (textcomp)             font family pcr in TS1 encoding.
-(textcomp)             Default family used instead on input line 178.
-LaTeX Font Info:    Trying to load font information for T1+cmtt on input line 178.
+(textcomp)             Default family used instead on input line 155.
+LaTeX Font Info:    Trying to load font information for T1+cmtt on input line 155.
  (/usr/local/texlive/2024/texmf-dist/tex/latex/base/t1cmtt.fd
 File: t1cmtt.fd 2023/04/13 v2.5m Standard LaTeX font definitions
 )
@@ -1471,7 +1471,7 @@ Package microtype Info: Loading generic protrusion settings for font family
 (microtype)             `cmtt' (encoding: T1).
 (microtype)             For optimal results, create family-specific settings.
 (microtype)             See the microtype manual for details.
-LaTeX Font Info:    Trying to load font information for TS1+cmtt on input line 178.
+LaTeX Font Info:    Trying to load font information for TS1+cmtt on input line 155.
  (/usr/local/texlive/2024/texmf-dist/tex/latex/base/ts1cmtt.fd
 File: ts1cmtt.fd 2023/04/13 v2.5m Standard LaTeX font definitions
 )
@@ -1479,70 +1479,44 @@ Package microtype Info: Loading generic protrusion settings for font family
 (microtype)             `cmtt' (encoding: TS1).
 (microtype)             For optimal results, create family-specific settings.
 (microtype)             See the microtype manual for details.
+ [32]
 Package textcomp Info: Symbol \textdownarrow not provided by
 (textcomp)             font family pcr in TS1 encoding.
-(textcomp)             Default family used instead on input line 178.
+(textcomp)             Default family used instead on input line 155.
 
-Overfull \hbox (54.2186pt too wide) in paragraph at lines 199--200
+Overfull \hbox (54.2186pt too wide) in paragraph at lines 176--177
 []\T1/ppl/m/n/10 (-20) Il con-trat-to man-tie-ne 5 CPT pri-va-te (\T1/pcr/m/n/10 cpt_E1 \T1/ppl/m/n/10 (-20) ... \T1/pcr/m/n/10 cpt_E5\T1/ppl/m/n/10 (-20) ), ac-ces-si-bi-li so-lo via get-ter con \T1/pcr/m/n/10 DEFAULT_ADMIN_ROLE
  []
 
 [33{/usr/local/texlive/2024/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc}] [34] [35]
-Overfull \hbox (5.56631pt too wide) in paragraph at lines 379--381
+Overfull \hbox (5.56631pt too wide) in paragraph at lines 356--358
 []\T1/ppl/m/n/10 (-20) Tool co-me \T1/pcr/m/n/10 solidity-docgen \T1/ppl/m/n/10 (-20) estrag-go-no Na-tSpec per ge-ne-ra-re: Tool co-me \T1/pcr/m/n/10 solidity-docgen
  []
 
 [36] [37] [38] (/usr/local/texlive/2024/texmf-dist/tex/latex/listings/lstlang1.sty
 File: lstlang1.sty 2024/02/21 1.10 listings language file
-) [39] [40] [41]
-Underfull \hbox (badness 10000) in paragraph at lines 806--806
-[]|\T1/ppl/m/n/10.95 (+20) OpenZeppelin \T1/pcr/m/n/10.95 AccessControl\T1/ppl/m/n/10.95 (+20) ,
- []
-
-
-Underfull \hbox (badness 4441) in paragraph at lines 806--806
-[]|\T1/pcr/m/n/10.95 block.timestamp \T1/ppl/m/n/10.95 (+20) per ti-meout
- []
-
-[42] [43]
+) [39] [40]
 Package textcomp Info: Symbol \textrightarrow not provided by
 (textcomp)             font family ppl in TS1 encoding.
-(textcomp)             Default family used instead on input line 913.
- [44]
+(textcomp)             Default family used instead on input line 740.
+ [41]
 Package textcomp Info: Symbol \textrightarrow not provided by
 (textcomp)             font family ppl in TS1 encoding.
-(textcomp)             Default family used instead on input line 996.
+(textcomp)             Default family used instead on input line 821.
 Package textcomp Info: Symbol \textrightarrow not provided by
 (textcomp)             font family ppl in TS1 encoding.
-(textcomp)             Default family used instead on input line 997.
+(textcomp)             Default family used instead on input line 822.
 Package textcomp Info: Symbol \textrightarrow not provided by
 (textcomp)             font family ppl in TS1 encoding.
-(textcomp)             Default family used instead on input line 1012.
+(textcomp)             Default family used instead on input line 837.
 Package textcomp Info: Symbol \textrightarrow not provided by
 (textcomp)             font family ppl in TS1 encoding.
-(textcomp)             Default family used instead on input line 1018.
- [45]
-Underfull \hbox (badness 5771) in paragraph at lines 1066--1067
-[]|\T1/ppl/m/n/10.95 (+20) Analisi sim-bo-li-ca, se-cu-ri-ty
- []
-
-
-Underfull \hbox (badness 1087) in paragraph at lines 1067--1068
-[]|\T1/ppl/m/n/10.95 (+20) Fuzzing, property-based te-
- []
-
-[46]
+(textcomp)             Default family used instead on input line 843.
+ [42]
 Package textcomp Info: Symbol \textrightarrow not provided by
 (textcomp)             font family ppl in TS1 encoding.
-(textcomp)             Default family used instead on input line 1112.
-Package textcomp Info: Symbol \textrightarrow not provided by
-(textcomp)             font family ppl in TS1 encoding.
-(textcomp)             Default family used instead on input line 1137.
- [47] [48]
-Package textcomp Info: Symbol \textrightarrow not provided by
-(textcomp)             font family ppl in TS1 encoding.
-(textcomp)             Default family used instead on input line 1264.
-) [49]
+(textcomp)             Default family used instead on input line 855.
+) [43]
 \openout2 = `chapter7/chapter7.aux'.
 
  (./chapter7/chapter7.tex)
@@ -1550,12 +1524,12 @@ Package textcomp Info: Symbol \textrightarrow not provided by
 
  (./backmatter/appendixA.tex
 Appendice A.
-<backmatter/image/gas_consumption.png, id=917, 722.7pt x 433.62pt>
+<backmatter/image/gas_consumption.png, id=769, 722.7pt x 433.62pt>
 File: backmatter/image/gas_consumption.png Graphic file (type png)
 <use backmatter/image/gas_consumption.png>
 Package pdftex.def Info: backmatter/image/gas_consumption.png  used on input line 26.
 (pdftex.def)             Requested size: 396.91327pt x 238.14767pt.
-[50
+[44
 
 
 
@@ -1564,18 +1538,18 @@ Package pdftex.def Info: backmatter/image/gas_consumption.png  used on input lin
 
 
 ]
-<backmatter/image/execution_time.png, id=924, 722.7pt x 433.62pt>
+<backmatter/image/execution_time.png, id=776, 722.7pt x 433.62pt>
 File: backmatter/image/execution_time.png Graphic file (type png)
 <use backmatter/image/execution_time.png>
 Package pdftex.def Info: backmatter/image/execution_time.png  used on input line 39.
 (pdftex.def)             Requested size: 396.91327pt x 238.14767pt.
- [51 <./backmatter/image/gas_consumption.png> <./backmatter/image/execution_time.png>]
-<backmatter/image/contract_size.png, id=934, 578.16pt x 361.35pt>
+ [45 <./backmatter/image/gas_consumption.png> <./backmatter/image/execution_time.png>]
+<backmatter/image/contract_size.png, id=785, 578.16pt x 361.35pt>
 File: backmatter/image/contract_size.png Graphic file (type png)
 <use backmatter/image/contract_size.png>
 Package pdftex.def Info: backmatter/image/contract_size.png  used on input line 50.
 (pdftex.def)             Requested size: 352.81554pt x 220.50589pt.
-) [52 <./backmatter/image/contract_size.png>]
+) [46 <./backmatter/image/contract_size.png>]
 
 Package glossaries Warning: No \printglossary or \printglossaries found. 
 (Remove \makeglossaries if you don't want any glossaries.) 
@@ -1593,18 +1567,18 @@ LaTeX Font Warning: Size substitutions with differences
 
  ) 
 Here is how much of TeX's memory you used:
- 41397 strings out of 474116
- 758202 string characters out of 5743681
- 2240187 words of memory out of 5000000
- 61572 multiletter control sequences out of 15000+600000
- 667205 words of font info for 634 fonts, out of 8000000 for 9000
+ 41189 strings out of 474116
+ 755704 string characters out of 5743681
+ 2265187 words of memory out of 5000000
+ 61484 multiletter control sequences out of 15000+600000
+ 666208 words of font info for 622 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 111i,16n,131p,2429b,2082s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 111i,16n,131p,2429b,2078s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/mathpazo/fplmr.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/symbols/msam10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/cm-super/sfrm1000.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/cm-super/sftt1000.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/urw/courier/ucrb8a.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/urw/courier/ucrr8a.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/urw/courier/ucrro8a.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/urw/helvetic/uhvb8a.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/urw/helvetic/uhvr8a.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/urw/palatino/uplb8a.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/urw/palatino/uplr8a.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/urw/palatino/uplr8a.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/urw/palatino/uplri8a.pfb>
-Output written on main.pdf (56 pages, 3215665 bytes).
+Output written on main.pdf (49 pages, 3191287 bytes).
 PDF statistics:
- 1424 PDF objects out of 1440 (max. 8388607)
- 1305 compressed objects within 14 object streams
- 619 named destinations out of 1000 (max. 500000)
- 140573 words of extra memory for PDF output out of 154059 (max. 10000000)
+ 1191 PDF objects out of 1200 (max. 8388607)
+ 1082 compressed objects within 11 object streams
+ 516 named destinations out of 1000 (max. 500000)
+ 140405 words of extra memory for PDF output out of 154059 (max. 10000000)
 
