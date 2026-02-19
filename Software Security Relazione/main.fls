@@ -785,6 +785,11 @@ INPUT C:\Users\andre\AppData\Local\Programs\MiKTeX\fonts\tfm\jknappen\ec\tctt100
 INPUT C:\Users\andre\AppData\Local\Programs\MiKTeX\tex\latex\listings\lstlang1.sty
 INPUT C:\Users\andre\AppData\Local\Programs\MiKTeX\tex\latex\listings\lstlang1.sty
 INPUT C:\Users\andre\AppData\Local\Programs\MiKTeX\tex\latex\listings\lstlang1.sty
+INPUT C:\Users\andre\AppData\Local\Programs\MiKTeX\fonts\tfm\jknappen\ec\ecrb1200.tfm
+INPUT C:\Users\andre\AppData\Local\Programs\MiKTeX\fonts\tfm\jknappen\ec\tcrb1200.tfm
+INPUT C:\Users\andre\AppData\Local\Programs\MiKTeX\fonts\tfm\adobe\courier\pcrb8t.tfm
+INPUT C:\Users\andre\AppData\Local\Programs\MiKTeX\fonts\vf\adobe\courier\pcrb8t.vf
+INPUT C:\Users\andre\AppData\Local\Programs\MiKTeX\fonts\tfm\adobe\courier\pcrb8r.tfm
 INPUT C:\Users\andre\AppData\Local\Programs\MiKTeX\fonts\tfm\jknappen\ec\ecrm1000.tfm
 INPUT .\chapter7\chapter7.tex
 INPUT .\chapter7\chapter7.tex
@@ -846,8 +851,12 @@ INPUT .\backmatter\appendixA.aux
 INPUT backmatter\appendixA.aux
 INPUT C:\Users\andre\AppData\Local\MiKTeX\fonts\pk\ljfour\jknappen\ec\dpi600\tcrm1000.pk
 INPUT C:\Users\andre\AppData\Local\MiKTeX\fonts\pk\ljfour\jknappen\ec\dpi600\tcrm1000.pk
+INPUT C:\Users\andre\AppData\Local\MiKTeX\fonts\pk\ljfour\jknappen\ec\dpi600\tcrb1200.pk
+INPUT C:\Users\andre\AppData\Local\MiKTeX\fonts\pk\ljfour\jknappen\ec\dpi600\tcrb1200.pk
 INPUT C:\Users\andre\AppData\Local\MiKTeX\fonts\pk\ljfour\jknappen\ec\dpi600\tctt1000.pk
 INPUT C:\Users\andre\AppData\Local\MiKTeX\fonts\pk\ljfour\jknappen\ec\dpi600\tctt1000.pk
+INPUT C:\Users\andre\AppData\Local\MiKTeX\fonts\pk\ljfour\jknappen\ec\dpi600\tcrm1095.pk
+INPUT C:\Users\andre\AppData\Local\MiKTeX\fonts\pk\ljfour\jknappen\ec\dpi600\tcrm1095.pk
 INPUT C:\Users\andre\AppData\Local\Programs\MiKTeX\fonts\type1\public\amsfonts\cm\cmex10.pfb
 INPUT C:\Users\andre\AppData\Local\Programs\MiKTeX\fonts\type1\public\amsfonts\cm\cmex10.pfb
 INPUT C:\Users\andre\AppData\Local\Programs\MiKTeX\fonts\type1\public\amsfonts\cm\cmmi10.pfb

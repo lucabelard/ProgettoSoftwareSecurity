@@ -267,15 +267,19 @@ Parallelamente, la proprietà di Guarantee G1 assicura che "se le evidenze sono 
 
 \begin{lstlisting}[language=Solidity, caption=Monitor di Guarantee per il Pagamento]
 // GUARANTEE MONITOR G1: Payment Upon Valid Evidence
-uint256 importo = s.importoPagamento;
-s.stato = StatoSpedizione.Pagata;
+// State 1 -> 2 detected by "evidenze_complete" flag
+if (s.evidenze_complete && s.stato == StatoSpedizione.InAttesa) {
+    // Transition to State 3: Dump (Execute Payment)
+    uint256 importo = s.importoPagamento;
+    s.stato = StatoSpedizione.Pagata;
 
-emit MonitorGuaranteeSuccess("PaymentOnValidEvidence", _id);
-emit SpedizionePagata(_id, s.corriere, importo);
+    emit MonitorGuaranteeSuccess("PaymentOnValidEvidence", _id);
+    emit SpedizionePagata(_id, s.corriere, importo);
 
-// Effetto: Trasferimento fondi
-(bool success, ) = s.corriere.call{value: importo}("");
-if (!success) revert PagamentoFallito();
+    // Effetto: Trasferimento fondi
+    (bool success, ) = s.corriere.call{value: importo}("");
+    if (!success) revert PagamentoFallito();
+}
 \end{lstlisting}
 
 L'emissione dell'evento \texttt{MonitorGuaranteeSuccess} agisce come una prova crittografica (audit trail) che il sistema ha rispettato il contratto di servizio, soddisfacendo il principio di \textit{Accountability}.
