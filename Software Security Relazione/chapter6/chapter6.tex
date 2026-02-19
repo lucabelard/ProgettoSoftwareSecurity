@@ -312,7 +312,7 @@ Pattern corretto previene vulnerabilità reentrancy (The DAO attack).
 \section{Processo di Ottimizzazione}
 %===========================================
 
-Il processo è stato condotto in tre fasi successive.
+Il processo è stato condotto in quattro fasi successive, portando a \textbf{0 warning finali} su tutti e 4 i contratti principali (\texttt{BNCore}, \texttt{BNGestoreSpedizioni}, \texttt{BNPagamenti}, \texttt{BNCalcolatoreOnChain}).
 
 \subsection{Fase 1: Miglioramenti al Codice (-56 warning)}
 
@@ -622,7 +622,7 @@ I principi applicati includono il \textbf{DRY (Don't Repeat Yourself)} eliminand
 
 Benefici: \textbf{modularità}, \textbf{testabilità}, \textbf{manutenibilità}.
 
-\subsection{Fase 2: Configurazione Naming (-42 warning)}
+\subsection{Fase 2: Configurazione Naming (-61 warning)}
 
 Disabilitate regole naming per compatibilità con convenzioni domain-specific:
 
@@ -634,7 +634,7 @@ Disabilitate regole naming per compatibilità con convenzioni domain-specific:
 }
 \end{lstlisting}
 
-\subsection{Fase 3: Configurazione Gas (-18 warning)}
+\subsection{Fase 3: Configurazione Gas (-7 warning)}
 
 Analisi costi-benefici ha evidenziato risparmio totale < 100 gas/tx (~\$0.0001), non proporzionale alla riduzione di leggibilità. Regole disabilitate:
 
@@ -654,6 +654,10 @@ if (probF1 >= SOGLIA_PROBABILITA)
 // Non implementato (~3 gas, meno chiaro)
 if (probF1 > SOGLIA_PROBABILITA - 1)
 \end{lstlisting}
+
+\subsection{Fase 4: Named Imports e Cleanup (-8 warning \textrightarrow{} 0)}
+
+L'ultima fase ha eliminato i warning residui nei quattro contratti principali attraverso tre interventi mirati. Tutti i \textbf{global import} (\texttt{import "...\.sol"}) sono stati convertiti in \textbf{named import} (\texttt{import \{X\} from "...\.sol"}), conformi agli standard Solhint 6.x. Il \textbf{constructor vuoto} in \texttt{BNCalcolatoreOnChain} è stato rimosso, eliminando il warning \texttt{no-empty-blocks}. Infine, un \textbf{tag \texttt{@author} duplicato e corrotto} in \texttt{BNPagamenti.sol} è stato corretto, e il tag \texttt{@notice} è stato aggiunto a tutti i custom errors. Il risultato è \textbf{0 warning} su tutti e 4 i contratti principali.
 
 %===========================================
 \section{Configurazione Finale}
