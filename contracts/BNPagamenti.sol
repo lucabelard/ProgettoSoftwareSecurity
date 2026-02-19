@@ -1,17 +1,18 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.19;
 
-import "./BNGestoreSpedizioni.sol";
-import "@openzeppelin/contracts/security/ReentrancyGuard.sol";
+import {BNGestoreSpedizioni} from "./BNGestoreSpedizioni.sol";
+import {ReentrancyGuard} from "@openzeppelin/contracts/security/ReentrancyGuard.sol";
 
-// Custom Errors
+/// @notice Errore: il chiamante non è il corriere assegnato alla spedizione
 error NonSeiIlCorriere();
+/// @notice Errore: il trasferimento di ETH al corriere è fallito
 error PagamentoFallito();
 
 /**
  * @title BNPagamenti
  * @author Blockchain Shipment Tracking Team
- * @author Blockchain Shipment Tracking Team`r`n * @notice Gestisce la validazione e i pagamenti delle spedizioni
+ * @notice Gestisce la validazione e i pagamenti delle spedizioni
  * @dev Estende BNGestoreSpedizioni - ISOLAMENTO della logica di pagamento
  */
 contract BNPagamenti is BNGestoreSpedizioni, ReentrancyGuard {

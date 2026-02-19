@@ -13,8 +13,6 @@
         ],
         "no-unused-vars": "warn",
         "const-name-snakecase": "off",
-        "contract-name-mixedcase": "warn",
-        "event-name-mixedcase": "warn",
         "func-name-mixedcase": "off",
         "modifier-name-mixedcase": "warn",
         "var-name-mixedcase": "off",

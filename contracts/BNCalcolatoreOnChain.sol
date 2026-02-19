@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.19;
 
-import "./BNPagamenti.sol";
+import {BNPagamenti} from "./BNPagamenti.sol";
 
 /**
  * @title BNCalcolatoreOnChain
@@ -18,10 +18,7 @@ contract BNCalcolatoreOnChain is BNPagamenti {
     // Questo contratto eredita tutte le funzionalità dai moduli
     // mantenendo l'interfaccia pubblica compatibile con il sistema esistente
     
-    constructor() {
-        // I ruoli sono già configurati nei contratti parent
-    }
-    
+    // I ruoli sono già completamente configurati nei contratti parent (BNCore, BNGestoreSpedizioni)
     /**
      * @notice Restituisce informazioni sul sistema
      * @return nome Nome del sistema di calcolo

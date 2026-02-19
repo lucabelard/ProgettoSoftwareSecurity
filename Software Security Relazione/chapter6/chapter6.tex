@@ -103,10 +103,10 @@ Import Style & 3 & 2\% \\
 
 \textbf{Osservazioni chiave}:
 \begin{itemize}
-    \item \textbf{BNGestoreSpedizioni.sol} presenta il maggior numero di warning (42\% del totale) essendo il contratto più complesso con 428 linee
-    \item I warning NatSpec sono predominanti in tutti i contratti, indicando documentazione incompleta
+    \item \textbf{BNGestoreSpedizioni.sol} presentava il maggior numero di warning (42\% del totale) essendo il contratto più complesso con 428 linee
+    \item I warning NatSpec erano predominanti in tutti i contratti, successivamente risolti con documentazione sistematica
     \item Warning naming concentrati su variabili domain-specific (CPT, evidenze Bayesiane)
-    \item Densità warning: 3.6 warning/100 LOC (sopra media industriale di 2.0)
+    \item Densità warning iniziale: 3.6 warning/100 LOC (sopra media industriale di 2.0) $\rightarrow$ ridotta a \textbf{0.0} a fine analisi
 \end{itemize}
 
 \subsection{Analisi Dettagliata Warning NatSpec}
@@ -678,9 +678,8 @@ if (probF1 > SOGLIA_PROBABILITA - 1)
         "gas-indexed-events": "off",
         "gas-calldata-parameters": "off",
         
-        // Style - ON
-        "contract-name-mixedcase": "warn",
-        "event-name-mixedcase": "warn"
+        // Style - Rimosso le regole deprecate in Solhint 6.x
+        "modifier-name-mixedcase": "warn"
     }
 }
 \end{lstlisting}

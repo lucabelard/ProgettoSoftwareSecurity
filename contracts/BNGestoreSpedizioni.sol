@@ -1,20 +1,31 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.19;
 
-import "./BNCore.sol";
+import {BNCore} from "./BNCore.sol";
 
-// Custom Errors
+/// @notice Errore: il pagamento deve essere maggiore di zero
 error PagamentoNullo();
+/// @notice Errore: l'indirizzo del corriere non è valido (zero address)
 error CorriereNonValido();
+/// @notice Errore: la spedizione richiesta non esiste
 error SpedizioneNonEsistente();
+/// @notice Errore: la spedizione non è nello stato InAttesa richiesto
 error SpedizioneNonInAttesa();
+/// @notice Errore: l'evidenza specificata è già stata inviata per questa spedizione
 error EvidenzaGiaInviata();
+/// @notice Errore: non tutte le evidenze necessarie sono state ricevute
 error EvidenzeMancanti();
+/// @notice Errore: solo il mittente può annullare la spedizione
 error SoloMittenteAnnullare();
+/// @notice Errore: sono già state inviate evidenze, impossibile annullare
 error EvidenzeGiaInviate();
+/// @notice Errore: il trasferimento di rimborso ETH è fallito
 error RimborsoFallito();
+/// @notice Errore: solo il mittente può richiedere il rimborso
 error SoloMittenteRimborso();
+/// @notice Errore: le condizioni per il rimborso non sono soddisfatte
 error CondizioniRimborsoNonSoddisfatte();
+/// @notice Errore: l'hash dei dettagli fornito non è valido (bytes32 zero)
 error HashDettagliNonValido();
 
 /**
@@ -219,6 +230,8 @@ contract BNGestoreSpedizioni is BNCore {
     /// @notice Tempo minimo tra due invii di evidenze dallo stesso sensore
     uint256 public constant MIN_TIME_BETWEEN_EVIDENCES = 1 minutes;
 
+    /// @notice Errore: il sensore deve attendere prima di inviare un'altra evidenza
+    /// @param timeRemaining Secondi rimanenti prima del prossimo invio consentito
     error RateLimitExceeded(uint256 timeRemaining);
 
     /**

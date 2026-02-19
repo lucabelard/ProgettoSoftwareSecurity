@@ -1,0 +1,101 @@
+﻿node.exe : [solhint] 
+Warning: Rule 
+'contract-name-mixedcase' 
+doesn't exist
+In riga:1 car:1
++ & "C:\Program 
+Files\nodejs/node.exe" 
+"C:\Program 
+Files\nodejs/node_mo ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~
+    + CategoryInfo          
+    : NotSpecified: ([solh  
+  int] Warni...' doesn't    
+ exist:String) [], Remot    
+eException
+    + FullyQualifiedErrorId 
+    : NativeCommandError
+ 
+[solhint] Warning: Rule 
+'event-name-mixedcase' 
+doesn't exist
+
+contracts\BNCalcolatoreOnChain.sol
+   4:1   warning  global import of path ./BNPagamenti.sol is not allowed. Specify names to import individually or bind all exports of the module into a name (import "path" as Name)  no-global-import
+  21:19  warning  Code contains empty blocks                                                                                                                                          no-empty-blocks
+
+contracts\BNCore.sol
+  4:1  warning  global import of path @openzeppelin/contracts/access/AccessControl.sol is not allowed. Specify names to import individually or bind all exports of the module into a name (import "path" as Name)  no-global-import
+  5:1  warning  global import of path @openzeppelin/contracts/security/Pausable.sol is not allowed. Specify names to import individually or bind all exports of the module into a name (import "path" as Name)     no-global-import
+
+contracts\BNGestoreSpedizioni.sol
+  4:1  warning  global import of path ./BNCore.sol is not allowed. Specify names to import individually or bind all exports of the module into a name (import "path" as Name)  no-global-import
+
+contracts\BNPagamenti.sol
+  4:1  warning  global import of path ./BNGestoreSpedizioni.sol is not allowed. Specify names to import individually or bind all exports of the module into a name (import "path" as Name)                             no-global-import
+  5:1  warning  global import of path @openzeppelin/contracts/security/ReentrancyGuard.sol is not allowed. Specify names to import individually or bind all exports of the module into a name (import "path" as Name)  no-global-import
+
+contracts\performance\BN_Complex.sol
+   4:1  warning  global import of path @openzeppelin/contracts/access/AccessControl.sol is not allowed. Specify names to import individually or bind all exports of the module into a name (import "path" as Name)  no-global-import
+  11:1  warning  Missing @author tag in contract 'BN_Complex'                                                                                                                                                       use-natspec
+  11:1  warning  Contract, Structs and Enums should be in CapWords                                                                                                                                                  contract-name-capwords
+  13:5  warning  Missing @notice tag in variable 'SOGLIA_PROBABILITA'                                                                                                                                               use-natspec
+  35:5  warning  Missing @notice tag in variable 'p_F1_T'                                                                                                                                                           use-natspec
+  36:5  warning  Missing @notice tag in variable 'p_F2_T'                                                                                                                                                           use-natspec
+  48:5  warning  Missing @notice tag in function 'impostaProbabilitaAPriori'                                                                                                                                        use-natspec
+  48:5  warning  Missing @param tag in function 'impostaProbabilitaAPriori'                                                                                                                                         use-natspec
+  48:5  warning  Mismatch in @param names for function 'impostaProbabilitaAPriori'. Expected: [_p_F1_T, _p_F2_T], Found: []                                                                                         use-natspec
+  53:5  warning  Missing @notice tag in function 'impostaCPT'                                                                                                                                                       use-natspec
+  53:5  warning  Missing @param tag in function 'impostaCPT'                                                                                                                                                        use-natspec
+  53:5  warning  Mismatch in @param names for function 'impostaCPT'. Expected: [_idEvidenza, _cpt], Found: []                                                                                                       use-natspec
+  62:5  warning  Missing @notice tag in function 'validaEvidenze'                                                                                                                                                   use-natspec
+  62:5  warning  Missing @param tag in function 'validaEvidenze'                                                                                                                                                    use-natspec
+  62:5  warning  Mismatch in @param names for function 'validaEvidenze'. Expected: [evidenze], Found: []                                                                                                            use-natspec
+  62:5  warning  Missing @return tag in function 'validaEvidenze'                                                                                                                                                   use-natspec
+  62:5  warning  Mismatch in @return count for function 'validaEvidenze'. Expected: 1, Found: 0                                                                                                                     use-natspec
+
+contracts\performance\BN_Medium.sol
+   4:1  warning  global import of path @openzeppelin/contracts/access/AccessControl.sol is not allowed. Specify names to import individually or bind all exports of the module into a name (import "path" as Name)  no-global-import
+  11:1  warning  Missing @author tag in contract 'BN_Medium'                                                                                                                                                        use-natspec
+  11:1  warning  Contract, Structs and Enums should be in CapWords                                                                                                                                                  contract-name-capwords
+  13:5  warning  Missing @notice tag in variable 'SOGLIA_PROBABILITA'                                                                                                                                               use-natspec
+  31:5  warning  Missing @notice tag in variable 'p_F1_T'                                                                                                                                                           use-natspec
+  32:5  warning  Missing @notice tag in variable 'p_F2_T'                                                                                                                                                           use-natspec
+  42:5  warning  Missing @notice tag in function 'impostaProbabilitaAPriori'                                                                                                                                        use-natspec
+  42:5  warning  Missing @param tag in function 'impostaProbabilitaAPriori'                                                                                                                                         use-natspec
+  42:5  warning  Mismatch in @param names for function 'impostaProbabilitaAPriori'. Expected: [_p_F1_T, _p_F2_T], Found: []                                                                                         use-natspec
+  47:5  warning  Missing @notice tag in function 'impostaCPT'                                                                                                                                                       use-natspec
+  47:5  warning  Missing @param tag in function 'impostaCPT'                                                                                                                                                        use-natspec
+  47:5  warning  Mismatch in @param names for function 'impostaCPT'. Expected: [_idEvidenza, _cpt], Found: []                                                                                                       use-natspec
+  54:5  warning  Missing @notice tag in function 'validaEvidenze'                                                                                                                                                   use-natspec
+  54:5  warning  Missing @param tag in function 'validaEvidenze'                                                                                                                                                    use-natspec
+  54:5  warning  Mismatch in @param names for function 'validaEvidenze'. Expected: [evidenze], Found: []                                                                                                            use-natspec
+  54:5  warning  Missing @return tag in function 'validaEvidenze'                                                                                                                                                   use-natspec
+  54:5  warning  Mismatch in @return count for function 'validaEvidenze'. Expected: 1, Found: 0                                                                                                                     use-natspec
+
+contracts\performance\BN_Simple.sol
+   4:1  warning  global import of path @openzeppelin/contracts/access/AccessControl.sol is not allowed. Specify names to import individually or bind all exports of the module into a name (import "path" as Name)  no-global-import
+  11:1  warning  Missing @author tag in contract 'BN_Simple'                                                                                                                                                        use-natspec
+  11:1  warning  Contract, Structs and Enums should be in CapWords                                                                                                                                                  contract-name-capwords
+  14:5  warning  Missing @notice tag in variable 'SOGLIA_PROBABILITA'                                                                                                                                               use-natspec
+  30:5  warning  Missing @notice tag in variable 'p_F1_T'                                                                                                                                                           use-natspec
+  40:5  warning  Missing @notice tag in function 'impostaProbabilitaAPriori'                                                                                                                                        use-natspec
+  40:5  warning  Missing @param tag in function 'impostaProbabilitaAPriori'                                                                                                                                         use-natspec
+  40:5  warning  Mismatch in @param names for function 'impostaProbabilitaAPriori'. Expected: [_p_F1_T], Found: []                                                                                                  use-natspec
+  44:5  warning  Missing @notice tag in function 'impostaCPT'                                                                                                                                                       use-natspec
+  44:5  warning  Missing @param tag in function 'impostaCPT'                                                                                                                                                        use-natspec
+  44:5  warning  Mismatch in @param names for function 'impostaCPT'. Expected: [_idEvidenza, _cpt], Found: []                                                                                                       use-natspec
+  50:5  warning  Missing @notice tag in function 'validaEvidenze'                                                                                                                                                   use-natspec
+  50:5  warning  Missing @param tag in function 'validaEvidenze'                                                                                                                                                    use-natspec
+  50:5  warning  Mismatch in @param names for function 'validaEvidenze'. Expected: [evidenze], Found: []                                                                                                            use-natspec
+  50:5  warning  Missing @return tag in function 'validaEvidenze'                                                                                                                                                   use-natspec
+  50:5  warning  Mismatch in @return count for function 'validaEvidenze'. Expected: 1, Found: 0                                                                                                                     use-natspec
+
+Ô£û 57 problems (0 errors, 57 warnings)
+
+ -------------------------------------------------------------------------- 
+ ===> Join SOLHINT Community at: https://discord.com/invite/4TYGq3zpjs <=== 
+ -------------------------------------------------------------------------- 
+

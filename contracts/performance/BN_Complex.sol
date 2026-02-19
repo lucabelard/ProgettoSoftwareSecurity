@@ -1,24 +1,28 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.19;
 
-import "@openzeppelin/contracts/access/AccessControl.sol";
-
+import {AccessControl} from "@openzeppelin/contracts/access/AccessControl.sol";
+/* solhint-disable contract-name-capwords */
 /**
  * @title BN_Complex
+ * @author Blockchain Shipment Tracking Team
  * @notice Bayesian Network complessa: 2 fatti, 5 evidenze
  * @dev Per performance testing - simile al contratto esistente
  */
 contract BN_Complex is AccessControl {
     
+    /// @notice Soglia minima di probabilità (95%) per validare una spedizione
     uint8 public constant SOGLIA_PROBABILITA = 95;
     
+    /// @notice Tabella di probabilità condizionata per un'evidenza dati F1 e F2
     struct CPT {
-        uint8 p_FF;
-        uint8 p_FT;
-        uint8 p_TF;
-        uint8 p_TT;
+        uint8 p_FF; ///< P(E=T | F1=F, F2=F)
+        uint8 p_FT; ///< P(E=T | F1=F, F2=T)
+        uint8 p_TF; ///< P(E=T | F1=T, F2=F)
+        uint8 p_TT; ///< P(E=T | F1=T, F2=T)
     }
     
+    /// @notice Stato di ricezione e valore delle 5 evidenze per una spedizione
     struct StatoEvidenze {
         bool E1_ricevuta;
         bool E2_ricevuta;
@@ -32,7 +36,9 @@ contract BN_Complex is AccessControl {
         bool E5_valore;
     }
     
+    /// @notice Probabilità a priori che F1 (consegna corretta) sia vero (0-100)
     uint8 public p_F1_T;
+    /// @notice Probabilità a priori che F2 (conformità condizioni) sia vero (0-100)
     uint8 public p_F2_T;
     
     CPT private cpt_E1;
@@ -45,11 +51,21 @@ contract BN_Complex is AccessControl {
         _grantRole(DEFAULT_ADMIN_ROLE, msg.sender);
     }
     
+    /**
+     * @notice Imposta le probabilità a priori per F1 e F2
+     * @param _p_F1_T Probabilità che F1 sia vero (0-100)
+     * @param _p_F2_T Probabilità che F2 sia vero (0-100)
+     */
     function impostaProbabilitaAPriori(uint8 _p_F1_T, uint8 _p_F2_T) external onlyRole(DEFAULT_ADMIN_ROLE) {
         p_F1_T = _p_F1_T;
         p_F2_T = _p_F2_T;
     }
     
+    /**
+     * @notice Imposta la tabella CPT per una specifica evidenza
+     * @param _idEvidenza ID dell'evidenza (1-5)
+     * @param _cpt Struttura CPT con le probabilità condizionate
+     */
     function impostaCPT(uint8 _idEvidenza, CPT calldata _cpt) external onlyRole(DEFAULT_ADMIN_ROLE) {
         if (_idEvidenza == 1) cpt_E1 = _cpt;
         else if (_idEvidenza == 2) cpt_E2 = _cpt;
@@ -59,6 +75,11 @@ contract BN_Complex is AccessControl {
         else revert("ID evidenza non valido");
     }
     
+    /**
+     * @notice Valida le evidenze usando inferenza Bayesiana
+     * @param evidenze Struttura con stato e valori di tutte le evidenze
+     * @return true se le probabilità posteriori superano la soglia del 95%
+     */
     function validaEvidenze(StatoEvidenze memory evidenze) external view returns (bool) {
         uint256 pF1_T = p_F1_T;
         uint256 pF1_F = 100 - pF1_T;
@@ -84,6 +105,13 @@ contract BN_Complex is AccessControl {
         return (probF1 >= SOGLIA_PROBABILITA && probF2 >= SOGLIA_PROBABILITA);
     }
     
+    /**
+     * @notice Calcola la probabilità combinata di tutte le evidenze per una combinazione F1/F2
+     * @param e Struttura con stato e valori delle evidenze
+     * @param f1 Valore ipotizzato di F1
+     * @param f2 Valore ipotizzato di F2
+     * @return Probabilità combinata normalizzata (0-100)
+     */
     function _calcolaProbEvidenze(StatoEvidenze memory e, bool f1, bool f2) private view returns (uint256) {
         uint256 prob = 100;
         
@@ -96,6 +124,14 @@ contract BN_Complex is AccessControl {
         return prob;
     }
     
+    /**
+     * @notice Legge il valore corretto dalla CPT in base allo stato di F1, F2 e al valore dell'evidenza
+     * @param cpt Tabella CPT da leggere
+     * @param f1 Stato ipotizzato di F1
+     * @param f2 Stato ipotizzato di F2
+     * @param val Valore osservato dell'evidenza
+     * @return Probabilità corrispondente (0-100)
+     */
     function _getProb(CPT memory cpt, bool f1, bool f2, bool val) private pure returns (uint8) {
         uint8 p;
         if (!f1 && !f2) p = cpt.p_FF;
