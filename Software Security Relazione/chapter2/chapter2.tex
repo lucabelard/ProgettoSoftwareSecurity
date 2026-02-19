@@ -258,6 +258,10 @@ if (probF1 < SOGLIA_PROBABILITA || probF2 < SOGLIA_PROBABILITA) {
 
 Seguendo le linee guida di \textbf{Sommerville} per l'ingegneria del software affidabile, questo monitor applica il principio di \textit{Fail-Safe Defaults}: in caso di incertezza o violazione delle precondizioni, il sistema transiziona verso uno stato sicuro di "validazione fallita" (registrando il fallimento ma senza bloccare irreversibilmente il contratto) piuttosto che procedere con un pagamento potenzialmente errato.
 
+\input{chapter2/monitor_safety.tex}
+
+Il monitor di Safety è modellato come un \textit{Truncation Automaton}. Dallo stato iniziale $q_0$, l'evento critico \texttt{req\_pay} viene intercettato e bufferizzato (\texttt{store}), portando il sistema nello stato di verifica $q_1$. Qui il monitor valuta la condizione di conformità $P$: se $P \ge 95\%$, l'azione viene rilasciata (\texttt{dump}), altrimenti viene soppressa definitivamente (\texttt{halt}) transizionando nello stato di violazione $q_{Err}$.
+
 \subsection{Enforcement della Proprietà di Guarantee (G1: Payment Validity)}
 Parallelamente, la proprietà di Guarantee G1 assicura che "se le evidenze sono valide, il pagamento deve essere eseguito". Il monitoraggio qui è volto a confermare l'avvenuto successo della transazione, fornendo tracciabilità on-chain.
 
@@ -275,6 +279,10 @@ if (!success) revert PagamentoFallito();
 \end{lstlisting}
 
 L'emissione dell'evento \texttt{MonitorGuaranteeSuccess} agisce come una prova crittografica (audit trail) che il sistema ha rispettato il contratto di servizio, soddisfacendo il principio di \textit{Accountability}.
+
+\input{chapter2/monitor_guarantee.tex}
+
+Il monitor di Guarantee agisce come un \textit{Edit Automaton} a tre stati. Nello stato iniziale (1), il monitor accumula (\texttt{store}) tutti gli eventi in attesa del trigger \texttt{e} (evidenze). Una volta ricevute le evidenze, transita nello stato (2), dove continua a bufferizzare le azioni finché non viene eseguito il pagamento \texttt{p}. Al verificarsi di \texttt{p}, il monitor rilascia l'intera sequenza accumulata (\texttt{dump}) e raggiunge lo stato finale (3), garantendo che il pagamento segua sempre le evidenze valide.
 
 \subsection{Adozione di Librerie Standard (OpenZeppelin)}
 Per minimizzare il rischio di errori implementativi nei meccanismi di enforcement, ci siamo affidati alla libreria industriale \textbf{OpenZeppelin}, standard de facto per la sicurezza su Ethereum.

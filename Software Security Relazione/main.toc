@@ -25,50 +25,56 @@
 \contentsline {section}{\numberline {3.2}Design degli Asset e Linee Guida di Sicurezza}{24}{section.3.2}%
 \contentsline {section}{\numberline {3.3}Modellazione Markov Chain e Verifica Formale con PRISM}{24}{section.3.3}%
 \contentsline {subsection}{\numberline {3.3.1}Definizione e Dinamica del Modello}{25}{subsection.3.3.1}%
-\contentsline {subsection}{\numberline {3.3.2}Verifica delle Proprietà PCTL}{26}{subsection.3.3.2}%
-\contentsline {subsubsection}{Analisi di Safety: Integrità Finanziaria}{26}{subsubsection*.8}%
-\contentsline {subsubsection}{Analisi di Guarantee: Resilienza e Rimborsi}{26}{subsubsection*.9}%
-\contentsline {section}{\numberline {3.4}Monitoraggio Runtime e Enforcement della Sicurezza}{26}{section.3.4}%
-\contentsline {subsection}{\numberline {3.4.1}Enforcement della Proprietà di Safety (S4: Probability Threshold)}{27}{subsection.3.4.1}%
-\contentsline {subsection}{\numberline {3.4.2}Enforcement della Proprietà di Guarantee (G1: Payment Validity)}{27}{subsection.3.4.2}%
-\contentsline {subsection}{\numberline {3.4.3}Adozione di Librerie Standard (OpenZeppelin)}{27}{subsection.3.4.3}%
-\contentsline {section}{\numberline {3.5}Architettura Modulare del Frontend}{28}{section.3.5}%
-\contentsline {section}{\numberline {3.6}Motivazione delle Scelte Tecnologiche}{28}{section.3.6}%
-\contentsline {subsection}{\numberline {3.6.1}Analisi di Resistenza, Ambiguità e Sopravvivenza}{28}{subsection.3.6.1}%
-\contentsline {subsection}{\numberline {3.6.2}Mitigazione delle Debolezze}{28}{subsection.3.6.2}%
-\contentsline {chapter}{\numberline {4}Analisi della Qualità del Codice (Solhint)}{30}{chapter.4}%
-\contentsline {section}{\numberline {4.1}Introduzione}{30}{section.4.1}%
-\contentsline {subsection}{\numberline {4.1.1}Solhint nel Progetto}{30}{subsection.4.1.1}%
-\contentsline {section}{\numberline {4.2}Metodologia}{30}{section.4.2}%
-\contentsline {subsection}{\numberline {4.2.1}Solhint: Caratteristiche}{30}{subsection.4.2.1}%
-\contentsline {subsection}{\numberline {4.2.2}Installazione ed Esecuzione}{31}{subsection.4.2.2}%
-\contentsline {section}{\numberline {4.3}Risultati Iniziali}{31}{section.4.3}%
-\contentsline {subsection}{\numberline {4.3.1}Analisi Dettagliata Warning NatSpec}{32}{subsection.4.3.1}%
-\contentsline {section}{\numberline {4.4}Analisi Architetturale dei Contratti}{32}{section.4.4}%
-\contentsline {subsection}{\numberline {4.4.1}Pattern Architetturale: Inheritance Chain}{33}{subsection.4.4.1}%
-\contentsline {subsection}{\numberline {4.4.2}BNCore.sol - Analisi Dettagliata}{33}{subsection.4.4.2}%
-\contentsline {subsection}{\numberline {4.4.3}BNGestoreSpedizioni.sol - Analisi Dettagliata}{34}{subsection.4.4.3}%
-\contentsline {subsection}{\numberline {4.4.4}BNPagamenti.sol - Analisi Dettagliata}{34}{subsection.4.4.4}%
-\contentsline {section}{\numberline {4.5}Processo di Ottimizzazione}{35}{section.4.5}%
-\contentsline {subsection}{\numberline {4.5.1}Fase 1: Miglioramenti al Codice (-56 warning)}{35}{subsection.4.5.1}%
-\contentsline {subsubsection}{Documentazione NatSpec (31 warning)}{35}{subsubsection*.13}%
-\contentsline {subsubsection}{Ottimizzazioni Gas (3 warning)}{36}{subsubsection*.14}%
-\contentsline {subsubsection}{Completamento Documentazione NatSpec (Iterazione Finale)}{36}{subsubsection*.15}%
-\contentsline {subsubsection}{Refactoring Funzioni (2 warning)}{38}{subsubsection*.16}%
-\contentsline {subsection}{\numberline {4.5.2}Fase 2: Configurazione Naming (-42 warning)}{39}{subsection.4.5.2}%
-\contentsline {subsection}{\numberline {4.5.3}Fase 3: Configurazione Gas (-18 warning)}{40}{subsection.4.5.3}%
-\contentsline {section}{\numberline {4.6}Configurazione Finale}{40}{section.4.6}%
-\contentsline {section}{\numberline {4.7}Risultati Finali}{40}{section.4.7}%
-\contentsline {subsection}{\numberline {4.7.1}Metriche Quantitative}{40}{subsection.4.7.1}%
-\contentsline {subsection}{\numberline {4.7.2}Warning Rimanenti}{41}{subsection.4.7.2}%
-\contentsline {section}{\numberline {4.8}Conclusioni}{41}{section.4.8}%
-\contentsline {subsection}{\numberline {4.8.1}Risultati Quantitativi Complessivi}{41}{subsection.4.8.1}%
-\contentsline {subsection}{\numberline {4.8.2}Lezioni Apprese e Best Practices}{41}{subsection.4.8.2}%
-\contentsline {subsubsection}{1. Documentazione NatSpec}{41}{subsubsection*.21}%
-\contentsline {subsubsection}{2. Gas Optimization: Analisi Costi-Benefici}{42}{subsubsection*.22}%
-\contentsline {subsubsection}{3. Naming Conventions: Domain-Specific vs. Solidity Style}{42}{subsubsection*.23}%
-\contentsline {subsubsection}{4. Complessità Funzioni: Quando Refactoring È Necessario}{42}{subsubsection*.24}%
-\contentsline {subsection}{\numberline {4.8.3}Conclusioni Finali}{43}{subsection.4.8.3}%
-\contentsline {chapter}{\numberline {A}Analisi delle Performance e Scalabilità}{44}{appendix.Alph1}%
-\contentsline {section}{\numberline {A.1}Metodologia di Test e Scenari}{44}{section.Alph1.1}%
-\contentsline {section}{\numberline {A.2}Analisi dei Risultati}{44}{section.Alph1.2}%
+\contentsline {subsection}{\numberline {3.3.2}Formalizzazione della Matrice di Transizione}{25}{subsection.3.3.2}%
+\contentsline {subsection}{\numberline {3.3.3}Calcolo della Distribuzione di Equilibrio tramite Autovalori}{26}{subsection.3.3.3}%
+\contentsline {subsection}{\numberline {3.3.4}Analisi della Distribuzione Limite}{26}{subsection.3.3.4}%
+\contentsline {subsection}{\numberline {3.3.5}Verifica delle Proprietà PCTL}{27}{subsection.3.3.5}%
+\contentsline {subsubsection}{Analisi di Safety: Integrità Finanziaria}{27}{subsubsection*.8}%
+\contentsline {subsubsection}{Analisi di Guarantee: Resilienza e Rimborsi}{27}{subsubsection*.9}%
+\contentsline {subsection}{\numberline {3.3.6}Verifica delle Proprietà PCTL}{28}{subsection.3.3.6}%
+\contentsline {subsubsection}{Analisi di Safety: Integrità Finanziaria}{28}{subsubsection*.10}%
+\contentsline {subsubsection}{Analisi di Guarantee: Resilienza e Rimborsi}{28}{subsubsection*.11}%
+\contentsline {section}{\numberline {3.4}Monitoraggio Runtime e Enforcement della Sicurezza}{28}{section.3.4}%
+\contentsline {subsection}{\numberline {3.4.1}Enforcement della Proprietà di Safety (S4: Probability Threshold)}{29}{subsection.3.4.1}%
+\contentsline {subsection}{\numberline {3.4.2}Enforcement della Proprietà di Guarantee (G1: Payment Validity)}{29}{subsection.3.4.2}%
+\contentsline {subsection}{\numberline {3.4.3}Adozione di Librerie Standard (OpenZeppelin)}{30}{subsection.3.4.3}%
+\contentsline {section}{\numberline {3.5}Architettura Modulare del Frontend}{30}{section.3.5}%
+\contentsline {section}{\numberline {3.6}Motivazione delle Scelte Tecnologiche}{31}{section.3.6}%
+\contentsline {subsection}{\numberline {3.6.1}Analisi di Resistenza, Ambiguità e Sopravvivenza}{31}{subsection.3.6.1}%
+\contentsline {subsection}{\numberline {3.6.2}Mitigazione delle Debolezze}{31}{subsection.3.6.2}%
+\contentsline {chapter}{\numberline {4}Analisi della Qualità del Codice (Solhint)}{32}{chapter.4}%
+\contentsline {section}{\numberline {4.1}Introduzione}{32}{section.4.1}%
+\contentsline {subsection}{\numberline {4.1.1}Solhint nel Progetto}{32}{subsection.4.1.1}%
+\contentsline {section}{\numberline {4.2}Metodologia}{32}{section.4.2}%
+\contentsline {subsection}{\numberline {4.2.1}Solhint: Caratteristiche}{32}{subsection.4.2.1}%
+\contentsline {subsection}{\numberline {4.2.2}Installazione ed Esecuzione}{33}{subsection.4.2.2}%
+\contentsline {section}{\numberline {4.3}Risultati Iniziali}{33}{section.4.3}%
+\contentsline {subsection}{\numberline {4.3.1}Analisi Dettagliata Warning NatSpec}{34}{subsection.4.3.1}%
+\contentsline {section}{\numberline {4.4}Analisi Architetturale dei Contratti}{34}{section.4.4}%
+\contentsline {subsection}{\numberline {4.4.1}Pattern Architetturale: Inheritance Chain}{35}{subsection.4.4.1}%
+\contentsline {subsection}{\numberline {4.4.2}BNCore.sol - Analisi Dettagliata}{35}{subsection.4.4.2}%
+\contentsline {subsection}{\numberline {4.4.3}BNGestoreSpedizioni.sol - Analisi Dettagliata}{36}{subsection.4.4.3}%
+\contentsline {subsection}{\numberline {4.4.4}BNPagamenti.sol - Analisi Dettagliata}{36}{subsection.4.4.4}%
+\contentsline {section}{\numberline {4.5}Processo di Ottimizzazione}{37}{section.4.5}%
+\contentsline {subsection}{\numberline {4.5.1}Fase 1: Miglioramenti al Codice (-56 warning)}{37}{subsection.4.5.1}%
+\contentsline {subsubsection}{Documentazione NatSpec (31 warning)}{37}{subsubsection*.17}%
+\contentsline {subsubsection}{Ottimizzazioni Gas (3 warning)}{38}{subsubsection*.18}%
+\contentsline {subsubsection}{Completamento Documentazione NatSpec (Iterazione Finale)}{38}{subsubsection*.19}%
+\contentsline {subsubsection}{Refactoring Funzioni (2 warning)}{40}{subsubsection*.20}%
+\contentsline {subsection}{\numberline {4.5.2}Fase 2: Configurazione Naming (-42 warning)}{41}{subsection.4.5.2}%
+\contentsline {subsection}{\numberline {4.5.3}Fase 3: Configurazione Gas (-18 warning)}{42}{subsection.4.5.3}%
+\contentsline {section}{\numberline {4.6}Configurazione Finale}{42}{section.4.6}%
+\contentsline {section}{\numberline {4.7}Risultati Finali}{42}{section.4.7}%
+\contentsline {subsection}{\numberline {4.7.1}Metriche Quantitative}{42}{subsection.4.7.1}%
+\contentsline {subsection}{\numberline {4.7.2}Warning Rimanenti}{43}{subsection.4.7.2}%
+\contentsline {section}{\numberline {4.8}Conclusioni}{43}{section.4.8}%
+\contentsline {subsection}{\numberline {4.8.1}Risultati Quantitativi Complessivi}{43}{subsection.4.8.1}%
+\contentsline {subsection}{\numberline {4.8.2}Lezioni Apprese e Best Practices}{43}{subsection.4.8.2}%
+\contentsline {subsubsection}{1. Documentazione NatSpec}{43}{subsubsection*.25}%
+\contentsline {subsubsection}{2. Gas Optimization: Analisi Costi-Benefici}{44}{subsubsection*.26}%
+\contentsline {subsubsection}{3. Naming Conventions: Domain-Specific vs. Solidity Style}{44}{subsubsection*.27}%
+\contentsline {subsubsection}{4. Complessità Funzioni: Quando Refactoring È Necessario}{44}{subsubsection*.28}%
+\contentsline {subsection}{\numberline {4.8.3}Conclusioni Finali}{45}{subsection.4.8.3}%
+\contentsline {chapter}{\numberline {A}Analisi delle Performance e Scalabilità}{46}{appendix.Alph1}%
+\contentsline {section}{\numberline {A.1}Metodologia di Test e Scenari}{46}{section.Alph1.1}%
+\contentsline {section}{\numberline {A.2}Analisi dei Risultati}{46}{section.Alph1.2}%
