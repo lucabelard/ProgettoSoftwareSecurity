@@ -13,7 +13,7 @@ Per mitigare i rischi di centralizzazione e garantire la continuità operativa, 
 \begin{itemize}
     \item \textit{Ridondanza:} la presenza di molteplici nodi (N=4) con protocollo di consenso \textit{IBFT 2.0} (Istanbul Byzantine Fault Tolerance) permette al sistema di tollerare il fallimento o la corruzione di un nodo senza interrompere il servizio o compromettere l'integrità del ledger.
     \item \textit{Distribuzione:} i nodi operano in modo indipendente, replicando integralmente lo stato della catena. Questo approccio elimina il \textit{Single Point of Failure} tipico dei database centralizzati.
-    \item \textit{Diversificazione:} per aumentare la robustezza, l'architettura prevede l'utilizzo di una rete di sensori eterogenea (temperatura, umidità, shock, luce, sigillo). Non ci affidiamo a una singola fonte di verità hardware, ma incrociamo dati provenienti da dispositivi tecnologicamente diversi per costruire un quadro probatorio affidabile, rendendo inefficaci attacchi mirati su una specifica tipologia di sensore.
+    \item \textit{Diversificazione:} per aumentare la robustezza, l'architettura prevede l'utilizzo di una rete di sensori eterogenea (temperatura, timestamp, shock, luce, sigillo). Non ci affidiamo a una singola fonte di verità hardware, ma incrociamo dati provenienti da dispositivi tecnologicamente diversi per costruire un quadro probatorio affidabile, rendendo inefficaci attacchi mirati su una specifica tipologia di sensore.
 \end{itemize}
 
 \subsection{Interazione Utente e Strumenti di Sviluppo}
