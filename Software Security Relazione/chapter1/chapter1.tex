@@ -7,9 +7,9 @@ In questo capitolo viene presentata un'analisi approfondita della sicurezza del 
 \section{Modellazione Strategica e Attori}
 Per comprendere appieno le dinamiche organizzative e di sicurezza, abbiamo adottato il framework \textbf{i* (iStar)}, che permette di modellare non solo gli aspetti funzionali ma anche le intenzioni, le dipendenze strategiche e le vulnerabilità sociali del sistema.
 
-L'analisi si articola in tre scenari evolutivi: lo stato attuale (As-Is), lo stato futuro con l'introduzione della blockchain (To-Be) e, infine, uno scenario di minaccia che modella esplicitamente gli attaccanti.
+L'analisi si articola in tre scenari evolutivi: lo stato attuale, senza sistema, lo stato futuro con l'introduzione della blockchain e, infine, uno scenario di minaccia che modella esplicitamente gli attaccanti.
 
-\subsection{Scenario As-Is: Supply Chain Tradizionale}
+\subsection{Scenario senza sistema: supply chain tradizionale}
 Nel modello iniziale, raffigurato in Figura \ref{fig:sd_as_is}, osserviamo le relazioni tra i tre attori principali della filiera: il \textit{Mittente} (farmacia o produttore), il \textit{Corriere} e il sistema di sensoristica isolata (\textit{Sensore IoT}).
 
 In questo scenario, il \textit{Mittente} dipende quasi interamente dal \textit{Corriere} per il raggiungimento dei suoi obiettivi critici. Il goal primario "Spedire farmaci in catena del freddo" si decompone in task operativi come la selezione del vettore e la preparazione dell'imballaggio. Tuttavia, la criticità emerge nella dipendenza per la risorsa "Specifiche spedizione": il Mittente deve fidarsi che il Corriere rispetti le condizioni pattuite (temperatura, integrità, scadenze).
@@ -21,11 +21,11 @@ Il softgoal "Protezione finanziaria" del Mittente è quindi costantemente a risc
 \begin{figure}[ht!]
     \centering
     \includegraphics[width=\linewidth, keepaspectratio]{chapter1/image/sd_as_is.png}
-    \caption{Modello SD: Supply Chain As-Is (Senza Sistema)}
+    \caption{Modello SD: supply chain senza sistema}
     \label{fig:sd_as_is}
 \end{figure}
 
-\subsection{Scenario To-Be: Introduzione del Sistema Blockchain}
+\subsection{Scenario con sistema: introduzione della blockchain}
 L'introduzione dello Smart Contract (raffigurato come attore \textit{Sistema}) ridefinisce le dipendenze strategiche, centralizzando la fiducia in un'entità imparziale e automatizzata. Come emerge dal modello, il \textit{Sistema} funge da intermediario tra Mittente, Corriere e Sensori, garantendo che le interazioni avvengano secondo regole certe.
 
 Il \textit{Mittente} non dipende più dalla parola del Corriere, ma si affida al Sistema per una serie di obiettivi cruciali:
@@ -44,7 +44,7 @@ Infine, l'attore \textit{Admin} gestisce la governance tecnica, occupandosi dell
 \begin{figure}[ht!]
     \centering
     \includegraphics[width=\linewidth, keepaspectratio]{chapter1/image/sr_to_be.png}
-    \caption{Modello SR: Supply Chain To-Be (Con Smart Contract)}
+    \caption{Modello SR: Supply Chain con sistema}
     \label{fig:sr_to_be}
 \end{figure}
 
