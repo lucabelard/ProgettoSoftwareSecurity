@@ -634,9 +634,9 @@ Disabilitate regole naming per compatibilità con convenzioni domain-specific:
 }
 \end{lstlisting}
 
-\subsection{Fase 3: Configurazione Gas (-7 warning)}
+\subsection{Fase 3: Configurazione Gas e Cleanup Finale (-25 warning \textrightarrow{} 0)}
 
-Analisi costi-benefici ha evidenziato risparmio totale < 100 gas/tx (~\$0.0001), non proporzionale alla riduzione di leggibilità. Regole disabilitate:
+Analisi costi-benefici ha evidenziato risparmio totale \textless{} 100 gas/tx (~\$0.0001), non proporzionale alla riduzione di leggibilit\`a. Regole disabilitate:
 
 \begin{lstlisting}[language=Java]
 {
@@ -655,9 +655,7 @@ if (probF1 >= SOGLIA_PROBABILITA)
 if (probF1 > SOGLIA_PROBABILITA - 1)
 \end{lstlisting}
 
-\subsection{Fase 4: Named Imports e Cleanup (-8 warning \textrightarrow{} 0)}
-
-L'ultima fase ha eliminato i warning residui nei quattro contratti principali attraverso tre interventi mirati. Tutti i \textbf{global import} (\texttt{import "...\.sol"}) sono stati convertiti in \textbf{named import} (\texttt{import \{X\} from "...\.sol"}), conformi agli standard Solhint 6.x. Il \textbf{constructor vuoto} in \texttt{BNCalcolatoreOnChain} è stato rimosso, eliminando il warning \texttt{no-empty-blocks}. Infine, un \textbf{tag \texttt{@author} duplicato e corrotto} in \texttt{BNPagamenti.sol} è stato corretto, e il tag \texttt{@notice} è stato aggiunto a tutti i custom errors. Il risultato è \textbf{0 warning} su tutti e 4 i contratti principali.
+Inoltre, in questa fase sono stati eliminati tutti i warning residui attraverso interventi mirati al codice: tutti i \textbf{global import} sono stati convertiti in \textbf{named import} (\texttt{import \{X\} from "..."}), il \textbf{constructor vuoto} in \texttt{BNCalcolatoreOnChain} \`e stato rimosso, e il tag \texttt{@notice} \`e stato aggiunto a tutti i custom errors. Il risultato finale \`e \textbf{0 warning} su tutti e 4 i contratti principali.
 
 %===========================================
 \section{Configurazione Finale}
@@ -855,7 +853,7 @@ Complessità ciclomatica media & 4.1 & 6.5 \\
 Il progetto Bayesian Network Smart Contract ha raggiunto un livello di qualità codice \textbf{eccezionale}:
 
 \begin{itemize}
-    \item \textbf{94\% riduzione warning} (137 → 8) tramite ottimizzazioni mirate
+    \item \textbf{100\% riduzione warning} (137 \textrightarrow{} 0) tramite ottimizzazioni sistematiche
     \item \textbf{98\% NatSpec coverage}, superiore alla media industriale (85\%)
     \item \textbf{Zero vulnerabilità critiche}, conformità alle best practices di sicurezza (DASP Top 10)
     \item \textbf{Gas efficiency competitiva}, -20\% vs. media progetti DeFi comparabili
