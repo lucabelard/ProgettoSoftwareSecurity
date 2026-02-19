@@ -1,0 +1,21 @@
+\begin{figure}[htbp]
+    \centering
+    \begin{tikzpicture}[->, >=stealth', shorten >=1pt, auto, node distance=3.5cm, semithick] % Adjusted node distance
+        \tikzstyle{every state}=[fill=green!10,draw=black,text=black]
+
+        % Guarantee Monitor G1 (Edit Automaton style - Image based)
+        \node[initial, state] (g1) {1};
+        \node[state] (g2) [right of=g1] {2};
+        \node[state, accepting] (g3) [right of=g2] {3}; % State R={3}
+
+        \path 
+            (g1) edge [loop above] node [align=center] {$\Sigma \setminus \{e\}$\\ \texttt{store}} (g1)
+            (g1) edge node [align=center] {$e$\\ \texttt{store}} (g2)
+            (g2) edge [loop above] node [align=center] {$\Sigma \setminus \{p\}$\\ \texttt{store}} (g2)
+            (g2) edge node [align=center] {$p$\\ \texttt{dump}} (g3)
+            (g3) edge [loop above] node [align=center] {$\Sigma$\\ \texttt{dump}} (g3);
+            
+    \end{tikzpicture}
+    \caption{Monitor di Runtime per la Proprietà di Guarantee G1. Definizione formale: $P = \{ (\Sigma \setminus \{e\})^* \cdot e \cdot (\Sigma \setminus \{p\})^* \cdot p \cdot \Sigma^\omega \}$ dove $e=$ evidenze, $p=$ pagamento.}
+    \label{fig:guarantee_monitor}
+\end{figure}
