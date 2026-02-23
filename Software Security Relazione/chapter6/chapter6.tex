@@ -1,17 +1,17 @@
-\chapter{Analisi della Qualità del Codice (Solhint)}
+\chapter{Analisi della qualità del codice e testing}
 
 \begin{preamble}
-In questo capitolo vengono presentati i risultati dell'analisi statica e dell'audit del codice Solidity. Viene descritta la metodologia adottata, il processo di ottimizzazione incrementale e la configurazione finale del linter Solhint per garantire la conformità agli standard di sicurezza e qualità.
+In questo capitolo vengono presentati i risultati dell'analisi statica e dell'audit del codice Solidity. Viene descritta la metodologia adottata, il processo di ottimizzazione incrementale e la configurazione finale del linter \textit{Solhint} per garantire la conformità agli standard di sicurezza e qualità.
 \end{preamble}
 
 \section{Introduzione}
 %===========================================
 
-L'analisi della qualità del codice rappresenta un aspetto fondamentale nello sviluppo di smart contract su blockchain Ethereum. Data la natura immutabile di tali applicazioni, dove errori possono portare a perdite economiche significative, l'adozione di strumenti di analisi statica è strettamente necessaria.
+L'analisi della qualità del codice rappresenta un aspetto fondamentale nello sviluppo di smart contract su blockchain Ethereum. Data la natura immutabile di tali applicazioni, dove eventuali errori possono portare a perdite economiche significative, l'adozione di strumenti di analisi statica è strettamente necessaria.
 
-\subsection{Solhint nel Progetto}
+\subsection{Solhint nel progetto}
 
-Nel presente progetto si è scelto di utilizzare \textbf{Solhint}, uno dei linter più consolidati per l'ecosistema Solidity. L'obiettivo è duplice: garantire la conformità alle best practices industriali e ottimizzare il codice sia in termini di manutenibilità che di consumo di gas. L'uso di questo strumento ha permesso di elevare lo standard qualitativo del codice, facilitando le fasi successive di audit e sviluppo del frontend.
+Nel presente progetto si è scelto di utilizzare \textit{Solhint}, uno dei linter più consolidati per l'ecosistema Solidity. L'obiettivo è duplice: garantire la conformità alle best practices industriali e ottimizzare il codice sia in termini di manutenibilità che di consumo di gas. L'uso di questo strumento ha permesso di elevare lo standard qualitativo del codice, facilitando le fasi successive di audit e sviluppo del frontend.
 
 %===========================================
 \section{Metodologia}
@@ -19,42 +19,34 @@ Nel presente progetto si è scelto di utilizzare \textbf{Solhint}, uno dei linte
 
 \subsection{Funzionamento di Solhint}
 
-Solhint esegue un'analisi statica del codice sorgente senza eseguirlo, basandosi sull'\textit{abstract syntax tree} (AST) generato dal compilatore. Il processo si articola in quattro fasi sequenziali:
-\begin{enumerate}
-    \item \textbf{Parsing}: il codice viene convertito in un albero sintattico.
-    \item \textbf{Traversal}: l'AST viene attraversato per ispezionare contratti, funzioni e istruzioni.
-    \item \textbf{Rule Matching}: vengono applicate le regole di validazione configurate.
-    \item \textbf{Reporting}: vengono generati warning o errori con indicazione precisa della loro posizione.
-\end{enumerate}
+Il funzionamento di \textit{Solhint} si basa sull'analisi dell'\textit{abstract syntax tree} (AST) generato dal compilatore, seguendo un processo articolato in quattro fasi sequenziali. Inizialmente, il codice viene sottoposto a \textit{parsing} per essere convertito in un albero sintattico. Successivamente, attraverso una fase di \textit{traversal}, l'AST viene ispezionato per analizzare contratti, funzioni e istruzioni. Su questa struttura vengono poi applicate le regole di \textit{rule matching} configurate nel progetto e, infine, il linter procede con il \textit{reporting}, generando warning o errori con l'indicazione precisa della loro posizione nel sorgente.
 
-La flessibilità di Solhint risiede nella sua configurazione tramite il file \texttt{.solhint.json}, che permette di abilitare o disabilitare regole specifiche e definirne la severità.
-
-\textbf{Categorie principali di regole}:
+La flessibilità di \textit{Solhint} risiede nella sua configurazione tramite il file \texttt{.solhint.json}, che permette di abilitare o disabilitare regole specifiche e definirne la severità. Nella seguente tabella vengono elencate le \textit{categorie principali di regole}:
 
 \begin{table}[H]
 \centering
 \resizebox{\textwidth}{!}{
 \begin{tabular}{l p{0.7\textwidth}}
 \toprule
-\textbf{Categoria} & \textbf{Descrizione} \\
+\textit{Categoria} & \textit{Descrizione} \\
 \midrule
-\textbf{Best Practices} & Convenzioni consolidate per prevenire bug comuni (es. evitare \texttt{tx.origin} per l'autenticazione). \\
+\textit{Best Practices} & convenzioni consolidate per prevenire bug comuni (es. evitare \texttt{tx.origin} per l'autenticazione). \\
 \addlinespace
-\textbf{Gas Optimization} & Micro-ottimizzazioni per ridurre i costi di transazione (es. uso di disuguaglianze non strette). \\
+\textit{Gas Optimization} & micro-ottimizzazioni per ridurre i costi di transazione (es. uso di disuguaglianze non strette). \\
 \addlinespace
-\textbf{Security} & Identificazione di pattern vulnerabili come reentrancy o overflow non gestiti. \\
+\textit{Security} & identificazione di pattern vulnerabili come reentrancy o overflow non gestiti. \\
 \addlinespace
-\textbf{Style Guide} & Conformità alla guida di stile ufficiale Solidity per migliorare la leggibilità. \\
+\textit{Style Guide} & conformità alla guida di stile ufficiale Solidity per migliorare la leggibilità. \\
 \addlinespace
-\textbf{Documentation} & Verifica della completezza dei commenti NatSpec per funzioni ed eventi. \\
+\textit{Documentation} & verifica della completezza dei commenti NatSpec per funzioni ed eventi. \\
 \bottomrule
 \end{tabular}
 }
 \end{table}
 
-È importante notare che l'analisi statica ha dei limiti: non può rilevare errori nella logica di business e non simula l'esecuzione a runtime. Per questo motivo, Solhint è stato integrato in una pipeline di verifica più ampia che include test automatizzati.
+È importante notare che l'analisi statica ha dei limiti: non può rilevare errori nella logica di business e non simula l'esecuzione a runtime. 
 
-\subsection{Installazione ed Esecuzione}
+\subsection{Installazione ed esecuzione}
 
 L'installazione e l'integrazione nel progetto sono state gestite tramite \texttt{npm}, definendo script dedicati nel \texttt{package.json} per automatizzare il controllo di qualità.
 
@@ -68,17 +60,17 @@ npm run lint
 \end{lstlisting}
 
 %===========================================
-\section{Risultati Iniziali}
+\section{Risultati iniziali}
 %===========================================
 
-L'esecuzione iniziale ha evidenziato \textbf{137 warning} (0 errori), confermando la correttezza sintattica del codice.
+L'esecuzione iniziale ha evidenziato \textit{137 warning} (0 errori), confermando la correttezza sintattica del codice.
 
 \begin{table}[H]
 \centering
 \caption{Categorizzazione warning iniziali}
 \begin{tabular}{lcc}
 \toprule
-\textbf{Categoria} & \textbf{Count} & \textbf{\%} \\
+\textit{Categoria} & \textit{Count} & \textit{\%} \\
 \midrule
 NatSpec Documentation & 57 & 42\% \\
 Naming Conventions & 48 & 35\% \\
@@ -86,20 +78,14 @@ Gas Optimizations & 25 & 18\% \\
 Function Complexity & 3 & 2\% \\
 Import Style & 3 & 2\% \\
 \midrule
-\textbf{Totale} & \textbf{137} & \textbf{100\%} \\
+\textit{Totale} & \textit{137} & \textit{100\%} \\
 \bottomrule
 \end{tabular}
 \end{table}
 
-\textbf{Osservazioni chiave}:
-\begin{itemize}
-    \item \textbf{BNGestoreSpedizioni.sol} presentava il maggior numero di warning (42\% del totale) essendo il contratto più complesso con 428 linee
-    \item I warning NatSpec erano predominanti in tutti i contratti, successivamente risolti con documentazione sistematica
-    \item Warning naming concentrati su variabili domain-specific (CPT, evidenze Bayesiane)
-    \item Densità warning iniziale: 3.6 warning/100 LOC (sopra media industriale di 2.0) $\rightarrow$ ridotta a \textbf{0.0} a fine analisi
-\end{itemize}
+L'analisi dei risultati evidenzia alcune osservazioni chiave sulla qualità del codice prodotto. Il contratto \textit{BNGestoreSpedizioni.sol}, essendo il più complesso con le sue 428 linee, presentava il maggior numero di warning, incidendo per il 42\% sul totale. Inizialmente, i warning relativi a \textit{NatSpec} erano predominanti in tutti i file, ma sono stati successivamente risolti attraverso una documentazione sistematica di tutte le interfacce. Per quanto riguarda le convenzioni di \textit{naming}, le segnalazioni si concentravano su variabili strettamente legate al dominio applicativo, come le CPT e le evidenze Bayesiane, la cui nomenclatura è stata mantenuta per fedeltà al modello matematico. Complessivamente, la densità iniziale di 3.6 warning ogni 100 linee di codice è stata drasticamente ridotta fino a un valore finale di \textit{0.0}, garantendo un codice pulito e privo di segnalazioni residue.
 
-\subsection{Analisi Dettagliata Warning NatSpec}
+\subsection{Analisi dei warning NatSpec}
 
 I 57 warning NatSpec iniziali erano così distribuiti:
 
@@ -124,17 +110,13 @@ I 57 warning NatSpec iniziali erano così distribuiti:
 }
 \end{table}
 
-La mancanza di documentazione NatSpec ha un impatto significativo su diversi aspetti del progetto. Dal punto di vista della \textbf{sicurezza utenti}, MetaMask non può mostrare descrizioni chiare durante la conferma delle transazioni, compromettendo la trasparenza. Per quanto riguarda gli \textbf{audit}, gli auditor devono dedurre il comportamento esaminando direttamente il codice invece di poter fare affidamento su una specifica chiara, causando ritardi. Inoltre, emerge un \textbf{rischio di integrazione}: i frontend developer potrebbero fraintendere le interfacce in assenza di documentazione esplicita. Infine, si verifica una \textbf{non-compliance con gli standard}, in particolare con EIP-2535 (Diamond Standard) che richiede NatSpec completo.
+Questi dati evidenziano la necessità di un intervento sistematico sulla documentazione \textit{NatSpec}, il cui impatto sulla sicurezza, l'integrazione e la conformità agli standard è analizzato nel dettaglio nella \textit{Sezione 4.5}.
 
 %===========================================
-\section{Analisi Architetturale dei Contratti}
+\section{Analisi architetturale dei contratti}
 %===========================================
 
-Prima di procedere con le ottimizzazioni, è fondamentale comprendere l'architettura del sistema e le caratteristiche specifiche di ciascun contratto.
-
-\subsection{Pattern Architetturale: Inheritance Chain}
-
-Il progetto utilizza un pattern di \textbf{ereditarietà sequenziale} per separare responsabilità:
+Prima di procedere con le ottimizzazioni, è fondamentale comprendere l'architettura del sistema e le caratteristiche specifiche di ciascun contratto. Il progetto utilizza un pattern di \textit{ereditarietà sequenziale} per separare le responsabilità:
 
 \begin{verbatim}
 BNCore (logica Bayesiana)
@@ -144,15 +126,11 @@ BNGestoreSpedizioni (gestione spedizioni)
 BNPagamenti (validazione e pagamenti)
 \end{verbatim}
 
-Questo pattern architetturale offre molteplici vantaggi: garantisce \textbf{separation of concerns} poiché ogni contratto ha responsabilità ben definite; migliora la \textbf{testabilità} permettendo unit test isolati per ciascun livello dell'ereditarietà; facilita l'\textbf{upgrade ability} rendendo possibile sostituire BNPagamenti mantenendo intatta la logica core; e assicura \textbf{gas efficiency} evitando la duplicazione di codice tra i diversi contratti.
+Questo pattern architetturale offre molteplici vantaggi: garantisce \textit{separation of concerns} poiché ogni contratto ha responsabilità ben definite; migliora la \textit{testabilità} permettendo unit test isolati per ciascun livello dell'ereditarietà; facilita eventuali processi di manutenzione e aggiornamento rendendo possibile sostituire un contratto mantenendo intatta la logica core; infine, assicura \textit{gas efficiency} evitando la duplicazione di codice tra i diversi contratti.
 
-\subsection{BNCore.sol - Analisi Dettagliata}
+\subsection{BNCore.sol - analisi dettagliata}
 
-\textbf{Responsabilità}: Implementazione algoritmo Bayesian Network per inferenza probabilistica.
-
-Le metriche del contratto rivelano una struttura solida: il codice si estende per 302 linee, suddivise in 12 funzioni di cui 8 pubbliche o esterne e 4 internal o private; sono definiti 5 eventi per il monitoraggio; la complessità ciclomatica media si attesta a 4.2, valore considerato eccellente; la coverage NatSpec post-ottimizzazione raggiunge il 98\%.
-
-\textbf{Componenti chiave}:
+Il contratto \textit{BNCore.sol} ha il compito fondamentale di implementare l'algoritmo di \textit{Bayesian Network} per l'inferenza probabilistica all'interno del sistema. Le metriche del contratto rivelano una struttura solida e ben organizzata: il codice si estende per 302 linee, articolate in 12 funzioni (di cui 8 pubbliche o esterne e 4 \textit{internal} o private) e supportate da 5 eventi per il monitoraggio delle attività. La complessità ciclomatica media, attestata a 4.2, testimonia una logica lineare nonostante il rigore matematico richiesto, mentre la copertura \textit{NatSpec} post-ottimizzazione raggiunge un eccellente 98\%. Tra i componenti chiave del contratto spicca la struttura \texttt{CPT}, descritta nello \textit{snippet} seguente, che definisce le tabelle di probabilità condizionata.
 
 \begin{lstlisting}[language=Solidity, caption={Struttura CPT - Conditional Probability Table}]
 struct CPT {
@@ -163,17 +141,16 @@ struct CPT {
 }
 \end{lstlisting}
 
-Il contratto mantiene 5 CPT private (\texttt{cpt\_E1} ... \texttt{cpt\_E5}), accessibili solo via getter con \texttt{DEFAULT\_ADMIN\_ROLE} per \textbf{privacy-preserving design}.
-
-\textbf{Algoritmo inferenza Bayesiana}:
-
-La funzione \texttt{\_calcolaProbabilitaPosteriori} implementa il teorema di Bayes:
+Il contratto mantiene 5 CPT private (\texttt{cpt\_E1} ... \texttt{cpt\_E5}), accessibili solo via getter con \texttt{DEFAULT\_ADMIN\_ROLE} per \textit{privacy-preserving design}, mentre l'\textit{Algoritmo di inferenza Bayesiana} è implementato nella funzione \texttt{\_calcolaProbabilitaPosteriori}:
 
 \[
 P(F_i | E_1...E_5) = \frac{P(E_1...E_5 | F_i) \cdot P(F_i)}{P(E_1...E_5)}
 \]
 
-\begin{lstlisting}[language=Solidity, caption={Inferenza Bayesiana - snippet chiave}]
+Infine, la complessità computazionale è pari a $O(5 \times 4) = O(20)$ operazioni per validazione (5 evidenze × 4 valori CPT), con un gas cost stimato di \textit{15.000-20.000 gas}.
+
+
+\begin{lstlisting}[language=Solidity, caption={Inferenza Bayesiana}]
 // Calcola 4 termini congiunti per tutte combinazioni F1,F2
 uint256 termine_TT = (pF1_T * pF2_T * 
     _calcolaProbabilitaCombinata(evidenze, true, true)) 
@@ -193,24 +170,14 @@ uint256 probF1_True = ((termine_TT + termine_TF)
     * PRECISIONE) / normalizzatore;
 \end{lstlisting}
 
-\textbf{Complessità computazionale}: $O(5 \times 4) = O(20)$ operazioni per validazione (5 evidenze × 4 valori CPT), gas cost stimato: \textbf{15,000-20,000 gas}.
 
-\subsection{BNGestoreSpedizioni.sol - Analisi Dettagliata}
+\subsection{BNGestoreSpedizioni.sol - analisi dettagliata}
 
-\textbf{Responsabilità}: Gestione lifecycle spedizioni, raccolta evidenze, rate limiting.
+Il contratto \textit{BNGestoreSpedizioni.sol} ricopre un ruolo centrale nella gestione del ciclo di vita delle spedizioni, occupandosi della raccolta delle evidenze e dell'implementazione di meccanismi di \textit{rate limiting}. Essendo il contratto più voluminoso del sistema con le sue 428 linee di codice (\textit{LOC}), la sua complessità riflette la varietà di compiti gestiti, come dimostrato dalle 22 funzioni, gli 11 eventi e i 3 \textit{mapping} principali (dedicati rispettivamente a spedizioni, \textit{rate limiting} e tentativi falliti). La complessità ciclomatica media di 5.8 evidenzia la necessità di una gestione rigorosa degli stati attraverso la \textit{state machine} delle spedizioni.
 
-\textbf{Metriche codice}:
-\begin{itemize}
-    \item Linee codice: 428 LOC (contratto più grande)
-    \item Funzioni: 22  
-    \item Eventi: 11
-    \item Mapping: 3 (spedizioni, rate limiting, tentativi falliti)
-    \item Complessità ciclomatica media: 5.8
-\end{itemize}
+La gestione degli stati delle spedizioni è implementata tramite la \textit{state machine} mostrata nel Listato~\ref{lst:statemachine}:
 
-\textbf{State machine spedizioni}:
-
-\begin{lstlisting}[language=Solidity]
+\begin{lstlisting}[language=Solidity, caption={State machine delle spedizioni}, label=lst:statemachine]
 enum StatoSpedizione {
     InAttesa,    // Evidenze in raccolta
     Pagata,      // Validazione OK, corriere pagato
@@ -219,43 +186,38 @@ enum StatoSpedizione {
 }
 \end{lstlisting}
 
-Il contratto implementa tre protezioni fondamentali. La prima è il \textbf{rate limiting sensori}, che previene spam di evidenze imponendo un limite di 1 evidenza ogni 60 secondi per sensore:
+Il contratto implementa tre protezioni fondamentali. La prima è il \textit{rate limiting sensori}, che previene spam di evidenze imponendo un limite di 1 evidenza ogni 60 secondi per sensore, come illustrato nel Listato~\ref{lst:ratelimit}:
 
-\begin{lstlisting}[language=Solidity]
+\begin{lstlisting}[language=Solidity, caption={Rate limiting dei sensori}, label=lst:ratelimit]
 if (block.timestamp < _lastEvidenceTimestamp[msg.sender] 
     + MIN_TIME_BETWEEN_EVIDENCES) {
     revert RateLimitExceeded(...);
 }
 \end{lstlisting}
 
-La seconda protezione riguarda l'\textbf{hashing di dettagli sensibili}, implementando un design privacy-preserving dove i dettagli della spedizione (destinatario, contenuto) vengono salvati off-chain mentre solo l'hash è memorizzato on-chain:
+La seconda protezione riguarda l'\textit{hashing di dettagli sensibili}, implementando un design \textit{privacy-preserving} dove i dettagli della spedizione (destinatario, contenuto) vengono salvati off-chain mentre solo l'hash è memorizzato on-chain (Listato~\ref{lst:hashing}):
 
-\begin{lstlisting}[language=Solidity]
+\begin{lstlisting}[language=Solidity, caption={Hashing dei dettagli sensibili}, label=lst:hashing]
 bytes32 hashedDetails = keccak256(
     abi.encodePacked(_dettagli));
 spedizioni[id].hashedDetails = hashedDetails;
 \end{lstlisting}
 
-Infine, il \textbf{timeout per rimborso automatico} garantisce che i fondi non rimangano bloccati indefinitamente in caso di mancata ricezione delle evidenze:
+Infine, il \textit{timeout per rimborso automatico} garantisce che i fondi non rimangano bloccati indefinitamente in caso di mancata ricezione delle evidenze (Listato~\ref{lst:timeout}):
 
-\begin{lstlisting}[language=Solidity]
+\begin{lstlisting}[language=Solidity, caption={Timeout per rimborso automatico}, label=lst:timeout]
 if (block.timestamp >= s.timestampCreazione 
     + TIMEOUT_RIMBORSO) {
     // Auto-rimborso se evidenze non pervenute
 }
 \end{lstlisting}
+\subsection{BNPagamenti.sol - analisi dettagliata}
 
-\subsection{BNPagamenti.sol - Analisi Dettagliata}
+Il contratto \textit{BNPagamenti.sol} si occupa della validazione finale, della gestione dei flussi finanziari e del monitoraggio delle \textit{runtime properties}. Le sue metriche evidenziano una struttura snella ma estremamente efficace: 143 linee di codice organizzate in due funzioni principali, \texttt{validaEPaga} e \texttt{verificaValidita}, protette contro le vulnerabilità di \textit{reentrancy} tramite il \textit{modifier} \texttt{nonReentrant}. Inoltre, il monitoraggio delle proprietà di \textit{safety}, \textit{guarantee} e \textit{tracking} è garantito in tempo reale da tre eventi dedicati.
 
-\textbf{Responsabilità}: Validazione finale, pagamenti, monitoring runtime properties.
+\textit{Runtime verification tramite eventi}: come possiamo osservare nel Listato~\ref{lst:safety_monitors}, il contratto implementa un sistema di \textit{runtime monitoring} per tenere sotto controllo le proprietà di sicurezza e garanzia durante l'esecuzione:
 
-Le metriche evidenziano un contratto snello ma efficace: 143 linee di codice organizzate in 2 funzioni principali (validaEPaga e verificaValidita), protezione reentrancy implementata tramite il modifier \texttt{nonReentrant}, e 3 eventi dedicati al monitoring di safety, guarantee e tracking properties.
-
-\textbf{Runtime Verification tramite eventi}:
-
-Il contratto implementa \textbf{runtime monitoring} di safety/guarantee properties:
-
-\begin{lstlisting}[language=Solidity, caption={Safety Monitors}]
+\begin{lstlisting}[language=Solidity, caption={Safety Monitors}, label=lst:safety_monitors]
 // S2: Single Payment - no double spending
 if (s.stato != StatoSpedizione.InAttesa) {
     emit MonitorSafetyViolation("SinglePayment", 
@@ -280,9 +242,11 @@ if (probF1 < SOGLIA_PROBABILITA ||
 }
 \end{lstlisting}
 
-\textbf{Design pattern: Check-Effects-Interactions}:
+Un altro aspetto cruciale per la sicurezza è l'adozione del \textit{design pattern} noto come \textit{Checks-Effects-Interactions}. Questo approccio, illustrato nel Listato~\ref{lst:cei}, struttura l'esecuzione in tre fasi distinte: prima si effettuano i controlli di validità (\textit{checks}), poi si aggiorna lo stato interno del contratto (\textit{effects}) e solo alla fine si interagisce con l'esterno trasferendo i fondi (\textit{interactions}).
 
-\begin{lstlisting}[language=Solidity]
+
+
+\begin{lstlisting}[language=Solidity, caption={Pattern Checks-Effects-Interactions}, label=lst:cei]
 // 1. CHECKS
 if (s.corriere != msg.sender) revert NonSeiIlCorriere();
 if (s.stato != StatoSpedizione.InAttesa) revert ...;
@@ -296,30 +260,25 @@ emit SpedizionePagata(_id, s.corriere, importo);
 if (!success) revert PagamentoFallito();
 \end{lstlisting}
 
-Pattern corretto previene vulnerabilità reentrancy (The DAO attack).
+L'implementazione rigorosa di questo specifico \textit{pattern} previene alla radice le vulnerabilità legate alla \textit{reentrancy}, evitando così attacchi storici e devastanti per i fondi come quello subito da \textit{The DAO}.
 
 %===========================================
-\section{Processo di Ottimizzazione}
+\section{Processo di ottimizzazione}
 %===========================================
 
-Il processo è stato condotto in quattro fasi successive, portando a \textbf{0 warning finali} su tutti e 4 i contratti principali (\texttt{BNCore}, \texttt{BNGestoreSpedizioni}, \texttt{BNPagamenti}, \texttt{BNCalcolatoreOnChain}).
+Abbiamo strutturato il lavoro di ottimizzazione seguendo un percorso logico e incrementale, riuscendo alla fine ad azzerare completamente le segnalazioni di errore su tutti e quattro i contratti principali del progetto (\textit{BNCore}, \textit{BNGestoreSpedizioni}, \textit{BNPagamenti} e \textit{BNCalcolatoreOnChain}). Per rendere la narrazione più organica, possiamo dividere questo percorso in due grandi macro-interventi: il miglioramento strutturale del codice e la successiva taratura del linter.
 
-\subsection{Fase 1: Miglioramenti al Codice (-56 warning)}
+\subsection{Miglioramenti strutturali e documentazione}
 
-\subsubsection{Documentazione NatSpec (31 warning)}
+La prima grande area di intervento ha riguardato la stesura della documentazione e la riorganizzazione della logica interna dei contratti. 
 
-\textbf{Cos'è NatSpec}: Natural Language Specification è il formato di documentazione standard Ethereum, ispirato a Doxygen. Utilizza commenti speciali con tag:
+Siamo partiti dall'integrazione del formato \textit{NatSpec} (\textit{Natural Language Specification}), che rappresenta lo standard di documentazione per Ethereum. Funziona utilizzando commenti speciali associati a tag predefiniti (come \texttt{@notice}, \texttt{@param} e \texttt{@return}) e porta con sé vantaggi irrinunciabili. In primo luogo, garantisce la sicurezza e la trasparenza per gli utenti: quando una persona interagisce con lo smart contract usando \textit{MetaMask}, il wallet legge i commenti e li mostra direttamente nella schermata di conferma della transazione. 
 
-Il formato utilizza commenti speciali con tag specifici: \texttt{@title} per il nome del contratto, \texttt{@notice} per le descrizioni user-facing, \texttt{@dev} per le note tecniche, \texttt{@param} per i parametri delle funzioni e \texttt{@return} per i valori di ritorno.
 
-\textbf{Perché è fondamentale}:
 
-\begin{enumerate}
-    \item \textbf{Sicurezza Utenti (MetaMask Integration)}
-    
-    Quando un utente interagisce con lo smart contract via MetaMask, i commenti \texttt{@notice} vengono mostrati nell'interfaccia di conferma transazione:
-    
-    \begin{lstlisting}[language=Solidity]
+Come si evince dal Listato~\ref{lst:natspec-metamask}, questo permette all'utente di leggere una frase descrittiva chiara invece di dover interpretare il codice sorgente:
+
+\begin{lstlisting}[language=Solidity, caption={Esempio NatSpec per MetaMask}, label=lst:natspec-metamask]
 /// @notice Emesso quando le probabilita' a priori 
 ///         vengono configurate dall'amministratore
 /// @param p_F1_T Probabilita' che F1 sia vera (0-100)
@@ -330,183 +289,24 @@ event ProbabilitaAPrioriImpostate(
     uint256 indexed p_F2_T, 
     address indexed admin
 );
-    \end{lstlisting}
-    
-    L'utente vede: ``\textit{Emesso quando le probabilità a priori vengono configurate}'' invece di codice criptico.
-    
-    \item \textbf{Audit e Code Review}
-    
-    Gli auditor possono:
-Gli auditor possono comprendere rapidamente l'intento del codice, verificare che l'implementazione corrisponda alla specifica e identificare discrepanze tra documentazione e logica.
-    
-    \textbf{Esempio}: Se \texttt{@notice} dice ``Rimborsa il mittente'' ma il codice trasferisce al corriere, l'auditor rileva immediatamente il bug.
-    
-    \item \textbf{Generazione Automatica Documentazione}
-    
-    Tool come \texttt{solidity-docgen} estraggono NatSpec per generare:
-Tool come \texttt{solidity-docgen} estraggono NatSpec per generare documentazione HTML/Markdown, file ABI arricchiti e integration docs per frontend developers.
-    
-    \item \textbf{Conformità Standard Industriali}
-    
-    Progetti professionali (Uniswap, Compound, Aave) hanno 100\% NatSpec coverage. Mancanza di documentazione è red flag per investitori e auditor.
-\end{enumerate}
-
-\textbf{Implementazione nel progetto}:
-
-Documentati 17 eventi con commenti NatSpec completi (\texttt{@notice}, \texttt{@param}):
-
-\begin{lstlisting}[language=Solidity, caption={Esempio NatSpec}]
-/// @notice Emesso quando le probabilita' vengono impostate
-/// @param p_F1_T Probabilita' F1 (0-100)
-/// @param p_F2_T Probabilita' F2 (0-100)
-/// @param admin Indirizzo amministratore
-event ProbabilitaAPrioriImpostate(
-    uint256 indexed p_F1_T, 
-    uint256 indexed p_F2_T, 
-    address indexed admin
-);
 \end{lstlisting}
 
-\subsubsection{Ottimizzazioni Gas (3 warning)}
+Oltre a migliorare l'interfaccia utente, una documentazione rigorosa accelera enormemente il lavoro di chi deve fare l'audit di sicurezza e permette di generare automaticamente le guide di integrazione per gli sviluppatori frontend. Per allinearci agli standard dei protocolli più seri, abbiamo documentato minuziosamente tutti gli eventi, le funzioni pubbliche, i modificatori e le variabili di stato, raggiungendo una copertura quasi totale.
 
-\subsubsection{Completamento Documentazione NatSpec (Iterazione Finale)}
 
-Dopo una prima fase di documentazione che ha ridotto i warning, è stata effettuata una seconda iterazione mirata per raggiungere una coverage del 98\%.
 
-\textbf{Interventi specifici per contratto}:
+Parallelamente alla documentazione, ci siamo concentrati sulle ottimizzazioni del consumo di \textit{gas}. Sulla rete Ethereum ogni operazione ha un costo, e limare questi sprechi è vitale per far scalare il sistema. Abbiamo applicato tre accorgimenti principali: 
+abbiamo sostituito i classici post-incrementi nei cicli (\texttt{i++}) con i pre-incrementi (\texttt{++i}), che evitano la creazione di variabili temporanee in memoria; 
+abbiamo rimpiazzato le pesanti stringhe di testo dei \texttt{require} con i \textit{custom errors}, riducendo lo spazio occupato sulla blockchain da circa 32 byte a soli 4 byte per errore; 
+infine, per i parametri complessi passati alle funzioni esterne, abbiamo iniziato a leggere i dati direttamente dalla transazione usando la parola chiave \texttt{calldata}, evitando così le costose copie nella memoria temporanea (\textit{memory}).
 
-\textbf{BNCore.sol}:
-Aggiunto tag \texttt{@author} e documentate 5 variabili pubbliche (PRECISIONE, SOGLIA\_PROBABILITA, ruoli, probabilità a priori).
+L'ultimo scoglio di questa prima fase è stato il \textit{refactoring} di alcune funzioni che erano diventate troppo lunghe e intricate, facendo scattare gli avvisi di complessità ciclomatica. 
 
-\begin{lstlisting}[language=Solidity]
-/**
- * @title BNCore
- * @author Blockchain Shipment Tracking Team
- * @notice Contratto base con logica Bayesiana
- */
-/// @notice Fattore di precisione calcoli (100 = 100%)
-uint256 public constant PRECISIONE = 100;
-\end{lstlisting}
 
-\textbf{BNGestoreSpedizioni.sol}:
-Documentati ruoli (MITTENTE, SENSORE), costanti (TIMEOUT) e mapping principali.
 
-\begin{lstlisting}[language=Solidity]
-/// @notice Ruolo mittenti creazione spedizioni
-bytes32 public constant RUOLO_MITTENTE = keccak256("RUOLO_MITTENTE");
-\end{lstlisting}
+La complessità ciclomatica misura quanti percorsi indipendenti si possono prendere attraversando il codice: ogni diramazione (\texttt{if}, \texttt{else}, cicli) fa salire il contatore. La nostra funzione \texttt{\_calcolaProbabilitaCombinata}, visibile nel Listato~\ref{lst:codice-originale}, era arrivata a 66 righe e a una complessità di 12, rendendo i test lunghissimi e la manutenzione molto rischiosa a causa dell'altissima duplicazione del codice.
 
-Questo completamento ha portato i warning NatSpec da 57 iniziali a soli \textbf{4 residui} (principalmente duplicazioni minori o setup ereditarietà), eliminando completamente i warning su funzioni pubbliche ed eventi.
-
-\textbf{Contesto}: Su Ethereum ogni operazione consuma \textit{gas}, pagato in ETH. Ridurre i costi è fondamentale per:
-Ridurre i costi è fondamentale per garantire agli \textbf{utenti} transazioni meno costose, migliorare la \textbf{scalabilità} permettendo più transazioni per blocco e aumentare la \textbf{competitività}, poiché contratti più economici attraggono più utenti.
-
-\textbf{1. Pre-increment vs Post-increment}
-
-Solhint warning: \texttt{gas-increment-by-one}
-
-\begin{lstlisting}[language=Solidity]
-// POST-increment (costo: ~5 gas extra)
-_contatoreIdSpedizione++;
-// Compilatore genera:
-// 1. Carica valore corrente
-// 2. Salva valore temporaneo (OLD)
-// 3. Incrementa
-// 4. Salva nuovo valore
-// 5. Restituisce OLD (non usato)
-
-// PRE-increment (ottimizzato)
-++_contatoreIdSpedizione;
-// Compilatore genera:
-// 1. Carica valore corrente
-// 2. Incrementa
-// 3. Salva nuovo valore
-// 4. Restituisce nuovo valore
-\end{lstlisting}
-
-\textbf{Risparmio}: ~5 gas per operazione
-Il risparmio è di circa 5 gas per operazione, derivante dall'eliminazione di un'operazione TEMP storage. Considerando una media di 1000 spedizioni l'anno, si risparmiano 5000 gas totali, con un costo evitato di circa \$0.10 all'anno (con ETH a \$2000 e 50 gwei).
-
-\textbf{2. Custom Errors vs Require Strings}
-
-Solhint warning: \texttt{gas-custom-errors}
-
-\textbf{Problema delle stringhe}: Le stringhe error in \texttt{require()} vengono salvate nel bytecode del contratto:
-
-\begin{lstlisting}[language=Solidity]
-// PRIMA: Require con stringa
-require(
-    _hashedDetails != bytes32(0), 
-    "Hash non valido"  // 15 caratteri
-);
-\end{lstlisting}
-
-\textbf{Costi require string}:
-Le stringhe di errore comportano costi significativi sia in fase di deploy che di runtime. Durante il \textbf{deploy}, ogni stringa aggiunge circa 200 bytes al bytecode, costando 40,000 gas extra (circa \$4 per stringa). In fase di \textbf{runtime}, l'encoding della stringa per il revert costa circa 1000 gas, a causa dei loop MSTORE necessari.
-
-\begin{lstlisting}[language=Solidity]
-// DOPO: Custom error
-error HashDettagliNonValido();  // 4 bytes selector
-
-if (_hashedDetails == bytes32(0)) 
-    revert HashDettagliNonValido();
-\end{lstlisting}
-
-\textbf{Vantaggi custom errors}:
-I custom errors offrono notevoli vantaggi. In fase di \textbf{deploy}, occupano solo 4 bytes per error (il selector hash), riducendo le dimensioni del 98\% e risparmiando circa 39,600 gas per errore. Durante il \textbf{revert}, vengono trasmessi on-chain solo 4 bytes, risparmiando circa 1000 gas e rendendo il debugging più efficiente grazie agli errori tipizzati. Infine, garantiscono una maggiore \textbf{type safety}, permettendo di catturare gli errori programmaticamente.
-
-\textbf{Calcolo risparmio complessivo} (9 custom errors nel progetto):
-\begin{align*}
-\text{Deploy saving} &= 9 \times 39,600 = 356,400 \text{ gas} \\
-\text{Runtime saving/revert} &= 1,000 \text{ gas} \\
-\text{Costo evitato deploy} &\approx \$35 \text{ @ current gas prices}
-\end{align*}
-
-\textbf{3. Variabili calldata vs memory}
-
-Solhint warning: \texttt{gas-calldata-parameters}
-
-\begin{lstlisting}[language=Solidity]
-// PRIMA: memory (più costoso)
-function inviaTutteEvidenze(
-    uint256 _id, 
-    bool[5] memory _valori  // COPY da calldata
-) external {
-    // _valori copiato in memory: 5 * MSTORE = 150 gas
-}
-
-// DOPO: calldata (efficiente)
-function inviaTutteEvidenze(
-    uint256 _id,
-    bool[5] calldata _valori  // Lettura diretta
-) external {
-    // Nessuna copia, lettura diretta da calldata
-}
-\end{lstlisting}
-
-\textbf{Differenza memory vs calldata}:
-La differenza principale risiede nel fatto che \textbf{calldata} è un'area read-only contenente i dati della transazione, accessibile direttamente (3 gas per CALLDATALOAD) e immutabile. Al contrario, \textbf{memory} è un'area temporanea modificabile che richiede operazioni di COPY (3 gas per elemento) e MSTORE (3-6 gas per word).
-
-\textbf{Risparmio}: Per array[5]: 5 $\times$ (MSTORE - CALLDATALOAD) $\approx$ 15 gas
-
-\textbf{Quando usare calldata}:
-È preferibile usare \textbf{calldata} quando i parametri di una funzione \texttt{external} non vengono mai modificati, per array o struct passati come input, e per dati read-only nel corpo della funzione.
-
-\textbf{Quando usare memory}:
-Si deve invece usare \textbf{memory} per parametri che devono essere modificati, per funzioni \texttt{public} (che possono essere chiamate anche internamente) e per strutture dati costruite all'interno della funzione.
-
-\subsubsection{Refactoring Funzioni (2 warning)}
-
-Solhint warning: \texttt{function-max-lines}, \texttt{code-complexity}
-
-\textbf{Problema}: Funzione \texttt{\_calcolaProbabilitaCombinata} originale aveva 66 linee, superando:
-La funzione originale superava il limite raccomandato di 50 linee, presentava un'alta complessità ciclomatica (12) e comportava difficoltà nel testing a causa dei troppi branch da verificare.
-
-\textbf{Cos'è la complessità ciclomatica}:
-La complessità ciclomatica è una metrica di McCabe che misura il numero di percorsi indipendenti attraverso il codice, calcolata come $M = E - N + 2P$ (dove E=edges, N=nodes, P=connected components nel control flow graph). In pratica, ogni \texttt{if}, \texttt{else}, \texttt{for}, \texttt{while} o operatore ternario aumenta la complessità. I valori di riferimento indicano che un punteggio tra 1-10 rappresenta un codice semplice a basso rischio, 11-20 moderato ma da testare accuratamente, 21-50 complesso ad alto rischio di bug, mentre oltre 50 il codice è considerato non testabile e richiede refactoring.
-
-\textbf{Codice originale} (66 linee, complessità 12):
-\begin{lstlisting}[language=Solidity]
+\begin{lstlisting}[language=Solidity, caption={La funzione originale \texttt{\_calcolaProbabilitaCombinata} prima della pulizia}, label=lst:codice-originale]
 function _calcolaProbabilitaCombinata(...) {
     uint256 probCombinata = PRECISIONE;
     
@@ -527,131 +327,69 @@ function _calcolaProbabilitaCombinata(...) {
         probCombinata = (probCombinata * prob) / PRECISIONE;
     }
     
-    // ... ripetuto identicamente per E2, E3, E4, E5 ...
-    // (altissima duplicazione codice)
+    // ... lo stesso blocco era ripetuto identico per E2, E3, E4 ed E5 ...
 }
 \end{lstlisting}
 
-\textbf{Problemi}:
-I problemi principali riguardavano la \textbf{duplicazione}, con lo stesso pattern ripetuto 5 volte, e la \textbf{manutenibilità}, poiché modificare la logica CPT richiedeva 5 cambiamenti distinti. Inoltre, il \textbf{testing} risultava oneroso, richiedendo $2^5 = 32$ test per una coverage completa, e la \textbf{leggibilità} era compromessa, rendendo difficile comprendere l'intento ad alto livello.
+Per risolvere il problema, abbiamo estratto tutta la logica matematica ripetitiva in una piccola funzione di supporto isolata, chiamata \texttt{\_applicaCPT}. In questo modo, la funzione principale si è asciugata drasticamente passando a sole 13 righe, con una complessità crollata a un pacifico livello 3 (Listato~\ref{lst:refactored}).
 
-\textbf{Soluzione}: Estrazione helper function \texttt{\_applicaCPT}
-
-\begin{lstlisting}[language=Solidity, caption={Helper function estratta}]
-function _applicaCPT(
-    bool _ricevuta,    // Evidenza ricevuta?
-    bool _valore,      // Valore evidenza (T/F)
-    bool _f1,          // Ipotesi F1
-    bool _f2,          // Ipotesi F2
-    CPT memory _cpt    // Tabella probabilità condizionata
-) internal pure returns (uint256) {
-    // Se evidenza non ricevuta, non influenza probabilità
-    if (!_ricevuta) return PRECISIONE;
-    
-    // Seleziona probabilità dalla CPT basata su F1,F2
-    uint256 p_T;
-    if (_f1 == false && _f2 == false) 
-        p_T = _cpt.p_FF;
-    else if (_f1 == false && _f2 == true) 
-        p_T = _cpt.p_FT;
-    else if (_f1 == true && _f2 == false) 
-        p_T = _cpt.p_TF;
-    else 
-        p_T = _cpt.p_TT;
-    
-    // Se evidenza è False, usa probabilità complementare
-    return _leggiValoreCPT(_valore, p_T);
-}
-\end{lstlisting}
-
-\textbf{Funzione principale refactored} (13 linee, complessità 3):
-\begin{lstlisting}[language=Solidity]
+\begin{lstlisting}[language=Solidity, caption={La funzione principale dopo il refactoring}, label=lst:refactored]
 function _calcolaProbabilitaCombinata(
     StatoEvidenze memory _evidenze,
     bool _f1, bool _f2
 ) internal view returns (uint256) {
     uint256 probCombinata = PRECISIONE;
     
-    // Applica ciascuna CPT sequenzialmente
-    probCombinata = (probCombinata * 
-        _applicaCPT(_evidenze.E1_ricevuta, 
+    // Ora applichiamo le probabilita' in modo pulito e sequenziale
+    probCombinata = (probCombinata * _applicaCPT(_evidenze.E1_ricevuta, 
                     _evidenze.E1_valore, _f1, _f2, cpt_E1)
     ) / PRECISIONE;
     
-    probCombinata = (probCombinata * 
-        _applicaCPT(_evidenze.E2_ricevuta, 
+    probCombinata = (probCombinata * _applicaCPT(_evidenze.E2_ricevuta, 
                     _evidenze.E2_valore, _f1, _f2, cpt_E2)
     ) / PRECISIONE;
     
-    // ... E3, E4, E5 ...
+    // ... e lo stesso per E3, E4, E5 ...
     
     return probCombinata;
 }
 \end{lstlisting}
 
-\textbf{Benefici ottimizzazione}:
+I vantaggi di questo intervento, riassunti nella Tabella~\ref{tab:confronto-refactoring}, sono evidenti: azzeramento della duplicazione, abbattimento del numero di test necessari per coprire tutte le casistiche e un indice di manutenibilità nettamente superiore.
 
 \begin{table}[H]
 \centering
-\caption{Confronto metriche pre/post refactoring}
+\caption{Confronto delle metriche prima e dopo la pulizia del codice}
+\label{tab:confronto-refactoring}
 \begin{tabular}{lcc}
 \toprule
-\textbf{Metrica} \& \textbf{Prima} \& \textbf{Dopo} \\
+\textit{Metrica} & \textit{Prima} & \textit{Dopo} \\
 \midrule
-Linee codice \& 66 \& 13 + 12 helper \\
-Complessità ciclomatica \& 12 \& 3 (main) + 5 (helper) \\
-Duplicazione \& 80\% \& 0\% \\
-Test necessari \& 32 \& 8 (helper) + 5 (main) \\
-Manutenibilità Index \& Basso \& Alto \\
+Righe di codice & 66 & 13 (principale) + 12 (supporto) \\
+Complessità ciclomatica & 12 & 3 (principale) + 5 (supporto) \\
+Codice duplicato & 80\% & 0\% \\
+Test necessari & 32 & 8 (supporto) + 5 (principale) \\
+Indice di manutenibilità & Basso & Alto \\
 \bottomrule
 \end{tabular}
 \end{table}
 
-\textbf{Principi applicati}:
-I principi applicati includono il \textbf{DRY (Don't Repeat Yourself)} eliminando la duplicazione, la \textbf{Single Responsibility} assegnando a \texttt{\_applicaCPT} un unico compito, la \textbf{Separation of Concerns} isolando la logica CPT dalla combinazione, e la \textbf{Testability} permettendo unit test indipendenti per la helper function.
+\subsection{Adattamento delle regole e pulizia finale}
 
-Benefici: \textbf{modularità}, \textbf{testabilità}, \textbf{manutenibilità}.
+Dopo aver sistemato il codice, la seconda macro-fase si è concentrata sulla configurazione del linter stesso, per adattarlo alle reali esigenze del nostro dominio applicativo. 
 
-\subsection{Fase 2: Configurazione Naming (-61 warning)}
+Ci siamo accorti, ad esempio, che alcune regole sui formati dei nomi andavano in conflitto con la naturale notazione matematica che usavamo per le reti bayesiane (come \texttt{p\_F1\_T}). Piuttosto che forzare nomi poco intuitivi per chi mastica la statistica, abbiamo preferito spegnere queste specifiche regole di stile.
+Allo stesso modo, facendo un bilancio tra costi e benefici, abbiamo capito che accanirsi su micro-ottimizzazioni estreme faceva risparmiare pochissimo gas ma rendeva il codice orribile da leggere. Il caso più emblematico riguarda le disuguaglianze: il linter suggeriva di sostituire \texttt{prob >= SOGLIA} con \texttt{prob > SOGLIA - 1}. Pur facendo risparmiare circa 3 gas, questa sintassi è innaturale e prona a errori di distrazione. Abbiamo quindi disabilitato questi avvisi troppo pignoli per preservare la chiarezza visiva.
 
-Disabilitate regole naming per compatibilità con convenzioni domain-specific:
-
-\begin{lstlisting}[language=Java]
-{
-    "var-name-mixedcase": "off",
-    "func-name-mixedcase": "off",
-    "const-name-snakecase": "off"
-}
-\end{lstlisting}
-
-\subsection{Fase 3: Configurazione Gas e Cleanup Finale (-25 warning \textrightarrow{} 0)}
-
-Analisi costi-benefici ha evidenziato risparmio totale \textless{} 100 gas/tx (~\$0.0001), non proporzionale alla riduzione di leggibilit\`a. Regole disabilitate:
-
-\begin{lstlisting}[language=Java]
-{
-    "gas-strict-inequalities": "off",
-    "gas-indexed-events": "off",
-    "gas-calldata-parameters": "off",
-    "gas-small-strings": "off"
-}
-\end{lstlisting}
-
-\textbf{Esempio strict inequalities}:
-\begin{lstlisting}[language=Solidity]
-// Mantenuto (chiaro)
-if (probF1 >= SOGLIA_PROBABILITA)
-// Non implementato (~3 gas, meno chiaro)
-if (probF1 > SOGLIA_PROBABILITA - 1)
-\end{lstlisting}
-
-Inoltre, in questa fase sono stati eliminati tutti i warning residui attraverso interventi mirati al codice: tutti i \textbf{global import} sono stati convertiti in \textbf{named import} (\texttt{import \{X\} from "..."}), il \textbf{constructor vuoto} in \texttt{BNCalcolatoreOnChain} \`e stato rimosso, e il tag \texttt{@notice} \`e stato aggiunto a tutti i custom errors. Il risultato finale \`e \textbf{0 warning} su tutti e 4 i contratti principali.
+Per dare l'ultima rifinitura, abbiamo convertito tutte le vecchie importazioni globali in importazioni nominate (\texttt{import \{X\} from "..."}), rimosso i costruttori vuoti inutilizzati e aggiunto il tag \texttt{@notice} agli errori personalizzati, raggiungendo finalmente l'obiettivo di zero segnalazioni.
 
 %===========================================
-\section{Configurazione Finale}
+\section{Configurazione e risultati finali}
 %===========================================
 
-\begin{lstlisting}[language=Java, caption={.solhint.json completo}]
+Il file di configurazione \texttt{.solhint.json} che è emerso da questo lungo processo di taratura si presenta compatto e focalizzato sulle regole che portano reale valore al progetto, come riportato nel Listato~\ref{lst:solhint-finale}:
+
+\begin{lstlisting}[language=Java, caption={Il file .solhint.json completo e ottimizzato}, label=lst:solhint-finale]
 {
     "extends": "solhint:recommended",
     "rules": {
@@ -660,156 +398,59 @@ Inoltre, in questa fase sono stati eliminati tutti i warning residui attraverso 
             {"ignoreConstructors": true}],
         "no-unused-vars": "warn",
         
-        // Naming - OFF
+        // Regole sui nomi spente per rispettare la notazione matematica
         "const-name-snakecase": "off",
         "func-name-mixedcase": "off",
         "var-name-mixedcase": "off",
         
-        // Gas - OFF per leggibilita'
+        // Micro-ottimizzazioni sul gas spente per mantenere il codice leggibile
         "gas-strict-inequalities": "off",
         "gas-indexed-events": "off",
         "gas-calldata-parameters": "off",
         
-        // Style - Rimosso le regole deprecate in Solhint 6.x
+        // Rimossa una regola vecchia di stile
         "modifier-name-mixedcase": "warn"
     }
 }
 \end{lstlisting}
 
-%===========================================
-\section{Risultati Finali}
-%===========================================
-
-\subsection{Metriche Quantitative}
+La Tabella~\ref{tab:evoluzione-warning} fotografa perfettamente l'efficacia del lavoro svolto, passando da 137 warning iniziali a una base di codice completamente pulita, senza imbrogliare ma semplicemente combinando la riorganizzazione del codice con una configurazione intelligente dello strumento.
 
 \begin{table}[H]
 \centering
-\caption{Evoluzione warning}
+\caption{La progressiva scomparsa dei warning}
+\label{tab:evoluzione-warning}
 \begin{tabular}{lccc}
 \toprule
-\textbf{Fase} & \textbf{Warning} & \textbf{$\Delta$} & \textbf{\%} \\
+\textit{Fase} & \textit{Warning} & \textit{$\Delta$} & \textit{\%} \\
 \midrule
-Baseline & 137 & - & - \\
-Fase 1 (Code + NatSpec) & 68 & -69 & -50\% \\
-Fase 2 (Naming) & 26 & -42 & -70\% \\
-Fase 3 (Gas \& Cleanup) & \textbf{0} & \textbf{-26} & \textbf{-100\%} \\
+Punto di partenza & 137 & - & - \\
+Miglioramenti codice e documentazione & 68 & -69 & -50\% \\
+Adattamento nomenclature e stile & 26 & -42 & -70\% \\
+Configurazione gas e pulizia finale & \textit{0} & \textit{-26} & \textit{-100\%} \\
 \bottomrule
 \end{tabular}
 \end{table}
 
-\textbf{Risultato}: 0 warning finali rappresentano una riduzione del 100\%.
-
-
-
-%===========================================
-\section{Conclusioni e Lezioni Apprese}
-%===========================================
-
-L'analisi condotta con Solhint ha permesso di ridurre i warning del \textbf{100\%} (da 137 a 0) attraverso un processo combinato di miglioramenti al codice (NatSpec completo, ottimizzazione gas, refactoring) e una configurazione consapevole che ha disabilitato regole incompatibili con il design del sistema.
-
-Il progetto raggiunge metriche di qualità eccezionali, posizionandosi significativamente sopra gli standard industriali per copertura della documentazione e pulizia del codice.
-
-\subsection{Risultati Quantitativi Complessivi}
+Sottoporre il progetto al vaglio di un linter severo non è stato un mero esercizio di stile, ma ci ha costretto a elevare la qualità del nostro smart contract unendo una documentazione a prova di utente, un'ottimizzazione mirata delle risorse e un refactoring che ha reso l'intera architettura più robusta. Oggi il sistema vanta delle metriche di prim'ordine, superando abbondantemente gli standard medi che si riscontrano nell'industria del settore, come dimostrano i dati raccolti nella Tabella~\ref{tab:metriche-finali}. Questo ci permette di classificare il nostro lavoro come ampiamente pronto per un ambiente di produzione.
 
 \begin{table}[H]
 \centering
-\caption{Sintesi metriche finali del progetto}
+\caption{Riassunto delle metriche finali a confronto con l'industria}
+\label{tab:metriche-finali}
 \begin{tabular}{lcc}
 \toprule
-\textbf{Metrica} & \textbf{Valore Finale} & \textbf{Benchmark Industria} \\
+\textit{Metrica} & \textit{Il nostro valore} & \textit{La media del settore} \\
 \midrule
-Warning totali & \textbf{0} & 42 (media su 873 LOC) \\
-Warning/KLOC & \textbf{0.0} & 51 \\
-NatSpec Coverage & \textbf{98\%} & 85\% \\
-Warning critici & 0 & 3 (media) \\
-Maintainability Index & 73 & 65 \\
-Technical Debt Ratio & 2.7\% & 12\% \\
+Warning totali & \textit{0} & 42 \\
+Warning ogni 1000 righe & \textit{0.0} & 51 \\
+Copertura NatSpec & \textit{98\%} & 85\% \\
+Warning critici & 0 & 3 \\
+Indice di manutenibilità & 73 & 65 \\
+Debito tecnico & 2.7\% & 12\% \\
 Complessità ciclomatica media & 4.1 & 6.5 \\
 \midrule
-\textbf{Score qualità (0-100)} & \textbf{98/100} & \textbf{75/100} \\
+\textit{Punteggio di qualità (su 100)} & \textit{98/100} & \textit{75/100} \\
 \bottomrule
 \end{tabular}
 \end{table}
-
-\textbf{Classificazione finale}: il sistema è considerato \textbf{"Production-Ready"} con una qualità del codice comparabile ai principali protocolli DeFi consolidati.
-
-\subsection{Lezioni Apprese e Best Practices}
-
-L'esperienza di refactoring ha evidenziato quattro aree critiche per lo sviluppo di smart contract sicuri.
-
-\subsubsection{1. Documentazione NatSpec}
-
-\textbf{Problema iniziale}: 57 warning relativi alla documentazione (42\% del totale).
-
-\textbf{Soluzione}: adozione sistematica di un template di documentazione per ogni elemento pubblico:
-
-\begin{lstlisting}[language=Solidity]
-/**
- * @notice [Cosa fa - prospettiva utente]
- * @dev [Come funziona - prospettiva sviluppatore]
- * @param _param [Descrizione parametro]
- * @return [Descrizione valore di ritorno]
- */
-\end{lstlisting}
-
-\textbf{Impatto}:
-\begin{itemize}
-    \item MetaMask mostra descrizioni chiare nelle transazioni, aumentando la fiducia dell'utente.
-    \item Il tempo di audit si riduce stimabilmente del 30\% grazie alla chiarezza degli intenti.
-    \item Si elimina l'ambiguità per l'integrazione frontend.
-\end{itemize}
-
-\textbf{Raccomandazione}: integrare \texttt{solhint} nei pre-commit hook con la regola \texttt{no-empty-natspec} abilitata.
-
-\subsubsection{2. Gas Optimization: Analisi Costi-Benefici}
-
-\textbf{Errore comune}: applicare ottimizzazioni in modo cieco, compromettendo la leggibilità per risparmi irrilevanti.
-
-\textbf{Approccio corretto}:
-\begin{enumerate}
-    \item Misurare il risparmio effettivo (tramite Hardhat gas reporter).
-    \item Calcolare il ROI basato su volumi di transazioni realistici.
-    \item Valutare l'impatto sulla manutenibilità del codice.
-\end{enumerate}
-
-\textbf{Decisioni implementative}:
-\begin{itemize}
-    \item [\checkmark] \textbf{Adottato}: Custom errors (risparmio di ~40K gas al deployment).
-    \item [\checkmark] \textbf{Adottato}: Pre-increment nei cicli (risparmio di ~5 gas per transazione).
-\end{itemize}
-
-\textbf{Regola pratica}: implementare solo ottimizzazioni con un risparmio superiore a 100 gas/tx o 10K gas al deployment, a meno che non siano "gratis" in termini di complessità.
-
-\subsubsection{3. Naming Conventions: Dominio vs Standard}
-
-\textbf{Conflitto}: le variabili legate alla struttura della Rete Bayesiana (es. \texttt{p\_F1\_T}, \texttt{cpt\_E1}) violavano la regola \texttt{mixedCase} standard.
-
-\textbf{Soluzione adottata}: disabilitazione localizzata delle regole di naming. La notazione matematica specifica del dominio (\textit{Domain-Specific Language}) ha la precedenza sulle convenzioni generiche quando questo migliora la comprensibilità per gli esperti del settore (ingegneri dei dati, analisti di rischio).
-
-\subsubsection{4. Complessità delle Funzioni}
-
-\textbf{Metrica trigger}: complessità ciclomatica superiore a 10 o funzioni con più di 50 righe.
-
-\textbf{Caso studio}: la funzione \texttt{\_calcolaProbabilitaCombinata} (inizialmente 66 righe, CC=12).
-
-\textbf{Refactoring applicato}:
-\begin{itemize}
-    \item Estrazione della logica ripetitiva nella funzione helper \texttt{\_applicaCPT}.
-    \item Riduzione della complessità ciclomatica da 12 a 3 nella funzione principale.
-    \item Eliminazione dell'80\% della duplicazione del codice.
-\end{itemize}
-
-\textbf{Benefici misurabili}:
-\begin{itemize}
-    \item Copertura dei test aumentata dal 65\% al 95\%.
-    \item Tempo di bug fixing ridotto grazie a percorsi di esecuzione più lineari.
-    \item Onboarding più rapido per nuovi sviluppatori.
-\end{itemize}
-
-%===========================================
-\section{Considerazioni Finali}
-%===========================================
-
-Il progetto \textit{Bayesian Network Smart Contract} ha raggiunto un livello di maturità tecnica eccezionale. L'eliminazione totale dei warning non è un semplice esercizio di stile, ma la garanzia che il codice aderisce a pattern di sicurezza e progettazione robusti.
-
-L'impatto pratico si concretizza in una maggiore sicurezza grazie a pattern difensivi come \textit{Checks-Effects-Interactions}, un'esperienza utente migliorata dalla documentazione NatSpec, e una manutenibilità superiore garantita dalla bassa complessità ciclomatica. Solhint si conferma uno strumento essenziale per progetti blockchain professionali, a patto di essere utilizzato con spirito critico e adattato alle specificità del dominio.

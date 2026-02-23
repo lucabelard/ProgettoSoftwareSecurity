@@ -1,22 +1,22 @@
-\chapter{Valutazione del Rischio}
+\chapter{Analisi del rischio}
 
 \begin{preamble}
-In questo capitolo viene presentata un'analisi approfondita della sicurezza del sistema, condotta attraverso metodologie formali e strutturate. Il percorso logico inizia con la modellazione degli obiettivi e delle dipendenze strategiche tramite framework \textbf{i* (iStar)}, prosegue con la valutazione delle minacce mediante approccio \textbf{DUAL-STRIDE} esteso agli asset dell'attore sistema, e si conclude con la definizione dettagliata di scenari di \textbf{Abuse e Misuse Cases}.
+In questo capitolo viene presentata un'analisi approfondita della sicurezza del sistema, condotta attraverso metodologie formali e strutturate. Il percorso logico inizia con la modellazione degli obiettivi e delle dipendenze strategiche tramite il framework \textit{i* (iStar)}, prosegue con la valutazione delle minacce mediante l'approccio \textit{DUAL-STRIDE} esteso agli asset dell'attore sistema, e si conclude con la definizione dettagliata di scenari di \textit{Abuse e Misuse Cases}.
 \end{preamble}
 
-\section{Modellazione Strategica e Attori}
-Per comprendere appieno le dinamiche organizzative e di sicurezza, abbiamo adottato il framework \textbf{i* (iStar)}, che permette di modellare non solo gli aspetti funzionali ma anche le intenzioni, le dipendenze strategiche e le vulnerabilità sociali del sistema.
+\section{Modellazione i*}
+Per comprendere appieno le dinamiche organizzative e di sicurezza, abbiamo adottato il framework \textit{i* (iStar)}, che permette di modellare non solo gli aspetti funzionali ma anche le intenzioni, le dipendenze strategiche e le vulnerabilità sociali del sistema.
 
-L'analisi si articola in tre scenari evolutivi: lo stato attuale, senza sistema, lo stato futuro con l'introduzione della blockchain e, infine, uno scenario di minaccia che modella esplicitamente gli attaccanti.
+L'analisi si articola in tre scenari evolutivi: lo stato attuale, senza sistema; lo stato futuro con l'introduzione della blockchain e, infine, uno scenario di minaccia che modella esplicitamente gli attaccanti.
 
 \subsection{Scenario senza sistema: supply chain tradizionale}
 Nel modello iniziale, raffigurato in Figura \ref{fig:sd_as_is}, osserviamo le relazioni tra i tre attori principali della filiera: il \textit{Mittente} (farmacia o produttore), il \textit{Corriere} e il sistema di sensoristica isolata (\textit{Sensore IoT}).
 
-In questo scenario, il \textit{Mittente} dipende quasi interamente dal \textit{Corriere} per il raggiungimento dei suoi obiettivi critici. Il goal primario "Spedire farmaci in catena del freddo" si decompone in task operativi come la selezione del vettore e la preparazione dell'imballaggio. Tuttavia, la criticità emerge nella dipendenza per la risorsa "Specifiche spedizione": il Mittente deve fidarsi che il Corriere rispetti le condizioni pattuite (temperatura, integrità, scadenze).
+In questo scenario, il \textit{Mittente} dipende quasi interamente dal \textit{Corriere} per il raggiungimento dei suoi obiettivi critici. Il goal primario "Spedire farmaci in catena del freddo" si decompone in task operativi come la selezione del vettore e la preparazione dell'imballaggio. Tuttavia, la criticità emerge nella dipendenza per la risorsa "Specifiche spedizione": il mittente deve fidarsi che il corriere rispetti le condizioni pattuite (temperatura, integrità, scadenze).
 
-Il \textit{Corriere}, a sua volta, ha l'obiettivo di "Effettuare consegna" e "Dimostrare integrità del pacco". Qui sorge un conflitto di interessi strutturale: per ottenere lo sblocco del pagamento (goal "Ottenere sblocco pagamento"), il Corriere è l'unico certificatore della propria qualità. Sebbene esistano sensori IoT, questi non sono integrati in un sistema tamper-proof; pertanto, il Mittente non ha garanzie matematiche che i report delle evidenze ("Report evidenze") non siano stati manipolati o omessi.
+Il \textit{Corriere}, a sua volta, ha l'obiettivo di "Effettuare consegna" e "Dimostrare integrità del pacco". Qui sorge un conflitto di interessi strutturale: per ottenere lo sblocco del pagamento (goal "Ottenere sblocco pagamento"), il corriere è l'unico certificatore della propria qualità. Sebbene esistano sensori IoT, questi non sono integrati in un sistema inviolabile; pertanto, il mittente non ha garanzie matematiche che i report delle evidenze ("Report evidenze") non siano stati manipolati o omessi.
 
-Il softgoal "Protezione finanziaria" del Mittente è quindi costantemente a rischio, dipendendo da una fiducia cieca verso l'operato logistico. Non esiste un meccanismo di *enforcement* automatico per eventuali rimborsi in caso di non conformità ("Ottenere rimborso per non-conformità").
+Il softgoal "Protezione finanziaria" del mittente è quindi costantemente a rischio, poichè dipende da una fiducia cieca verso l'operato logistico. Non esiste un meccanismo di enforcement automatico per eventuali rimborsi in caso di non conformità ("Ottenere rimborso per non-conformità").
 
 \begin{figure}[ht!]
     \centering
@@ -26,20 +26,20 @@ Il softgoal "Protezione finanziaria" del Mittente è quindi costantemente a risc
 \end{figure}
 
 \subsection{Scenario con sistema: introduzione della blockchain}
-L'introduzione dello Smart Contract (raffigurato come attore \textit{Sistema}) ridefinisce le dipendenze strategiche, centralizzando la fiducia in un'entità imparziale e automatizzata. Come emerge dal modello, il \textit{Sistema} funge da intermediario tra Mittente, Corriere e Sensori, garantendo che le interazioni avvengano secondo regole certe.
+L'introduzione dello Smart Contract (raffigurato come attore \textit{Sistema}) ridefinisce le dipendenze strategiche, centralizzando la fiducia in un'entità imparziale e automatizzata. Come emerge dal modello, il \textit{Sistema} funge da intermediario tra mittente, corriere e sensori, garantendo che le interazioni avvengano secondo regole certe.
 
-Il \textit{Mittente} non dipende più dalla parola del Corriere, ma si affida al Sistema per una serie di obiettivi cruciali:
+Il \textit{mittente} non dipende più dalla parola del corriere, ma si affida al sistema per una serie di obiettivi cruciali:
 \begin{itemize}
-    \item \textbf{Validazione Evidenze} e \textbf{Pagamento Automatico}: Il Mittente delega al contratto la verifica dei dati e l'esecuzione condizionale del pagamento.
-    \item \textbf{Tracciabilità Immutabile}: Un softgoal soddisfatto intrinsecamente dalla tecnologia blockchain.
-    \item \textbf{Rimborso Automatico}: In caso di violazione delle condizioni contrattuali, il Sistema garantisce il ritorno dei fondi depositati senza necessità di arbitrato esterno.
+    \item \textit{Validazione evidenze} e \textit{Pagamento automatico}: il mittente delega al contratto la verifica dei dati e l'esecuzione condizionale del pagamento.
+    \item \textit{Tracciabilità immutabile}: un softgoal soddisfatto intrinsecamente dalla tecnologia blockchain.
+    \item \textit{Rimborso automatico}: in caso di violazione delle condizioni contrattuali, il sistema garantisce il ritorno dei fondi depositati senza necessità di arbitrato esterno.
 \end{itemize}
 
-Il \textit{Corriere} dipende dal Sistema per la "Ricezione Pagamento", che avviene solo a fronte della "Conferma Consegna" e della verifica delle condizioni ambientali. Non esiste più discrezionalità umana nel rilascio dei fondi.
+Il \textit{Corriere} dipende dal sistema per la "Ricezione Pagamento", che avviene solo a fronte della "Conferma Consegna" e della verifica delle condizioni ambientali. Non esiste più discrezionalità umana nel rilascio dei fondi.
 
-Un ruolo chiave è svolto dall'attore \textit{Sensore}, che interagisce direttamente con il Sistema fornendo le "Letture Ambientali". In cambio, il Sistema fornisce un "Timestamp Certificato", assicurando che ogni dato registrato sia temporalmente collocato in modo inalterabile.
+Un ruolo chiave è svolto dall'attore \textit{Sensore}, che interagisce direttamente con il sistema fornendo le "Letture Ambientali". In cambio, il sistema fornisce un "Timestamp Certificato", assicurando che ogni dato registrato sia temporalmente collocato in modo inalterabile.
 
-Infine, l'attore \textit{Admin} gestisce la governance tecnica, occupandosi della "Configurazione Sistema" (es. parametri bayesiani) e della "Gestione Ruoli", ricevendo in cambio dal sistema la garanzia di "Dati Affidabili".
+Infine, l'attore \textit{Amministratore} gestisce la governance tecnica, occupandosi della "Configurazione Sistema" (es. parametri bayesiani) e della "Gestione Ruoli", ricevendo in cambio dal sistema la garanzia di "Dati Affidabili".
 
 \begin{figure}[ht!]
     \centering
@@ -48,48 +48,53 @@ Infine, l'attore \textit{Admin} gestisce la governance tecnica, occupandosi dell
     \label{fig:sr_to_be}
 \end{figure}
 
-\subsection{Scenario di Minaccia: Analisi degli Attaccanti}
+\subsection{Scenario di minaccia: analisi degli attaccanti}
 Nonostante i miglioramenti, il sistema espone nuove superfici di attacco. La Figura \ref{fig:sr_attackers} modella tre profili di avversari che minacciano gli asset del sistema: l'\textit{Attaccante Interno}, l'\textit{Attaccante Esterno} e l'\textit{Utente Maldestro}.
 
-L'\textbf{Attaccante Interno} è modellato come un amministratore infedele o compromesso. Il suo goal "Abuso privilegi" si raffina in attacchi specifici come la "Manipolazione CPT" (T5.1-A). Avendo accesso legittimo alle funzioni di configurazione, può alterare le probabilità della rete bayesiana ("Eseguire impostaCPT()") per favorire falsi positivi o negativi, sabotando l'affidabilità del sistema dall'interno senza violare controlli crittografici esterni.
+L'\textit{Attaccante Interno} è modellato come un amministratore infedele o compromesso. Il suo obiettivo di "Abuso privilegi" si raffina in attacchi specifici come la "Manipolazione CPT" (T5.1-A). Avendo accesso legittimo alle funzioni di configurazione, può alterare le probabilità della rete bayesiana ("Eseguire impostaCPT()") per favorire falsi positivi o negativi, sabotando l'affidabilità del sistema dall'interno senza violare controlli crittografici esterni.
 
-L'\textbf{Attaccante Esterno} punta a "Compromettere sistema" sfruttando vulnerabilità tecniche e umane. I suoi vettori di attacco principali includono:
+L'\textit{Attaccante Esterno} punta a "Compromettere sistema" sfruttando vulnerabilità tecniche e umane. I suoi vettori di attacco principali includono:
 \begin{itemize}
-    \item \textit{Spoofing Sensore} (S2.1-A): Tenta di iniettare dati falsi intercettando o replicando le comunicazioni dei dispositivi IoT ("Replay dati vecchi", "Iniettare dati falsi").
-    \item \textit{Attacco Reentrancy} (T3.1-A): Mira a drenare i fondi del contratto sfruttando vulnerabilità nella logica di prelievo ("Pubblicazione contratto malevolo").
-    \item \textit{Phishing} (S7.1-A): Punta a sottrarre le credenziali degli utenti clonando l'interfaccia web ("Clonare interfaccia") o tramite ingegneria sociale.
-    \item \textit{Data Mining} (I6.1-A): Analizza la blockchain pubblica per estrarre informazioni commerciali riservate ("Scraping blockchain").
+    \item \textit{Impersonificazione sensore} (S2.1-A): tenta di iniettare dati falsi intercettando o replicando le comunicazioni dei dispositivi IoT ("Replay dati vecchi", "Iniettare dati falsi").
+    \item \textit{Attacco reentrancy} (T3.1-A): mira a drenare i fondi del contratto sfruttando vulnerabilità nella logica di prelievo ("Pubblicazione contratto malevolo").
+    \item \textit{Phishing} (S7.1-A): punta a sottrarre le credenziali degli utenti clonando l'interfaccia web ("Clonare interfaccia") o tramite ingegneria sociale.
+    \item \textit{Analisi dei dati} (I6.1-A): analizza la blockchain pubblica per estrarre informazioni commerciali riservate ("Scraping blockchain").
 \end{itemize}
 
-Infine, l'\textbf{Utente Maldestro} rappresenta una minaccia non intenzionale ma altrettanto dannosa. Il suo comportamento è guidato dal goal negativo "Errore operativo". Questo include errori di configurazione ("Errore di battitura numerico", "Overflow non gestito"), errori nei pagamenti ("Importo errato", "Destinatario errato") e negligenza nella gestione delle chiavi private ("Screenshot seed", "Caricamento su cloud pubblico"). Questi "Misuse Cases" evidenziano come la sicurezza non dipenda solo dalla robustezza del codice, ma anche dall'usabilità e dalla formazione degli operatori.
+Infine, l'\textit{Utente Maldestro} rappresenta una minaccia non intenzionale ma altrettanto dannosa. Il suo comportamento è guidato dall'obiettivo negativo di "Errore operativo". Questo include errori di configurazione ("Errore di battitura numerico", "Overflow non gestito"), errori nei pagamenti ("Importo errato", "Destinatario errato") e negligenza nella gestione delle chiavi private ("Screenshot seed", "Caricamento su cloud pubblico"). Questi "Misuse Cases" evidenziano come la sicurezza non dipenda solo dalla robustezza del codice, ma anche dall'usabilità e dalla formazione degli operatori.
 
 \begin{figure}[ht!]
     \centering
     \includegraphics[width=\linewidth, height=0.4\textheight, keepaspectratio]{chapter1/image/sr_attackers.png}
-    \caption{Modello SR: Analisi degli Attaccanti e Alberi di Attacco}
+    \caption{Modello SR: analisi degli attaccanti e alberi di attacco}
     \label{fig:sr_attackers}
 \end{figure}
 
-\section{Analisi delle Minacce DUAL-STRIDE}
-L'analisi è stata condotta raggruppando gli asset secondo il paradigma DUAL-STRIDE, che estende il classico STRIDE (focalizzato sulla sicurezza) includendo aspetti di affidabilità e resilienza (DUAL).
+\section{Analisi delle minacce DUAL-STRIDE}
+L'analisi è stata condotta raggruppando gli asset secondo il paradigma DUAL-STRIDE, che estende il classico STRIDE includendo aspetti di affidabilità e resilienza (DUAL).
 
-Prima di esaminare le minacce, è essenziale definire gli asset critici del sistema che necessitano di protezione. La seguente tabella elenca le componenti primarie, spaziando dalla logica on-chain ai dispositivi fisici.
+Prima di esaminare le minacce, è essenziale definire gli asset critici del sistema che necessitano di protezione. La Tabella~\ref{tab:asset-critici} elenca le componenti primarie, spaziando dalla logica on-chain ai dispositivi fisici.
 
 \newcolumntype{L}{>{\raggedright\arraybackslash}X}
+\begin{table}[ht!]
+\centering
+\caption{Asset critici del sistema}
+\label{tab:asset-critici}
 \begin{tabularx}{\textwidth}{l l L l}
 \toprule
-\textbf{ID} & \textbf{Asset} & \textbf{Descrizione} & \textbf{Criticità} \\
+\textit{ID} & \textit{Asset} & \textit{Descrizione} & \textit{Criticità} \\
 \midrule
-A1 & Smart Contract & logica di business e fondi in escrow & \textbf{Critica} \\
-A2 & Evidenze IoT & dati dai sensori (E1-E5) & \textbf{Critica} \\
-A3 & Pagamenti ETH & fondi depositati dai mittenti & \textbf{Critica} \\
-A4 & Ruoli e Permessi & sistema AccessControl & \textbf{Alta} \\
-A5 & CPT e Probabilità & parametri della rete bayesiana & \textbf{Alta} \\
-A6 & Dati spedizioni & record on-chain e storico & \textbf{Media} \\
-A7 & Interfaccia Web & frontend utente (DApp) & \textbf{Media} \\
-A8 & Chiavi private & credenziali MetaMask & \textbf{Critica} \\
+A1 & Smart Contract & logica di business e fondi in escrow & \textit{Molto alta} \\
+A2 & Evidenze IoT & dati dai sensori (E1-E5) & \textit{Molto alta} \\
+A3 & Pagamenti ETH & fondi depositati dai mittenti & \textit{Molto alta} \\
+A4 & Ruoli e permessi & sistema di controllo degli accessi & \textit{Alta} \\
+A5 & CPT e probabilità & parametri della rete bayesiana & \textit{Alta} \\
+A6 & Dati spedizioni & record on-chain e storico & \textit{Media} \\
+A7 & Interfaccia Web & frontend utente & \textit{Media} \\
+A8 & Chiavi private & credenziali MetaMask & \textit{Molto alta} \\
 \bottomrule
 \end{tabularx}
+\end{table}
 
 \vspace{1em}
 La tabella successiva offre una visione d'insieme delle minacce identificate per ciascun asset, mappando le categorie STRIDE/DUAL sulle contromisure implementate.
@@ -106,14 +111,14 @@ La tabella successiva offre una visione d'insieme delle minacce identificate per
 \newgeometry{top=1.5cm, bottom=1.5cm, left=1.5cm, right=1.5cm}
 \begin{landscape}
 
-\subsection*{Riepilogo Visuale Minacce (DUAL-STRIDE)}
+\subsection*{Riepilogo visuale minacce (DUAL-STRIDE)}
 \setlength\tabcolsep{3pt}
 \small
 \begin{longtable}{|l|l|c|c|c|c|c|c|c|c|c|c|p{6cm}|p{5cm}|}
 \hline
 \rowcolor{headerblue}
-\multicolumn{1}{|c|}{\textcolor{white}{\textbf{Asset}}} & 
-\multicolumn{1}{c|}{\textcolor{white}{\textbf{Valore}}} & 
+\multicolumn{1}{|c|}{\textcolor{white}{\textit{Asset}}} & 
+\multicolumn{1}{c|}{\textcolor{white}{\textit{Valore}}} & 
 \rotheader{S}{poofing} & 
 \rotheader{T}{ampering} & 
 \rotheader{R}{epudiation} & 
@@ -124,15 +129,15 @@ La tabella successiva offre una visione d'insieme delle minacce identificate per
 \rotheader{U}{nreliability} & 
 \rotheader{A}{bsence of resilience} & 
 \rotheader{L}{eakage} & 
-\multicolumn{1}{c|}{\textcolor{white}{\textbf{Descrizione Attacco}}} & 
-\multicolumn{1}{c|}{\textcolor{white}{\textbf{Mitigazione (Control)}}} \\
+\multicolumn{1}{c|}{\textcolor{white}{\textit{Descrizione attacco}}} & 
+\multicolumn{1}{c|}{\textcolor{white}{\textit{Mitigazione}}} \\
 \hline
 \endfirsthead
 
 \hline
 \rowcolor{headerblue}
-\multicolumn{1}{|c|}{\textcolor{white}{\textbf{Asset}}} & 
-\multicolumn{1}{c|}{\textcolor{white}{\textbf{Valore}}} & 
+\multicolumn{1}{|c|}{\textcolor{white}{\textit{Asset}}} & 
+\multicolumn{1}{c|}{\textcolor{white}{\textit{Valore}}} & 
 \rotheader{S}{poofing} & 
 \rotheader{T}{ampering} & 
 \rotheader{R}{epudiation} & 
@@ -143,88 +148,80 @@ La tabella successiva offre una visione d'insieme delle minacce identificate per
 \rotheader{U}{nreliability} & 
 \rotheader{A}{bsence of resilience} & 
 \rotheader{L}{eakage/Exp.} & 
-\multicolumn{1}{c|}{\textcolor{white}{\textbf{Descrizione Attacco}}} & 
-\multicolumn{1}{c|}{\textcolor{white}{\textbf{Mitigazione (Control)}}} \\
+\multicolumn{1}{c|}{\textcolor{white}{\textit{Descrizione attacco}}} & 
+\multicolumn{1}{c|}{\textcolor{white}{\textit{Mitigazione (Controllo)}}} \\
 \hline
 \endhead
 
-% A1
 \rowcolor{stripeblue}
-A1 & Critico & & \chk & & & & & \chk & & & & T1.1: manipolazione logica bytecode & Audit + Verifica formale \\
+A1 & Critico & & \chk & & & & & \chk & & & & T1.1: manipolazione logica codice compilato & Analisi + Verifica formale \\
 \hline
-A1 & Critico & & & & & \chk & & & & \chk & & D1.1: blocco contratto (storage bomb) & Limiti Gas \\
+A1 & Critico & & & & & \chk & & & & \chk & & D1.1: blocco contratto (saturazione dello storage) & Limiti gas \\
 \hline
 \rowcolor{stripeblue}
-A1 & Critico & & & & & & \chk & & & & \chk & E1.1: escalation privilegi admin & Est. Gnosis Safe Multi-sig \\
+A1 & Critico & & & & & & \chk & & & & \chk & E1.1: escalation privilegi amministratore & Est. Gnosis Safe multi-firma \\
 \hline
 
-% A2
-A2 & Critico & \chk & & & & & & \chk & & & & S2.1: impersonificazione sensore & Controllo Accessi Ruoli \\
+A2 & Critico & \chk & & & & & & \chk & & & & S2.1: impersonificazione sensore & Controllo accessi per ruoli \\
 \hline
 \rowcolor{stripeblue}
-A2 & Critico & & \chk & & & & & \chk & & & & T2.1: modifica evidenze in transito & Firma tx (Autenticazione Mittente) \\
+A2 & Critico & & \chk & & & & & \chk & & & & T2.1: modifica evidenze in transito & Firma transazione (autenticazione mittente) \\
 \hline
-A2 & Critico & & & \chk & & & & & & & & R2.1: ripudio invio evidenza & Logging Eventi \\
+A2 & Critico & & & \chk & & & & & & & & R2.1: ripudio invio evidenza & Registrazione eventi \\
 \hline
 \rowcolor{stripeblue}
 A2 & Critico & & & & \chk & & & & \chk & & & I2.1: corruzione dati sensore & Ridondanza E1-E5 \\
 \hline
 
-% A3
 A3 & Critico & & \chk & & & & & \chk & & & & T3.1: attacco reentrancy & ReentrancyGuard \\
 \hline
 \rowcolor{stripeblue}
-A3 & Critico & & & & & \chk & & & & \chk & & D3.1: blocco fondi escrow & Logica Rimborsi + Timeout \\
+A3 & Critico & & & & & \chk & & & & \chk & & D3.1: blocco fondi escrow & Logica rimborsi + tempo massimo \\
 \hline
-A3 & Critico & & & & & & \chk & & & & \chk & E3.1: drenaggio fondi contratto & Pagamento Push + ReentrancyGuard \\
-\hline
-
-% A4
-\rowcolor{stripeblue}
-A4 & Alto & \chk & & & & & & \chk & & & & S4.1: assegnazione ruolo fraudolenta & Concessione Solo Admin \\
-\hline
-A4 & Alto & & \chk & & & & & \chk & & & & T4.1: modifica mapping ruoli & Variabili Stato Private \\
-\hline
-\rowcolor{stripeblue}
-A4 & Alto & & & & & & \chk & & & & \chk & E4.1: escalation privilegi & Controlli Multilivello \\
+A3 & Critico & & & & & & \chk & & & & \chk & E3.1: drenaggio fondi contratto & Pagamento sicuro + ReentrancyGuard \\
 \hline
 
-% A5
-A5 & Alto & & \chk & & & & & \chk & & & & T5.1: manipolazione CPT & Variabili Private + Admin \\
+\rowcolor{stripeblue}
+A4 & Alto & \chk & & & & & & \chk & & & & S4.1: assegnazione ruolo fraudolenta & Concessione solo amministratore \\
+\hline
+A4 & Alto & & \chk & & & & & \chk & & & & T4.1: modifica mapping ruoli & Variabili di stato private \\
 \hline
 \rowcolor{stripeblue}
-A5 & Alto & & & & \chk & & & & & & \chk & I5.1: reverse engineering CPT & Offuscamento \\
-\hline
-A5 & Alto & & & & & & \chk & & & & \chk & E5.1: leak parametri bayesiani & Getter Privati \\
+A4 & Alto & & & & & & \chk & & & & \chk & E4.1: escalation privilegi & Controlli multilivello \\
 \hline
 
-% A6
+A5 & Alto & & \chk & & & & & \chk & & & & T5.1: manipolazione CPT & Variabili private + amministratore \\
+\hline
 \rowcolor{stripeblue}
-A6 & Medio & & & & \chk & & & & & & \chk & I6.1: data mining competitivo & Hashing dati sensibili \\
+A5 & Alto & & & & \chk & & & & & & \chk & I5.1: analisi inversa CPT & Offuscamento \\
+\hline
+A5 & Alto & & & & & & \chk & & & & \chk & E5.1: fuga parametri bayesiani & Funzioni di lettura private \\
+\hline
+
+\rowcolor{stripeblue}
+A6 & Medio & & & & \chk & & & & & & \chk & I6.1: estrazione dati competitiva & Offuscamento dati sensibili \\
 \hline
 A6 & Medio & & \chk & & & & & & & & & T6.1: modifica storico spedizioni & Immutabilità blockchain \\
 \hline
 \rowcolor{stripeblue}
-A6 & Medio & & & \chk & & & & & & & & R6.1: ripudio transazione & Log Eventi Permanenti \\
+A6 & Medio & & & \chk & & & & & & & & R6.1: ripudio transazione & Log eventi permanenti \\
 \hline
 
-% A7
-A7 & Medio & \chk & & & & & & \chk & & & & S7.1: phishing/Spoofing UI & Formazione Utente + HTTPS \\
+A7 & Medio & \chk & & & & & & \chk & & & & S7.1: phishing/impersonificazione interfaccia & Formazione utente + HTTPS \\
 \hline
 \rowcolor{stripeblue}
-A7 & Medio & & \chk & & & & & \chk & & & & T7.1: MITM su connessione Web3 & TLS + SRI \\
+A7 & Medio & & \chk & & & & & \chk & & & & T7.1: attacco sulla connessione Web3 & TLS + SRI \\
 \hline
-A7 & Medio & & & & \chk & & & & & & \chk & I7.1: XSS injection & Sanitizzazione Input \\
+A7 & Medio & & & & \chk & & & & & & \chk & I7.1: iniezione di codice (XSS) & Bonifica degli input \\
 \hline
 
-% A8
 \rowcolor{stripeblue}
-A8 & Critico & \chk & & & & & & \chk & & & & S8.1: furto chiavi (keylogger) & Hardware wallet \\
+A8 & Critico & \chk & & & & & & \chk & & & & S8.1: furto chiavi (captatore di digitazioni) & Portafoglio hardware (hardware wallet) \\
 \hline
-A8 & Critico & & & & \chk & & & & & & \chk & I8.1: esposizione seed phrase & Formazione Storage Sicuro \\
+A8 & Critico & & & & \chk & & & & & & \chk & I8.1: esposizione frase di recupero & Formazione per l'archiviazione sicura \\
 \hline
 \rowcolor{stripeblue}
-A8 & Critico & & & & & & \chk & & & & \chk & E8.1: accesso non autorizzato wallet & Policy Password + 2FA \\
+A8 & Critico & & & & & & \chk & & & & \chk & E8.1: accesso non autorizzato al portafoglio & Politica password + 2FA \\
 \hline
 
 \end{longtable}
@@ -232,548 +229,582 @@ A8 & Critico & & & & & & \chk & & & & \chk & E8.1: accesso non autorizzato walle
 \restoregeometry
 \newpage
 
-\section{Analisi Dettagliata degli Scenari (Abuse e Misuse Cases)}
-A completamento dell'analisi tabellare, approfondiamo gli scenari più significativi distinguendo tra \textbf{Abuse Cases} (azioni malevole intenzionali) e \textbf{Misuse Cases} (errori non intenzionali o guasti), organizzati per area tematica.
+\section{Analisi dettagliata degli scenari (\textit{Abuse e Misuse Cases})}
+A completamento dell'analisi tabellare, approfondiamo gli scenari più significativi distinguendo tra \textit{Abuse Cases} (azioni malevole intenzionali) e \textit{Misuse Cases} (errori non intenzionali o guasti), organizzati per area tematica.
 
 % --- Colori Personalizzati Capitolo 3 (Abuse/Misuse) ---
-\definecolor{abuseHeader}{RGB}{255, 140, 0}   % Arancione scuro
-\definecolor{abuseCol}{RGB}{255, 229, 204}    % Arancione molto chiaro
-\definecolor{misuseHeader}{RGB}{65, 105, 225} % Royal Blue
-\definecolor{misuseCol}{RGB}{230, 240, 255}   % Blu molto chiaro
+\definecolor{abuseHeader}{RGB}{255, 140, 0}   
+\definecolor{abuseCol}{RGB}{255, 229, 204}    
+\definecolor{misuseHeader}{RGB}{65, 105, 225} 
+\definecolor{misuseCol}{RGB}{230, 240, 255}   
 
-\subsection{Integrità dei Dati IoT (Asset A2)}
-La validità del sistema dipende interamente dalla veridicità dei dati trasmessi dai sensori. Qui analizziamo il rischio di spoofing da parte di un attaccante esterno e l'inaffidabilità dovuta a guasti hardware.
+\subsection{Integrità dei dati IoT (Asset A2)}
+La validità del sistema dipende interamente dalla veridicità dei dati trasmessi dai sensori. Qui analizziamo il rischio di impersonificazione da parte di un attaccante esterno e l'inaffidabilità dovuta a guasti hardware.
 
 \subsubsection*{ABUSE CASE: S2.1-A}
 \begin{longtable}{| >{\columncolor{abuseCol}}p{0.25\textwidth} | p{0.67\textwidth} |}
 \hline
-\rowcolor{abuseHeader} \textcolor{white}{\textbf{Campo}} & \textcolor{white}{\textbf{Contenuto}} \\
+\rowcolor{abuseHeader} \textcolor{white}{\textit{Campo}} & \textcolor{white}{\textit{Contenuto}} \\
 \hline
-\textbf{Case Type} & Abuse Case \\
+\textit{Tipologia scenario} & Abuse Case \\
 \hline
-\textbf{Use Case} & invio Evidenza Sensore \\
+\textit{Caso d'uso} & invio evidenza sensore \\
 \hline
-\textbf{Case ID} & S2.1-A \\
+\textit{ID scenario} & S2.1-A \\
 \hline
-\textbf{Case Name} & \textbf{sensore malevolo falsificato} \\
+\textit{Nome scenario} & \textit{sensore malevolo falsificato} \\
 \hline
-\textbf{Actors} & attaccante esterno con chiave compromessa RUOLO\_SENSORE \\
+\textit{Attori} & attaccante esterno con chiave compromessa (ruolo sensore) \\
 \hline
-\textbf{Description} & Un attaccante riesce ad ottenere la chiave privata di un account con RUOLO\_SENSORE (ad esempio tramite phishing, malware IoT o compromissione fisica del dispositivo) e la sfrutta per inviare evidenze falsificate allo smart contract, facendo sì che spedizioni non conformi vengano erroneamente validate. \\
+\textit{Descrizione} & un attaccante riesce ad ottenere la chiave privata di un account autorizzato (ad esempio tramite phishing, software malevolo o compromissione fisica del dispositivo) e la sfrutta per inviare evidenze falsificate allo smart contract, facendo sì che spedizioni non conformi vengano erroneamente validate. \\
 \hline
-\textbf{Data} & chiave privata RUOLO\_SENSORE, ID spedizione target, valori evidenze falsificati (E1-E5) \\
+\textit{Dati} & chiave privata del sensore, ID spedizione bersaglio, valori evidenze falsificati (E1-E5) \\
 \hline
-\textbf{Stimulus/Precond.} & - Spedizione in stato InAttesa \newline - Attaccante possiede chiave con RUOLO\_SENSORE \newline - Target: spedizione con merce deteriorata (temperatura fuori range) \\
+\textit{Precondizioni} & - spedizione in stato "In Attesa" \newline - l'attaccante possiede una chiave autorizzata \newline - bersaglio: spedizione con merce deteriorata (temperatura fuori limite) \\
 \hline
-\textbf{Basic Flow} & 1. L'attaccante individua la spedizione target monitorando gli eventi sulla blockchain \newline 2. Chiama \texttt{inviaEvidenza(idSpedizione, 1, true)} inserendo valori positivi \newline 3. Ripete l'operazione per E2-E5 con valori falsificati \newline 4. Il corriere chiama \texttt{validaEPaga()} e il sistema valida la spedizione \newline 5. Il corriere viene pagato per merce non conforme, a danno del mittente \\
+\textit{Flusso principale} & 1. l'attaccante individua la spedizione monitorando gli eventi sulla blockchain \newline 2. invia evidenze inserendo valori positivi fittizi \newline 3. ripete l'operazione per tutti i sensori coinvolti \newline 4. il corriere richiede il pagamento e il sistema valida la spedizione \newline 5. il corriere viene pagato illegittimamente per merce non conforme \\
 \hline
-\textbf{Alternative Flow} & - Se la transazione viene rifiutata per mancanza del ruolo, l'attacco fallisce senza conseguenze \newline - Se l'evidenza per quel sensore è già registrata, l'attaccante tenta con un altro account compromesso \\
+\textit{Flusso alternativo} & - se la transazione viene rifiutata per mancanza di autorizzazioni, l'attacco fallisce \newline - se l'evidenza è già registrata, l'attaccante tenta con un altro account compromesso \\
 \hline
-\textbf{Exception Flow} & - Il sistema rileva che le evidenze arrivano troppo ravvicinate nel tempo (anomalia temporale) \newline - Invii multipli dallo stesso sensore per la stessa spedizione vengono bloccati automaticamente \\
+\textit{Eccezioni} & - il sistema rileva invii troppo ravvicinati nel tempo (anomalia temporale) \newline - tentativi multipli dallo stesso sensore vengono bloccati automaticamente \\
 \hline
-\textbf{Response/Post.} & \textbf{Se l'attacco riesce:} il mittente paga per merce non conforme, che viene consegnata senza verifiche reali \newline \textbf{Tracciabilità:} tutte le transazioni restano registrate sulla blockchain, utili per analisi a posteriori \\
+\textit{Risultato} & \textit{se l'attacco riesce:} il mittente paga per merce deteriorata \newline \textit{tracciabilità:} ogni operazione resta registrata sulla blockchain per analisi future \\
 \hline
-\textbf{Comments} & \textbf{CAPEC-151:} Identity Spoofing \newline \textbf{Contromisure consigliate:} rotazione periodica delle chiavi dei sensori, vincolo hardware tra chiave e dispositivo fisico, autenticazione tramite challenge-response \\
+\textit{Commenti} & \textit{CAPEC-151:} Impersonificazione (Identity Spoofing) \newline \textit{contromisure consigliate:} rotazione periodica delle chiavi, vincolo hardware per il dispositivo, autenticazione a sfida \\
 \hline
 \end{longtable}
 
 \subsubsection*{MISUSE CASE: S2.1-M}
 \begin{longtable}{| >{\columncolor{misuseCol}}p{0.25\textwidth} | p{0.70\textwidth} |}
 \hline
-\rowcolor{misuseHeader} \textcolor{white}{\textbf{Campo}} & \textcolor{white}{\textbf{Contenuto}} \\
+\rowcolor{misuseHeader} \textcolor{white}{\textit{Campo}} & \textcolor{white}{\textit{Contenuto}} \\
 \hline
-\textbf{Case Type} & Misuse Case \\
+\textit{Tipologia scenario} & Misuse Case \\
 \hline
-\textbf{Use Case} & invio Evidenza Sensore \\
+\textit{Caso d'uso} & invio evidenza sensore \\
 \hline
-\textbf{Case ID} & S2.1-M \\
+\textit{ID scenario} & S2.1-M \\
 \hline
-\textbf{Case Name} & \textbf{guasto hardware sensore (Unreliability)} \\
+\textit{Nome scenario} & \textit{guasto hardware sensore (Inaffidabilità)} \\
 \hline
-\textbf{Actors} & sensore IoT difettoso/starato \\
+\textit{Attori} & sensore IoT difettoso o non calibrato \\
 \hline
-\textbf{Description} & Un sensore IoT legittimamente autorizzato trasmette dati errati a causa di problemi hardware: deriva della calibrazione, batteria in esaurimento o interferenze elettromagnetiche nell'ambiente di trasporto. Questo può generare falsi positivi o negativi non intenzionali nella valutazione della spedizione. \\
+\textit{Descrizione} & un sensore legittimo trasmette dati errati a causa di problemi hardware: perdita di calibrazione, batteria scarica o interferenze elettromagnetiche. Ciò può generare valutazioni errate della spedizione senza intenzione malevola. \\
 \hline
-\textbf{Data} & letture sensore errate, timestamp \\
+\textit{Dati} & letture sensore errate, marca temporale \\
 \hline
-\textbf{Stimulus/Precond.} & - Sensore installato da >6 mesi senza calibrazione \newline - Ambiente con interferenze elettromagnetiche \newline - Batteria sotto 20\% \\
+\textit{Precondizioni} & - sensore in uso da lungo tempo senza manutenzione \newline - ambiente con forti interferenze \newline - livello batteria critico \\
 \hline
-\textbf{Basic Flow} & 1. Il sensore di temperatura presenta una deriva di +2\textdegree C \newline 2. Una spedizione mantenuta a 4\textdegree C viene letta come 6\textdegree C (fuori dal range 2-8\textdegree C) \newline 3. Il sensore invia \texttt{E1=false} in modo erroneo \newline 4. La rete bayesiana calcola una probabilità bassa di conformità \newline 5. La validazione fallisce e il mittente perde il pagamento depositato \\
+\textit{Flusso principale} & 1. il sensore di temperatura presenta un errore di misura \newline 2. una spedizione conforme viene letta come fuori limite \newline 3. il sensore invia una lettura negativa erroneamente \newline 4. la rete bayesiana calcola una probabilità di conformità troppo bassa \newline 5. la validazione fallisce e il mittente perde il deposito cauzionale \\
 \hline
-\textbf{Alternative Flow} & - Gli altri sensori (E2-E5) compensano parzialmente l'errore di E1 grazie alla ridondanza bayesiana \newline - Se il timeout di 7 giorni scade prima della validazione, il mittente può richiedere il rimborso automatico \\
+\textit{Flusso alternativo} & - gli altri sensori compensano l'errore grazie alla ridondanza bayesiana \newline - allo scadere del tempo massimo, il mittente richiede il rimborso automatico \\
 \hline
-\textbf{Exception Flow} & - Il sistema di ridondanza rileva un'incongruenza tra i dati dei diversi sensori \newline - L'amministratore interviene manualmente per risolvere la situazione \\
+\textit{Eccezioni} & - il sistema rileva incongruenze macroscopiche tra i dati dei vari sensori \newline - intervento manuale dell'amministratore per sbloccare la situazione \\
 \hline
-\textbf{Response/Post.} & \textbf{Impatto:} falso negativo --- merce conforme viene rifiutata, il mittente subisce una perdita economica ingiusta \newline \textbf{Requisiti non funzionali:} contratti di manutenzione con SLA, calibrazione almeno semestrale, monitoraggio livello batteria \\
+\textit{Risultato} & \textit{impatto:} rifiuto ingiusto di merce conforme con perdita economica per il mittente \newline \textit{requisiti non funzionali:} manutenzione periodica, monitoraggio della batteria \\
 \hline
-\textbf{Comments} & \textbf{DUA-Unreliability:} l'assenza di manutenzione preventiva è la causa principale \newline \textbf{Contromisure consigliate:} rilevamento automatico della deriva tramite algoritmi di apprendimento, consenso tra sensori multipli \\
+\textit{Commenti} & \textit{DUA-Unreliability:} l'assenza di manutenzione è la causa principale \newline \textit{contromisure consigliate:} algoritmi per il rilevamento della deriva dei dati, confronto tra sensori multipli \\
 \hline
 \end{longtable}
 
-\subsection{Sicurezza dei Pagamenti e Fondi (Asset A3)}
-Gli smart contract gestiscono valore economico reale, rendendoli bersagli primari. Esaminiamo il classico attacco di Reentrancy e, parallelamente, la possibilità di errori umani o blocchi involontari dei fondi (DoS).
+\subsection{Sicurezza dei pagamenti e fondi (Asset A3)}
+Gli smart contract gestiscono valore economico reale, rendendoli bersagli primari. Esaminiamo il classico attacco di reentrancy e, parallelamente, la possibilità di errori umani o blocchi involontari dei fondi (DoS).
 
 \subsubsection*{ABUSE CASE: T3.1-A}
 \begin{longtable}{| >{\columncolor{abuseCol}}p{0.25\textwidth} | p{0.67\textwidth} |}
 \hline
-\rowcolor{abuseHeader} \textcolor{white}{\textbf{Campo}} & \textcolor{white}{\textbf{Contenuto}} \\
+\rowcolor{abuseHeader} \textcolor{white}{\textit{Campo}} & \textcolor{white}{\textit{Contenuto}} \\
 \hline
-\textbf{Case Type} & Abuse Case \\
+\textit{Tipologia scenario} & Abuse Case \\
 \hline
-\textbf{Use Case} & pagamento Mittente \\
+\textit{Caso d'uso} & pagamento mittente \\
 \hline
-\textbf{Case ID} & T3.1-A \\
+\textit{ID scenario} & T3.1-A \\
 \hline
-\textbf{Case Name} & \textbf{reentrancy attack su validaEPaga} \\
+\textit{Nome scenario} & \textit{reentrancy attack su validaEPaga} \\
 \hline
-\textbf{Actors} & attaccante che deploya uno smart contract malevolo registrato come corriere \\
+\textit{Attori} & attaccante che pubblica uno smart contract malevolo registrato come corriere \\
 \hline
-\textbf{Description} & L'attaccante deploya uno smart contract malevolo dotato di una funzione \texttt{receive()} che richiama automaticamente \texttt{validaEPaga()}. In assenza di protezioni, quando BNPagamenti esegue il trasferimento fondi al corriere tramite \texttt{.call\{value\}}, la fallback rientra nella funzione prima dell'aggiornamento dello stato, consentendo pagamenti multipli dalla stessa spedizione. \\
+\textit{Descrizione} & l'attaccante pubblica un contratto malevolo dotato di una funzione di ricezione che richiama automaticamente la validazione. In assenza di protezioni, quando il sistema esegue il trasferimento dei fondi, il contratto malevolo rientra nella funzione prima dell'aggiornamento dello stato, consentendo prelievi multipli per la stessa spedizione. \\
 \hline
-\textbf{Data} & contratto corriere malevolo con fallback, ID spedizione, saldo complessivo dello smart contract \\
+\textit{Dati} & contratto corriere malevolo, ID spedizione, saldo complessivo dello smart contract \\
 \hline
-\textbf{Stimulus/Precond.} & - Un mittente (complice o ignaro) crea una spedizione specificando il contratto malevolo come corriere \newline - La spedizione ha tutte le evidenze complete e valide \newline - Lo smart contract detiene fondi in escrow di più spedizioni attive \\
+\textit{Precondizioni} & - l'attaccante crea una spedizione usando il proprio contratto malevolo come indirizzo del corriere \newline - la spedizione ha evidenze complete e valide \newline - lo smart contract detiene fondi in escrow di più spedizioni attive \\
 \hline
-\textbf{Basic Flow} & 1. L'attaccante deploya un contratto con \texttt{receive()} malevola \newline 2. Una spedizione viene creata con questo contratto come corriere \newline 3. Le evidenze vengono inviate e risultano valide \newline 4. Il contratto malevolo (corriere) chiama \texttt{validaEPaga()} \newline 5. BNPagamenti esegue \texttt{corriere.call\{value: importo\}("")} \newline 6. La fallback ri-chiama \texttt{validaEPaga()}, \texttt{stato == InAttesa} ancora vero $\to$ secondo pagamento \newline 7. Il ciclo si ripete drenando i fondi nel contratto \\
+\textit{Flusso principale} & 1. l'attaccante pubblica un contratto con funzione di ricezione malevola \newline 2. una spedizione viene creata con tale contratto come corriere \newline 3. le evidenze risultano valide \newline 4. il sistema trasferisce i fondi al contratto malevolo, la cui funzione \texttt{receive} richiama automaticamente \texttt{validaEPaga} prima che lo stato venga aggiornato \newline 5. il ciclo si ripete drenando i fondi nel contratto \\
 \hline
-\textbf{Alternative Flow} & - Se il ReentrancyGuard è attivo, la seconda chiamata viene immediatamente annullata con un revert \newline - Se si segue il pattern Checks-Effects-Interactions, lo stato viene aggiornato prima del trasferimento, impedendo la rientranza \\
+\textit{Flusso alternativo} & - se la protezione contro la reentrancy è attiva, la seconda chiamata viene annullata \newline - se si segue il corretto ordine operativo (aggiornamento stato prima dell'invio), la rientranza è impedita \\
 \hline
-\textbf{Exception Flow} & - Il ciclo si interrompe per esaurimento del gas \newline - Il saldo del contratto diventa insufficiente e la transazione va in revert \\
+\textit{Eccezioni} & - il ciclo si interrompe per esaurimento del gas per la transazione \newline - il saldo del contratto diventa insufficiente e l'operazione fallisce \\
 \hline
-\textbf{Response/Post.} & \textbf{Se l'attacco riesce:} tutti i fondi presenti nel contratto vengono drenati \newline \textbf{Se l'attacco fallisce:} la transazione viene annullata, nessun pagamento avviene \\
+\textit{Risultato} & \textit{se l'attacco riesce:} tutti i fondi nel contratto vengono sottratti \newline \textit{se l'attacco fallisce:} la transazione viene annullata e i fondi restano al sicuro \\
 \hline
-\textbf{Comments} & \textbf{CAPEC-194:} Fake Resource Injection \newline \textbf{Contromisure implementate:} OpenZeppelin ReentrancyGuard, pattern CEI (lo stato viene aggiornato prima del trasferimento fondi), pagamento diretto protetto dal guard \\
+\textit{Commenti} & \textit{CAPEC-194:} Iniezione di risorse fittizie \newline \textit{contromisure implementate:} ReentrancyGuard, pattern Checks-Effects-Interactions (CEI), pagamenti diretti protetti \\
 \hline
 \end{longtable}
 
 \subsubsection*{MISUSE CASE: T3.1-M}
 \begin{longtable}{| >{\columncolor{misuseCol}}p{0.25\textwidth} | p{0.70\textwidth} |}
 \hline
-\rowcolor{misuseHeader} \textcolor{white}{\textbf{Campo}} & \textcolor{white}{\textbf{Contenuto}} \\
+\rowcolor{misuseHeader} \textcolor{white}{\textit{Campo}} & \textcolor{white}{\textit{Contenuto}} \\
 \hline
-\textbf{Case Type} & Misuse Case \\
+\textit{Tipologia scenario} & Misuse Case \\
 \hline
-\textbf{Use Case} & creazione Spedizione \\
+\textit{Caso d'uso} & creazione spedizione \\
 \hline
-\textbf{Case ID} & T3.1-M \\
+\textit{ID scenario} & T3.1-M \\
 \hline
-\textbf{Case Name} & \textbf{errore indirizzo corriere (User Mistake)} \\
+\textit{Nome scenario} & \textit{errore indirizzo corriere (Errore utente)} \\
 \hline
-\textbf{Actors} & mittente distratto \\
+\textit{Attori} & mittente distratto \\
 \hline
-\textbf{Description} & Il mittente inserisce per errore un indirizzo sbagliato nel campo ``Corriere'' durante la creazione della spedizione. Dato che la blockchain non verifica l'identità reale dietro un indirizzo, il pagamento finale verrà inviato all'indirizzo errato senza possibilità di annullamento. \\
+\textit{Descrizione} & il mittente inserisce per errore un indirizzo sbagliato nel campo destinato al corriere. Poiché la blockchain non verifica l'identità reale dietro un indirizzo, il pagamento finale verrà inviato al destinatario errato senza possibilità di recupero. \\
 \hline
-\textbf{Data} & indirizzo corriere errato, fondi ETH depositati \\
+\textit{Dati} & indirizzo corriere errato, fondi ETH depositati \\
 \hline
-\textbf{Stimulus/Precond.} & - Creazione spedizione tramite la DApp \newline - Inserimento manuale dell'indirizzo del corriere \newline - Nessuna validazione del checksum o dell'identità del destinatario \\
+\textit{Precondizioni} & - creazione della spedizione tramite l'interfaccia web \newline - inserimento manuale dell'indirizzo \newline - assenza di verifica dell'identità del destinatario \\
 \hline
-\textbf{Basic Flow} & 1. Il mittente inserisce l'indirizzo del corriere con un errore di battitura (ad esempio \texttt{0xAb...} invece di \texttt{0xAc...}) \newline 2. La spedizione viene completata regolarmente dai sensori \newline 3. La funzione \texttt{validaEPaga()} trasferisce i fondi all'indirizzo sbagliato \newline 4. Il corriere reale non riceve il compenso pattuito \\
+\textit{Flusso principale} & 1. il mittente digita erroneamente l'indirizzo del corriere \newline 2. la spedizione procede regolarmente con l'invio delle evidenze \newline 3. la validazione trasferisce i fondi all'indirizzo digitato \newline 4. il corriere legittimo non riceve il compenso \\
 \hline
-\textbf{Alternative Flow} & - Se l'indirizzo errato ha un checksum valido, i fondi finiscono a uno sconosciuto o vengono ``bruciati'' \\
+\textit{Flusso alternativo} & - se l'indirizzo non esiste o è malformato, la transazione potrebbe fallire preventivamente \\
 \hline
-\textbf{Exception Flow} & - Un'interfaccia con rubrica indirizzi o lettura QR code previene l'errore di digitazione \\
+\textit{Eccezioni} & - l'uso di una rubrica di indirizzi certificati previene l'errore di digitazione \\
 \hline
-\textbf{Response/Post.} & \textbf{Impatto:} perdita dei fondi versati, possibile contenzioso legale con il corriere reale \newline \textbf{Requisiti non funzionali:} interfaccia con selezione da elenco di corrieri certificati \\
+\textit{Risultato} & \textit{impatto:} perdita definitiva dei fondi e possibile contenzioso legale \newline \textit{requisiti non funzionali:} interfaccia con selezione da elenco di operatori verificati \\
 \hline
-\textbf{Comments} & \textbf{DUA-Exposure:} l'interfaccia espone l'utente a errori umani costosi \newline \textbf{Contromisure consigliate:} lista bianca di corrieri verificati, rubrica indirizzi integrata nella DApp \\
+\textit{Commenti} & \textit{DUA-Exposure:} l'interfaccia espone l'utente a errori umani onerosi \newline \textit{contromisure consigliate:} lista bianca di corrieri, rubrica integrata nell'applicazione \\
 \hline
 \end{longtable}
 
 \subsubsection*{ABUSE CASE: D3.1-A}
 \begin{longtable}{| >{\columncolor{abuseCol}}p{0.25\textwidth} | p{0.67\textwidth} |}
 \hline
-\rowcolor{abuseHeader} \textcolor{white}{\textbf{Campo}} & \textcolor{white}{\textbf{Contenuto}} \\
+\rowcolor{abuseHeader} \textcolor{white}{\textit{Campo}} & \textcolor{white}{\textit{Contenuto}} \\
 \hline
-\textbf{Case Type} & Abuse Case \\
+\textit{Tipologia scenario} & Abuse Case \\
 \hline
-\textbf{Use Case} & validazione Spedizione \\
+\textit{Caso d'uso} & validazione spedizione \\
 \hline
-\textbf{Case ID} & D3.1-A \\
+\textit{ID scenario} & D3.1-A \\
 \hline
-\textbf{Case Name} & \textbf{withholding attack (Denial of Service)} \\
+\textit{Nome scenario} & \textit{blocco intenzionale delle evidenze (Denial of Service)} \\
 \hline
-\textbf{Actors} & sensore compromesso / Corriere collusivo \\
+\textit{Attori} & sensore compromesso o corriere collusivo \\
 \hline
-\textbf{Description} & Un attaccante che controlla un sensore (ad esempio E5) oppure un corriere collusivo rifiuta intenzionalmente di inviare l'ultima evidenza necessaria alla validazione, bloccando così i fondi del mittente in escrow come forma di estorsione o per arrecare danno reputazionale al sistema. \\
+\textit{Descrizione} & un attaccante che controlla un sensore o un corriere rifiuta intenzionalmente di inviare l'ultima evidenza necessaria, bloccando i fondi del mittente in escrow come forma di estorsione o sabotaggio. \\
 \hline
-\textbf{Data} & ID spedizione, evidenze E1-E4 (inviate), E5 (trattenuta) \\
+\textit{Dati} & ID spedizione, evidenze parziali inviate, ultima evidenza trattenuta \\
 \hline
-\textbf{Stimulus/Precond.} & - Spedizione in stato InAttesa \newline - Evidenze E1-E4 già registrate on-chain \newline - L'attaccante controlla il sensore E5 oppure l'account corriere \newline - Scenario ipotetico senza meccanismo di timeout \\
+\textit{Precondizioni} & - spedizione in attesa di completamento \newline - gran parte delle evidenze sono già registrate \newline - l'attaccante ha il controllo del caricamento dati residuo \\
 \hline
-\textbf{Basic Flow} & 1. La spedizione procede normalmente nelle fasi iniziali \newline 2. I sensori E1-E4 inviano regolarmente le loro evidenze \newline 3. L'attaccante trattiene deliberatamente E5 a tempo indeterminato \newline 4. Senza tutte le evidenze, \texttt{validaEPaga()} non può essere chiamata \newline 5. I fondi del mittente restano bloccati nel contratto \\
+\textit{Flusso principale} & 1. la spedizione procede regolarmente fino alle fasi finali \newline 2. l'attaccante trattiene deliberatamente l'ultimo dato necessario \newline 3. senza il set completo, la validazione non può essere completata \newline 4. i fondi del mittente restano bloccati nel contratto a tempo indeterminato \\
 \hline
-\textbf{Alternative Flow} & - L'attaccante chiede un riscatto in cambio dell'invio di E5 \newline - Più sensori vengono compromessi contemporaneamente (E3+E4+E5) per rendere l'attacco più robusto \\
+\textit{Flusso alternativo} & - l'attaccante richiede un compenso extra per l'invio del dato mancante \newline - manomissione simultanea di più canali di invio per rendere il blocco efficace \\
 \hline
-\textbf{Exception Flow} & - Allo scadere del timeout di 7 giorni, il mittente può chiamare \texttt{richiestaRimborso()} per recuperare i fondi \newline - L'amministratore interviene in caso di emergenza \\
+\textit{Eccezioni} & - allo scadere del tempo massimo prefissato, il mittente può richiedere il rimborso automatico \newline - intervento manuale dell'amministratore per sbloccare i fondi \\
 \hline
-\textbf{Response/Post.} & \textbf{Se l'attacco riesce:} blocco temporaneo dei fondi, danno alla reputazione del sistema, possibile estorsione \newline \textbf{Contromisura attiva:} rimborso automatico allo scadere del timeout \\
+\textit{Risultato} & \textit{se l'attacco riesce:} blocco temporaneo dei fondi e danno reputazionale al sistema \newline \textit{contromisura attiva:} rimborso automatico garantito dopo il periodo di inattività \\
 \hline
-\textbf{Comments} & \textbf{CAPEC-227:} Sustained Client Engagement \newline \textbf{Contromisure:} timeout automatico con logica di rimborso dopo 3 tentativi di validazione falliti \\
+\textit{Commenti} & \textit{CAPEC-603:} Blockage \newline \textit{contromisure:} tempo massimo (timeout) con logica di rimborso dopo tentativi falliti \\
 \hline
 \end{longtable}
 
 \subsubsection*{MISUSE CASE: D3.1-M}
 \begin{longtable}{| >{\columncolor{misuseCol}}p{0.25\textwidth} | p{0.70\textwidth} |}
 \hline
-\rowcolor{misuseHeader} \textcolor{white}{\textbf{Campo}} & \textcolor{white}{\textbf{Contenuto}} \\
+\rowcolor{misuseHeader} \textcolor{white}{\textit{Campo}} & \textcolor{white}{\textit{Contenuto}} \\
 \hline
-\textbf{Case Type} & Misuse Case \\
+\textit{Tipologia scenario} & Misuse Case \\
 \hline
-\textbf{Use Case} & validazione Spedizione \\
+\textit{Caso d'uso} & validazione spedizione \\
 \hline
-\textbf{Case ID} & D3.1-M \\
+\textit{ID scenario} & D3.1-M \\
 \hline
-\textbf{Case Name} & \textbf{timeout connettività IoT (Absence of Resilience)} \\
+\textit{Nome scenario} & \textit{perdita connettività IoT (Assenza di resilienza)} \\
 \hline
-\textbf{Actors} & sensore offline per guasto rete/alimentazione \\
+\textit{Attori} & sensore offline per guasto di rete o alimentazione \\
 \hline
-\textbf{Description} & Un sensore legittimo perde la connettività durante il trasporto (batteria esaurita, zona senza copertura di rete, guasto al modem) e non riesce a trasmettere le evidenze, causando un blocco involontario dei fondi del mittente. \\
+\textit{Descrizione} & un sensore perde la connessione durante il trasporto (batteria scarica, assenza di campo o guasto hardware) e non trasmette le evidenze, causando il blocco involontario dei fondi del mittente. \\
 \hline
-\textbf{Data} & evidenze trasmesse solo parzialmente, log di connettività del sensore \\
+\textit{Dati} & evidenze parziali, log di connessione del sensore \\
 \hline
-\textbf{Stimulus/Precond.} & - Spedizione in transito attraverso una zona remota con scarsa copertura \newline - Livello batteria del sensore sotto il 10\% \newline - Nessun meccanismo di memorizzazione locale e invio differito \\
+\textit{Precondizioni} & - spedizione in transito in zone con scarsa copertura \newline - livello batteria del sensore ormai critico \newline - assenza di memoria interna per invii differiti \\
 \hline
-\textbf{Basic Flow} & 1. La spedizione parte con tutti i sensori funzionanti \newline 2. Attraversando una zona montuosa si perde il segnale GSM \newline 3. Le evidenze E1 ed E2 vengono inviate, ma E3-E5 non vengono mai trasmesse \newline 4. La batteria del sensore si esaurisce \newline 5. La spedizione arriva a destinazione, ma senza evidenze complete \newline 6. I fondi del mittente restano bloccati (non intenzionalmente) \\
+\textit{Flusso principale} & 1. la spedizione parte regolarmente \newline 2. durante il tragitto si perde il segnale di rete \newline 3. solo una parte delle evidenze viene trasmessa correttamente \newline 4. la batteria del sensore si esaurisce prima del ripristino della connettività \newline 5. la merce arriva ma il sistema non può validare la spedizione \\
 \hline
-\textbf{Alternative Flow} & - Il sensore recupera la connessione appena in tempo e riesce a trasmettere le evidenze mancanti \newline - Le evidenze vengono recuperate manualmente dal logger interno del dispositivo \\
+\textit{Flusso alternativo} & - il sensore riaggancia la rete in tempo per terminare l'invio \newline - recupero manuale dei dati dalla memoria interna del dispositivo \\
 \hline
-\textbf{Exception Flow} & - Il sistema rileva il timeout di 7 giorni e attiva il rimborso automatico al mittente \newline - Il corriere fornisce documentazione alternativa delle evidenze mancanti \\
+\textit{Eccezioni} & - il sistema permette il rimborso automatico al mittente dopo 7 giorni di inattività \newline - il corriere fornisce prove alternative della conformità \\
 \hline
-\textbf{Response/Post.} & \textbf{Impatto:} il mittente deve attendere 7 giorni per il rimborso, il servizio risulta degradato, costi di opportunità \newline \textbf{Requisiti non funzionali:} SLA con garanzia di disponibilità al 99.5\%, batterie sostituibili a caldo, doppia SIM con failover automatico \\
+\textit{Risultato} & \textit{impatto:} degradazione del servizio con attesa forzata per il rimborso \newline \textit{requisiti non funzionali:} garanzia di disponibilità, batterie di lunga durata, doppia SIM \\
 \hline
 \end{longtable}
 
-\subsection{Configurazione e Logica Bayesiana (Asset A5 e A6)}
-Questi scenari si concentrano sulla manipolazione della logica decisionale del sistema (le CPT) e sul furto di informazioni sensibili tramite reverse engineering o data mining.
+\subsection{Configurazione e logica bayesiana (Asset A5 e A6)}
+Questi scenari si concentrano sulla manipolazione della logica decisionale del sistema (le tabelle CPT) e sull'estrazione di informazioni sensibili tramite analisi inversa o analisi dei dati pubblici.
 
 \subsubsection*{ABUSE CASE: T5.1-A}
 \begin{longtable}{| >{\columncolor{abuseCol}}p{0.25\textwidth} | p{0.67\textwidth} |}
 \hline
-\rowcolor{abuseHeader} \textcolor{white}{\textbf{Campo}} & \textcolor{white}{\textbf{Contenuto}} \\
+\rowcolor{abuseHeader} \textcolor{white}{\textit{Campo}} & \textcolor{white}{\textit{Contenuto}} \\
 \hline
-\textbf{Case Type} & Abuse Case \\
+\textit{Tipologia scenario} & Abuse Case \\
 \hline
-\textbf{Use Case} & configurazione Rete Bayesiana \\
+\textit{Caso d'uso} & configurazione rete bayesiana \\
 \hline
-\textbf{Case ID} & T5.1-A \\
+\textit{ID scenario} & T5.1-A \\
 \hline
-\textbf{Case Name} & \textbf{insider admin attack su parametri bayesiani} \\
+\textit{Nome scenario} & \textit{abuso privilegi amministratore sui parametri bayesiani} \\
 \hline
-\textbf{Actors} & admin infedele con RUOLO\_ORACOLO \\
+\textit{Attori} & amministratore infedele \\
 \hline
-\textbf{Description} & Un amministratore con privilegi RUOLO\_ORACOLO modifica intenzionalmente le tabelle di probabilità condizionate (CPT) per alterare la logica decisionale del sistema, favorendo validazioni fraudolente --- ad esempio impostando P(Esito$|$Freschezza=false) al 95\% invece del corretto 10\%. \\
+\textit{Descrizione} & un amministratore con privilegi elevati modifica intenzionalmente le tabelle di probabilità condizionate (CPT) per alterare la logica del sistema, favorendo validazioni fraudolente o sabotando il servizio. \\
 \hline
-\textbf{Data} & variabili CPT (cptEsitoFrFr, cptEsitoFrNF, cptFranchezzaAmb), chiave dell'amministratore \\
+\textit{Dati} & parametri delle tabelle CPT, chiavi di accesso dell'amministratore \\
 \hline
-\textbf{Stimulus/Precond.} & - Admin con RUOLO\_ORACOLO compromesso (corruzione, ricatto, insider threat) \newline - Parametri CPT modificabili tramite la funzione \texttt{impostaCPT()} \newline - Evento \texttt{CPTImpostata} registra le modifiche, ma in assenza di monitoraggio attivo nessuno le nota \\
+\textit{Precondizioni} & - amministratore compromesso o intenzionalmente ostile \newline - parametri modificabili tramite funzioni dedicate \newline - assenza di monitoraggio sulle modifiche effettuate \\
 \hline
-\textbf{Basic Flow} & 1. L'admin chiama \texttt{impostaCPT()} con valori fraudolenti \newline 2. Imposta \texttt{P(Esito|Freschezza=false, \allowbreak Franchezza=false) = 99\%} (dovrebbe essere $\sim$5\%) \newline 3. Qualsiasi spedizione, anche non conforme, supera la validazione \newline 4. Mittenti collusivi ricevono pagamenti indebiti \newline 5. L'integrità del sistema di calcolo risulta completamente compromessa \\
+\textit{Flusso principale} & 1. l'amministratore aggiorna le tabelle CPT con valori arbitrari \newline 2. imposta una probabilità di esito positivo elevata anche per parametri di freschezza negativi \newline 3. ogni spedizione, a prescindere dallo stato reale, supera la validazione \newline 4. pagamento indebito a soggetti collusivi \newline 5. compromissione totale della credibilità del sistema di calcolo \\
 \hline
-\textbf{Alternative Flow} & - L'admin riduce le soglie (ad esempio \texttt{P(Esito|true,true) = 1\%}) per negare pagamenti a spedizioni legittime \\
+\textit{Flusso alternativo} & - l'amministratore imposta parametri tali da impedire sistematicamente i pagamenti legittimi \\
 \hline
-\textbf{Exception Flow} & - Il monitoraggio rileva un tasso di approvazione anomalo (99\%) e genera un allarme \newline - Una governance multi-firma richiede l'approvazione di almeno 2 su 3 amministratori per modificare le CPT \\
+\textit{Eccezioni} & - un sistema di monitoraggio rileva tassi di approvazione anomali e richiede verifiche \newline - l'uso di una gestione multi-firma impedisce a un singolo individuo di modificare la logica \\
 \hline
-\textbf{Response/Post.} & \textbf{Se l'attacco riesce:} perdita di integrità del sistema, validazioni prive di significato, danno finanziario diffuso \newline \textbf{Rilevamento:} analisi statistica dei tassi di validazione, alert automatici sulle anomalie \\
+\textit{Risultato} & \textit{se l'attacco riesce:} perdita di integrità logica e danni economici diffusi \newline \textit{rilevamento:} analisi statistica delle prestazioni del sistema e allarmi su anomalie \\
 \hline
-\textbf{Comments} & \textbf{CAPEC-122:} Privilege Abuse \newline \textbf{Contromisure consigliate:} governance multi-firma, parametri CPT bloccati dopo il deployment, votazione tramite DAO \\
+\textit{Commenti} & \textit{CAPEC-122:} Abuso di privilegi \newline \textit{contromisure consigliate:} controllo multi-firma per le modifiche, parametri bloccati dopo la fase di calibrazione \\
 \hline
 \end{longtable}
 
 \subsubsection*{MISUSE CASE: T5.1-M}
 \begin{longtable}{| >{\columncolor{misuseCol}}p{0.25\textwidth} | p{0.70\textwidth} |}
 \hline
-\rowcolor{misuseHeader} \textcolor{white}{\textbf{Campo}} & \textcolor{white}{\textbf{Contenuto}} \\
+\rowcolor{misuseHeader} \textcolor{white}{\textit{Campo}} & \textcolor{white}{\textit{Contenuto}} \\
 \hline
-\textbf{Case Type} & Misuse Case \\
+\textit{Tipologia scenario} & Misuse Case \\
 \hline
-\textbf{Use Case} & configurazione Rete Bayesiana \\
+\textit{Caso d'uso} & configurazione rete bayesiana \\
 \hline
-\textbf{Case ID} & T5.1-M \\
+\textit{ID scenario} & T5.1-M \\
 \hline
-\textbf{Case Name} & \textbf{errore configurazione probabilità (Human Error)} \\
+\textit{Nome scenario} & \textit{errore configurazione probabilità (Errore umano)} \\
 \hline
-\textbf{Actors} & admin inesperto/distratto \\
+\textit{Attori} & amministratore inesperto o distratto \\
 \hline
-\textbf{Description} & Un amministratore commette un errore non intenzionale durante la configurazione delle CPT: un errore di battitura (scrive 150 anziché 15), un'inversione della condizionalità probabilistica, o un valore fuori scala. \\
+\textit{Descrizione} & un amministratore commette un errore non intenzionale nell'inserimento dei valori delle CPT: inversione di cifre, valori fuori scala o interpretazione errata delle probabilità condizionate. \\
 \hline
-\textbf{Data} & parametri CPT errati, hash della transazione di configurazione \\
+\textit{Dati} & parametri CPT errati, registrazione della transazione di modifica \\
 \hline
-\textbf{Stimulus/Precond.} & - L'admin aggiorna le CPT per incorporare un nuovo modello bayesiano \newline - La validazione del range 0-100 è implementata, ma non copre errori di tipo semantico \newline - Non esiste un ambiente di staging per effettuare test prima della messa in produzione \\
+\textit{Precondizioni} & - aggiornamento del modello bayesiano in corso \newline - validazione dei range presente ma non sufficiente per errori logici \newline - assenza di un ambiente di prova (staging) \\
 \hline
-\textbf{Basic Flow} & 1. L'admin intende impostare un valore CPT pari a 15 (15\%) \newline 2. Digita erroneamente 150 --- ma il \texttt{require(\_cpt <= 100)} lo blocca con un revert \newline 3. Se però non fosse presente la validazione, il valore verrebbe accettato producendo risultati incoerenti \newline 4. I calcoli probabilistici restituirebbero risultati fuori scala \newline 5. Le validazioni diventerebbero casuali e non basate sulle evidenze reali \\
+\textit{Flusso principale} & 1. l'operatore aggiorna le CPT con nuovi valori \newline 2. digita per errore un valore coerente ma scorretto (es. 51\% invece di 15\%) \newline 3. il sistema accetta il dato poiché rientra nel range ammesso \newline 4. i calcoli producono risultati distorti senza che nessuno se ne accorga \newline 5. spedizioni conformi vengono rifiutate (o viceversa) fino alla correzione \\
 \hline
-\textbf{Alternative Flow} & - Errore di scala decimale: l'admin scrive \texttt{0.85} come \texttt{85} (il sistema lo interpreta come 8500\%) \newline - L'admin inverte la probabilità condizionata: inserisce P(Esito$|$Freschezza) al posto di P(Freschezza$|$Esito) \\
+\textit{Flusso alternativo} & - l'operatore digita un valore fuori scala (es. 150\%) e il sistema blocca automaticamente l'operazione \newline - errore nella disposizione delle probabilità (inversione della condizionalità) \\
 \hline
-\textbf{Exception Flow} & - Il controllo \texttt{require(value <= 100)} impedisce i valori fuori range \newline - Un test in ambiente di staging rileva l'incongruenza prima della messa in produzione \\
+\textit{Eccezioni} & - vincoli rigorosi sui valori ammessi integrati nel codice del contratto \newline - test preventivi in ambiente di simulazione prima dell'aggiornamento reale \\
 \hline
-\textbf{Response/Post.} & \textbf{Impatto:} sistema instabile con decisioni errate fino al rollback, validazioni e rimborsi potenzialmente scorretti \newline \textbf{Requisiti non funzionali:} validazione degli input, test unitari sulle configurazioni, rilascio graduale \\
+\textit{Risultato} & \textit{impatto:} instabilità del sistema con decisioni errate fino al ripristino dei valori corretti \newline \textit{requisiti non funzionali:} validazione rigorosa degli input e rilascio controllato \\
+\hline
+\textit{Commenti} & \textit{DUA-Unreliability:} l'interfaccia non impedisce errori semantici nei parametri \newline \textit{contromisure consigliate:} ambiente di staging pre-produzione, verifica incrociata dei valori inseriti, log immutabile delle modifiche \\
 \hline
 \end{longtable}
 
 \subsubsection*{ABUSE CASE: I6.1-A}
 \begin{longtable}{| >{\columncolor{abuseCol}}p{0.25\textwidth} | p{0.67\textwidth} |}
 \hline
-\rowcolor{abuseHeader} \textcolor{white}{\textbf{Campo}} & \textcolor{white}{\textbf{Contenuto}} \\
+\rowcolor{abuseHeader} \textcolor{white}{\textit{Campo}} & \textcolor{white}{\textit{Contenuto}} \\
 \hline
-\textbf{Case Type} & Abuse Case \\
+\textit{Tipologia scenario} & Abuse Case \\
 \hline
-\textbf{Use Case} & consultazione Storico Spedizioni \\
+\textit{Caso d'uso} & consultazione storico spedizioni \\
 \hline
-\textbf{Case ID} & I6.1-A \\
+\textit{ID scenario} & I6.1-A \\
 \hline
-\textbf{Case Name} & \textbf{analisi competitiva blockchain} \\
+\textit{Nome scenario} & \textit{analisi competitiva dei dati pubblici} \\
 \hline
-\textbf{Actors} & concorrente commerciale, data analyst \\
+\textit{Attori} & azienda concorrente o analista dati esterno \\
 \hline
-\textbf{Description} & Un'azienda concorrente analizza le transazioni pubbliche registrate sulla blockchain per estrarre informazioni di intelligence competitiva: volumi di spedizioni, rotte ricorrenti, clienti abituali, periodi di picco e stime dei margini operativi (desumibili dai valori ETH). \\
+\textit{Descrizione} & un concorrente analizza le transazioni pubbliche sulla blockchain per estrarre informazioni di mercato strategiche: volumi di vendita, rotte commerciali, fedeltà dei clienti e stima dei margini di profitto. \\
 \hline
-\textbf{Data} & eventi \texttt{SpedizioneCreata}, \texttt{SpedizionePagata}, indirizzi mittenti/corrieri, importi ETH \\
+\textit{Dati} & eventi di creazione e pagamento spedizioni, importi in valuta, indirizzi dei partecipanti \\
 \hline
-\textbf{Stimulus/Precond.} & - Blockchain pubblica (Besu in modalità permissioned, ma i log degli eventi restano accessibili) \newline - Gli eventi emessi non sono offuscati \newline - Gli indirizzi possono essere correlati a identità reali (fuga di dati KYC, ingegneria sociale) \\
+\textit{Precondizioni} & - blockchain pubblica con log degli eventi accessibili \newline - eventi non offuscati o crittografati \newline - associazione degli indirizzi a identità reali tramite informazioni esterne \\
 \hline
-\textbf{Basic Flow} & 1. Il concorrente raccoglie tutti gli eventi \texttt{SpedizioneCreata} a partire dal blocco iniziale \newline 2. Raggruppa le transazioni per indirizzo del mittente e identifica i clienti principali \newline 3. Analizza i timestamp per rilevare picchi stagionali (ad esempio campagne vaccinali) \newline 4. Correla gli importi in ETH per stimare volumi e margini operativi \newline 5. Utilizza queste informazioni per proporre prezzi più bassi o acquisire clienti chiave \\
+\textit{Flusso principale} & 1. il concorrente raccoglie tutti gli eventi registrati dal sistema \newline 2. identifica i clienti principali tramite gli indirizzi dei mittenti \newline 3. analizza le tempistiche per rilevare picchi stagionali della domanda \newline 4. stima i volumi d'affari correlando gli importi dei pagamenti \newline 5. utilizza queste informazioni per sottrarre clienti o definire strategie di prezzo aggressive \\
 \hline
-\textbf{Alternative Flow} & - Analisi dei pattern delle rotte per ottimizzazione logistica a proprio vantaggio \newline - Identificazione delle validazioni fallite per individuare debolezze del concorrente \\
+\textit{Flusso alternativo} & - analisi dei pattern logistici per ottimizzare le proprie rotte a scapito altrui \newline - studio dei fallimenti per individuare debolezze operative del sistema \\
 \hline
-\textbf{Exception Flow} & - L'hashing dei parametri sensibili (destinazioni, prodotti) limita la fuga di informazioni \newline - Prove a conoscenza zero sugli importi nascondono i margini operativi \\
+\textit{Eccezioni} & - l'uso di tecniche di oscuramento dei dati sensibili limita l'estrazione di informazioni utili \newline - meccanismi di prova a conoscenza zero nascondono i dettagli finanziari \\
 \hline
-\textbf{Response/Post.} & \textbf{Impatto:} perdita del vantaggio competitivo, esposizione di informazioni commerciali riservate \newline \textbf{Aspetto legale:} potenziale violazione del segreto industriale (a seconda della giurisdizione) \\
+\textit{Risultato} & \textit{impatto:} erosione del vantaggio competitivo ed esposizione di segreti industriali \newline \textit{aspetto legale:} possibile violazione delle norme sul segreto commerciale \\
 \hline
-\textbf{Comments} & \textbf{CAPEC-116:} Excavation (raccolta informazioni) \newline \textbf{Contromisure consigliate:} hash dei dati sensibili, accesso in lettura riservato agli stakeholder, transazioni private (Aztec, zkSNARK) \\
+\textit{Commenti} & \textit{CAPEC-169:} Footprinting \newline \textit{contromisure consigliate:} offuscamento dei parametri sensibili, restrizione degli accessi ai log, transazioni private \\
 \hline
 \end{longtable}
 
 \subsubsection*{ABUSE CASE: I5.1-A}
 \begin{longtable}{| >{\columncolor{abuseCol}}p{0.25\textwidth} | p{0.67\textwidth} |}
 \hline
-\rowcolor{abuseHeader} \textcolor{white}{\textbf{Campo}} & \textcolor{white}{\textbf{Contenuto}} \\
+\rowcolor{abuseHeader} \textcolor{white}{\textit{Campo}} & \textcolor{white}{\textit{Contenuto}} \\
 \hline
-\textbf{Case Type} & Abuse Case \\
+\textit{Tipologia scenario} & Abuse Case \\
 \hline
-\textbf{Use Case} & lettura Parametri Bayesiani \\
+\textit{Caso d'uso} & lettura parametri bayesiani \\
 \hline
-\textbf{Case ID} & I5.1-A \\
+\textit{ID scenario} & I5.1-A \\
 \hline
-\textbf{Case Name} & \textbf{storage slot reading via Web3} \\
+\textit{Nome scenario} & \textit{analisi inversa dello stato del contratto} \\
 \hline
-\textbf{Actors} & attaccante/competitor \\
+\textit{Attori} & attaccante o concorrente esperto \\
 \hline
-\textbf{Description} & Anche se le variabili CPT sono dichiarate \texttt{private}, un attaccante può usare \texttt{eth\_getStorageAt} per leggere direttamente gli slot di storage del contratto e decompilare il bytecode per ricostruire la mappatura dei parametri della rete bayesiana. \\
+\textit{Descrizione} & sebbene alcune variabili siano dichiarate private, un attaccante può leggere direttamente lo stato della memoria del contratto tramite chiamate di basso livello, ricostruendo l'intera struttura della rete bayesiana. \\
 \hline
-\textbf{Data} & bytecode del contratto, layout dello storage, valori delle CPT \\
+\textit{Dati} & codice compilato del contratto, layout della memoria, valori delle probabilità \\
 \hline
-\textbf{Stimulus/Precond.} & - Contratto pubblicato su una blockchain pubblica \newline - Le variabili CPT sono dichiarate \texttt{private} ma restano comunque leggibili via RPC \newline - L'attaccante conosce il layout dello storage di Solidity \\
+\textit{Precondizioni} & - contratto pubblicato su blockchain accessibile \newline - dati sensibili memorizzati in chiaro nella memoria operativa del contratto \\
 \hline
-\textbf{Basic Flow} & 1. L'attaccante ottiene l'indirizzo del contratto \newline 2. Usa \texttt{web3.eth.getStorageAt(address, slot)} per ogni slot da 0 a 20 \newline 3. Identifica il pattern delle strutture CPT nello storage \newline 4. Decompila il bytecode con strumenti specializzati (Dedaub, Etherscan) \newline 5. Ricostruisce la rete bayesiana completa \newline 6. Crea un sistema concorrente con la stessa logica (furto di proprietà intellettuale) \\
+\textit{Flusso principale} & 1. l'attaccante individua l'indirizzo del contratto \newline 2. utilizza strumenti di scansione della memoria per ogni registro occupato \newline 3. decodifica la struttura dei dati relativi alle probabilità CPT \newline 4. analizza il codice per comprendere la logica decisionale completa \newline 5. ricrea un sistema identico basato sulla stessa logistica (furto intellettuale) \\
 \hline
-\textbf{Response/Post.} & \textbf{Impatto:} furto del modello bayesiano come proprietà intellettuale, replicazione del sistema, perdita del vantaggio competitivo \\
+\textit{Flusso alternativo} & - l'attaccante correla i parametri estratti con dati pubblici sulle spedizioni per ricostruire le logiche commerciali \newline - analisi automatizzata con script di decodifica dello storage EVM \\
 \hline
-\textbf{Comments} & \textbf{CAPEC-188:} Reverse Engineering \newline \textbf{Contromisure consigliate:} calcolo off-chain con oracolo fidato (Chainlink Functions), prove zkSNARK per validare senza rivelare i parametri \\
+\textit{Eccezioni} & - i parametri vengono calcolati off-chain e solo l'hash del risultato è salvato on-chain \newline - l'uso di tecniche di offuscamento rende la decodifica impraticabile in tempi utili \\
+\hline
+\textit{Risultato} & \textit{impatto:} furto del modello bayesiano proprietario e perdita di esclusività tecnologica \\
+\hline
+\textit{Commenti} & \textit{CAPEC-188:} Ingegneria inversa \newline \textit{contromisure consigliate:} calcoli fuori blocchi (off-chain) con prove di validità, crittografia dei parametri sensibili \\
 \hline
 \end{longtable}
 
-\subsection{Interfaccia Utente e Credenziali (Asset A7 e A8)}
-Infine, analizziamo il vettore di attacco più comune: il fattore umano. Dagli attacchi di phishing (spoofing UI) al furto o smarrimento delle chiavi private, questi scenari eludono spesso le difese crittografiche del contratto.
+\subsection{Interfaccia utente e credenziali (Asset A7 e A8)}
+Infine, analizziamo il vettore di attacco più comune: il fattore umano. Dagli attacchi di phishing (impersonificazione dell'interfaccia) al furto o smarrimento delle chiavi private, questi scenari eludono spesso le difese crittografiche del contratto.
 
 \subsubsection*{ABUSE CASE: S7.1-A}
 \begin{longtable}{| >{\columncolor{abuseCol}}p{0.25\textwidth} | p{0.67\textwidth} |}
 \hline
-\rowcolor{abuseHeader} \textcolor{white}{\textbf{Campo}} & \textcolor{white}{\textbf{Contenuto}} \\
+\rowcolor{abuseHeader} \textcolor{white}{\textit{Campo}} & \textcolor{white}{\textit{Contenuto}} \\
 \hline
-\textbf{Case Type} & Abuse Case \\
+\textit{Tipologia scenario} & Abuse Case \\
 \hline
-\textbf{Use Case} & accesso DApp \\
+\textit{Caso d'uso} & accesso applicazione (DApp) \\
 \hline
-\textbf{Case ID} & S7.1-A \\
+\textit{ID scenario} & S7.1-A \\
 \hline
-\textbf{Case Name} & \textbf{cloning DApp phishing} \\
+\textit{Nome scenario} & \textit{clonazione dell'interfaccia via phishing} \\
 \hline
-\textbf{Actors} & attaccante phisher, utente vittima \\
+\textit{Attori} & attaccante (phisher), utente vittima \\
 \hline
-\textbf{Description} & L'attaccante crea una replica identica della DApp legittima (un clone del frontend) e la ospita su un dominio dal nome simile (typosquatting: ad esempio \texttt{bayesian-oracIe.com} con la I maiuscola al posto della L). L'obiettivo è sottrarre la seed phrase dell'utente o fargli firmare transazioni malevole. \\
+\textit{Descrizione} & l'attaccante crea una replica identica dell'interfaccia legittima e la ospita su un dominio dal nome simile per ingannare l'utente. L'obiettivo è sottrarre la frase di recupero o indurlo a firmare transazioni malevole. \\
 \hline
-\textbf{Data} & seed phrase di MetaMask, chiavi private, token di approvazione \\
+\textit{Dati} & frase di recupero, chiavi private, permessi di accesso \\
 \hline
-\textbf{Stimulus/Precond.} & - L'utente riceve un link di phishing via email o social network \newline - Il frontend della DApp non è verificato (nessun badge ENS) \newline - L'utente non controlla l'URL nella barra degli indirizzi \\
+\textit{Precondizioni} & - l'utente riceve un collegamento ingannevole \newline - l'interfaccia non è verificata \newline - l'utente non controlla l'indirizzo nel browser \\
 \hline
-\textbf{Basic Flow} & 1. L'attaccante registra il dominio \texttt{bayesian-0racle.com} (con lo zero al posto della O) \newline 2. Vi pubblica un clone della DApp con un backend malevolo \newline 3. Invia un'email: ``Aggiorna il wallet per la nuova versione'' \newline 4. L'utente clicca sul link e raggiunge il sito fasullo \newline 5. Compare un popup: ``Riconnetti MetaMask'' $\to$ l'utente inserisce la seed phrase \newline 6. L'attaccante cattura la seed e svuota il wallet \\
+\textit{Flusso principale} & 1. l'attaccante registra un dominio con nome quasi identico all'originale \newline 2. vi pubblica una copia dell'interfaccia con un sistema di cattura dati \newline 3. invia comunicazioni fraudolente richiedendo un aggiornamento \newline 4. l'utente accede al sito fasullo \newline 5. viene richiesto di inserire la frase di recupero per riconnettere il portafoglio \newline 6. l'attaccante sottrae i dati e svuota il portafoglio \\
 \hline
-\textbf{Alternative Flow} & - Richiesta fasulla di ``approvazione contratto'' $\to$ l'utente firma \texttt{approve(attackerAddress, MAX\_UINT)} \newline - Iniezione di script malevolo tramite una CDN compromessa \\
+\textit{Flusso alternativo} & - richiesta di autorizzazione fraudolenta per lo spostamento dei fondi \newline - iniezione di codice malevolo tramite canali di distribuzione compromessi \\
 \hline
-\textbf{Response/Post.} & \textbf{Se l'attacco riesce:} furto completo dei fondi nel wallet, compromissione dell'identità on-chain \newline \textbf{Requisiti non funzionali:} formazione sulla sicurezza, HTTPS obbligatorio, header CSP \\
+\textit{Eccezioni} & - l'utente riconosce il dominio fraudolento e segnala il tentativo \newline - il browser mostra un avviso di certificato non valido per il sito clonato \\
 \hline
-\textbf{Comments} & \textbf{CAPEC-98:} Phishing \newline \textbf{Contromisure consigliate:} HTTPS con HSTS, verifica del nome ENS, collegamento sicuro tramite WalletConnect, avvisi educativi integrati nell'interfaccia \\
+\textit{Risultato} & \textit{se l'attacco riesce:} furto completo dei fondi e compromissione dell'identità \newline \textit{requisiti non funzionali:} formazione sulla sicurezza, connessione sicura obbligatoria \\
+\hline
+\textit{Commenti} & \textit{CAPEC-98:} Phishing \newline \textit{contromisure consigliate:} uso di protocolli sicuri, verifica del nome tramite servizi di identità, avvisi di sicurezza integrati \\
 \hline
 \end{longtable}
 
 \subsubsection*{MISUSE CASE: S7.1-M}
 \begin{longtable}{| >{\columncolor{misuseCol}}p{0.25\textwidth} | p{0.70\textwidth} |}
 \hline
-\rowcolor{misuseHeader} \textcolor{white}{\textbf{Campo}} & \textcolor{white}{\textbf{Contenuto}} \\
+\rowcolor{misuseHeader} \textcolor{white}{\textit{Campo}} & \textcolor{white}{\textit{Contenuto}} \\
 \hline
-\textbf{Case Type} & Misuse Case \\
+\textit{Tipologia scenario} & Misuse Case \\
 \hline
-\textbf{Use Case} & creazione Spedizione \\
+\textit{Caso d'uso} & creazione spedizione \\
 \hline
-\textbf{Case ID} & S7.1-M \\
+\textit{ID scenario} & S7.1-M \\
 \hline
-\textbf{Case Name} & \textbf{errore input parametri (User Mistake)} \\
+\textit{Nome scenario} & \textit{errore di inserimento parametri (Errore utente)} \\
 \hline
-\textbf{Actors} & mittente distratto \\
+\textit{Attori} & mittente distratto \\
 \hline
-\textbf{Description} & Un utente legittimo interagisce con la DApp autentica, ma commette un errore durante l'inserimento dei dati: indirizzo del corriere sbagliato, importo in ETH errato (1 ETH al posto di 0.1), parametro della spedizione invertito. \\
+\textit{Descrizione} & un utente commette un errore durante l'inserimento dei dati nell'interfaccia autentica: indirizzo errato, importo sbagliato o inversione dei parametri di spedizione. \\
 \hline
-\textbf{Data} & parametri della transazione errati, commissioni gas \\
+\textit{Dati} & parametri della transazione errati, costi per il gas \\
 \hline
-\textbf{Stimulus/Precond.} & - Form di creazione spedizione con campi a inserimento libero \newline - Validazione client-side presente ma non esaustiva su tutti i campi \newline - L'utente commette un errore durante il copia-incolla \\
+\textit{Precondizioni} & - moduli con campi a inserimento libero \newline - validazione lato utente non esaustiva \newline - errore durante il copia-incolla delle informazioni \\
 \hline
-\textbf{Basic Flow} & 1. Il mittente crea una spedizione con \texttt{valore = 1 ETH} (voleva scrivere 0.1) \newline 2. Conferma la transazione su MetaMask senza rileggere i dettagli \newline 3. La transazione viene eseguita con un importo 10 volte superiore \newline 4. La validazione ha esito positivo $\to$ il corriere riceve 1 ETH invece di 0.1 \newline 5. Il mittente perde 0.9 ETH senza possibilità di annullamento \\
+\textit{Flusso principale} & 1. il mittente inserisce un importo superiore a quello previsto per errore \newline 2. conferma l'operazione senza rileggere i dettagli \newline 3. la transazione viene eseguita con l'importo errato \newline 4. in caso di validazione positiva, il corriere riceve un compenso eccessivo \newline 5. il mittente perde la differenza senza possibilità di annullamento \\
 \hline
-\textbf{Response/Post.} & \textbf{Impatto:} perdita economica per l'utente, impossibile annullare la transazione una volta confermata \newline \textbf{Requisiti non funzionali:} validazione nell'interfaccia (menù a tendina, slider, limiti massimi), finestra di conferma dettagliata \\
+\textit{Flusso alternativo} & - l'utente si accorge dell'errore prima della conferma e annulla l'operazione \newline - l'importo errato supera il saldo disponibile e la transazione fallisce \\
 \hline
-\textbf{Comments} & \textbf{DUA-Exposure:} un'interfaccia non a prova di errore espone gli utenti a sbagli costosi \newline \textbf{Contromisure consigliate:} vincoli sugli input, anteprima della transazione prima della firma, simulazione con periodo di attesa \\
+\textit{Eccezioni} & - l'interfaccia mostra un riepilogo dettagliato con richiesta di conferma esplicita \newline - vincoli di importo minimo/massimo impediscono valori palesemente errati \\
+\hline
+\textit{Risultato} & \textit{impatto:} perdita economica immediata per l'utente \newline \textit{requisiti non funzionali:} validazione avanzata nell'interfaccia e finestre di conferma dettagliate \\
+\hline
+\textit{Commenti} & \textit{DUA-Exposure:} un'interfaccia poco intuitiva espone a errori costosi \newline \textit{contromisure consigliate:} vincoli sugli input, anteprima della transazione prima della firma definitiva \\
 \hline
 \end{longtable}
 
 \subsubsection*{ABUSE CASE: S8.1-A}
 \begin{longtable}{| >{\columncolor{abuseCol}}p{0.25\textwidth} | p{0.67\textwidth} |}
 \hline
-\rowcolor{abuseHeader} \textcolor{white}{\textbf{Campo}} & \textcolor{white}{\textbf{Contenuto}} \\
+\rowcolor{abuseHeader} \textcolor{white}{\textit{Campo}} & \textcolor{white}{\textit{Contenuto}} \\
 \hline
-\textbf{Case Type} & Abuse Case \\
+\textit{Tipologia scenario} & Abuse Case \\
 \hline
-\textbf{Use Case} & gestione Wallet \\
+\textit{Caso d'uso} & gestione portafoglio \\
 \hline
-\textbf{Case ID} & S8.1-A \\
+\textit{ID scenario} & S8.1-A \\
 \hline
-\textbf{Case Name} & \textbf{keylogger/malware exfiltration} \\
+\textit{Nome scenario} & \textit{sottrazione credenziali tramite software malevolo} \\
 \hline
-\textbf{Actors} & attaccante con malware installato, vittima \\
+\textit{Attori} & attaccante con software malevolo, vittima \\
 \hline
-\textbf{Description} & L'attaccante installa un keylogger o un dirottatore degli appunti sul dispositivo della vittima per catturare la seed phrase durante il ripristino del wallet, oppure estrae le chiavi da uno storage non cifrato. \\
+\textit{Descrizione} & l'attaccante utilizza un captatore di digitazioni o un sistema di monitoraggio degli appunti sul dispositivo della vittima per catturare la frase di recupero o le chiavi private. \\
 \hline
-\textbf{Data} & seed phrase (12 o 24 parole), file keystore JSON, password di MetaMask \\
+\textit{Dati} & frase di recupero, file delle chiavi, password del portafoglio \\
 \hline
-\textbf{Stimulus/Precond.} & - L'utente installa software compromesso (falso airdrop, software piratato) \newline - Il keylogger è attivo in background \newline - L'utente apre MetaMask per ripristinare il wallet \\
+\textit{Precondizioni} & - l'utente installa inconsapevolmente software compromesso \newline - sistema di monitoraggio attivo in background \newline - l'utente esegue operazioni sensibili sul portafoglio \\
 \hline
-\textbf{Basic Flow} & 1. L'utente scarica un ``wallet optimizer tool'' malevolo \newline 2. Il malware installa un keylogger e un monitor degli appunti \newline 3. L'utente avvia il ripristino di MetaMask e digita la seed phrase \newline 4. Il keylogger cattura le parole e le invia al server di comando \newline 5. L'attaccante importa la seed nel proprio wallet \newline 6. Svuota immediatamente tutti i fondi (ETH e token) \\
+\textit{Flusso principale} & 1. l'utente scarica un'applicazione apparentemente innocua ma malevola \newline 2. il software installa un captatore di digitazioni \newline 3. l'utente inserisce la frase di recupero per ripristinare l'identità \newline 4. i dati vengono inviati all'attaccante \newline 5. l'attaccante importa le credenziali e svuota i fondi immediatamente \\
 \hline
-\textbf{Response/Post.} & \textbf{Se l'attacco riesce:} furto totale dei fondi, compromissione permanente dell'identità (la seed non può essere cambiata) \newline \textbf{Rilevamento:} lo svuotamento rapido del wallet è un segnale d'allarme, ma solitamente è già troppo tardi \\
+\textit{Flusso alternativo} & - l'attaccante utilizza un sistema di monitoraggio degli appunti anziché un captatore di digitazioni \newline - compromissione del backup automatico del dispositivo per estrarre i dati \\
 \hline
-\textbf{Comments} & \textbf{ATT\&CK-T1056.001:} Keylogging \newline \textbf{CAPEC-568:} Capture Credentials via Keylogger \newline \textbf{Contromisure consigliate:} hardware wallet obbligatorio per asset di valore elevato, irrobustimento del sistema operativo, antivirus aggiornato \\
+\textit{Eccezioni} & - un software antivirus rileva e blocca il captatore di digitazioni \newline - l'uso di un portafoglio hardware rende inutile la cattura della password software \\
+\hline
+\textit{Risultato} & \textit{se l'attacco riesce:} furto totale dei fondi e perdita permanente dell'identità \newline \textit{rilevamento:} spesso possibile solo a furto avvenuto \\
+\hline
+\textit{Commenti} & \textit{ATT\&CK-T1056.001:} Captazione di digitazioni \newline \textit{contromisure consigliate:} uso obbligatorio di portafogli hardware, protezione attiva del sistema operativo \\
 \hline
 \end{longtable}
 
 \subsubsection*{MISUSE CASE: S8.1-M}
 \begin{longtable}{| >{\columncolor{misuseCol}}p{0.25\textwidth} | p{0.70\textwidth} |}
 \hline
-\rowcolor{misuseHeader} \textcolor{white}{\textbf{Campo}} & \textcolor{white}{\textbf{Contenuto}} \\
+\rowcolor{misuseHeader} \textcolor{white}{\textit{Campo}} & \textcolor{white}{\textit{Contenuto}} \\
 \hline
-\textbf{Case Type} & Misuse Case \\
+\textit{Tipologia scenario} & Misuse Case \\
 \hline
-\textbf{Use Case} & backup Wallet \\
+\textit{Caso d'uso} & salvataggio delle credenziali \\
 \hline
-\textbf{Case ID} & S8.1-M \\
+\textit{ID scenario} & S8.1-M \\
 \hline
-\textbf{Case Name} & \textbf{seed phrase salvata in chiaro (User Negligence)} \\
+\textit{Nome scenario} & \textit{frase di recupero salvata in chiaro (Negligenza)} \\
 \hline
-\textbf{Actors} & utente inesperto/negligente \\
+\textit{Attori} & utente inesperto o negligente \\
 \hline
-\textbf{Description} & L'utente salva la seed phrase in un formato non sicuro: screenshot sincronizzato nel cloud, email inviata a sé stesso, note sullo smartphone non cifrate, foto del backup fisico caricata su Google Photos. \\
+\textit{Descrizione} & l'utente salva la frase di recupero in formati non sicuri: immagini nel cloud, messaggi non protetti o note non cifrate. \\
 \hline
-\textbf{Data} & seed phrase in chiaro, backup nel cloud \\
+\textit{Dati} & frase di recupero in chiaro, copie di backup online \\
 \hline
-\textbf{Stimulus/Precond.} & - Utente alle prime armi con le criptovalute, che non comprende la gravità della seed \newline - Backup automatico nel cloud attivo per impostazione predefinita (iCloud, Google Drive) \newline - Nessuno strumento di gestione dei segreti \\
+\textit{Precondizioni} & - utente poco consapevole dei rischi \newline - backup automatici attivi nel cloud \newline - assenza di strumenti per la gestione sicura dei segreti \\
 \hline
-\textbf{Basic Flow} & 1. Alla creazione del wallet, MetaMask genera la seed phrase \newline 2. L'utente fa uno screenshot su iPhone ``per sicurezza'' \newline 3. iPhone carica automaticamente la foto su iCloud (impostazione predefinita) \newline 4. L'account iCloud viene compromesso (phishing, password debole, assenza 2FA) \newline 5. L'attaccante accede a Foto di iCloud e trova lo screenshot della seed \newline 6. Importa il wallet e svuota i fondi \\
+\textit{Flusso principale} & 1. alla creazione del portafoglio, l'utente scatta una foto alla frase di recupero \newline 2. il sistema carica automaticamente l'immagine nel cloud \newline 3. l'account del cloud viene compromesso per altre vie \newline 4. l'attaccante trova la foto della frase e accede ai fondi \\
 \hline
-\textbf{Response/Post.} & \textbf{Impatto:} furto dei fondi per negligenza, nessuna possibilità di recupero \newline \textbf{Requisiti non funzionali:} tutorial educativo obbligatorio al primo avvio, avviso di MetaMask contro gli screenshot della seed \\
+\textit{Flusso alternativo} & - l'utente scrive la frase su un foglio ma lo lascia in un luogo accessibile \newline - la frase viene condivisa via messaggio non cifrato a un familiare ``di fiducia'' \\
 \hline
-\textbf{Comments} & \textbf{DUA-Exposure:} mancanza di consapevolezza sulla sicurezza delle criptovalute \newline \textbf{Contromisure consigliate:} tutorial integrato sulla protezione della seed, blocco screenshot durante la visualizzazione, frazionamento tramite Shamir Secret Sharing (2 su 3 parti) \\
+\textit{Eccezioni} & - il servizio cloud rileva il contenuto sensibile e avvisa l'utente \newline - l'applicazione del portafoglio impedisce le operazioni di cattura schermo \\
+\hline
+\textit{Risultato} & \textit{impatto:} furto dei fondi per mancata protezione delle credenziali \newline \textit{requisiti non funzionali:} tutorial obbligatori e avvisi contro il salvataggio digitale \\
+\hline
+\textit{Commenti} & \textit{DUA-Exposure:} la mancata formazione espone le credenziali a rischi evitabili \newline \textit{contromisure consigliate:} tutorial obbligatorio alla creazione del portafoglio, blocco dello screenshot durante la visualizzazione della frase \\
 \hline
 \end{longtable}
 
 \subsubsection*{ABUSE CASE: E4.1-A}
 \begin{longtable}{| >{\columncolor{abuseCol}}p{0.25\textwidth} | p{0.67\textwidth} |}
 \hline
-\rowcolor{abuseHeader} \textcolor{white}{\textbf{Campo}} & \textcolor{white}{\textbf{Contenuto}} \\
+\rowcolor{abuseHeader} \textcolor{white}{\textit{Campo}} & \textcolor{white}{\textit{Contenuto}} \\
 \hline
-\textbf{Case Type} & Abuse Case \\
+\textit{Tipologia scenario} & Abuse Case \\
 \hline
-\textbf{Use Case} & assegnazione Ruoli \\
+\textit{Caso d'uso} & assegnazione ruoli \\
 \hline
-\textbf{Case ID} & E4.1-A \\
+\textit{ID scenario} & E4.1-A \\
 \hline
-\textbf{Case Name} & \textbf{privilege escalation via function selector collision} \\
+\textit{Nome scenario} & \textit{escalation privilegi via collisione selettori} \\
 \hline
-\textbf{Actors} & attaccante esperto Solidity \\
+\textit{Attori} & attaccante esperto di Solidity \\
 \hline
-\textbf{Description} & L'attaccante sfrutta una (ipotetica) collisione sugli hash delle firme delle funzioni o una vulnerabilità legata a \texttt{delegatecall} per aggirare il modificatore \texttt{onlyRole} e auto-assegnarsi il RUOLO\_ORACOLO o il DEFAULT\_ADMIN\_ROLE. \\
+\textit{Descrizione} & l'attaccante sfrutta una collisione sugli hash delle firme delle funzioni per aggirare i controlli di accesso e auto-assegnarsi privilegi amministrativi. Sebbene la probabilità di collisione sia estremamente bassa con contratti di dimensioni standard, questo scenario illustra l'importanza di utilizzare librerie di accesso consolidate. \\
 \hline
-\textbf{Data} & collisione sulla firma della funzione, payload delegatecall \\
+\textit{Dati} & collisione sulla firma della funzione, payload transazione \\
 \hline
-\textbf{Stimulus/Precond.} & - Il contratto non usa delegatecall (scenario ipotetico) \newline - Collisione sugli hash dei selettori di funzione (birthday attack su 4 byte) \newline - Assenza di check strict sull'origine della chiamata \\
+\textit{Precondizioni} & - vulnerabilità logica nel sistema di gestione accessi \newline - collisione sugli hash dei selettori di funzione \newline - assenza di controlli rigorosi sull'origine della chiamata \\
 \hline
-\textbf{Basic Flow} & 1. L'attaccante identifica il selettore della funzione \texttt{grantRole(bytes32,address)}: \texttt{0x2f2ff15d} \newline 2. Cerca una funzione apparentemente innocua con lo stesso hash troncato \newline 3. Costruisce un payload che aggira il modificatore tramite la collisione \newline 4. Chiama la funzione ``innocua'' che esegue internamente \texttt{grantRole} \newline 5. Si auto-assegna il DEFAULT\_ADMIN\_ROLE \newline 6. Assume il controllo completo del sistema \\
+\textit{Flusso principale} & 1. l'attaccante identifica il selettore di una funzione critica \newline 2. ricerca una funzione apparentemente innocua con lo stesso identificativo troncato \newline 3. costruisce un pacchetto dati che aggira i modificatori di accesso \newline 4. esegue la chiamata che attiva internamente l'assegnazione dei ruoli \newline 5. assume il controllo completo del sistema \\
 \hline
-\textbf{Response/Post.} & \textbf{Se l'attacco riesce:} presa di controllo completa del contratto, possibilità di modificare la logica e drenare i fondi \newline \textbf{Gravità:} CRITICA \\
+\textit{Flusso alternativo} & - l'attaccante tenta un approccio diverso sfruttando vulnerabilità note nelle librerie di gestione degli accessi \newline - utilizzo di proxy contract per mascherare la chiamata malevola \\
 \hline
-\textbf{Comments} & \textbf{CAPEC-122:} Privilege Abuse \newline \textbf{ATT\&CK-T1078:} Valid Accounts (escalation dei privilegi) \newline \textbf{Contromisure:} utilizzo dell'ultima versione di OpenZeppelin, evitare delegatecall con input utente, verifica formale del controllo degli accessi \\
+\textit{Eccezioni} & - l'uso di librerie verificate (es. OpenZeppelin) rende la collisione dei selettori estremamente improbabile \newline - il sistema di controllo accessi verifica esplicitamente \texttt{msg.sender} indipendentemente dal selettore \\
+\hline
+\textit{Risultato} & \textit{se l'attacco riesce:} presa di controllo totale e possibilità di drenare i fondi \newline \textit{gravità:} critica \\
+\hline
+\textit{Commenti} & \textit{CAPEC-122:} Abuso di privilegi \newline \textit{ATT\&CK-T1078:} Account validi \newline \textit{contromisure:} uso di librerie verificate, verifica formale del controllo degli accessi \\
 \hline
 \end{longtable}
 
-\section{Standard Internazionali e Mitigazioni}
-L'analisi non si è limitata all'identificazione dei rischi, ma ha provveduto a mapparli sui framework standard di settore per garantire una copertura esaustiva. La tabella seguente correla le minacce discusse con i pattern \textbf{CAPEC} (Common Attack Pattern Enumeration and Classification) e le tattiche \textbf{MITRE ATT\&CK}.
+\section{Standard internazionali e mitigazioni}
+L'analisi non si è limitata all'identificazione dei rischi, ma ha provveduto a mapparli sui framework standard di settore per garantire una copertura esaustiva. La Tabella~\ref{tab:capec-mapping} correla le minacce discusse con i pattern \textit{CAPEC} (Common Attack Pattern Enumeration and Classification) e le tattiche \textit{MITRE ATT\&CK}.
 
+\begin{table}[ht!]
+\centering
+\caption{Mappatura minacce su framework CAPEC e MITRE ATT\&CK}
+\label{tab:capec-mapping}
 \begin{tabularx}{\textwidth}{l l l L l}
 \toprule
-\textbf{Threat ID} & \textbf{STRIDE} & \textbf{CAPEC ID} & \textbf{CAPEC Name} & \textbf{ATT\&CK TTP} \\
+\textit{Threat ID} & \textit{STRIDE} & \textit{CAPEC ID} & \textit{CAPEC Name} & \textit{ATT\&CK TTP} \\
 \midrule
 S2.1 & Spoofing & CAPEC-151 & Identity Spoofing & T1134 \\
-T2.1 & Tampering & CAPEC-94 & man-in-the-Middle & T1557 \\
-T3.1 & Tampering & CAPEC-194 & fake Resource Injection & - \\
-T5.1 & Tampering & CAPEC-1 & accessing Functionality Not Properly Constrained & T1078 \\
-D3.1 & Denial & CAPEC-227 & sustained Client Engagement & T1499 \\
-I6.1 & Info Disclosure & CAPEC-116 & excavation & T1213 \\
-I5.1 & Info Disclosure & CAPEC-188 & reverse Engineering & - \\
-S7.1 & Spoofing & CAPEC-98 & phishing & T1566.002 \\
-S8.1 & Spoofing & CAPEC-568 & capture Credentials via Keylogger & T1056.001 \\
-E4.1 & Elevation & CAPEC-122 & privilege Abuse & T1078.004 \\
+T2.1 & Tampering & CAPEC-94 & Man-in-the-Middle & T1557 \\
+T3.1 & Tampering & CAPEC-194 & Fake Resource Injection & - \\
+T5.1 & Tampering & CAPEC-1 & Accessing Functionality Not Properly Constrained & T1078 \\
+D3.1 & Denial & CAPEC-603 & Blockage & T1499 \\
+I6.1 & Info Disclosure & CAPEC-169 & Footprinting & T1213 \\
+I5.1 & Info Disclosure & CAPEC-188 & Reverse Engineering & - \\
+S7.1 & Spoofing & CAPEC-98 & Phishing & T1566.002 \\
+S8.1 & Spoofing & CAPEC-568 & Capture Credentials via Keylogger & T1056.001 \\
+E4.1 & Elevation & CAPEC-122 & Privilege Abuse & T1078.004 \\
 \bottomrule
 \end{tabularx}
+\end{table}
 
 \vspace{1em}
-A fronte di queste minacce, sono state implementate contromisure specifiche (Mitigations) progettate per ridurre il rischio residuo a livelli accettabili:
+A fronte di queste minacce, sono state implementate contromisure specifiche progettate per ridurre il rischio residuo a livelli accettabili:
 
 \begin{enumerate}
-    \item \textbf{Sicurezza degli Smart Contract (A1, A3, A4):}
-    È stata adottata una strategia di difesa in profondità che include l'uso di librerie standard auditate (OpenZeppelin AccessControl e ReentrancyGuard), l'implementazione del pattern Checks-Effects-Interactions per prevenire la rientranza e meccanismi di "Emergency Stop" (Circuit Breaker) per congelare il sistema in caso di anomalie gravi.
+    \item \textit{Sicurezza degli Smart Contract (A1, A3, A4):}
+    è stata adottata una strategia di difesa in profondità che include l'uso di librerie standard verificate, l'implementazione di corretti pattern operativi e meccanismi di blocco temporaneo in caso di anomalie gravi.
 
-    \item \textbf{Integrità dei Dati e IoT (A2, A5):}
-    Per mitigare l'inaffidabilità dei sensori, il sistema non si fida del singolo dato ma utilizza la ridondanza bayesiana. Inoltre, è stato imposto un rate-limiting (1 minuto) per prevenire lo spam di dati e la validazione rigorosa degli input per i parametri CPT (range 0-100).
+    \item \textit{Integrità dei dati e IoT (A2, A5):}
+    per mitigare l'inaffidabilità dei sensori, il sistema utilizza la ridondanza bayesiana. Inoltre, è stata imposta una validazione rigorosa degli input per i parametri della rete.
 
-    \item \textbf{Protezione dell'Utente (A7, A8):}
-    Dato che il fattore umano è l'anello debole non controllabile via codice, le mitigazioni si spostano sul piano educativo e dell'interfaccia: validazione client-side aggressiva, feedback visivi chiari prima della firma delle transazioni e la raccomandazione imperativa di utilizzare Hardware Wallet per la gestione delle chiavi private.
+    \item \textit{Protezione dell'utente (A7, A8):}
+    poiché il fattore umano è l'anello debole, le mitigazioni si spostano sul piano educativo e dell'interfaccia: validazione aggressiva dei dati e raccomandazione all'uso di dispositivi di archiviazione sicuri per le chiavi private.
 \end{enumerate}
 
-\section{Conclusioni e Rischio Residuo}
-L'analisi \textbf{DUAL-STRIDE} ha permesso di identificare 25 scenari di minaccia, dettagliando 9 abuse case e 6 misuse case.
-La valutazione finale dei rischi residui mostra un quadro positivo per quanto riguarda la sicurezza intrinseca del codice, ma evidenzia la criticità permanente legata alla gestione delle credenziali utente.
+\section{Conclusioni e rischio residuo}
+L'analisi \textit{DUAL-STRIDE} ha permesso di identificare 25 scenari di minaccia, dettagliando 9 abuse case e 6 misuse case.
+La valutazione finale, riassunta nella Tabella~\ref{tab:rischio-residuo}, mostra un quadro positivo per quanto riguarda la sicurezza del codice, ma evidenzia la criticità permanente legata alla gestione delle credenziali utente.
 
 \small
+\begin{table}[ht!]
+\centering
+\caption{Rischio residuo per asset}
+\label{tab:rischio-residuo}
 \begin{tabularx}{\textwidth}{l l X l X}
 \toprule
-\textbf{Asset} & \textbf{Rischio inerente} & \textbf{Mitigazioni} & \textbf{Rischio residuo} & \textbf{Accettazione} \\
+\textit{Asset} & \textit{Rischio inerente} & \textit{Mitigazioni} & \textit{Rischio residuo} & \textit{Accettazione} \\
 \midrule
-A1 & CRITICO & Audit + Verifica formale & BASSO & $\checkmark$ Accettato \\
+A1 & CRITICO & Analisi + Verifica formale & BASSO & $\checkmark$ Accettato \\
 A2 & CRITICO & HSM + Firme digitali & MEDIO & $\checkmark$ Accettato \\
 A3 & CRITICO & ReentrancyGuard + Timeout & BASSO & $\checkmark$ Accettato \\
 A4 & ALTO & AccessControl + Eventi & BASSO & $\checkmark$ Accettato \\
-A5 & ALTO & Variabili Private + Validazione input & MEDIO & $\checkmark$ Accettato \\
+A5 & ALTO & Variabili private + Validazione input & MEDIO & $\checkmark$ Accettato \\
 A6 & MEDIO & Hashing & BASSO & $\checkmark$ Accettato \\
-A7 & MEDIO & Validazione input & MEDIO & \textbf{!} Formazione necessaria \\
-A8 & CRITICO & Raccomandazione HW Wallet & ALTO & \textbf{!} Responsabilità utente \\
+A7 & MEDIO & Validazione input & MEDIO & \textit{!} Formazione necessaria \\
+A8 & CRITICO & Raccomandazione HW Wallet & ALTO & \textit{!} Responsabilità utente \\
 \bottomrule
 \end{tabularx}
+\end{table}
 
-In conclusione, mentre gli asset tecnici (A1-A6) sono stati messi in sicurezza con successo, l'asset \textbf{A8 (Chiavi Private)} rimane l'elemento più vulnerabile, non mitigabile tecnologicamente se non tramite l'educazione dell'utente finale.
+In conclusione, mentre gli asset tecnici (A1-A6) sono stati messi in sicurezza con successo, l'asset \textit{A8 (Chiavi Private)} rimane l'elemento più vulnerabile, non mitigabile tecnologicamente se non tramite l'educazione dell'utente finale.

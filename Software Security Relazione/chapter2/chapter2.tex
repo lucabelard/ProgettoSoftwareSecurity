@@ -1,4 +1,4 @@
-\chapter{Analisi e Progettazione Architetturale}
+\chapter{Analisi e progettazione architetturale}
 
 \begin{preamble}
 In questo capitolo delineiamo le fondamenta del sistema, seguendo un percorso logico che parte dai principi di \textit{Design Sicuro} e dall'architettura distribuita, passa per la progettazione rigorosa degli asset secondo linee guida consolidate, e culmina nella validazione formale tramite Catene di Markov. Infine, giustificheremo ogni scelta tecnologica alla luce delle analisi di resistenza, ambiguità e sopravvivenza.
@@ -8,22 +8,22 @@ In questo capitolo delineiamo le fondamenta del sistema, seguendo un percorso lo
 
 L'architettura del sistema non è stata concepita come un semplice assemblaggio di componenti, ma come una struttura resiliente progettata per resistere attivamente a guasti e attacchi. Abbiamo adottato due paradigmi fondamentali: la ridondanza distribuita e la segmentazione tramite isolamento e monitoraggio.
 
-\subsection{Architettura Distribuita, Ridondante e Diversificata}
+\subsection{Architettura distribuita, ridondante e diversificata}
 Per mitigare i rischi di centralizzazione e garantire la continuità operativa, l'infrastruttura si basa su una rete blockchain privata \textit{Hyperledger Besu} composta da \textit{quattro nodi validatori} distinti.
 \begin{itemize}
-    \item \textit{Ridondanza:} la presenza di molteplici nodi (N=4) con protocollo di consenso \textit{IBFT 2.0} (Istanbul Byzantine Fault Tolerance) permette al sistema di tollerare il fallimento o la corruzione di un nodo senza interrompere il servizio o compromettere l'integrità del ledger.
-    \item \textit{Distribuzione:} i nodi operano in modo indipendente, replicando integralmente lo stato della catena. Questo approccio elimina il \textit{Single Point of Failure} tipico dei database centralizzati.
-    \item \textit{Diversificazione:} per aumentare la robustezza, l'architettura prevede l'utilizzo di una rete di sensori eterogenea (temperatura, timestamp, shock, luce, sigillo). Non ci affidiamo a una singola fonte di verità hardware, ma incrociamo dati provenienti da dispositivi tecnologicamente diversi per costruire un quadro probatorio affidabile, rendendo inefficaci attacchi mirati su una specifica tipologia di sensore.
+    \item \textit{Ridondanza}: la presenza di molteplici nodi (N=4) con protocollo di consenso \textit{IBFT 2.0} (Istanbul Byzantine Fault Tolerance) permette al sistema di tollerare il fallimento o la corruzione di un nodo senza interrompere il servizio o compromettere l'integrità del ledger.
+    \item \textit{Distribuzione}: i nodi operano in modo indipendente, replicando integralmente lo stato della catena. Questo approccio elimina il \textit{punto di fallimento singolo} tipico dei database centralizzati.
+    \item \textit{Diversificazione}: per aumentare la robustezza, l'architettura prevede l'utilizzo di una rete di sensori eterogenea (temperatura, timestamp, shock, luce, sigillo). Non ci affidiamo a una singola fonte di verità hardware, ma incrociamo dati provenienti da dispositivi tecnologicamente diversi per costruire un quadro probatorio affidabile, rendendo inefficaci attacchi mirati su una specifica tipologia di sensore.
 \end{itemize}
 
-\subsection{Interazione Utente e Strumenti di Sviluppo}
+\subsection{Interazione utente e strumenti di sviluppo}
 Oltre al nucleo blockchain, abbiamo integrato strumenti specifici per facilitare l'interazione e garantire la qualità del codice.
 \begin{itemize}
-    \item \textit{MetaMask e Web3:} per svincolare l'utente finale dalla complessità della riga di comando, l'interazione con gli smart contract avviene tramite un'applicazione web moderna. L'autenticazione e la firma delle transazioni sono delegate al wallet \textit{MetaMask}, che agisce come gestore sicuro delle chiavi private direttamente nel browser. La comunicazione tra il frontend e la blockchain è mediata dalla libreria \textit{Web3.js}, che traduce i click dell'utente in chiamate RPC standard verso i nodi Besu.
-    \item \textit{Truffle Suite:} per il ciclo di sviluppo, testing e deployment, abbiamo adottato il framework \textit{Truffle}. Questo strumento è stato essenziale non solo per la compilazione degli smart contract, ma soprattutto per l'esecuzione automatizzata di vaste suite di unit test (scritti in JavaScript e Solidity), garantendo che ogni funzione risponda correttamente anche ai casi limite prima di andare in produzione.
+    \item \textit{MetaMask e Web3}: per svincolare l'utente finale dalla complessità della riga di comando, l'interazione con gli smart contract avviene tramite un'applicazione web moderna. L'autenticazione e la firma delle transazioni sono delegate al portafoglio (\textit{wallet}) \textit{MetaMask}, che agisce come gestore sicuro delle chiavi private direttamente nel browser. La comunicazione tra l'interfaccia utente e la blockchain è mediata dalla libreria \textit{Web3.js}, che traduce i click dell'utente in chiamate RPC standard verso i nodi Besu.
+    \item \textit{Truffle Suite}: per il ciclo di sviluppo, testing e deployment, abbiamo adottato il framework \textit{Truffle}. Questo strumento è stato essenziale non solo per la compilazione degli smart contract, ma soprattutto per l'esecuzione automatizzata di vaste suite di unit test (scritti in JavaScript e Solidity), garantendo che ogni funzione risponda correttamente anche ai casi limite prima della distribuzione.
 \end{itemize}
 
-\subsection{Monitoraggio, Isolamento e Offuscamento}
+\subsection{Monitoraggio, isolamento e offuscamento}
 Parallelamente alla distribuzione fisica, abbiamo implementato strategie logiche per la protezione dei dati e dei processi.
 \begin{itemize}
     \item \textit{Monitoraggio Attivo:} un \textit{Proxy Inverso} (basato su Nginx) agisce come guardiano all'ingresso della rete, bilanciando il carico e monitorando costantemente lo stato di salute dei nodi. In caso di anomalia o attacco DDoS su un nodo specifico, il traffico viene automaticamente dirottato verso i nodi sani (failover), garantendo la disponibilità del servizio.
@@ -31,48 +31,116 @@ Parallelamente alla distribuzione fisica, abbiamo implementato strategie logiche
     \item \textit{Offuscamento e Privacy:} per proteggere le informazioni commerciali sensibili (merci, clienti), utilizziamo un approccio di \textit{hashing} dei dati Off-Chain. Inoltre, le tabelle di probabilità condizionata (CPT) della Rete Bayesiana sono mantenute private all'interno dello smart contract, offuscando il modello decisionale esatto per prevenire tentativi di \textit{gaming} del sistema da parte di attaccanti che volessero aggirare i controlli "al limite".
 \end{itemize}
 
-\section{Design degli Asset e Linee Guida di Sicurezza}
+\section{Design degli asset e linee guida di sicurezza}
 
 La progettazione degli asset critici (smart contract, oracoli, dati) ha seguito rigorosamente le best practice di sicurezza, con riferimento ai principi di \textit{Saltzer \& Schroeder} e alle linee guida \textit{OWASP}.
 
 \begin{itemize}
-    \item \textbf{Economy of Mechanism (Semplicità):} abbiamo ridotto al minimo la complessità dei singoli moduli. Ogni smart contract ha una responsabilità unica e ben definita, facilitando la revisione del codice e riducendo la superficie di attacco complessiva.
-    \item \textbf{Fail-Safe Defaults (Default Sicuri):} l'accesso alle funzioni critiche è negato per impostazione predefinita. Utilizzando \textit{OpenZeppelin AccessControl}, ogni operazione sensibile richiede il possesso esplicito di un ruolo (es. \textit{RUOLO\_SENSORE}), bloccando qualsiasi tentativo non autorizzato alla radice.
-    \item \textbf{Least Privilege (Minimo Privilegio):} ogni attore opera con i permessi minimi necessari. L'oracolo può iniettare dati ma non movimentare fondi; l'amministratore può configurare le soglie ma non alterare le spedizioni attive. Questo limita drasticamente l'impatto di un'eventuale compromissione delle chiavi private.
+    \item \textit{Economy of Mechanism (Semplicità):} abbiamo ridotto al minimo la complessità dei singoli moduli. Ogni smart contract ha una responsabilità unica e ben definita, facilitando la revisione del codice e riducendo la superficie di attacco complessiva.
+    \item \textit{Fail-Safe Defaults (Default Sicuri):} l'accesso alle funzioni critiche è negato per impostazione predefinita. Utilizzando \textit{OpenZeppelin AccessControl}, ogni operazione sensibile richiede il possesso esplicito di un ruolo (es. \textit{RUOLO\_SENSORE}), bloccando qualsiasi tentativo non autorizzato alla radice.
+    \item \textit{Least Privilege (Minimo Privilegio):} ogni attore opera con i permessi minimi necessari. L'oracolo può iniettare dati ma non movimentare fondi; l'amministratore può configurare le soglie ma non alterare le spedizioni attive. Questo limita drasticamente l'impatto di un'eventuale compromissione delle chiavi private.
 \end{itemize}
 
-\section{Modellazione Markov Chain e Verifica Formale con PRISM}
+\section{Modellazione Markov Chain e verifica formale con PRISM}
 
 Per fornire una validazione matematica rigorosa dell'architettura proposta e confermare l'efficacia delle contromisure di sicurezza, il sistema è stato sottoposto a una verifica formale mediante il model checker probabilistico \textit{PRISM 4.9}. L'analisi ha richiesto la modellazione del componente critico di gestione dei pagamenti e delle spedizioni (contratti \texttt{BNGestoreSpedizioni} e \texttt{BNPagamenti}) sotto forma di \textit{Catena di Markov a Tempo Discreto (DTMC)}.
 
-\subsection{Definizione e Dinamica del Modello}
+\subsection{Definizione e dinamica del modello}
 Il modello DTMC costruito mappa in modo diretto la macchina a stati finiti implementata nello smart contract, ed in particolare l'\texttt{enum StatoSpedizione}. La fedeltà del modello rispetto al codice Solidity è cruciale per garantire che le proprietà verificate siano valide anche per l'implementazione reale.
 
-Il seguente frammento di codice PRISM illustra come sono state modellate le transizioni probabilistiche dallo stato iniziale di attesa, includendo le probabilità di arrivo delle evidenze e di successo della validazione:
+Di seguito riportiamo il modello PRISM integrale utilizzato per la verifica, che include la definizione delle costanti operative, le variabili di stato e le transizioni probabilistiche che governano il sistema.
 
-\begin{lstlisting}[caption={Transizioni PRISM (Principali) dallo stato InAttesa}, label={lst:prism_transitions}, language=C]
-// 1. Dinamica Evidenze (Rimanendo in stato 0)
-[] stato=0 & !evidenze_complete & tempo<TIMEOUT_HOURS ->
-    PROB_EVIDENZE_ARRIVO : (evidenze_complete'=true) & (tempo'=tempo+1) +
-    (1-PROB_EVIDENZE_ARRIVO) : (tempo'=tempo+1);
+\begin{lstlisting}[caption={Modello PRISM completo del Sistema Escrow}, label={lst:prism_full_model}, language=C]
+// ============================================================================
+// PRISM Model: Sistema Escrow e Pagamenti (ALLINEATO AL CODICE SOLIDITY)
+// ============================================================================
+dtmc
 
-// 2. Transizione a PAGATA (1): Validazione OK
-[] stato=0 & evidenze_complete & tentativi_falliti<MAX_TENTATIVI ->
-    PROB_VALIDAZIONE_OK : (stato'=1) & (tempo'=tempo+1) + 
-    PROB_VALIDAZIONE_FAIL : (tentativi_falliti'=tentativi_falliti+1);
+// ========== COSTANTI (Globali) ==========
+const int TIMEOUT_HOURS = 168;       // 7 giorni (TIMEOUT_RIMBORSO in Solidity)
+const int TIMEOUT_DOPPIO = 336;      // 14 giorni (2 x TIMEOUT_RIMBORSO)
+const int MAX_TENTATIVI = 3;
+const int MAX_TIME = 360;            // 15 giorni simulazione (336 ore + buffer)
 
-// 3. Transizione ad ANNULLATA (2): Azione volontaria
-[] stato=0 & !evidenze_complete -> (stato'=2);
+// ========== PROBABILITA' (Globali) ==========
+const double PROB_EVIDENZE_ARRIVO = 0.85;      // 85% evidenze arrivano entro 7gg
+const double PROB_VALIDAZIONE_OK = 0.70;       // 70% validazioni superano soglia 95%
+const double PROB_VALIDAZIONE_FAIL = 0.30;     // 30% falliscono (F1<95 o F2<95)
+const double PROB_ANNULLAMENTO = 0.05;         // 5% mittente annulla prima evidenze
+const double PROB_RICHIESTA_RIMBORSO = 0.90;   // 90% mittente richiede rimborso quando disponibile
 
-// 4. Transizione a RIMBORSATA (3): Timeout o Max Tentativi
-[] stato=0 & (tempo>=TIMEOUT_HOURS | tentativi_falliti>=MAX_TENTATIVI) ->
-    (stato'=3);
+module escrow_payment_system
+    
+    // ========== VARIABILI DI STATO ==========
+    // 0 = InAttesa, 1 = Pagata, 2 = Annullata, 3 = Rimborsata
+    stato : [0..3] init 0;
+    evidenze_complete : bool init false;
+    tentativi_falliti : [0..3] init 0;
+    tempo : [0..360] init 0;
+    timeout_scaduto : bool init false;
+    
+    // ========== TRANSIZIONI: STATO IN ATTESA ==========
+    
+    // CASO 1: Mittente annulla prima che arrivino evidenze (5%)
+    [] stato=0 & !evidenze_complete & !timeout_scaduto & tempo<TIMEOUT_HOURS ->
+        PROB_ANNULLAMENTO : (stato'=2) & (tempo'=tempo+1) +  
+        (1-PROB_ANNULLAMENTO) : (tempo'=tempo+1);            
+    
+    // CASO 2: Evidenze arrivano (85% entro 7 giorni)
+    [] stato=0 & !evidenze_complete & tempo<TIMEOUT_HOURS ->
+        PROB_EVIDENZE_ARRIVO : (evidenze_complete'=true) & (tempo'=tempo+1) +
+        (1-PROB_EVIDENZE_ARRIVO) : (tempo'=tempo+1);
+    
+    // CASO 3: Corriere tenta validazione con evidenze complete
+    [] stato=0 & evidenze_complete & tentativi_falliti<MAX_TENTATIVI & tempo<MAX_TIME ->
+        PROB_VALIDAZIONE_OK : (stato'=1) & (tempo'=tempo+1) +                    
+        PROB_VALIDAZIONE_FAIL : (tentativi_falliti'=tentativi_falliti+1) & (tempo'=tempo+1);  
+    
+    // CASO 4: Timeout scade senza evidenze -> flag timeout
+    [] stato=0 & !evidenze_complete & tempo>=TIMEOUT_HOURS & !timeout_scaduto & tempo<MAX_TIME ->
+        1.0 : (timeout_scaduto'=true) & (tempo'=tempo+1);
+    
+    // CASO 5: Rimborso dopo 3 tentativi falliti
+    [] stato=0 & evidenze_complete & tentativi_falliti>=MAX_TENTATIVI & tempo<MAX_TIME ->
+        PROB_RICHIESTA_RIMBORSO : (stato'=3) & (tempo'=tempo+1) +  
+        (1-PROB_RICHIESTA_RIMBORSO) : (tempo'=tempo+1);            
+    
+    // CASO 6: Rimborso dopo timeout senza evidenze
+    [] stato=0 & timeout_scaduto & !evidenze_complete & tempo<MAX_TIME ->
+        0.95 : (stato'=3) & (tempo'=tempo+1) +  
+        0.05 : (tempo'=tempo+1);                
+    
+    // CASO 7: Rimborso per courier-inactivity
+    [] stato=0 & evidenze_complete & tentativi_falliti=0 & tempo>=TIMEOUT_DOPPIO & tempo<MAX_TIME ->
+        0.85 : (stato'=3) & (tempo'=tempo+1) +  
+        0.15 : (tempo'=tempo+1);                
+    
+    // CASO 8: Avanza tempo se in attesa senza azioni conclusive
+    [] stato=0 & tempo<MAX_TIME -> 1.0 : (tempo'=tempo+1);
+    
+    // ========== CLASSI RICORRENTI ==========
+    [] stato=1 & tempo<MAX_TIME -> 1.0 : (stato'=1) & (tempo'=tempo+1);
+    [] stato=2 & tempo<MAX_TIME -> 1.0 : (stato'=2) & (tempo'=tempo+1);
+    [] stato=3 & tempo<MAX_TIME -> 1.0 : (stato'=3) & (tempo'=tempo+1);
+    [] tempo>=MAX_TIME -> 1.0 : (tempo'=MAX_TIME);
+
+endmodule
 \end{lstlisting}
+
+\subsubsection{Componenti del modello}
+L'architettura del modello si fonda su quattro pilastri logici:
+
+\begin{itemize}
+    \item \textit{Parametrizzazione Temporale}: le costanti \texttt{TIMEOUT\_HOURS} e \texttt{TIMEOUT\_DOPPIO} riflettono direttamente le clausole di salvaguardia del contratto Solidity (7 e 14 giorni), garantendo un allineamento perfetto tra specifica formale e implementazione.
+    \item \textit{Configurazione Probabilistica}: i pesi assegnati alle transizioni (es. 85\% per l'arrivo delle evidenze) derivano da un'analisi statistica dei casi d'uso attesi, permettendo di simulare il comportamento del sistema in condizioni operative reali.
+    \item \textit{Gestione dei Fallimenti}: la variabile \texttt{tentativi\_falliti} modella il monitor di sicurezza del contratto, che permette al corriere di ripetere la validazione fino a tre volte in caso di letture sensoriali momentaneamente incoerenti, prima di sbloccare il diritto al rimborso per il mittente.
+    \item \textit{Convergenza e Terminazione}: l'inclusione di classi ricorrenti (1, 2, 3) e di un limite temporale (\texttt{MAX\_TIME}) garantisce che la simulazione termini sempre, permettendo al model checker di calcolare le probabilità di successo e di sicurezza in modo esaustivo.
+\end{itemize}
 
 Il ciclo di vita della spedizione si articola attraverso quattro macro-stati distinti. Dallo stato iniziale \textit{InAttesa (0)}, il sistema evolve probabilisticamente verso tre possibili stati finali (ricorrenti):
 \begin{itemize}
-    \item \textit{Pagata (1)}: successo della transazione. Secondo le stime operative, questo stato ha una probabilità di occorrenza del \textbf{60\%}.
-    \item \textit{Annullata (2)}: annullamento volontario pre-spedizione. Probabilità stimata: \textbf{5\%}.
+    \item \textit{Pagata (1)}: successo della transazione. Secondo le stime operative, questo stato ha una probabilità di occorrenza del \textit{60\%}.
+    \item \textit{Annullata (2)}: annullamento volontario pre-spedizione. Probabilità stimata: \textit{5\%}.
     \item \textit{Rimborsata (3)}: recupero dei fondi. Questo stato aggrega tre sotto-scenari di fallimento critico:
     \begin{itemize}
         \item Timeout operativo (7gg): $p=0.10$.
@@ -89,7 +157,7 @@ Il ciclo di vita della spedizione si articola attraverso quattro macro-stati dis
     \label{fig:markov_chain}
 \end{figure}
 
-\subsection{Formalizzazione della Matrice di Transizione}
+\subsection{Formalizzazione della matrice di transizione}
 Per analizzare il comportamento asintotico, definiamo la matrice di transizione $P$ sullo spazio degli stati $S = \{0, 1, 2, 3\}$.
 Poiché siamo interessati alla distribuzione finale di probabilità, modelliamo le transizioni uscenti dallo stato transitorio in base ai pesi statistici identificati in precedenza.
 
@@ -112,9 +180,8 @@ Dove:
     \item $p_{03} = 0.35$: probabilità di transizione verso il rimborso.
 \end{itemize}
 
-Si nota che per le righe $i \in \{1,2,3\}$, $p_{ii}=1$. Questi sono identificati come \textit{stati ricorrenti} (e assorbenti): una volta raggiunti, il sistema vi permane indefinitamente.
 
-\subsection{Calcolo della Distribuzione di Equilibrio tramite Autovalori}
+\subsection{Calcolo della distribuzione di Equilibrio tramite Autovalori}
 Per determinare le distribuzioni stazionarie, analizziamo gli autovalori della matrice calcolando le radici del polinomio caratteristico $\det(P - \lambda I) = 0$:
 
 \begin{equation}
@@ -137,7 +204,7 @@ La molteplicità 3 dell'autovalore unitario implica che lo spazio degli stati di
 con $\alpha + \beta + \gamma = 1$.
 Questo indica che il sistema possiede molteplici configurazioni stabili finali possibili.
 
-\subsection{Analisi della Distribuzione Limite}
+\subsection{Analisi della distribuzione limite}
 Per determinare l'unica configurazione di equilibrio effettivamente raggiunta dal sistema reale, calcoliamo la \textit{distribuzione limite} $\pi_{lim}$ partendo dallo stato iniziale specifico $\pi_{init} = [1, 0, 0, 0]$ (tutto in stato di attesa).
 
 Essendo $p_{00}=0$, il calcolo è immediato. La probabilità di convergenza nello stato ricorrente finale $j$ corrisponde esattamente alla probabilità di transizione diretta $p_{0j}$.
@@ -162,84 +229,83 @@ Il vettore limite risulta quindi:
 \pi_{lim} = [0, \quad 0.60, \quad 0.05, \quad 0.35]
 \end{equation}
 
-\textbf{Conclusioni dell'analisi formale:}
+\textbf{Conclusioni dell'analisi formale}:
 \begin{enumerate}
     \item \textit{Selezione dell'equilibrio}: tra le infinite distribuzioni di equilibrio possibili (identificate dagli autovalori), la dinamica del sistema seleziona univocamente quella definita dal vettore $\pi_{lim}$.
-    \item \textit{Certezza della terminazione}: la prima componente nulla ($\pi_0 = 0$) dimostra che il protocollo non soffre di \textit{deadlock} o \textit{livelock} nello stato intermedio.
-    \item \textit{Garanzia di safety}: nel 35\% dei casi critici (stato 3), il sistema evolve correttamente verso lo stato di rimborso, garantendo che i fondi non rimangano mai bloccati nel contratto (property of \textit{fund safety}).
+    \item \textit{Certezza della terminazione}: la prima componente nulla ($\pi_0 = 0$) dimostra che il protocollo non soffre di \textit{stallo} (deadlock) o cicli infiniti nello stato intermedio.
+    \item \textit{Garanzia di sicurezza}: nel 35\% dei casi critici (stato 3), il sistema evolve correttamente verso lo stato di rimborso, garantendo che i fondi non rimangano mai bloccati nel contratto (proprietà di \textit{sicurezza dei fondi}).
     \item \textit{Efficienza}: la probabilità di successo del 60\% conferma la validità operativa del flusso nominale rispetto ai flussi di eccezione.
 \end{enumerate}
 
-\subsection{Verifica delle Proprietà PCTL}
-La verifica formale è stata condotta specificando i requisiti di sicurezza attraverso la logica temporale \textit{Probabilistic Computation Tree Logic (PCTL)}.
+\subsection{Verifica delle proprietà PCTL}
+La verifica formale è stata condotta specificando i requisiti di sicurezza attraverso la logica temporale \textit{Probabilistic Computation Tree Logic (PCTL)}. Questa ha permesso di interrogare il modello per accertare che specifiche condizioni siano soddisfatte con determinati livelli di probabilità, verificando sia l'assenza di stati critici (\textit{safety}) che la capacità del sistema di progredire verso una conclusione valida (\textit{guarantee}).
 
-\subsubsection{Analisi di Safety: Integrità Finanziaria}
-In prima istanza, l'analisi si è concentrata sulle proprietà di \textit{Safety}, ovvero quelle condizioni indispensabili che il sistema deve sempre rispettare.
-
-\begin{lstlisting}[caption={Proprietà PCTL di Safety}, label={lst:pctl_safety}, language=C]
-// S1: Single Payment (Reentrancy Protection)
-filter(forall, stato=1 => P>=1 [ X stato=1 ])
-
-// S3: Evidence Before Payment
-filter(forall, stato=1 => evidenze_complete)
-
-// S6: Conditional Cancellation
-filter(forall, stato=2 => !evidenze_complete)
-\end{lstlisting}
-
-I risultati della verifica hanno confermato con probabilità \textit{1.0 (Certezza Assoluta)} tutte le proprietà.
-
-\subsubsection{Analisi di Guarantee: Resilienza e Rimborsi}
-Successivamente, l'indagine si è spostata sulle proprietà di \textit{Guarantee} (o Liveness). Interrogando il model checker per la probabilità di raggiungere lo stato di rimborso:
-
-\begin{lstlisting}[caption={Proprietà PCTL di Guarantee}, label={lst:pctl_guarantee}, language=C]
-// G2: Refund Probability check
-P=? [ F stato=3 ]
-\end{lstlisting}
-
-PRISM restituisce il valore \texttt{0.35}, confermando esattamente il calcolo algebrico della distribuzione limite effettuato nella sezione precedente. Questo valida la capacità del sistema di gestire gli scenari di errore (timeout, invalidità merce) proteggendo i fondi degli utenti in oltre un terzo dei casi operativi simulati.\subsection{Verifica delle Proprietà PCTL}
-La verifica formale è stata condotta specificando i requisiti di sicurezza attraverso la logica temporale \textit{Probabilistic Computation Tree Logic (PCTL)}. Questa ha permesso di interrogare il modello per accertare che specifiche condizioni siano soddisfatte con determinati livelli di probabilità.
-
-\subsubsection{Analisi di Safety: Integrità Finanziaria}
-In prima istanza, l'analisi si è concentrata sulle proprietà di \textit{Safety}, ovvero quelle condizioni indispensabili che il sistema deve sempre rispettare per non incorrere in stati inconsistenti o vulnerabili.
+\subsubsection{Analisi di Safety: integrità finanziaria}
+In prima istanza, l'analisi si è concentrata sulle proprietà di \textit{safety}, ovvero quelle condizioni indispensabili che il sistema deve sempre rispettare per non incorrere in stati inconsistenti o vulnerabili.
 
 \begin{lstlisting}[caption={Proprietà PCTL di Safety}, label={lst:pctl_safety}, language=C]
 // S1: Single Payment (Reentrancy Protection)
 filter(forall, stato=1 => P>=1 [ X stato=1 ])
 
+// S2: State Exclusivity
+P>=1 [ G !((stato=1 & stato=2) | (stato=1 & stato=3) | (stato=2 & stato=3)) ]
+
 // S3: Evidence Before Payment
 filter(forall, stato=1 => evidenze_complete)
+
+// S4: Bounded Failed Attempts
+P>=1 [ G (tentativi_falliti <= 3) ]
 
 // S6: Conditional Cancellation
 filter(forall, stato=2 => !evidenze_complete)
 \end{lstlisting}
 
-I risultati della verifica hanno confermato con probabilità \textit{1.0 (Certezza Assoluta)} tutte le proprietà sopra elencate. In particolare, la proprietà S1 dimostra matematicamente l'impossibilità di abbandonare lo stato di pagamento una volta raggiunto, mitigando alla radice il rischio di attacchi di tipo \textit{Reentrancy} (Minaccia T3.1-A). Analogamente, le proprietà S3 ed S6 garantiscono la coerenza del flusso logico, impedendo pagamenti senza prove o annullamenti fraudolenti.
+I risultati della verifica hanno confermato con probabilità \textit{1.0 (Certezza Assoluta)} tutte le proprietà sopra elencate. In particolare, la proprietà S1 dimostra matematicamente l'impossibilità di abbandonare lo stato di pagamento una volta raggiunto, mitigando alla radice il rischio di attacchi di tipo \textit{reentrancy} (Minaccia T3.1-A). Le proprietà S2, S3 ed S6 garantiscono la coerenza del flusso logico, impedendo stati ambigui, pagamenti senza prove o annullamenti fraudolenti. La proprietà S4 conferma che i meccanismi di \textit{rate limiting} implementati limitano correttamente il numero di tentativi di validazione falliti.
 
-\subsubsection{Analisi di Guarantee: Resilienza e Rimborsi}
-Successivamente, l'indagine si è spostata sulle proprietà di \textit{Guarantee} (o Liveness), per verificare la capacità del sistema di evolvere verso una conclusione valida entro tempi ragionevoli, evitando situazioni di stallo (deadlock) o congelamento dei fondi.
+\subsubsection{Analisi di Guarantee: resilienza e rimborsi}
+Successivamente, l'indagine si è spostata sulle proprietà di \textit{guarantee} (o \textit{liveness}), per verificare la capacità del sistema di evolvere verso una conclusione valida entro tempi ragionevoli, evitando situazioni di stallo (\textit{deadlock}) o congelamento dei fondi.
 
-\begin{lstlisting}[caption={Proprietà PCTL di Guarantee}, label={lst:pctl_guarantee}, language=C]
-// G1: Eventual Resolution (Probability > 0.99)
+\begin{lstlisting}[caption={Proprietà PCTL di Guarantee e Liveness}, label={lst:pctl_guarantee}, language=C]
+// G1: Eventual Resolution
 P=? [ F (stato=1 | stato=2 | stato=3) ]
 
-// G2: Refund on Timeout (Probability > 0.95)
-filter(min, P=? [ F stato=3 ], stato=0 & timeout_scaduto)
+// G2: Refund After Timeout
+filter(min, P=? [ F stato=3 ], stato=0 & timeout_scaduto & 
+       !evidenze_complete & tempo < 360)
+
+// G3: Refund After 3 Failures
+filter(min, P=? [ F stato=3 ], stato=0 & tentativi_falliti=3 & tempo < 360)
+
+// L1: Evidence Eventually Received
+P=? [ F<=168 evidenze_complete ]
+
+// L2: Sender Protection
+P=? [ F<=336 (stato=1 | stato=2 | stato=3) ]
 \end{lstlisting}
 
-L'analisi ha evidenziato che il sistema garantisce una risoluzione della pratica in oltre il 99.9\% dei casi. Più nello specifico, la proprietà G2 certifica che, in caso di silenzio dei sensori o del corriere (situazione riconducibile a minacce di tipo \textit{Denial of Service} D3.1-M/A), il meccanismo di rimborso automatico si attiva ed ha successo in oltre il \textit{95\%} degli scenari simulati, offrendo una via di uscita sicura (\textit{Safety Exit}) per l'utente.
+L'analisi ha evidenziato che il sistema garantisce una risoluzione della pratica in oltre il 99.9\% dei casi. Più nello specifico, la proprietà G2 certifica che, in caso di silenzio dei sensori o del corriere (situazione riconducibile a minacce di tipo \textit{denial of service} D3.1-M/A), il meccanismo di rimborso automatico si attiva ed ha successo con alta probabilità, offrendo una via di uscita sicura (\textit{safety exit}) per l'utente. La proprietà G3 valida la logica di fallback in caso di fallimenti ripetuti di validazione. Le proprietà di \textit{liveness} L1 ed L2 mostrano rispettivamente la probabilità di ricevere evidenze entro la prima settimana e la conclusione della transazione entro il limite massimo di tempo.
 
-Infine, l'analisi quantitativa tramite le strutture di \textit{Reward} ha permesso di stimare il tempo medio di risoluzione di una spedizione in circa \textit{72.3 ore}. Questo valore conferma l'efficienza operativa del protocollo, ben al di sotto dei timeout di sicurezza impostati, validando l'intero impianto logico del sistema di Escrow.
+\subsubsection{Analisi quantitativa e reward}
+Infine, l'analisi tramite le strutture di \textit{reward} ha permesso di estrarre metriche prestazionali attese dal modello.
 
-\section{Monitoraggio Runtime e Enforcement della Sicurezza}
+\begin{lstlisting}[caption={Proprietà di Reward}, label={lst:pctl_rewards}, language=C]
+// Expected Resolution Time
+R{"time_to_resolution"}=? [ C<=360 ]
 
-Come discusso nel capitolo precedente, la verifica formale ci fornisce garanzie matematiche sul \textit{modello} del sistema. Tuttavia, per garantire che l'\textit{implementazione} reale aderisca a queste specifiche, abbiamo adottato un approccio di \textit{Runtime Enforcement} monitorando attivamente le proprietà di Safety e Guarantee durante l'esecuzione degli smart contract.
+// Expected Failed Attempts
+R{"failed_attempts_counter"}=? [ C<=360 ]
+\end{lstlisting}
 
-\subsection{Enforcement della Proprietà di Safety (S4: Probability Threshold)}
-La proprietà di Safety S4 impone che "nessun pagamento deve avvenire se la probabilità di conformità è inferiore alla soglia critica (95\%)".
+La valutazione ha permesso di stimare il tempo medio di risoluzione di una spedizione in circa \textit{72.3 ore}. Questo valore conferma l'efficienza operativa del protocollo, ben al di sotto dei timeout di sicurezza impostati, validando l'intero impianto logico del sistema di \textit{escrow}.
+
+\section{Monitoring}
+Come discusso nel capitolo precedente, la verifica formale ci fornisce garanzie matematiche sul \textit{modello} del sistema. Tuttavia, per garantire che l'\textit{implementazione} reale aderisca a queste specifiche, abbiamo adottato un approccio di \textit{Runtime Enforcement} monitorando attivamente le proprietà di \textit{safety} e \textit{guarantee} durante l'esecuzione degli smart contract.
+
+\subsection{Enforcement della proprietà di safety (S4: Probability Threshold)}
+La proprietà di \textit{safety} S4 impone che "nessun pagamento deve avvenire se la probabilità di conformità è inferiore alla soglia critica (95\%)".
 Nel contratto \texttt{BNPagamenti}, abbiamo implementato un monitor sincrono che intercetta il flusso di esecuzione prima dell'effetto critico (il trasferimento di fondi).
 
-\begin{lstlisting}[language=Solidity, caption=Monitor di Safety per la Soglia di Probabilità]
+\begin{lstlisting}[language=Solidity, caption=Monitor di safety per la soglia di probabilità]
 // SAFETY MONITOR S4: Probability Threshold
 if (probF1 < SOGLIA_PROBABILITA || probF2 < SOGLIA_PROBABILITA) {
     // Registra tentativo fallito per permettere rimborso dopo 3 tentativi
@@ -256,16 +322,17 @@ if (probF1 < SOGLIA_PROBABILITA || probF2 < SOGLIA_PROBABILITA) {
 }
 \end{lstlisting}
 
-Seguendo le linee guida di \textbf{Sommerville} per l'ingegneria del software affidabile, questo monitor applica il principio di \textit{Fail-Safe Defaults}: in caso di incertezza o violazione delle precondizioni, il sistema transiziona verso uno stato sicuro di "validazione fallita" (registrando il fallimento ma senza bloccare irreversibilmente il contratto) piuttosto che procedere con un pagamento potenzialmente errato.
+Seguendo le linee guida di \textit{Sommerville} per l'ingegneria del software affidabile, questo monitor applica il principio di \textit{default sicuri} (Fail-Safe Defaults): in caso di incertezza o violazione delle precondizioni, il sistema transiziona verso uno stato sicuro di "validazione fallita" (registrando il fallimento ma senza bloccare irreversibilmente il contratto) piuttosto che procedere con un pagamento potenzialmente errato.
 
+Il funzionamento del monitor è formalizzato nell'automa di troncamento illustrato in Figura~\ref{fig:safety_monitor}.
 \input{chapter2/monitor_safety.tex}
 
-Il monitor di Safety è modellato come un \textit{Truncation Automaton}. Dallo stato iniziale $q_0$, l'evento critico \texttt{req\_pay} viene intercettato e bufferizzato (\texttt{store}), portando il sistema nello stato di verifica $q_1$. Qui il monitor valuta la condizione di conformità $P$: se $P \ge 95\%$, l'azione viene rilasciata (\texttt{dump}), altrimenti viene soppressa definitivamente (\texttt{halt}) transizionando nello stato di violazione $q_{Err}$.
+Il monitor di \textit{safety} è modellato come un \textit{Truncation Automaton}. Dallo stato iniziale $q_0$, l'evento critico \texttt{req\_pay} viene intercettato e bufferizzato (\texttt{store}), portando il sistema nello stato di verifica $q_1$. Qui il monitor valuta la condizione di conformità $P$: se $P \ge 95\%$, l'azione viene rilasciata (\texttt{dump}), altrimenti viene soppressa definitivamente (\texttt{halt}) transizionando nello stato di violazione $q_{Err}$.
 
-\subsection{Enforcement della Proprietà di Guarantee (G1: Payment Validity)}
-Parallelamente, la proprietà di Guarantee G1 assicura che "se le evidenze sono valide, il pagamento deve essere eseguito". Il monitoraggio qui è volto a confermare l'avvenuto successo della transazione, fornendo tracciabilità on-chain.
+\subsection{Enforcement della proprietà di guarantee (G1: Payment Validity)}
+Parallelamente, la proprietà di \textit{guarantee} G1 assicura che "se le evidenze sono valide, il pagamento deve essere eseguito". Il monitoraggio qui è volto a confermare l'avvenuto successo della transazione, fornendo tracciabilità on-chain.
 
-\begin{lstlisting}[language=Solidity, caption=Monitor di Guarantee per il Pagamento]
+\begin{lstlisting}[language=Solidity, caption=Monitor di guarantee per il pagamento]
 // GUARANTEE MONITOR G1: Payment Upon Valid Evidence
 // State 1 -> 2 detected by "evidenze_complete" flag
 if (s.evidenze_complete && s.stato == StatoSpedizione.InAttesa) {
@@ -282,51 +349,52 @@ if (s.evidenze_complete && s.stato == StatoSpedizione.InAttesa) {
 }
 \end{lstlisting}
 
-L'emissione dell'evento \texttt{MonitorGuaranteeSuccess} agisce come una prova crittografica (audit trail) che il sistema ha rispettato il contratto di servizio, soddisfacendo il principio di \textit{Accountability}.
+L'emissione dell'evento \texttt{MonitorGuaranteeSuccess} agisce come una prova crittografica (\textit{audit trail}) che il sistema ha rispettato il contratto di servizio, soddisfacendo il principio di \textit{accountability}.
 
+Il monitor di \textit{guarantee} è formalizzato nell'automa di editing illustrato in Figura~\ref{fig:guarantee_monitor}.
 \input{chapter2/monitor_guarantee.tex}
 
-Il monitor di Guarantee agisce come un \textit{Edit Automaton} a tre stati. Nello stato iniziale (1), il monitor accumula (\texttt{store}) tutti gli eventi in attesa del trigger \texttt{e} (evidenze). Una volta ricevute le evidenze, transita nello stato (2), dove continua a bufferizzare le azioni finché non viene eseguito il pagamento \texttt{p}. Al verificarsi di \texttt{p}, il monitor rilascia l'intera sequenza accumulata (\texttt{dump}) e raggiunge lo stato finale (3), garantendo che il pagamento segua sempre le evidenze valide.
+Il monitor di \textit{guarantee} agisce come un \textit{Edit Automaton} a tre stati. Nello stato iniziale (1), il monitor accumula (\texttt{store}) tutti gli eventi in attesa del trigger \texttt{e} (evidenze). Una volta ricevute le evidenze, transita nello stato (2), dove continua a bufferizzare le azioni finché non viene eseguito il pagamento \texttt{p}. Al verificarsi di \texttt{p}, il monitor rilascia l'intera sequenza accumulata (\texttt{dump}) e raggiunge lo stato finale (3), garantendo che il pagamento segua sempre le evidenze valide.
 
-\subsection{Adozione di Librerie Standard (OpenZeppelin)}
-Per minimizzare il rischio di errori implementativi nei meccanismi di enforcement, ci siamo affidati alla libreria industriale \textbf{OpenZeppelin}, standard de facto per la sicurezza su Ethereum.
-
-\begin{itemize}
-    \item \textbf{ReentrancyGuard per la Safety:} l'utilizzo del modificatore \texttt{nonReentrant} implementa un controllo di safety al livello più basso, prevenendo attacchi di rientranza che potrebbero violare la proprietà S1 (Pagamento Unico). Questo incapsula il principio di \textit{Difesa in Profondità}.
-    \item \textbf{AccessControl per il Least Privilege:} il sistema di gestione dei ruoli (\texttt{AccessControl}) applica rigidamente le policy di accesso, garantendo che solo le entità autorizzate possano alterare lo stato del sistema (es. solo il corriere designato può richiedere il pagamento), riducendo la superficie di attacco.
-\end{itemize}
-
-\section{Architettura Modulare del Frontend}
-
-L'interfaccia utente non è un semplice "guscio" grafico, ma un componente architetturale attivo che orchestra l'interazione sicura tra l'attore umano e la blockchain. Per garantire manutenibilità e isolamento delle responsabilità (\textit{Separation of Concerns}), il codice JavaScript è stato strutturato in moduli funzionali distinti, seguendo il pattern \textit{Service-Oriented}:
+\subsection{Adozione di librerie standard (OpenZeppelin)}
+Per minimizzare il rischio di errori implementativi nei meccanismi di enforcement, ci siamo affidati alla libreria industriale \textit{OpenZeppelin}, standard de facto per la sicurezza su Ethereum.
 
 \begin{itemize}
-    \item \textit{Orchestratore (main.js)}: agisce come \textit{Controller} centrale. Inizializza l'applicazione, gestisce il ciclo di vita degli eventi DOM e coordina la comunicazione tra i moduli. Non contiene logica di business diretta, ma delega le operazioni ai servizi specializzati, mantenendo il codice "pulito" e testabile.
-    
-    \item \textit{Adattatore di Connessione (web3-connection.js)}: isola completamente la logica di connessione al provider Web3 (MetaMask). Questo modulo astrae la complessità della gestione del wallet e della rete, esponendo un'interfaccia semplificata al resto dell'applicazione. In caso di cambio di provider o aggiornamento delle librerie, le modifiche sono confinate qui.
-    
-    \item \textit{Service Layer (contract-interaction.js)}: incapsula tutte le chiamate dirette agli Smart Contract. Funge da \textit{Proxy} locale per la blockchain: converte i tipi di dati (es. da Wei a Ether), gestisce la codifica delle transazioni (ABI encoding) e cattura gli errori RPC grezzi traducendoli in messaggi leggibili per l'utente. Qui risiede la "conoscenza" dei metodi del contratto (`validaEPaga`, `inviaEvidenza`, ecc.).
-    
-    \item \textit{Gestione Logica Specifica (refund-manager.js)}: un modulo dedicato per la logica complessa di rimborso e annullamento. Separare questa logica dal flusso principale riduce il rischio di errori in operazioni critiche che coinvolgono il movimento di fondi.
+    \item \textit{ReentrancyGuard per la safety}: l'utilizzo del modificatore \texttt{nonReentrant} implementa un controllo di safety al livello più basso, prevenendo attacchi di rientranza che potrebbero violare la proprietà S1 (pagamento unico). Questo incapsula il principio di \textit{difesa in profondità}.
+    \item \textit{AccessControl per il minimo privilegio}: il sistema di gestione dei ruoli (\texttt{AccessControl}) applica rigidamente le policy di accesso, garantendo che solo le entità autorizzate possano alterare lo stato del sistema (es. solo il corriere designato può richiedere il pagamento), riducendo la superficie di attacco.
 \end{itemize}
 
-Questa suddivisione riflette il principio di \textit{Modularity} suggerito da Sommerville: ogni modulo ha un'interfaccia definita e nasconde i dettagli implementativi interni (\textit{Information Hiding}), rendendo il frontend robusto ai cambiamenti evolutivi.
+\section{Architettura modulare del frontend}
 
-\section{Motivazione delle Scelte Tecnologiche}
+L'interfaccia utente non è un semplice "guscio" grafico, ma un componente architetturale attivo che orchestra l'interazione sicura tra l'attore umano e la blockchain. Per garantire manutenibilità e isolamento delle responsabilità (\textit{separazione degli interessi}), il codice JavaScript è stato strutturato in moduli funzionali distinti, seguendo il pattern \textit{Service-Oriented}:
+
+\begin{itemize}
+    \item \textit{Orchestratore (main.js)}: agisce come \textit{controller} centrale. Inizializza l'applicazione, gestisce il ciclo di vita degli eventi DOM e coordina la comunicazione tra i moduli. Non contiene logica di business diretta, ma delega le operazioni ai servizi specializzati, mantenendo il codice "pulito" e testabile.
+    
+    \item \textit{Adattatore di connessione (web3-connection.js)}: isola completamente la logica di connessione al provider Web3 (MetaMask). Questo modulo astrae la complessità della gestione del portafoglio e della rete, esponendo un'interfaccia semplificata al resto dell'applicazione. In caso di cambio di provider o aggiornamento delle librerie, le modifiche sono confinate qui.
+    
+    \item \textit{Strato di servizio (contract-interaction.js)}: incapsula tutte le chiamate dirette agli smart contract. Funge da \textit{proxy} locale per la blockchain: converte i tipi di dati (es. da Wei a Ether), gestisce la codifica delle transazioni (ABI encoding) e cattura gli errori RPC grezzi traducendoli in messaggi leggibili per l'utente. Qui risiede la "conoscenza" dei metodi del contratto (\texttt{validaEPaga}, \texttt{inviaEvidenza}, ecc.).
+    
+    \item \textit{Gestione logica specifica (refund-manager.js)}: un modulo dedicato per la logica complessa di rimborso e annullamento. Separare questa logica dal flusso principale riduce il rischio di errori in operazioni critiche che coinvolgono il movimento di fondi.
+\end{itemize}
+
+Questa suddivisione riflette il principio di \textit{modularità} suggerito da Sommerville: ogni modulo ha un'interfaccia definita e nasconde i dettagli implementativi interni (\textit{information hiding}), rendendo l'interfaccia utente robusta ai cambiamenti evolutivi.
+
+\section{Motivazione delle scelte tecnologiche}
 
 Ogni componente tecnologico è stato selezionato per rispondere a specifici requisiti di sicurezza emersi durante l'analisi dei rischi e per mitigare le debolezze intrinseche della blockchain.
 
-\subsection{Analisi di Resistenza, Ambiguità e Sopravvivenza}
+\subsection{Analisi di resistenza, ambiguità e sopravvivenza}
 \begin{itemize}
-    \item \textbf{Resistenza (Immutabilità e Controllo):} la scelta di una rete \textit{Hyperledger Besu} privata con consenso IBFT offre una garanzia di finalità immediata, rendendo la storia termica dei farmaci inalterabile (resistenza al \textit{Tampering}). L'utilizzo di \textit{OpenZeppelin AccessControl} protegge contro lo \textit{Spoofing}, assicurando che solo oracoli autorizzati possano scrivere sul ledger.
-    \item \textbf{Ambiguità (Privacy by Design):} l'architettura rispetta il principio di ambiguità mantenendo i dati sensibili Off-Chain e registrando solo i loro hash sulla blockchain. Inoltre, l'offuscamento logico delle tabelle probabilistiche (CPT) interne agli smart contract protegge il modello decisionale da reverse engineering.
-    \item \textbf{Sopravvivenza (Resilienza):} la ridondanza è applicata a tutti i livelli: dai quattro nodi validatori blockchain (che tollerano guasti bizantini) fino alla rete di cinque sensori eterogenei, garantendo che il sistema sopravviva anche in caso di malfunzionamenti parziali hardware o software.
+    \item \textit{Resistenza (Immutabilità e Controllo)}: la scelta di una rete \textit{Hyperledger Besu} privata con consenso IBFT offre una garanzia di finalità immediata, rendendo la storia termica dei farmaci inalterabile (resistenza alla \textit{manomissione}). L'utilizzo di \textit{OpenZeppelin AccessControl} protegge contro l'\textit{impersonificazione}, assicurando che solo oracoli autorizzati possano scrivere sul ledger.
+    \item \textit{Ambiguità (Privacy by Design)}: l'architettura rispetta il principio di ambiguità mantenendo i dati sensibili fuori blocchi (\textit{off-chain}) e registrando solo i loro hash sulla blockchain. Inoltre, l'offuscamento logico delle tabelle probabilistiche (CPT) interne agli smart contract protegge il modello decisionale da procedimenti di \textit{ingegneria inversa}.
+    \item \textit{Sopravvivenza (Resilienza)}: la ridondanza è applicata a tutti i livelli: dai quattro nodi validatori blockchain (che tollerano guasti bizantini) fino alla rete di cinque sensori eterogenei, garantendo che il sistema sopravviva anche in caso di malfunzionamenti parziali hardware o software.
 \end{itemize}
 
-\subsection{Mitigazione delle Debolezze}
+\subsection{Mitigazione delle debolezze}
 Per ogni tecnologia adottata, abbiamo previsto contromisure alle sue vulnerabilità note:
 \begin{itemize}
-    \item \textit{Volatilità del Gas:} l'utilizzo di una rete Besu privata (o Permissioned) elimina il problema dei costi di transazione imprevedibili tipici di Ethereum Mainnet.
-    \item \textit{Immutabilità del Codice:} poiché i bug negli smart contract sono irreversibili, abbiamo mitigato questo rischio con una pipeline di verifica rigorosa: unit test automatizzati con \textit{Truffle} e model checking con \textit{PRISM} prima di ogni deployment.
-    \item \textit{Problema dell'Oracolo:} la vulnerabilità intrinseca legata all'affidabilità dei dati esterni è mitigata dall'approccio bayesiano multi-sensore, che riduce la dipendenza dalla fiducia in un singolo dispositivo.
+    \item \textit{Volatilità del gas}: l'utilizzo di una rete Besu privata elimina il problema dei costi di transazione imprevedibili tipici di Ethereum Mainnet.
+    \item \textit{Immutabilità del codice}: poiché i bug negli smart contract sono irreversibili, abbiamo mitigato questo rischio con una sequenza di verifica rigorosa: unit test automatizzati con \textit{Truffle} e model checking con \textit{PRISM} prima di ogni distribuzione.
+    \item \textit{Problema dell'oracolo}: la vulnerabilità intrinseca legata all'affidabilità dei dati esterni è mitigata dall'approccio bayesiano multi-sensore, che riduce la dipendenza dalla fiducia in un singolo dispositivo.
 \end{itemize}
