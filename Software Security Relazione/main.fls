@@ -729,6 +729,9 @@ INPUT C:\Users\andre\AppData\Local\Programs\MiKTeX\fonts\vf\adobe\courier\pcrro8
 INPUT C:\Users\andre\AppData\Local\Programs\MiKTeX\fonts\tfm\adobe\courier\pcrro8r.tfm
 INPUT C:\Users\andre\AppData\Local\Programs\MiKTeX\fonts\vf\adobe\courier\pcrb8t.vf
 INPUT C:\Users\andre\AppData\Local\Programs\MiKTeX\fonts\tfm\adobe\courier\pcrb8r.tfm
+INPUT .\chapter2\monitor_guarantee.tex
+INPUT .\chapter2\monitor_guarantee.tex
+INPUT chapter2\monitor_guarantee.tex
 INPUT C:\Users\andre\AppData\Local\Programs\MiKTeX\fonts\vf\public\mathpazo\zplmr7m.vf
 INPUT C:\Users\andre\AppData\Local\Programs\MiKTeX\fonts\tfm\public\mathpazo\fplmri.tfm
 INPUT C:\Users\andre\AppData\Local\Programs\MiKTeX\fonts\tfm\public\cm\cmmi10.tfm
@@ -744,9 +747,6 @@ INPUT C:\Users\andre\AppData\Local\Programs\MiKTeX\fonts\vf\public\mathpazo\zplm
 INPUT C:\Users\andre\AppData\Local\Programs\MiKTeX\fonts\tfm\public\mathpazo\fplmri.tfm
 INPUT C:\Users\andre\AppData\Local\Programs\MiKTeX\fonts\tfm\public\cm\cmmi10.tfm
 INPUT C:\Users\andre\AppData\Local\Programs\MiKTeX\fonts\tfm\adobe\palatino\pplri8r.tfm
-INPUT .\chapter2\monitor_guarantee.tex
-INPUT .\chapter2\monitor_guarantee.tex
-INPUT chapter2\monitor_guarantee.tex
 INPUT .\chapter4\chapter4.tex
 INPUT .\chapter4\chapter4.tex
 OUTPUT chapter4\chapter4.aux

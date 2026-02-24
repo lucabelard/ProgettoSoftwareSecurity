@@ -312,7 +312,7 @@ La Tabella~\ref{tab:s21a} descrive lo scenario in cui un attaccante, avendo comp
 \hline
 \textit{Risultato} & \textit{se l'attacco riesce:} il mittente paga per merce deteriorata \newline \textit{tracciabilità:} ogni operazione resta registrata sulla blockchain per analisi future \\
 \hline
-\textit{Commenti} & \textit{CAPEC-151:} Impersonificazione (Identity Spoofing) \newline \textit{contromisure consigliate:} rotazione periodica delle chiavi, vincolo hardware per il dispositivo, autenticazione a sfida \\
+\textit{Commenti} & \textit{CAPEC-151:} Impersonificazione (Identity Spoofing) \newline \textit{contromisure implementate:} controllo accessi basato su ruoli (solo account con \texttt{RUOLO\_SENSORE} possono inviare evidenze tramite \textit{AccessControl} di OpenZeppelin) \newline \textit{contromisure consigliate:} rotazione periodica delle chiavi, vincolo hardware per il dispositivo, autenticazione a sfida \\
 \hline
 \end{longtable}
 
@@ -347,7 +347,7 @@ La Tabella~\ref{tab:s21m} descrive lo scenario in cui un sensore IoT legittimo t
 \hline
 \textit{Risultato} & \textit{impatto:} rifiuto ingiusto di merce conforme con perdita economica per il mittente \newline \textit{requisiti non funzionali:} manutenzione periodica, monitoraggio della batteria \\
 \hline
-\textit{Commenti} & \textit{DUAL-Unreliability:} l'assenza di manutenzione è la causa principale \newline \textit{contromisure consigliate:} algoritmi per il rilevamento della deriva dei dati, confronto tra sensori multipli \\
+\textit{Commenti} & \textit{DUAL-Unreliability:} l'assenza di manutenzione è la causa principale \newline \textit{contromisure implementate:} ridondanza bayesiana multi-evidenza (E1-E5) che compensa errori di singoli sensori, inferenza sui fatti F1/F2 robusta a letture parzialmente incoerenti \newline \textit{contromisure consigliate:} algoritmi per il rilevamento della deriva dei dati, manutenzione preventiva programmata \\
 \hline
 \end{longtable}
 
@@ -490,7 +490,7 @@ La Tabella~\ref{tab:d31a} descrive lo scenario in cui un attaccante trattiene de
 \hline
 \textit{Risultato} & \textit{se l'attacco riesce:} blocco temporaneo dei fondi e danno reputazionale al sistema \newline \textit{contromisura attiva:} rimborso automatico garantito dopo il periodo di inattività \\
 \hline
-\textit{Commenti} & \textit{CAPEC-603:} Blockage \newline \textit{contromisure:} tempo massimo (timeout) con logica di rimborso dopo tentativi falliti \\
+\textit{Commenti} & \textit{CAPEC-603:} Blockage \newline \textit{contromisure implementate:} tempo massimo di 7 giorni (\texttt{TIMEOUT\_RIMBORSO}) con rimborso automatico, contatore di tentativi falliti (massimo 3) che sblocca il diritto al rimborso \\
 \hline
 \end{longtable}
 
@@ -561,7 +561,7 @@ La Tabella~\ref{tab:t51a} descrive lo scenario in cui un amministratore infedele
 \hline
 \textit{Risultato} & \textit{se l'attacco riesce:} perdita di integrità logica e danni economici diffusi \newline \textit{rilevamento:} analisi statistica delle prestazioni del sistema e allarmi su anomalie \\
 \hline
-\textit{Commenti} & \textit{CAPEC-1:} Accessing Functionality Not Properly Constrained \newline \textit{contromisure consigliate:} controllo multi-firma per le modifiche, parametri bloccati dopo la fase di calibrazione \\
+\textit{Commenti} & \textit{CAPEC-1:} Accessing Functionality Not Properly Constrained \newline \textit{contromisure implementate:} restrizione della funzione \texttt{impostaCPT} al solo \texttt{DEFAULT\_ADMIN\_ROLE} (AccessControl), variabili CPT dichiarate \texttt{private}, emissione di eventi on-chain per ogni modifica (audit trail) \newline \textit{contromisure consigliate:} controllo multi-firma (Gnosis Safe) per le modifiche, parametri bloccati dopo la fase di calibrazione \\
 \hline
 \end{longtable}
 
@@ -596,7 +596,7 @@ La Tabella~\ref{tab:t51m} descrive lo scenario in cui un amministratore commette
 \hline
 \textit{Risultato} & \textit{impatto:} instabilità del sistema con decisioni errate fino al ripristino dei valori corretti \newline \textit{requisiti non funzionali:} validazione rigorosa degli input e rilascio controllato \\
 \hline
-\textit{Commenti} & \textit{DUAL-Unreliability:} l'interfaccia non impedisce errori semantici nei parametri \newline \textit{contromisure consigliate:} ambiente di staging pre-produzione, verifica incrociata dei valori inseriti, log immutabile delle modifiche \\
+\textit{Commenti} & \textit{DUAL-Unreliability:} l'interfaccia non impedisce errori semantici nei parametri \newline \textit{contromisure implementate:} validazione che i valori CPT siano nel range 0-100 (\texttt{PRECISIONE}), emissione di eventi on-chain per ogni modifica (log immutabile) \newline \textit{contromisure consigliate:} ambiente di staging pre-produzione, verifica incrociata dei valori inseriti \\
 \hline
 \end{longtable}
 
@@ -631,7 +631,7 @@ La Tabella~\ref{tab:i61a} descrive lo scenario in cui un concorrente analizza le
 \hline
 \textit{Risultato} & \textit{impatto:} erosione del vantaggio competitivo ed esposizione di segreti industriali \newline \textit{aspetto legale:} possibile violazione delle norme sul segreto commerciale \\
 \hline
-\textit{Commenti} & \textit{CAPEC-169:} Footprinting \newline \textit{contromisure consigliate:} offuscamento dei parametri sensibili, restrizione degli accessi ai log, transazioni private \\
+\textit{Commenti} & \textit{CAPEC-169:} Footprinting \newline \textit{contromisure implementate:} rete blockchain privata (Hyperledger Besu) che limita l'accesso ai soli nodi autorizzati, hashing off-chain dei dati sensibili delle spedizioni \newline \textit{contromisure consigliate:} offuscamento aggiuntivo dei parametri, prove a conoscenza zero per le transazioni \\
 \hline
 \end{longtable}
 
@@ -666,7 +666,7 @@ La Tabella~\ref{tab:i51a} descrive lo scenario in cui un attaccante legge dirett
 \hline
 \textit{Risultato} & \textit{impatto:} furto del modello bayesiano proprietario e perdita di esclusività tecnologica \\
 \hline
-\textit{Commenti} & \textit{CAPEC-188:} Ingegneria inversa \newline \textit{contromisure consigliate:} calcoli fuori blocchi (off-chain) con prove di validità, crittografia dei parametri sensibili \\
+\textit{Commenti} & \textit{CAPEC-188:} Ingegneria inversa \newline \textit{contromisure implementate:} variabili CPT dichiarate \texttt{private} (non accessibili via ABI), rete privata Hyperledger Besu che limita l'accesso diretto allo storage \newline \textit{contromisure consigliate:} calcoli fuori blocchi (off-chain) con prove di validità, crittografia dei parametri sensibili \\
 \hline
 \end{longtable}
 
@@ -844,7 +844,7 @@ La Tabella~\ref{tab:e41a} descrive lo scenario in cui un attaccante tenta di sfr
 \hline
 \textit{Risultato} & \textit{se l'attacco riesce:} presa di controllo totale e possibilità di drenare i fondi \newline \textit{gravità:} critica \\
 \hline
-\textit{Commenti} & \textit{CAPEC-122:} Abuso di privilegi \newline \textit{ATT\&CK-T1078:} Account validi \newline \textit{contromisure:} uso di librerie verificate, verifica formale del controllo degli accessi \\
+\textit{Commenti} & \textit{CAPEC-122:} Abuso di privilegi \newline \textit{ATT\&CK-T1078:} Account validi \newline \textit{contromisure implementate:} uso della libreria \textit{OpenZeppelin AccessControl} (verificata e auditata), verifica esplicita di \texttt{msg.sender} tramite modificatori di ruolo \\
 \hline
 \end{longtable}
 
@@ -878,13 +878,13 @@ A fronte di queste minacce, sono state implementate contromisure specifiche prog
 
 \begin{enumerate}
     \item \textit{Sicurezza degli Smart Contract (A1, A3, A4):}
-    è stata adottata una strategia di difesa in profondità che include l'uso di librerie standard verificate, l'implementazione di corretti pattern operativi e meccanismi di blocco temporaneo in caso di anomalie gravi.
+    abbiamo adottato la libreria \textit{OpenZeppelin AccessControl} per gestire i permessi tramite ruoli (mitigando \textit{S4.1} e \textit{T5.1-A}) e il modificatore \textit{ReentrancyGuard} (\texttt{nonReentrant}) per proteggere la funzione di pagamento (\textit{T3.1-A}). La logica di business segue il pattern \textit{Checks-Effects-Interactions} per garantire transizioni di stato atomiche e sicure. Inoltre, è stato implementato un meccanismo di emergenza tramite il pattern \textit{Pausable} (\textit{E1.1}).
 
-    \item \textit{Integrità dei dati e IoT (A2, A5):}
-    per mitigare l'inaffidabilità dei sensori, il sistema utilizza la ridondanza bayesiana. Inoltre, è stata imposta una validazione rigorosa degli input per i parametri della rete.
+    \item \textit{Integrità dei dati e logica bayesiana (A2, A5):}
+    per contrastare l'inaffidabilità dei sensori (\textit{I2.1}) e i tentativi di spoofing (\textit{S2.1}), il sistema sfrutta la ridondanza di cinque evidenze eterogenee. L'inferenza bayesiana in \textit{BNCore.sol} calcola la conformità basandosi su probabilità cumulative, rendendo il sistema resiliente a errori di singoli sensori. I parametri CPT sono protetti da visibilità \textit{private} (\textit{I5.1-A}) e la loro modifica è validata on-chain per prevenire errori di inserimento (\textit{T5.1-M}).
 
-    \item \textit{Protezione dell'utente (A7, A8):}
-    poiché il fattore umano è l'anello debole, le mitigazioni si spostano sul piano educativo e dell'interfaccia: validazione aggressiva dei dati e raccomandazione all'uso di dispositivi di archiviazione sicuri per le chiavi private.
+    \item \textit{Affidabilità e Garanzia dei Fondi (A3, A6):}
+    per evitare il blocco permanente dei capitali (\textit{D3.1}), il contratto \textit{BNPagamenti.sol} implementa un meccanismo di \textit{timeout} di 7 giorni (\texttt{TIMEOUT\_RIMBORSO}) e un limite massimo di 3 tentativi di validazione falliti, garantendo al mittente il diritto automatico al rimborso in caso di inattività o frode del corriere. L'offuscamento logico è garantito dall'uso di una rete blockchain privata (\textit{Hyperledger Besu}), che limita la superficie di scraping dei dati commerciali (\textit{I6.1-A}).
 \end{enumerate}
 
 \section{Conclusioni e rischio residuo}

@@ -58,23 +58,23 @@ contract BNPagamenti is BNGestoreSpedizioni, ReentrancyGuard {
      */
     function validaEPaga(uint256 _id) external nonReentrant whenNotPaused {
         Spedizione storage s = spedizioni[_id];
-        // SAFETY MONITOR S5: Courier Authorization
+        // ACCESS CONTROL: Courier Authorization
         if (s.corriere != msg.sender) {
             emit MonitorSafetyViolation("CourierAuth", _id, msg.sender, "Non sei il corriere");
             emit TentativoPagamentoFallito(_id, msg.sender, "Non sei il corriere");
             revert NonSeiIlCorriere();
         }
         
-        // SAFETY MONITOR S2: Single Payment
+        // SAFETY MONITOR S2: State Exclusivity
         if (s.stato != StatoSpedizione.InAttesa) {
-            emit MonitorSafetyViolation("SinglePayment", _id, msg.sender, "Spedizione non in attesa");
+            emit MonitorSafetyViolation("S2:StateExclusivity", _id, msg.sender, "Spedizione non in attesa");
             emit TentativoPagamentoFallito(_id, msg.sender, "Spedizione non in attesa");
             revert SpedizioneNonInAttesa();
         }
         
-        // SAFETY MONITOR S3: Complete Evidence
+        // SAFETY MONITOR S3: Evidence Before Payment
         if (!_tutteEvidenzeRicevute(_id)) {
-            emit MonitorSafetyViolation("CompleteEvidence", _id, msg.sender, "Evidenze mancanti");
+            emit MonitorSafetyViolation("S3:EvidenceBeforePayment", _id, msg.sender, "Evidenze mancanti");
             emit TentativoPagamentoFallito(_id, msg.sender, "Evidenze mancanti");
             revert EvidenzeMancanti();
         }
@@ -86,12 +86,12 @@ contract BNPagamenti is BNGestoreSpedizioni, ReentrancyGuard {
         emit ProbabilityCalculated(_id, probF1, probF2);
         emit ProbabilitaValidazione(_id, probF1, probF2);
         
-        // SAFETY MONITOR S4: Probability Threshold
+        // SAFETY MONITOR S5: Probability Threshold
         if (probF1 < SOGLIA_PROBABILITA || probF2 < SOGLIA_PROBABILITA) {
-            // Registra tentativo fallito per permettere rimborso dopo 3 tentativi
+            // SAFETY MONITOR S4: Bounded Failed Attempts (Registra tentativo fallito per permettere rimborso dopo 3 tentativi)
             _registraTentativoFallito(_id);
             
-            emit MonitorSafetyViolation("ProbabilityThreshold", _id, msg.sender, "Requisiti di conformita non superati");
+            emit MonitorSafetyViolation("S5:ProbabilityThreshold", _id, msg.sender, "Requisiti di conformita non superati");
             emit SogliaValidazioneNonSuperata(_id, probF1, probF2);
             emit TentativoPagamentoFallito(_id, msg.sender, "Requisiti di conformita non superati");
             
@@ -101,7 +101,7 @@ contract BNPagamenti is BNGestoreSpedizioni, ReentrancyGuard {
         // GUARANTEE MONITOR G1: Payment Upon Valid Evidence
         uint256 importo = s.importoPagamento;
         s.stato = StatoSpedizione.Pagata;
-        emit MonitorGuaranteeSuccess("PaymentOnValidEvidence", _id);
+        emit MonitorGuaranteeSuccess("G1:PaymentValidity", _id);
         emit SpedizionePagata(_id, s.corriere, importo);
         // Trasferisci fondi
         (bool success, ) = s.corriere.call{value: importo}("");

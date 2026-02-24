@@ -26,7 +26,7 @@ Oltre al nucleo blockchain, abbiamo integrato strumenti specifici per facilitare
 \subsection{Monitoraggio, isolamento e offuscamento}
 Parallelamente alla distribuzione fisica, abbiamo implementato strategie logiche per la protezione dei dati e dei processi.
 \begin{itemize}
-    \item \textit{Monitoraggio Attivo:} un \textit{Proxy Inverso} (basato su Nginx) agisce come guardiano all'ingresso della rete, bilanciando il carico e monitorando costantemente lo stato di salute dei nodi. In caso di anomalia o attacco DDoS su un nodo specifico, il traffico viene automaticamente dirottato verso i nodi sani (failover), garantendo la disponibilità del servizio.
+    \item \textit{Monitoraggio Attivo:} un \textit{Proxy Inverso} (basato su Nginx) agisce come guardiano all'ingresso della rete, bilanciando il carico e monitorando lo stato di salute dei nodi. Inoltre, abbiamo implementato una suite completa di monitor di \textit{runtime enforcement} (\textit{S1-S6} e \textit{G1}) per garantire l'aderenza costante alle proprietà di sicurezza; nelle sezioni seguenti illustreremo i due più significativi, come dettagliato nella sezione \ref{sec:runtime_enforcement}. In caso di anomalia o attacco DDoS su un nodo specifico, il traffico viene automaticamente dirottato verso i nodi sani (failover), garantendo la disponibilità del servizio.
     \item \textit{Isolamento (Separation of Concerns):} l'architettura \textit{On-Chain} è rigorosamente stratificata. La logica di calcolo puro (contratto \textit{BNCore}) è separata dalla gestione operativa (\textit{BNGestoreSpedizioni}) e dalla tesoreria (\textit{BNPagamenti}). Questo isolamento confina eventuali vulnerabilità: un bug nel calcolo delle probabilità non può, per design, drenare i fondi custoditi nel contratto di pagamento.
     \item \textit{Offuscamento e Privacy:} per proteggere le informazioni commerciali sensibili (merci, clienti), utilizziamo un approccio di \textit{hashing} dei dati Off-Chain. Inoltre, le tabelle di probabilità condizionata (CPT) della Rete Bayesiana sono mantenute private all'interno dello smart contract, offuscando il modello decisionale esatto per prevenire tentativi di \textit{gaming} del sistema da parte di attaccanti che volessero aggirare i controlli ``al limite''.
 \end{itemize}
@@ -147,7 +147,7 @@ Il ciclo di vita della spedizione si articola attraverso quattro macro-stati dis
         \item Fallimento ripetuto validazione (3 tentativi): $p=0.24$.
         \item Inattività prolungata corriere (14gg): $p <= 0.01$.
     \end{itemize}
-    La probabilità totale aggregata di rimborso è quindi pari al \textbf{35\%}.
+    La probabilità totale aggregata di rimborso è quindi pari al \textit{35\%}.
 \end{itemize}
 
 \begin{figure}[H]
@@ -209,17 +209,17 @@ Per determinare l'unica configurazione di equilibrio effettivamente raggiunta da
 
 Essendo $p_{00}=0$, il calcolo è immediato. La probabilità di convergenza nello stato ricorrente finale $j$ corrisponde esattamente alla probabilità di transizione diretta $p_{0j}$.
 
-\textbf{1. Convergenza allo stato pagata (successo):}
+\textit{1. Convergenza allo stato pagata (successo):}
 \begin{equation}
 \pi_{lim}(1) = \lim_{t \to \infty} P(X_t = 1) = p_{01} = 0.60
 \end{equation}
 
-\textbf{2. Convergenza allo stato annullata:}
+\textit{2. Convergenza allo stato annullata:}
 \begin{equation}
 \pi_{lim}(2) = p_{02} = 0.05
 \end{equation}
 
-\textbf{3. Convergenza allo stato rimborsata (safety net):}
+\textit{3. Convergenza allo stato rimborsata (safety net):}
 \begin{equation}
 \pi_{lim}(3) = p_{03} = 0.35
 \end{equation}
@@ -229,7 +229,7 @@ Il vettore limite risulta quindi:
 \pi_{lim} = [0, \quad 0.60, \quad 0.05, \quad 0.35]
 \end{equation}
 
-\textbf{Conclusioni dell'analisi formale}:
+\textit{Conclusioni dell'analisi formale}:
 \begin{enumerate}
     \item \textit{Selezione dell'equilibrio}: tra le infinite distribuzioni di equilibrio possibili (identificate dagli autovalori), la dinamica del sistema seleziona univocamente quella definita dal vettore $\pi_{lim}$.
     \item \textit{Certezza della terminazione}: la prima componente nulla ($\pi_0 = 0$) dimostra che il protocollo non soffre di \textit{stallo} (deadlock) o cicli infiniti nello stato intermedio.
@@ -301,10 +301,12 @@ R{"failed_attempts_counter"}=? [ C<=360 ]
 La valutazione ha permesso di stimare il tempo medio di risoluzione di una spedizione in circa \textit{72.3 ore}. Questo valore conferma l'efficienza operativa del protocollo, ben al di sotto dei timeout di sicurezza impostati, validando l'intero impianto logico del sistema di \textit{escrow}.
 
 \section{Monitoring}
-Come discusso nel capitolo precedente, la verifica formale ci fornisce garanzie matematiche sul \textit{modello} del sistema. Tuttavia, per garantire che l'\textit{implementazione} reale aderisca a queste specifiche, abbiamo adottato un approccio di \textit{Runtime Enforcement} monitorando attivamente le proprietà di \textit{safety} e \textit{guarantee} durante l'esecuzione degli smart contract.
+\label{sec:runtime_enforcement}
+Come discusso nel capitolo precedente, la verifica formale ci fornisce garanzie matematiche sul \textit{modello} del sistema. Tuttavia, per garantire che l'\textit{implementazione} reale aderisca a queste specifiche, abbiamo adottato un approccio di \textit{Runtime Enforcement} monitorando attivamente le proprietà di \textit{safety} e \textit{guarantee} durante l'esecuzione degli smart contract. Sebbene il sistema integri monitor per tutte le proprietà formalizzate (S1-S6 e G1), di seguito descriveremo i due meccanismi di monitoraggio più critici per la sicurezza dei fondi e l'integrità del processo.
 
 \subsection{Enforcement della proprietà di safety (S5: Probability Threshold)}
-La proprietà di \textit{safety} S5 impone che ``nessun pagamento deve avvenire se la probabilità di conformità è inferiore alla soglia critica (95\%)''.
+La proprietà di \textit{safety} S5 impone che ``nessun pagamento deve avvenire se la probabilità di conformità è inferiore alla soglia critica (95\%)''. Questa misura costituisce la difesa principale contro minacce di tipo \textit{S2.1} (impersonificazione sensore) e \textit{T5.1} (manipolazione dei parametri CPT): anche in caso di iniezione di dati falsi o alterazione dei pesi statistici, il pagamento non viene sbloccato se il calcolo finale non garantisce una certezza quasi assoluta.
+
 Nel contratto \texttt{BNPagamenti}, abbiamo implementato un monitor sincrono che intercetta il flusso di esecuzione prima dell'effetto critico (il trasferimento di fondi). Le variabili \texttt{probF1} e \texttt{probF2} rappresentano le probabilità posteriori calcolate dalla rete bayesiana per i due nodi fatto: F1 (\textit{consegna corretta}) e F2 (\textit{conformità delle condizioni di trasporto}).
 
 \begin{lstlisting}[language=Solidity, caption=Monitor di safety per la soglia di probabilità]
@@ -323,6 +325,8 @@ if (probF1 < SOGLIA_PROBABILITA || probF2 < SOGLIA_PROBABILITA) {
     return;
 }
 \end{lstlisting}
+
+Il monitor integra inoltre una clausola di salvaguardia contro il blocco dei fondi (\textit{D3.1}: Denial of Service): richiamando \texttt{\_registraTentativoFallito}, il sistema permette al corriere di correggere eventuali errori di invio per tre volte, superate le quali il mittente acquisisce il diritto al rimborso, garantendo che il denaro non rimanga prigioniero in uno stato di attesa perenne.
 
 Seguendo le linee guida di \textit{Sommerville} per l'ingegneria del software affidabile, questo monitor applica il principio di \textit{default sicuri} (Fail-Safe Defaults): in caso di incertezza o violazione delle precondizioni, il sistema transiziona verso uno stato sicuro di ``validazione fallita'' (registrando il fallimento ma senza bloccare irreversibilmente il contratto) piuttosto che procedere con un pagamento potenzialmente errato.
 
@@ -362,8 +366,8 @@ Il monitor di \textit{guarantee} agisce come un \textit{Edit Automaton} a tre st
 Per minimizzare il rischio di errori implementativi nei meccanismi di enforcement, ci siamo affidati alla libreria industriale \textit{OpenZeppelin}, standard de facto per la sicurezza su Ethereum.
 
 \begin{itemize}
-    \item \textit{ReentrancyGuard per la safety}: l'utilizzo del modificatore \texttt{nonReentrant} implementa un controllo di safety al livello più basso, prevenendo attacchi di rientranza che potrebbero violare la proprietà S1 (pagamento unico). Questo incapsula il principio di \textit{difesa in profondità}.
-    \item \textit{AccessControl per il minimo privilegio}: il sistema di gestione dei ruoli (\texttt{AccessControl}) applica rigidamente le policy di accesso, garantendo che solo le entità autorizzate possano alterare lo stato del sistema (es. solo il corriere designato può richiedere il pagamento), riducendo la superficie di attacco.
+    \item \textit{ReentrancyGuard per la safety}: l'utilizzo del modificatore \texttt{nonReentrant} implementa un controllo di safety al livello più basso, prevenendo attacchi di rientranza che potrebbero violare la proprietà S1 (pagamento unico). Questa contromisura mitiga direttamente la minaccia \textit{T3.1-A} (attacco reentrancy), impedendo a un contratto malevolo di drenare l'escrow.
+    \item \textit{AccessControl per il minimo privilegio}: il sistema di gestione dei ruoli (\texttt{AccessControl}) applica rigidamente le policy di accesso, garantendo che solo le entità autorizzate possano alterare lo stato del sistema. Questo previene l'assegnazione fraudolenta di ruoli (\textit{S4.1}) e impedisce l'abuso di privilegi amministrativi (\textit{T5.1-A}), confinando le capacità di ogni attore al perimetro definito in fase di progettazione.
 \end{itemize}
 
 \section{Architettura modulare del frontend}

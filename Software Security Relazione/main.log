@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.28 (MiKTeX 25.12) (preloaded format=pdflatex 2026.2.12)  24 FEB 2026 16:23
+This is pdfTeX, Version 3.141592653-2.6-1.40.28 (MiKTeX 25.12) (preloaded format=pdflatex 2026.2.12)  24 FEB 2026 17:27
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -1386,7 +1386,12 @@ Overfull \hbox (3.14774pt too wide) in alignment at lines 429--460
  [] [] 
  []
 
-chapter1/chapter1.tex:460: ignored error: Infinite glue shrinkage found in box being split [15] [16]
+chapter1/chapter1.tex:460: ignored error: Infinite glue shrinkage found in box being split [15]
+Underfull \hbox (badness 4429) in paragraph at lines 493--494
+\T1/ppl/m/it/10.95 (+20) contromisure im-ple-men-ta-te: \T1/ppl/m/n/10.95 (+20) tem-po mas-si-mo di 7 gior-ni
+ []
+
+[16]
 Overfull \hbox (3.14774pt too wide) in alignment at lines 499--528
  [] [] 
  []
@@ -1396,12 +1401,17 @@ Underfull \hbox (badness 3219) in paragraph at lines 558--559
 []|\T1/ppl/m/n/10.95 (+20) - l'am-mi-ni-stra-to-re im-po-sta pa-ra-me-tri ta-li da im-pe-di-re
  []
 
-[17]
-Underfull \hbox (badness 1308) in paragraph at lines 599--600
-\T1/ppl/m/n/10.95 (+20) ve-ri-fi-ca in-cro-cia-ta dei va-lo-ri in-se-ri-ti, log im-mu-ta-bi-le del-le
+
+Underfull \hbox (badness 10000) in paragraph at lines 564--565
+\T1/ppl/m/it/10.95 (+20) contromisure im-ple-men-ta-te: \T1/ppl/m/n/10.95 (+20) re-stri-zio-ne del-la fun-zio-ne
  []
 
 
+Underfull \hbox (badness 10000) in paragraph at lines 564--565
+\T1/pcr/m/n/10.95 impostaCPT \T1/ppl/m/n/10.95 (+20) al so-lo \T1/pcr/m/n/10.95 DEFAULT_ADMIN_ROLE \T1/ppl/m/n/10.95 (+20) (Ac-ces-
+ []
+
+chapter1/chapter1.tex:566: ignored error: Infinite glue shrinkage found in box being split [17]
 Overfull \hbox (3.14774pt too wide) in alignment at lines 570--601
  [] [] 
  []
@@ -1442,6 +1452,11 @@ Underfull \hbox (badness 2717) in paragraph at lines 843--844
 \T1/ppl/m/n/10.95 (+20) - il si-ste-ma di con-trol-lo ac-ces-si ve-ri-fi-ca espli-ci-ta-men-te
  []
 
+
+Underfull \hbox (badness 1629) in paragraph at lines 847--848
+\T1/ppl/m/it/10.95 (+20) Ac-ces-sCon-trol \T1/ppl/m/n/10.95 (+20) (ve-ri-fi-ca-ta e au-di-ta-ta), ve-ri-fi-ca espli-ci-ta di
+ []
+
 chapter1/chapter1.tex:849: ignored error: Infinite glue shrinkage found in box being split [25] [26]) [27]
 \openout2 = `chapter2/chapter2.aux'.
 
@@ -1459,15 +1474,15 @@ File: lstmisc.sty 2025/11/14 1.11b (Carsten Heinz)
 )
 Package hyperref Info: bookmark level for unknown lstlisting defaults to 0 on input line 53.
  [30] [31]
-<chapter2/image/Grafico_Markov_Chain.png, id=428, 1445.4pt x 813.0375pt>
+<chapter2/image/Grafico_Markov_Chain.png, id=429, 1445.4pt x 813.0375pt>
 File: chapter2/image/Grafico_Markov_Chain.png Graphic file (type png)
 <use chapter2/image/Grafico_Markov_Chain.png>
 Package pdftex.def Info: chapter2/image/Grafico_Markov_Chain.png  used on input line 155.
 (pdftex.def)             Requested size: 441.01775pt x 248.06912pt.
- [32 <./chapter2/image/Grafico_Markov_Chain.png (PNG copy)>] [33] [34]
+ [32 <./chapter2/image/Grafico_Markov_Chain.png (PNG copy)>] [33] [34] [35]
 LaTeX Font Info:    Font shape `T1/pcr/m/it' in size <8> not available
-(Font)              Font shape `T1/pcr/m/sl' tried instead on input line 311.
- [35] (chapter2/monitor_safety.tex) [36] (chapter2/monitor_guarantee.tex) [37] [38]) [39]
+(Font)              Font shape `T1/pcr/m/sl' tried instead on input line 313.
+ (chapter2/monitor_safety.tex) [36] (chapter2/monitor_guarantee.tex) [37] [38]) [39]
 \openout2 = `chapter4/chapter4.aux'.
 
  (chapter4/chapter4.tex)
@@ -1521,18 +1536,18 @@ Appendice A.
 
 
 ]
-<backmatter/image/gas_consumption.png, id=784, 722.7pt x 433.62pt>
+<backmatter/image/gas_consumption.png, id=785, 722.7pt x 433.62pt>
 File: backmatter/image/gas_consumption.png Graphic file (type png)
 <use backmatter/image/gas_consumption.png>
 Package pdftex.def Info: backmatter/image/gas_consumption.png  used on input line 26.
 (pdftex.def)             Requested size: 396.91327pt x 238.14767pt.
-<backmatter/image/execution_time.png, id=786, 722.7pt x 433.62pt>
+<backmatter/image/execution_time.png, id=787, 722.7pt x 433.62pt>
 File: backmatter/image/execution_time.png Graphic file (type png)
 <use backmatter/image/execution_time.png>
 Package pdftex.def Info: backmatter/image/execution_time.png  used on input line 39.
 (pdftex.def)             Requested size: 396.91327pt x 238.14767pt.
  [51 <./backmatter/image/gas_consumption.png>]
-<backmatter/image/contract_size.png, id=795, 578.16pt x 361.35pt>
+<backmatter/image/contract_size.png, id=796, 578.16pt x 361.35pt>
 File: backmatter/image/contract_size.png Graphic file (type png)
 <use backmatter/image/contract_size.png>
 Package pdftex.def Info: backmatter/image/contract_size.png  used on input line 50.
@@ -1550,17 +1565,17 @@ L3 programming layer <2025-12-24>
  ***********
  ) 
 Here is how much of TeX's memory you used:
- 43641 strings out of 467871
- 856973 string characters out of 5418376
- 1927238 words of memory out of 5000000
- 70672 multiletter control sequences out of 15000+600000
+ 43642 strings out of 467871
+ 856998 string characters out of 5418376
+ 1969286 words of memory out of 5000000
+ 70673 multiletter control sequences out of 15000+600000
  725941 words of font info for 494 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 111i,18n,139p,2575b,2211s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 111i,18n,139p,2575b,2162s stack positions out of 10000i,1000n,20000p,200000b,200000s
  <C:\Users\andre\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\tctt1095.pk><C:/Users/andre/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmex10.pfb><C:/Users/andre/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi10.pfb><C:/Users/andre/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr10.pfb><C:/Users/andre/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Users/andre/AppData/Local/Programs/MiKTeX/fonts/type1/public/mathpazo/fplmr.pfb><C:/Users/andre/AppData/Local/Programs/MiKTeX/fonts/type1/public/mathpazo/fplmri.pfb><C:/Users/andre/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/symbols/msam10.pfb><C:/Users/andre/AppData/Local/Programs/MiKTeX/fonts/type1/urw/courier/ucrb8a.pfb><C:/Users/andre/AppData/Local/Programs/MiKTeX/fonts/type1/urw/courier/ucrr8a.pfb><C:/Users/andre/AppData/Local/Programs/MiKTeX/fonts/type1/urw/courier/ucrro8a.pfb><C:/Users/andre/AppData/Local/Programs/MiKTeX/fonts/type1/urw/helvetic/uhvb8a.pfb><C:/Users/andre/AppData/Local/Programs/MiKTeX/fonts/type1/urw/helvetic/uhvr8a.pfb><C:/Users/andre/AppData/Local/Programs/MiKTeX/fonts/type1/urw/palatino/uplb8a.pfb><C:/Users/andre/AppData/Local/Programs/MiKTeX/fonts/type1/urw/palatino/uplbi8a.pfb><C:/Users/andre/AppData/Local/Programs/MiKTeX/fonts/type1/urw/palatino/uplr8a.pfb><C:/Users/andre/AppData/Local/Programs/MiKTeX/fonts/type1/urw/palatino/uplr8a.pfb><C:/Users/andre/AppData/Local/Programs/MiKTeX/fonts/type1/urw/palatino/uplri8a.pfb>
-Output written on main.pdf (56 pages, 6121221 bytes).
+Output written on main.pdf (56 pages, 6123206 bytes).
 PDF statistics:
- 1167 PDF objects out of 1200 (max. 8388607)
+ 1168 PDF objects out of 1200 (max. 8388607)
  487 named destinations out of 1000 (max. 500000)
  132629 words of extra memory for PDF output out of 154059 (max. 10000000)
 

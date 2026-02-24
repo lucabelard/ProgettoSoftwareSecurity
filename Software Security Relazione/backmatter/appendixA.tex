@@ -1,9 +1,9 @@
-\chapter{Analisi delle Performance e Scalabilità}
+\chapter{Analisi delle performance e scalabilità}
 \label{app:performance}
 
 In questa appendice vengono presentati i risultati dei test di performance condotti per valutare la scalabilità del sistema proposto. L'obiettivo dell'analisi è quantificare il consumo di risorse, in termini di Gas e tempo di esecuzione, al crescere della complessità della Rete Bayesiana gestita dallo smart contract.
     
-    \section{Metodologia di Test e Scenari}
+    \section{Metodologia di test e scenari}
     
     L'analisi è stata condotta su un'istanza locale di \textit{Hyperledger Besu}, configurata come rete privata per garantire un ambiente controllato e riproducibile. La procedura di test è stata interamente automatizzata attraverso una suite di script sviluppati ad hoc. In particolare, l'esecuzione delle interazioni con la blockchain è stata gestita da script JavaScript (\textit{test/performance/simple-performance-test.js}) che utilizzano la libreria \textit{web3.js} per invocare le funzioni degli smart contract e misurarne i consumi.
     
@@ -17,7 +17,7 @@ In questa appendice vengono presentati i risultati dei test di performance condo
     
     I dati grezzi raccolti durante le esecuzioni (consumo di gas per deploy, configurazione e validazione, oltre ai tempi di risposta) sono stati salvati in formato \texttt{.csv}. Successivamente, la generazione dei grafici e l'analisi statistica sono state affidate allo script Python \textit{test/performance/generate\_graphs.py}, che ha elaborato i dataset per produrre le visualizzazioni incluse in questa appendice.
     
-    \section{Analisi dei Risultati}
+    \section{Analisi dei risultati}
     
     L'aspetto più critico per la sostenibilità economica e tecnica di una soluzione blockchain è il consumo di Gas. Il grafico in Figura~\ref{fig:gas_consumption} illustra chiaramente la distinzione tra i costi ``una tantum'' di configurazione e i costi operativi ricorrenti.
     

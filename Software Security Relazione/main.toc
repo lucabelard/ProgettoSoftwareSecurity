@@ -40,16 +40,16 @@
 \contentsline {subsection}{\numberline {3.3.4}Analisi della distribuzione limite}{33}{subsection.3.3.4}%
 \contentsline {subsection}{\numberline {3.3.5}Verifica delle proprietà PCTL}{34}{subsection.3.3.5}%
 \contentsline {subsubsection}{Analisi di Safety: integrità finanziaria}{34}{subsubsection*.21}%
-\contentsline {subsubsection}{Analisi di Guarantee: resilienza e rimborsi}{34}{subsubsection*.22}%
+\contentsline {subsubsection}{Analisi di Guarantee: resilienza e rimborsi}{35}{subsubsection*.22}%
 \contentsline {subsubsection}{Analisi quantitativa e reward}{35}{subsubsection*.23}%
 \contentsline {section}{\numberline {3.4}Monitoring}{35}{section.3.4}%
-\contentsline {subsection}{\numberline {3.4.1}Enforcement della proprietà di safety (S5: Probability Threshold)}{35}{subsection.3.4.1}%
+\contentsline {subsection}{\numberline {3.4.1}Enforcement della proprietà di safety (S5: Probability Threshold)}{36}{subsection.3.4.1}%
 \contentsline {subsection}{\numberline {3.4.2}Enforcement della proprietà di guarantee (G1: Payment Validity)}{36}{subsection.3.4.2}%
 \contentsline {subsection}{\numberline {3.4.3}Adozione di librerie standard (OpenZeppelin)}{37}{subsection.3.4.3}%
-\contentsline {section}{\numberline {3.5}Architettura modulare del frontend}{37}{section.3.5}%
+\contentsline {section}{\numberline {3.5}Architettura modulare del frontend}{38}{section.3.5}%
 \contentsline {section}{\numberline {3.6}Motivazione delle scelte tecnologiche}{38}{section.3.6}%
-\contentsline {subsection}{\numberline {3.6.1}Analisi di resistenza, ambiguità e sopravvivenza}{38}{subsection.3.6.1}%
-\contentsline {subsection}{\numberline {3.6.2}Mitigazione delle debolezze}{38}{subsection.3.6.2}%
+\contentsline {subsection}{\numberline {3.6.1}Analisi di resistenza, ambiguità e sopravvivenza}{39}{subsection.3.6.1}%
+\contentsline {subsection}{\numberline {3.6.2}Mitigazione delle debolezze}{39}{subsection.3.6.2}%
 \contentsline {chapter}{\numberline {4}Analisi della qualità del codice e testing}{40}{chapter.4}%
 \contentsline {section}{\numberline {4.1}Introduzione}{40}{section.4.1}%
 \contentsline {subsection}{\numberline {4.1.1}Solhint nel progetto}{40}{subsection.4.1.1}%
@@ -66,6 +66,6 @@
 \contentsline {subsection}{\numberline {4.5.1}Miglioramenti strutturali e documentazione}{45}{subsection.4.5.1}%
 \contentsline {subsection}{\numberline {4.5.2}Adattamento delle regole e pulizia finale}{47}{subsection.4.5.2}%
 \contentsline {section}{\numberline {4.6}Configurazione e risultati finali}{47}{section.4.6}%
-\contentsline {chapter}{\numberline {A}Analisi delle Performance e Scalabilità}{50}{appendix.Alph1}%
-\contentsline {section}{\numberline {A.1}Metodologia di Test e Scenari}{50}{section.Alph1.1}%
-\contentsline {section}{\numberline {A.2}Analisi dei Risultati}{51}{section.Alph1.2}%
+\contentsline {chapter}{\numberline {A}Analisi delle performance e scalabilità}{50}{appendix.Alph1}%
+\contentsline {section}{\numberline {A.1}Metodologia di test e scenari}{50}{section.Alph1.1}%
+\contentsline {section}{\numberline {A.2}Analisi dei risultati}{51}{section.Alph1.2}%
