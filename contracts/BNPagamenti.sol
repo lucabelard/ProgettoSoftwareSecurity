@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.19;
 
-import {BNGestoreSpedizioni} from "./BNGestoreSpedizioni.sol";
+import {BNGestoreSpedizioni, SpedizioneNonInAttesa, EvidenzeMancanti} from "./BNGestoreSpedizioni.sol";
 import {ReentrancyGuard} from "@openzeppelin/contracts/security/ReentrancyGuard.sol";
 
 /// @notice Errore: il chiamante non è il corriere assegnato alla spedizione

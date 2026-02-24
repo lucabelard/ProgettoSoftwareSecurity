@@ -27,6 +27,8 @@ error SoloMittenteRimborso();
 error CondizioniRimborsoNonSoddisfatte();
 /// @notice Errore: l'hash dei dettagli fornito non è valido (bytes32 zero)
 error HashDettagliNonValido();
+/// @notice Errore: l'ID dell'evidenza fornito non è valido (1-5)
+error EvidenzaIDInvalida();
 
 /**
  * @title BNGestoreSpedizioni
