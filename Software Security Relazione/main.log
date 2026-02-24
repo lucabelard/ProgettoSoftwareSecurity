@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.28 (MiKTeX 25.12) (preloaded format=pdflatex 2026.2.12)  24 FEB 2026 12:06
+This is pdfTeX, Version 3.141592653-2.6-1.40.28 (MiKTeX 25.12) (preloaded format=pdflatex 2026.2.12)  24 FEB 2026 16:23
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -1265,7 +1265,7 @@ l.17
 
  (chapter1/chapter1.tex
 Capitolo 2.
-<chapter1/image/sd_as_is.png, id=157, 6239.31pt x 3621.53pt>
+<chapter1/image/sd_as_is.png, id=158, 6239.31pt x 3621.53pt>
 File: chapter1/image/sd_as_is.png Graphic file (type png)
 <use chapter1/image/sd_as_is.png>
 Package pdftex.def Info: chapter1/image/sd_as_is.png  used on input line 23.
@@ -1279,7 +1279,7 @@ LaTeX Font Info:    Font shape `T1/phv/b/n' will be
 
 
 
-]
+] [4 <./chapter1/image/sd_as_is.png>]
 LaTeX Font Info:    Trying to load font information for T1+pcr on input line 38.
  (C:\Users\andre\AppData\Local\Programs\MiKTeX\tex/latex/psnfss\t1pcr.fd
 File: t1pcr.fd 2001/06/04 font definitions for T1/pcr.
@@ -1288,18 +1288,17 @@ Package microtype Info: Loading generic protrusion settings for font family
 (microtype)             `pcr' (encoding: T1).
 (microtype)             For optimal results, create family-specific settings.
 (microtype)             See the microtype manual for details.
- [4 <./chapter1/image/sd_as_is.png>]
 LaTeX Font Info:    Trying to load font information for TS1+ppl on input line 44.
  (C:\Users\andre\AppData\Local\Programs\MiKTeX\tex/latex/psnfss\ts1ppl.fd
 File: ts1ppl.fd 2001/06/04 font definitions for TS1/ppl.
 )
-<chapter1/image/sr_to_be.png, id=176, 7090.49pt x 5861.9pt>
+<chapter1/image/sr_to_be.png, id=177, 7090.49pt x 5861.9pt>
 File: chapter1/image/sr_to_be.png Graphic file (type png)
 <use chapter1/image/sr_to_be.png>
 Package pdftex.def Info: chapter1/image/sr_to_be.png  used on input line 56.
 (pdftex.def)             Requested size: 441.01775pt x 364.57895pt.
  [5] [6 <./chapter1/image/sr_to_be.png>]
-<chapter1/image/sr_attackers.png, id=199, 14678.84pt x 6568.54pt>
+<chapter1/image/sr_attackers.png, id=200, 14678.84pt x 6568.54pt>
 File: chapter1/image/sr_attackers.png Graphic file (type png)
 <use chapter1/image/sr_attackers.png>
 Package pdftex.def Info: chapter1/image/sr_attackers.png  used on input line 94.
@@ -1460,7 +1459,7 @@ File: lstmisc.sty 2025/11/14 1.11b (Carsten Heinz)
 )
 Package hyperref Info: bookmark level for unknown lstlisting defaults to 0 on input line 53.
  [30] [31]
-<chapter2/image/Grafico_Markov_Chain.png, id=427, 1445.4pt x 813.0375pt>
+<chapter2/image/Grafico_Markov_Chain.png, id=428, 1445.4pt x 813.0375pt>
 File: chapter2/image/Grafico_Markov_Chain.png Graphic file (type png)
 <use chapter2/image/Grafico_Markov_Chain.png>
 Package pdftex.def Info: chapter2/image/Grafico_Markov_Chain.png  used on input line 155.
@@ -1505,7 +1504,7 @@ LaTeX Info: Symbol \textdownarrow not provided by
             Default family used instead on input line 127.
  [42] [43] [44] [45] [46] (C:\Users\andre\AppData\Local\Programs\MiKTeX\tex/latex/listings\lstlang1.sty
 File: lstlang1.sty 2025/11/14 1.11b listings language file
-) [47]) [48]
+) [47]) [48] [49]
 \openout2 = `chapter7/chapter7.aux'.
 
  (chapter7/chapter7.tex)
@@ -1513,7 +1512,7 @@ File: lstlang1.sty 2025/11/14 1.11b listings language file
 
  (backmatter/appendixA.tex
 Appendice A.
-[49
+[50
 
 
 
@@ -1522,23 +1521,23 @@ Appendice A.
 
 
 ]
-<backmatter/image/gas_consumption.png, id=780, 722.7pt x 433.62pt>
+<backmatter/image/gas_consumption.png, id=784, 722.7pt x 433.62pt>
 File: backmatter/image/gas_consumption.png Graphic file (type png)
 <use backmatter/image/gas_consumption.png>
 Package pdftex.def Info: backmatter/image/gas_consumption.png  used on input line 26.
 (pdftex.def)             Requested size: 396.91327pt x 238.14767pt.
-<backmatter/image/execution_time.png, id=782, 722.7pt x 433.62pt>
+<backmatter/image/execution_time.png, id=786, 722.7pt x 433.62pt>
 File: backmatter/image/execution_time.png Graphic file (type png)
 <use backmatter/image/execution_time.png>
 Package pdftex.def Info: backmatter/image/execution_time.png  used on input line 39.
 (pdftex.def)             Requested size: 396.91327pt x 238.14767pt.
- [50 <./backmatter/image/gas_consumption.png>]
-<backmatter/image/contract_size.png, id=791, 578.16pt x 361.35pt>
+ [51 <./backmatter/image/gas_consumption.png>]
+<backmatter/image/contract_size.png, id=795, 578.16pt x 361.35pt>
 File: backmatter/image/contract_size.png Graphic file (type png)
 <use backmatter/image/contract_size.png>
 Package pdftex.def Info: backmatter/image/contract_size.png  used on input line 50.
 (pdftex.def)             Requested size: 352.81554pt x 220.50589pt.
- [51 <./backmatter/image/execution_time.png> <./backmatter/image/contract_size.png>]) [52]
+ [52 <./backmatter/image/execution_time.png> <./backmatter/image/contract_size.png>]) [53]
 
 Package glossaries Warning: No \printglossary or \printglossaries found. 
 (Remove \makeglossaries if you don't want any glossaries.) 
@@ -1551,17 +1550,17 @@ L3 programming layer <2025-12-24>
  ***********
  ) 
 Here is how much of TeX's memory you used:
- 43637 strings out of 467871
- 856939 string characters out of 5418376
- 1922590 words of memory out of 5000000
+ 43641 strings out of 467871
+ 856973 string characters out of 5418376
+ 1927238 words of memory out of 5000000
  70672 multiletter control sequences out of 15000+600000
- 725786 words of font info for 492 fonts, out of 8000000 for 9000
+ 725941 words of font info for 494 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  111i,18n,139p,2575b,2211s stack positions out of 10000i,1000n,20000p,200000b,200000s
  <C:\Users\andre\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\tctt1095.pk><C:/Users/andre/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmex10.pfb><C:/Users/andre/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi10.pfb><C:/Users/andre/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr10.pfb><C:/Users/andre/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Users/andre/AppData/Local/Programs/MiKTeX/fonts/type1/public/mathpazo/fplmr.pfb><C:/Users/andre/AppData/Local/Programs/MiKTeX/fonts/type1/public/mathpazo/fplmri.pfb><C:/Users/andre/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/symbols/msam10.pfb><C:/Users/andre/AppData/Local/Programs/MiKTeX/fonts/type1/urw/courier/ucrb8a.pfb><C:/Users/andre/AppData/Local/Programs/MiKTeX/fonts/type1/urw/courier/ucrr8a.pfb><C:/Users/andre/AppData/Local/Programs/MiKTeX/fonts/type1/urw/courier/ucrro8a.pfb><C:/Users/andre/AppData/Local/Programs/MiKTeX/fonts/type1/urw/helvetic/uhvb8a.pfb><C:/Users/andre/AppData/Local/Programs/MiKTeX/fonts/type1/urw/helvetic/uhvr8a.pfb><C:/Users/andre/AppData/Local/Programs/MiKTeX/fonts/type1/urw/palatino/uplb8a.pfb><C:/Users/andre/AppData/Local/Programs/MiKTeX/fonts/type1/urw/palatino/uplbi8a.pfb><C:/Users/andre/AppData/Local/Programs/MiKTeX/fonts/type1/urw/palatino/uplr8a.pfb><C:/Users/andre/AppData/Local/Programs/MiKTeX/fonts/type1/urw/palatino/uplr8a.pfb><C:/Users/andre/AppData/Local/Programs/MiKTeX/fonts/type1/urw/palatino/uplri8a.pfb>
-Output written on main.pdf (55 pages, 6118997 bytes).
+Output written on main.pdf (56 pages, 6121221 bytes).
 PDF statistics:
- 1162 PDF objects out of 1200 (max. 8388607)
- 486 named destinations out of 1000 (max. 500000)
+ 1167 PDF objects out of 1200 (max. 8388607)
+ 487 named destinations out of 1000 (max. 500000)
  132629 words of extra memory for PDF output out of 154059 (max. 10000000)
 

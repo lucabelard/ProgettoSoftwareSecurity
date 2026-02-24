@@ -305,7 +305,7 @@ Come discusso nel capitolo precedente, la verifica formale ci fornisce garanzie 
 
 \subsection{Enforcement della proprietà di safety (S5: Probability Threshold)}
 La proprietà di \textit{safety} S5 impone che ``nessun pagamento deve avvenire se la probabilità di conformità è inferiore alla soglia critica (95\%)''.
-Nel contratto \texttt{BNPagamenti}, abbiamo implementato un monitor sincrono che intercetta il flusso di esecuzione prima dell'effetto critico (il trasferimento di fondi).
+Nel contratto \texttt{BNPagamenti}, abbiamo implementato un monitor sincrono che intercetta il flusso di esecuzione prima dell'effetto critico (il trasferimento di fondi). Le variabili \texttt{probF1} e \texttt{probF2} rappresentano le probabilità posteriori calcolate dalla rete bayesiana per i due nodi fatto: F1 (\textit{consegna corretta}) e F2 (\textit{conformità delle condizioni di trasporto}).
 
 \begin{lstlisting}[language=Solidity, caption=Monitor di safety per la soglia di probabilità]
 // SAFETY MONITOR S5: Probability Threshold

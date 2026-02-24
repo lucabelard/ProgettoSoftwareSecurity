@@ -66,6 +66,6 @@
 \contentsline {subsection}{\numberline {4.5.1}Miglioramenti strutturali e documentazione}{45}{subsection.4.5.1}%
 \contentsline {subsection}{\numberline {4.5.2}Adattamento delle regole e pulizia finale}{47}{subsection.4.5.2}%
 \contentsline {section}{\numberline {4.6}Configurazione e risultati finali}{47}{section.4.6}%
-\contentsline {chapter}{\numberline {A}Analisi delle Performance e Scalabilità}{49}{appendix.Alph1}%
-\contentsline {section}{\numberline {A.1}Metodologia di Test e Scenari}{49}{section.Alph1.1}%
-\contentsline {section}{\numberline {A.2}Analisi dei Risultati}{50}{section.Alph1.2}%
+\contentsline {chapter}{\numberline {A}Analisi delle Performance e Scalabilità}{50}{appendix.Alph1}%
+\contentsline {section}{\numberline {A.1}Metodologia di Test e Scenari}{50}{section.Alph1.1}%
+\contentsline {section}{\numberline {A.2}Analisi dei Risultati}{51}{section.Alph1.2}%
