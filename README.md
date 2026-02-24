@@ -16,10 +16,10 @@ Prima di iniziare, assicurati di avere installato i seguenti componenti. Le vers
 
 | Componente | Versione Richiesta | Note |
 | :--- | :--- | :--- |
-| **Node.js** | `v18.x` o superiore | gestore runtime JS. |
-| **Java JDK** | `v17` (Consigliato) o `v11` | necessario per eseguire Besu. |
-| **Hyperledger Besu** | `v25.11.0` | **CRITICO:** versioni differenti possono causare errori di consenso. |
-| **MetaMask** | Estensione Browser | wallet per interagire con la blockchain. |
+| **Node.js** | `v18.x` o superiore | gestore runtime JS |
+| **Java JDK** | `v17` (Consigliato) o `v11` | necessario per eseguire Besu |
+| **Hyperledger Besu** | `v25.11.0` | **CRITICO:** versioni differenti possono causare errori di consenso |
+| **MetaMask** | Estensione Browser | wallet per interagire con la blockchain |
 
 ### 📥 0. Download del Progetto
 Inizia clonando il repository e posizionandoti nella cartella di lavoro:
@@ -48,7 +48,7 @@ Le dipendenze di sistema (Besu, Java) devono essere configurate manualmente o tr
 ### 🪟 Windows Setup
 
 #### 1. Java JDK
-Assicurarsi di avere Java installato. Verifica con `java -version`. Se mancante, scaricare e installare [Java JDK 17](https://www.oracle.com/java/technologies/downloads/#java17).
+Assicurati di avere Java installato. Verifica con `java -version`. Se mancante, scarica e installa [Java JDK 17](https://www.oracle.com/java/technologies/downloads/#java17).
 
 #### 2. Hyperledger Besu (v25.11.0)
 Besu non si installa tramite `npm`. Va scaricato e aggiunto al PATH.
@@ -113,7 +113,7 @@ Questo script avvia il cluster di 4 nodi e il proxy di failover in finestre sepa
 ```cmd
 .\besu-config\scripts\windows\start-all-nodes-failover.bat
 ```
-*   **Verifica:** assicurarsi che le istanze dei nodi siano attive e che lo stato del Proxy indichi "Monitoring active...".
+*   **Verifica:** assicurati che le istanze dei nodi siano attive e che lo stato del Proxy indichi *Monitoring active...*.
 
 ### 🍎 Ambiente Mac / Linux
 
@@ -166,8 +166,8 @@ Per interagire con il sistema, importa i seguenti account pre-finanziati nel tuo
 | Ruolo | Indirizzo Pubblico | Chiave Privata (SOLO PER TESTNET) |
 | :--- | :--- | :--- |
 | **👑 Admin** | `0xfe3b557e8fb62b89f4916b721be55ceb828dbd73` | `0x8f2a55949038a9610f50fb23b5883af3b4ecb3c3bb792cbcefbd1542c692be63` |
-| **📦 Mittente** | `0x627306090abaB3A6e1400e9345bC60c78a8BEf57` | `0xc87509a1c067bbde78beb793e6fa76530b6382a4c0241e5e4a9ec0a0f44dc0d3` |
-| **📡 Sensore** | `0xf17f52151EbEF6C7334FAD080c5704D77216b732` | `0xae6ae8e5ccbfb04590405997ee2d52d2b330726137b875053c36d94e974d162f` |
+| **� Sensore** | `0x627306090abaB3A6e1400e9345bC60c78a8BEf57` | `0xc87509a1c067bbde78beb793e6fa76530b6382a4c0241e5e4a9ec0a0f44dc0d3` |
+| **� Mittente** | `0xf17f52151EbEF6C7334FAD080c5704D77216b732` | `0xae6ae8e5ccbfb04590405997ee2d52d2b330726137b875053c36d94e974d162f` |
 | **🚚 Corriere** | `0xC5fdf4076b8F3A5357c5E395ab970B5B54098Fef` | `0x0dbbe8e4ae425a6d2687f1a7e3ba17bc98c673636790f1b8ad91193c05875ef1` |
 
 ### ⚠️ Risoluzione problemi macOS (Chain ID)
@@ -179,7 +179,7 @@ In alcuni ambienti macOS, potresti riscontrare errori di connessione con Chain I
 
 ## 📜 2. Deploy degli Smart Contracts
 
-Dopo l'inizializzazione della rete, procedere con il deploy e la configurazione dei contratti.
+Dopo l'inizializzazione della rete, procedi con il deploy e la configurazione dei contratti.
 
 ### 🪟 Windows
 ```cmd
@@ -215,6 +215,9 @@ Avvia l'interfaccia utente per interagire con il sistema distribuito.
 
 🔗 **URL di Accesso:** `http://127.0.0.1:8080`
 
+> [!NOTE]
+> Al primo avvio, `npx` potrebbe chiederti di installare il pacchetto `http-server`. Conferma premendo `y`.
+
 ![Home Page Filiera Sicura](docs/images/home.png)
 <br>
 <sub>**1) Pagina principale del sistema**</sub>
@@ -246,7 +249,7 @@ Avvia l'interfaccia utente per interagire con il sistema distribuito.
 ### 👑 Pannello amministratore
 Accesso tramite account **Admin**.
 *   **Monitoraggio Spedizioni:** visualizzazione in tempo reale dello stato.
-*   **Circuit Breaker:** arresto di emergenza (*Ricaricare la pagina dopo la modifica*).
+*   **Circuit Breaker:** arresto di emergenza. *Ricaricare la pagina dopo la modifica.*
 *   **Parametri:** regolazione soglie e affidabilità.
 
 
@@ -272,7 +275,7 @@ Il rimborso automatico viene attivato in tre casi specifici per garantire la pro
 4.  **Mittente:** recupera i fondi.
 
 **2. Timeout Evidenze (7 Giorni)**
-*   Se il sensore non invia alcuna evidenza entro **7 giorni** dalla creazione, la spedizione è considerata "persa" o "non partita".
+*   Se il sensore non invia alcuna evidenza entro **7 giorni** dalla creazione, la spedizione è considerata *persa* o *non partita*.
 *   Il mittente può richiedere il rimborso immediato.
 
 **3. Inattività Corriere (14 Giorni)**
@@ -287,7 +290,7 @@ Il rimborso automatico viene attivato in tre casi specifici per garantire la pro
 | :--- | :--- |
 | **Genesis Mismatch** | inconsistenza dati Blockchain.<br>**Win:** `.\besu-config\scripts\windows\clean-data.bat`<br>**Mac:** `./besu-config/scripts/mac/clean-data.sh`<br>Riavviare la rete dopo la pulizia. |
 | **Errore Nonce** | si verifica dopo il riavvio della rete.<br>**Azione:** MetaMask -> Impostazioni > Avanzate > Cancella dati attività tab. |
-| **Contratti assenti** | assicurarsi di aver eseguito il deploy (`node deploy-complete.js` o `truffle migrate`) **dopo** l'avvio della rete. |
-| **Interfaccia non aggiornata** | se lo stato del contratto non cambia (es. dopo blocca/sblocca), **aggiornare la pagina** del browser. |
+| **Contratti assenti** | assicurati di aver eseguito il deploy (`node deploy-complete.js` o `truffle migrate`) **dopo** l'avvio della rete. |
+| **Interfaccia non aggiornata** | se lo stato del contratto non cambia (es. dopo blocca/sblocca), **aggiorna la pagina** del browser. |
 
 ---
