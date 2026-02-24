@@ -28,7 +28,7 @@ Parallelamente alla distribuzione fisica, abbiamo implementato strategie logiche
 \begin{itemize}
     \item \textit{Monitoraggio Attivo:} un \textit{Proxy Inverso} (basato su Nginx) agisce come guardiano all'ingresso della rete, bilanciando il carico e monitorando costantemente lo stato di salute dei nodi. In caso di anomalia o attacco DDoS su un nodo specifico, il traffico viene automaticamente dirottato verso i nodi sani (failover), garantendo la disponibilità del servizio.
     \item \textit{Isolamento (Separation of Concerns):} l'architettura \textit{On-Chain} è rigorosamente stratificata. La logica di calcolo puro (contratto \textit{BNCore}) è separata dalla gestione operativa (\textit{BNGestoreSpedizioni}) e dalla tesoreria (\textit{BNPagamenti}). Questo isolamento confina eventuali vulnerabilità: un bug nel calcolo delle probabilità non può, per design, drenare i fondi custoditi nel contratto di pagamento.
-    \item \textit{Offuscamento e Privacy:} per proteggere le informazioni commerciali sensibili (merci, clienti), utilizziamo un approccio di \textit{hashing} dei dati Off-Chain. Inoltre, le tabelle di probabilità condizionata (CPT) della Rete Bayesiana sono mantenute private all'interno dello smart contract, offuscando il modello decisionale esatto per prevenire tentativi di \textit{gaming} del sistema da parte di attaccanti che volessero aggirare i controlli "al limite".
+    \item \textit{Offuscamento e Privacy:} per proteggere le informazioni commerciali sensibili (merci, clienti), utilizziamo un approccio di \textit{hashing} dei dati Off-Chain. Inoltre, le tabelle di probabilità condizionata (CPT) della Rete Bayesiana sono mantenute private all'interno dello smart contract, offuscando il modello decisionale esatto per prevenire tentativi di \textit{gaming} del sistema da parte di attaccanti che volessero aggirare i controlli ``al limite''.
 \end{itemize}
 
 \section{Design degli asset e linee guida di sicurezza}
@@ -150,7 +150,7 @@ Il ciclo di vita della spedizione si articola attraverso quattro macro-stati dis
     La probabilità totale aggregata di rimborso è quindi pari al \textbf{35\%}.
 \end{itemize}
 
-\begin{figure}[ht!]
+\begin{figure}[H]
     \centering
     \includegraphics[width=\linewidth, keepaspectratio]{chapter2/image/Grafico_Markov_Chain.png}
     \caption{Grafo delle Transizioni DTMC del Sistema Escrow}
@@ -256,6 +256,8 @@ filter(forall, stato=1 => evidenze_complete)
 // S4: Bounded Failed Attempts
 P>=1 [ G (tentativi_falliti <= 3) ]
 
+// S5: Probability Threshold (verificata nel monitoring, Sez. 2.4)
+
 // S6: Conditional Cancellation
 filter(forall, stato=2 => !evidenze_complete)
 \end{lstlisting}
@@ -301,12 +303,12 @@ La valutazione ha permesso di stimare il tempo medio di risoluzione di una spedi
 \section{Monitoring}
 Come discusso nel capitolo precedente, la verifica formale ci fornisce garanzie matematiche sul \textit{modello} del sistema. Tuttavia, per garantire che l'\textit{implementazione} reale aderisca a queste specifiche, abbiamo adottato un approccio di \textit{Runtime Enforcement} monitorando attivamente le proprietà di \textit{safety} e \textit{guarantee} durante l'esecuzione degli smart contract.
 
-\subsection{Enforcement della proprietà di safety (S4: Probability Threshold)}
-La proprietà di \textit{safety} S4 impone che "nessun pagamento deve avvenire se la probabilità di conformità è inferiore alla soglia critica (95\%)".
+\subsection{Enforcement della proprietà di safety (S5: Probability Threshold)}
+La proprietà di \textit{safety} S5 impone che ``nessun pagamento deve avvenire se la probabilità di conformità è inferiore alla soglia critica (95\%)''.
 Nel contratto \texttt{BNPagamenti}, abbiamo implementato un monitor sincrono che intercetta il flusso di esecuzione prima dell'effetto critico (il trasferimento di fondi).
 
 \begin{lstlisting}[language=Solidity, caption=Monitor di safety per la soglia di probabilità]
-// SAFETY MONITOR S4: Probability Threshold
+// SAFETY MONITOR S5: Probability Threshold
 if (probF1 < SOGLIA_PROBABILITA || probF2 < SOGLIA_PROBABILITA) {
     // Registra tentativo fallito per permettere rimborso dopo 3 tentativi
     _registraTentativoFallito(_id);
@@ -322,7 +324,7 @@ if (probF1 < SOGLIA_PROBABILITA || probF2 < SOGLIA_PROBABILITA) {
 }
 \end{lstlisting}
 
-Seguendo le linee guida di \textit{Sommerville} per l'ingegneria del software affidabile, questo monitor applica il principio di \textit{default sicuri} (Fail-Safe Defaults): in caso di incertezza o violazione delle precondizioni, il sistema transiziona verso uno stato sicuro di "validazione fallita" (registrando il fallimento ma senza bloccare irreversibilmente il contratto) piuttosto che procedere con un pagamento potenzialmente errato.
+Seguendo le linee guida di \textit{Sommerville} per l'ingegneria del software affidabile, questo monitor applica il principio di \textit{default sicuri} (Fail-Safe Defaults): in caso di incertezza o violazione delle precondizioni, il sistema transiziona verso uno stato sicuro di ``validazione fallita'' (registrando il fallimento ma senza bloccare irreversibilmente il contratto) piuttosto che procedere con un pagamento potenzialmente errato.
 
 Il funzionamento del monitor è formalizzato nell'automa di troncamento illustrato in Figura~\ref{fig:safety_monitor}.
 \input{chapter2/monitor_safety.tex}
@@ -330,7 +332,7 @@ Il funzionamento del monitor è formalizzato nell'automa di troncamento illustra
 Il monitor di \textit{safety} è modellato come un \textit{Truncation Automaton}. Dallo stato iniziale $q_0$, l'evento critico \texttt{req\_pay} viene intercettato e bufferizzato (\texttt{store}), portando il sistema nello stato di verifica $q_1$. Qui il monitor valuta la condizione di conformità $P$: se $P \ge 95\%$, l'azione viene rilasciata (\texttt{dump}), altrimenti viene soppressa definitivamente (\texttt{halt}) transizionando nello stato di violazione $q_{Err}$.
 
 \subsection{Enforcement della proprietà di guarantee (G1: Payment Validity)}
-Parallelamente, la proprietà di \textit{guarantee} G1 assicura che "se le evidenze sono valide, il pagamento deve essere eseguito". Il monitoraggio qui è volto a confermare l'avvenuto successo della transazione, fornendo tracciabilità on-chain.
+Parallelamente, la proprietà di \textit{guarantee} G1 assicura che ``se le evidenze sono valide, il pagamento deve essere eseguito''. Il monitoraggio qui è volto a confermare l'avvenuto successo della transazione, fornendo tracciabilità on-chain.
 
 \begin{lstlisting}[language=Solidity, caption=Monitor di guarantee per il pagamento]
 // GUARANTEE MONITOR G1: Payment Upon Valid Evidence
@@ -366,14 +368,14 @@ Per minimizzare il rischio di errori implementativi nei meccanismi di enforcemen
 
 \section{Architettura modulare del frontend}
 
-L'interfaccia utente non è un semplice "guscio" grafico, ma un componente architetturale attivo che orchestra l'interazione sicura tra l'attore umano e la blockchain. Per garantire manutenibilità e isolamento delle responsabilità (\textit{separazione degli interessi}), il codice JavaScript è stato strutturato in moduli funzionali distinti, seguendo il pattern \textit{Service-Oriented}:
+L'interfaccia utente non è un semplice ``guscio'' grafico, ma un componente architetturale attivo che orchestra l'interazione sicura tra l'attore umano e la blockchain. Per garantire manutenibilità e isolamento delle responsabilità (\textit{separazione degli interessi}), il codice JavaScript è stato strutturato in moduli funzionali distinti, seguendo il pattern \textit{Service-Oriented}:
 
 \begin{itemize}
-    \item \textit{Orchestratore (main.js)}: agisce come \textit{controller} centrale. Inizializza l'applicazione, gestisce il ciclo di vita degli eventi DOM e coordina la comunicazione tra i moduli. Non contiene logica di business diretta, ma delega le operazioni ai servizi specializzati, mantenendo il codice "pulito" e testabile.
+    \item \textit{Orchestratore (main.js)}: agisce come \textit{controller} centrale. Inizializza l'applicazione, gestisce il ciclo di vita degli eventi DOM e coordina la comunicazione tra i moduli. Non contiene logica di business diretta, ma delega le operazioni ai servizi specializzati, mantenendo il codice ``pulito'' e testabile.
     
     \item \textit{Adattatore di connessione (web3-connection.js)}: isola completamente la logica di connessione al provider Web3 (MetaMask). Questo modulo astrae la complessità della gestione del portafoglio e della rete, esponendo un'interfaccia semplificata al resto dell'applicazione. In caso di cambio di provider o aggiornamento delle librerie, le modifiche sono confinate qui.
     
-    \item \textit{Strato di servizio (contract-interaction.js)}: incapsula tutte le chiamate dirette agli smart contract. Funge da \textit{proxy} locale per la blockchain: converte i tipi di dati (es. da Wei a Ether), gestisce la codifica delle transazioni (ABI encoding) e cattura gli errori RPC grezzi traducendoli in messaggi leggibili per l'utente. Qui risiede la "conoscenza" dei metodi del contratto (\texttt{validaEPaga}, \texttt{inviaEvidenza}, ecc.).
+    \item \textit{Strato di servizio (contract-interaction.js)}: incapsula tutte le chiamate dirette agli smart contract. Funge da \textit{proxy} locale per la blockchain: converte i tipi di dati (es. da Wei a Ether), gestisce la codifica delle transazioni (ABI encoding) e cattura gli errori RPC grezzi traducendoli in messaggi leggibili per l'utente. Qui risiede la ``conoscenza'' dei metodi del contratto (\texttt{validaEPaga}, \texttt{inviaEvidenza}, ecc.).
     
     \item \textit{Gestione logica specifica (refund-manager.js)}: un modulo dedicato per la logica complessa di rimborso e annullamento. Separare questa logica dal flusso principale riduce il rischio di errori in operazioni critiche che coinvolgono il movimento di fondi.
 \end{itemize}

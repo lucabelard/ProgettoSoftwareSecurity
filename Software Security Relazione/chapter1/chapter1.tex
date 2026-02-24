@@ -10,15 +10,15 @@ Per comprendere appieno le dinamiche organizzative e di sicurezza, abbiamo adott
 L'analisi si articola in tre scenari evolutivi: lo stato attuale, senza sistema; lo stato futuro con l'introduzione della blockchain e, infine, uno scenario di minaccia che modella esplicitamente gli attaccanti.
 
 \subsection{Scenario senza sistema: supply chain tradizionale}
-Nel modello iniziale, raffigurato in Figura \ref{fig:sd_as_is}, osserviamo le relazioni tra i tre attori principali della filiera: il \textit{Mittente} (farmacia o produttore), il \textit{Corriere} e il sistema di sensoristica isolata (\textit{Sensore IoT}).
+Nel modello iniziale, raffigurato in Figura~\ref{fig:sd_as_is}, osserviamo le relazioni tra i tre attori principali della filiera: il \textit{Mittente} (farmacia o produttore), il \textit{Corriere} e il sistema di sensoristica isolata (\textit{Sensore IoT}).
 
-In questo scenario, il \textit{Mittente} dipende quasi interamente dal \textit{Corriere} per il raggiungimento dei suoi obiettivi critici. Il goal primario "Spedire farmaci in catena del freddo" si decompone in task operativi come la selezione del vettore e la preparazione dell'imballaggio. Tuttavia, la criticità emerge nella dipendenza per la risorsa "Specifiche spedizione": il mittente deve fidarsi che il corriere rispetti le condizioni pattuite (temperatura, integrità, scadenze).
+In questo scenario, il \textit{Mittente} dipende quasi interamente dal \textit{Corriere} per il raggiungimento dei suoi obiettivi critici. Il goal primario ``Spedire farmaci in catena del freddo'' si decompone in task operativi come la selezione del vettore e la preparazione dell'imballaggio. Tuttavia, la criticità emerge nella dipendenza per la risorsa ``Specifiche spedizione'': il mittente deve fidarsi che il corriere rispetti le condizioni pattuite (temperatura, integrità, scadenze).
 
-Il \textit{Corriere}, a sua volta, ha l'obiettivo di "Effettuare consegna" e "Dimostrare integrità del pacco". Qui sorge un conflitto di interessi strutturale: per ottenere lo sblocco del pagamento (goal "Ottenere sblocco pagamento"), il corriere è l'unico certificatore della propria qualità. Sebbene esistano sensori IoT, questi non sono integrati in un sistema inviolabile; pertanto, il mittente non ha garanzie matematiche che i report delle evidenze ("Report evidenze") non siano stati manipolati o omessi.
+Il \textit{Corriere}, a sua volta, ha l'obiettivo di ``Effettuare consegna'' e ``Dimostrare integrità del pacco''. Qui sorge un conflitto di interessi strutturale: per ottenere lo sblocco del pagamento (goal ``Ottenere sblocco pagamento''), il corriere è l'unico certificatore della propria qualità. Sebbene esistano sensori IoT, questi non sono integrati in un sistema inviolabile; pertanto, il mittente non ha garanzie matematiche che i report delle evidenze (``Report evidenze'') non siano stati manipolati o omessi.
 
-Il softgoal "Protezione finanziaria" del mittente è quindi costantemente a rischio, poichè dipende da una fiducia cieca verso l'operato logistico. Non esiste un meccanismo di enforcement automatico per eventuali rimborsi in caso di non conformità ("Ottenere rimborso per non-conformità").
+Il softgoal ``Protezione finanziaria'' del mittente è quindi costantemente a rischio, poiché dipende da una fiducia cieca verso l'operato logistico. Non esiste un meccanismo di enforcement automatico per eventuali rimborsi in caso di non conformità (``Ottenere rimborso per non-conformità'').
 
-\begin{figure}[ht!]
+\begin{figure}[H]
     \centering
     \includegraphics[width=\linewidth, keepaspectratio]{chapter1/image/sd_as_is.png}
     \caption{Modello SD: supply chain senza sistema}
@@ -26,47 +26,73 @@ Il softgoal "Protezione finanziaria" del mittente è quindi costantemente a risc
 \end{figure}
 
 \subsection{Scenario con sistema: introduzione della blockchain}
-L'introduzione dello Smart Contract (raffigurato come attore \textit{Sistema}) ridefinisce le dipendenze strategiche, centralizzando la fiducia in un'entità imparziale e automatizzata. Come emerge dal modello, il \textit{Sistema} funge da intermediario tra mittente, corriere e sensori, garantendo che le interazioni avvengano secondo regole certe.
+L'introduzione dello smart contract (raffigurato come attore \textit{Sistema} in Figura~\ref{fig:sr_to_be}) ridefinisce radicalmente le dipendenze strategiche, centralizzando la fiducia in un'entità imparziale e automatizzata. Il modello SD-SR integra la vista delle dipendenze strategiche tra attori con l'analisi degli obiettivi e dei compiti interni di ciascuno.
 
-Il \textit{mittente} non dipende più dalla parola del corriere, ma si affida al sistema per una serie di obiettivi cruciali:
-\begin{itemize}
-    \item \textit{Validazione evidenze} e \textit{Pagamento automatico}: il mittente delega al contratto la verifica dei dati e l'esecuzione condizionale del pagamento.
-    \item \textit{Tracciabilità immutabile}: un softgoal soddisfatto intrinsecamente dalla tecnologia blockchain.
-    \item \textit{Rimborso automatico}: in caso di violazione delle condizioni contrattuali, il sistema garantisce il ritorno dei fondi depositati senza necessità di arbitrato esterno.
-\end{itemize}
+\paragraph{Sensore IoT.}
+Il \textit{Sensore IoT} ha l'obiettivo ``Monitorare e registrare condizioni trasporto'', scomposto in AND in cinque rilevazioni corrispondenti alle evidenze della rete bayesiana: temperatura (E1), sigillo elettronico (E2), shock (E3), apertura/luce (E4) e timestamp (E5). Tre di questi task --- rilevazione temperatura, verifica sigillo e registrazione timestamp --- contribuiscono positivamente al softgoal ``Integrità dati'', garantendo che i campionamenti siano coerenti e temporalmente certificati. A livello SD, il sistema dipende dal sensore per la ``Ricezione dati ambientali'' (risorsa) e per la qualità ``Dati affidabili''.
 
-Il \textit{Corriere} dipende dal sistema per la "Ricezione Pagamento", che avviene solo a fronte della "Conferma Consegna" e della verifica delle condizioni ambientali. Non esiste più discrezionalità umana nel rilascio dei fondi.
+\paragraph{Sistema.}
+L'attore \textit{Sistema} rappresenta lo smart contract e persegue il goal ``Garantire sistema affidabile'', decomposto in AND in cinque task principali: ``Gestione spedizioni'', ``Gestione evidenze'', ``Gestione pagamenti'', ``Monitoraggio ambientale'' e ``Gestione autorizzazioni''. Il task ``Gestione spedizioni'' si articola ulteriormente nei sotto-task ``Memorizzazione dati'' e ``Validazione transazioni'', e necessita (NeededByLink) della risorsa ``Registro blockchain''. Due contribution link collegano i task ai softgoal del sistema: ``Gestione spedizioni'' contribuisce a ``Immutabilità'', mentre ``Gestione autorizzazioni'' contribuisce a ``Sicurezza''. Il sistema funge da nodo centrale nella rete delle dipendenze: riceve i dati ambientali dal sensore, i parametri CPT dall'amministratore, ed eroga servizi di creazione spedizione, pagamento automatico, rimborso e annullamento al mittente.
 
-Un ruolo chiave è svolto dall'attore \textit{Sensore}, che interagisce direttamente con il sistema fornendo le "Letture Ambientali". In cambio, il sistema fornisce un "Timestamp Certificato", assicurando che ogni dato registrato sia temporalmente collocato in modo inalterabile.
+\paragraph{Admin.}
+L'\textit{Admin} ha il goal ``Amministrare sistema efficacemente'', scomposto in AND nei task ``Configurazione oracolo'' (impostazione dei parametri probabilistici) e ``Monitoraggio sistema''. A questo si affianca il goal ``Garantire sicurezza contratto'', che si decompone nel task ``Bloccare contratto'': la funzionalità di \textit{pause} per emergenze, implementata tramite il pattern \texttt{Pausable} di OpenZeppelin. Il sistema dipende dall'amministratore per la risorsa ``Parametri CPT'', che raggiunge direttamente il task ``Configurazione oracolo''.
 
-Infine, l'attore \textit{Amministratore} gestisce la governance tecnica, occupandosi della "Configurazione Sistema" (es. parametri bayesiani) e della "Gestione Ruoli", ricevendo in cambio dal sistema la garanzia di "Dati Affidabili".
+\paragraph{Mittente.}
+Il \textit{Mittente} mantiene il goal ``Spedizione farmaci in catena del freddo'', decomposto in AND in tre task operativi: ``Selezionare corriere certificato'', ``Installare sensori IoT'' e ``Depositare fondi in smart contract''. L'installazione dei sensori contribuisce positivamente al softgoal ``Tracciabilità completa'', mentre il deposito dei fondi contribuisce a ``Minimizzare rischio perdita''. A livello SD, il mittente non dipende più dalla parola del corriere: delega al sistema la ``Creazione spedizione'' (task), il ``Pagamento automatico'' (task), il ``Rimborso'' (qualità) e l'``Annullamento spedizione'' (qualità). L'unica dipendenza residua verso il corriere riguarda la ``Consegna fisica merce'' (goal).
 
-\begin{figure}[ht!]
+\paragraph{Corriere.}
+Il \textit{Corriere} persegue il goal ``Consegnare farmaci'', raffinato in AND in cinque task operativi --- ritiro, mantenimento temperatura 2-8°C, prevenzione shock, garanzia sigillo e rispetto deadline --- più il sotto-goal ``Dimostrare conformità'', a sua volta scomposto in AND in ``Raccogliere dati sensori'' e ``Ottenere firma destinatario''. Il corriere dipende dal sistema per la ``Ricezione pagamento'' (goal), che viene erogata solo a fronte della validazione delle evidenze. In direzione opposta, il corriere fornisce al mittente la risorsa ``Informazioni destinatario''.
+
+\paragraph{Vantaggi rispetto allo scenario senza sistema.}
+Il confronto con il modello iniziale (Figura~\ref{fig:sd_as_is}) evidenzia tre trasformazioni strutturali:
+\begin{enumerate}
+    \item \textit{Eliminazione della fiducia cieca:} nello scenario senza sistema, il mittente non aveva garanzie sull'operato del corriere; ora, le dipendenze critiche (pagamento, rimborso, annullamento) transitano attraverso il sistema, che le esegue in modo deterministico sulla base delle evidenze registrate.
+    \item \textit{Integrazione dei sensori:} i sensori IoT, prima isolati e privi di collegamento con un'infrastruttura di enforcement, sono ora integrati direttamente nel sistema attraverso le dipendenze ``Ricezione dati ambientali'' e ``Dati affidabili''. La rete bayesiana on-chain valida automaticamente le loro letture. La separazione in cinque evidenze distinte (E1-E5) permette una granularità assente nel modello originale.
+    \item \textit{Enforcement automatico:} il softgoal ``Protezione finanziaria'' del mittente, che nello scenario precedente era costantemente a rischio, è ora sostenuto da meccanismi concreti: il deposito in escrow (``Depositare fondi in smart contract'' $\rightarrow$ ``Minimizzare rischio perdita''), il rimborso automatico in caso di violazione, e il pagamento condizionale basato sulla soglia probabilistica.
+\end{enumerate}
+
+\begin{figure}[H]
     \centering
     \includegraphics[width=\linewidth, keepaspectratio]{chapter1/image/sr_to_be.png}
-    \caption{Modello SR: Supply Chain con sistema}
+    \caption{Modello SD-SR: supply chain con sistema}
     \label{fig:sr_to_be}
 \end{figure}
 
 \subsection{Scenario di minaccia: analisi degli attaccanti}
-Nonostante i miglioramenti, il sistema espone nuove superfici di attacco. La Figura \ref{fig:sr_attackers} modella tre profili di avversari che minacciano gli asset del sistema: l'\textit{Attaccante Interno}, l'\textit{Attaccante Esterno} e l'\textit{Utente Maldestro}.
+Il modello SD-SR completo (Figura~\ref{fig:sr_attackers}) estende lo scenario precedente con tre profili avversariali: l'\textit{Attaccante Interno}, l'\textit{Attaccante Esterno} e l'\textit{Utente Maldestro}. Gli attori legittimi e le relative dipendenze rimangono invariati rispetto alla Figura~\ref{fig:sr_to_be}; in questa sezione ci si concentra esclusivamente sugli alberi di attacco e sulle dipendenze malevole che essi generano verso il sistema.
 
-L'\textit{Attaccante Interno} è modellato come un amministratore infedele o compromesso. Il suo obiettivo di "Abuso privilegi" si raffina in attacchi specifici come la "Manipolazione CPT" (T5.1-A). Avendo accesso legittimo alle funzioni di configurazione, può alterare le probabilità della rete bayesiana ("Eseguire impostaCPT()") per favorire falsi positivi o negativi, sabotando l'affidabilità del sistema dall'interno senza violare controlli crittografici esterni.
+\paragraph{Attaccante Interno.}
+L'\textit{Attaccante Interno} è modellato come un amministratore compromesso o infedele che abusa dei propri privilegi legittimi. Il suo root goal ``Abuso privilegi'' si raffina tramite OR-decomposition nell'unico sotto-goal ``T5.1-A: Manipolazione CPT [CAPEC-1]'', a sua volta scomposto in AND in tre task sequenziali: ``Ottenere ruolo admin'', ``Calcolare parametri falsi'' ed ``Eseguire impostaCPT()''. L'ultimo genera una dipendenza verso il sistema sotto forma di ``Configurazione malevola CPT'', che raggiunge il task ``Gestione autorizzazioni'' del sistema. La pericolosità di questo attacco risiede nel fatto che l'attaccante opera entro i confini dei permessi legittimi, rendendo la sua attività indistinguibile da un'operazione di manutenzione ordinaria.
 
-L'\textit{Attaccante Esterno} punta a "Compromettere sistema" sfruttando vulnerabilità tecniche e umane. I suoi vettori di attacco principali includono:
+\paragraph{Attaccante Esterno.}
+L'\textit{Attaccante Esterno} ha il root goal ``Compromettere sistema (CAPEC-Root)'', decomposto in OR in otto vettori di attacco indipendenti, ciascuno corrispondente a uno scenario di minaccia identificato nell'analisi DUAL-STRIDE:
+
 \begin{itemize}
-    \item \textit{Impersonificazione sensore} (S2.1-A): tenta di iniettare dati falsi intercettando o replicando le comunicazioni dei dispositivi IoT ("Replay dati vecchi", "Iniettare dati falsi").
-    \item \textit{Attacco reentrancy} (T3.1-A): mira a drenare i fondi del contratto sfruttando vulnerabilità nella logica di prelievo ("Pubblicazione contratto malevolo").
-    \item \textit{Phishing} (S7.1-A): punta a sottrarre le credenziali degli utenti clonando l'interfaccia web ("Clonare interfaccia") o tramite ingegneria sociale.
-    \item \textit{Analisi dei dati} (I6.1-A): analizza la blockchain pubblica per estrarre informazioni commerciali riservate ("Scraping blockchain").
+    \item \textit{Spoofing sensore} (S2.1-A, CAPEC-151): si articola in due percorsi alternativi (OR). Il primo, denominato ``Intercettazione e iniezione'', richiede in AND tre passi: ``Intercettare traffico'', ``Estrarre chiave/ID'' e ``Iniettare dati falsi''. Il secondo consiste nel ``Replay dati vecchi'', che sfrutta dati legittimi già catturati.
+    \item \textit{Man-in-the-Middle} (T2.1-A, CAPEC-94): prevede in AND due task: ``Intercettare traffico'' e ``Modificare payload'', consentendo la manipolazione delle evidenze in transito.
+    \item \textit{Attacco reentrancy} (T3.1-A, CAPEC-194): richiede in AND quattro passi: ``Pubblicazione contratto malevolo'', ``Chiamata validaEPaga()'', ``Attivazione fallback()'' e ``Aggirare controllo stato''. La chiamata a \texttt{validaEPaga()} genera la dipendenza ``Fondi sottratti'' verso il task ``Gestione pagamenti'' del sistema.
+    \item \textit{Phishing interfaccia} (S7.1-A, CAPEC-98): si compone in AND di ``Clonare interfaccia'', ``Ingegneria sociale'' e ``Rubare seed phrase''.
+    \item \textit{DoS/Trattenuta dati} (D3.1-A, CAPEC-603): prevede in AND ``Compromettere sensore'' e ``Trattenere evidenze'', impedendo la raccolta dei dati necessari alla validazione.
+    \item \textit{Estrazione dati} (I6.1-A, CAPEC-169): si articola in AND in ``Scraping blockchain'' e ``Analisi modelli'', sfruttando la trasparenza del registro pubblico per ricavare informazioni commerciali sensibili.
+    \item \textit{Ingegneria inversa} (I5.1-A, CAPEC-188): prevede in AND ``Lettura memoria'' (storage slot) e ``Decompilazione'' del bytecode contrattuale.
+    \item \textit{Escalation privilegi} (E4.1-A, CAPEC-122): si compone in AND di ``Collisione hash'' ed ``Eseguire exploit'', tentando di ottenere ruoli non autorizzati.
 \end{itemize}
 
-Infine, l'\textit{Utente Maldestro} rappresenta una minaccia non intenzionale ma altrettanto dannosa. Il suo comportamento è guidato dall'obiettivo negativo di "Errore operativo". Questo include errori di configurazione ("Errore di battitura numerico", "Overflow non gestito"), errori nei pagamenti ("Importo errato", "Destinatario errato") e negligenza nella gestione delle chiavi private ("Screenshot seed", "Caricamento su cloud pubblico"). Questi "Misuse Cases" evidenziano come la sicurezza non dipenda solo dalla robustezza del codice, ma anche dall'usabilità e dalla formazione degli operatori.
+\paragraph{Utente Maldestro.}
+L'\textit{Utente Maldestro} rappresenta la minaccia non intenzionale derivante dall'errore umano. Il suo root goal ``Errore operativo'' si decompone in OR in tre misuse case:
 
-\begin{figure}[ht!]
+\begin{itemize}
+    \item \textit{Errore configurazione probabilità} (T5.1-M): prevede in AND ``Errore di battitura numerico'' e ``Overflow non gestito'', che possono alterare le soglie bayesiane anche senza intento malevolo.
+    \item \textit{Errore parametri input} (S7.1-M): si compone in AND di ``Importo errato'' e ``Destinatario errato''. Quest'ultimo genera la dipendenza ``Pagamento a indirizzo errato'' verso il task ``Gestione pagamenti'' del sistema.
+    \item \textit{Seed phrase in chiaro} (S8.1-M): include in AND ``Screenshot seed'' e ``Caricamento su cloud pubblico'', esponendo le chiavi private a compromissione.
+\end{itemize}
+
+Questi misuse case evidenziano come la sicurezza del sistema non si esaurisca nella robustezza del codice, poiché l'anello più debole resta il fattore umano. La mitigazione richiede una combinazione di validazione aggressiva degli input a livello di interfaccia e di formazione degli operatori.
+
+\begin{figure}[H]
     \centering
     \includegraphics[width=\linewidth, height=0.4\textheight, keepaspectratio]{chapter1/image/sr_attackers.png}
-    \caption{Modello SR: analisi degli attaccanti e alberi di attacco}
+    \caption{Modello SD-SR: analisi degli attaccanti e alberi di attacco}
     \label{fig:sr_attackers}
 \end{figure}
 
@@ -76,7 +102,7 @@ L'analisi è stata condotta raggruppando gli asset secondo il paradigma DUAL-STR
 Prima di esaminare le minacce, è essenziale definire gli asset critici del sistema che necessitano di protezione. La Tabella~\ref{tab:asset-critici} elenca le componenti primarie, spaziando dalla logica on-chain ai dispositivi fisici.
 
 \newcolumntype{L}{>{\raggedright\arraybackslash}X}
-\begin{table}[ht!]
+\begin{table}[H]
 \centering
 \caption{Asset critici del sistema}
 \label{tab:asset-critici}
@@ -104,7 +130,7 @@ La tabella successiva offre una visione d'insieme delle minacce identificate per
 \definecolor{stripeblue}{RGB}{235, 245, 255}
 \definecolor{letterred}{RGB}{255, 0, 0}
 \newcommand{\rotheader}[2]{%
-    \rotatebox{90}{\parbox{3cm}{\raggedright \textcolor{letterred}{\textbf{#1}}#2}}}
+    \rotatebox{90}{\parbox{3cm}{\raggedright \textcolor{white}{\textbf{#1}}\textcolor{white}{#2}}}}
 \newcommand{\chk}{$\bullet$}
 
 % --- INIZIO TABELLA GRANDE (LANDSCAPE) ---
@@ -112,13 +138,17 @@ La tabella successiva offre una visione d'insieme delle minacce identificate per
 \begin{landscape}
 
 \subsection*{Riepilogo visuale minacce (DUAL-STRIDE)}
+La Tabella~\ref{tab:dual-stride} riassume la matrice di rischio DUAL-STRIDE, mappando per ciascun asset le categorie di minaccia identificate, la descrizione dello scenario e la contromisura adottata. La colonna \textit{ID} riporta l'identificativo univoco della minaccia.
+
 \setlength\tabcolsep{3pt}
 \small
-\begin{longtable}{|l|l|c|c|c|c|c|c|c|c|c|c|p{6cm}|p{5cm}|}
+\begin{longtable}{|l|l|l|c|c|c|c|c|c|c|c|c|c|p{5cm}|p{5cm}|}
+\caption{Matrice di rischio DUAL-STRIDE per asset}\label{tab:dual-stride}\\
 \hline
 \rowcolor{headerblue}
 \multicolumn{1}{|c|}{\textcolor{white}{\textit{Asset}}} & 
 \multicolumn{1}{c|}{\textcolor{white}{\textit{Valore}}} & 
+\multicolumn{1}{c|}{\textcolor{white}{\textit{ID}}} & 
 \rotheader{S}{poofing} & 
 \rotheader{T}{ampering} & 
 \rotheader{R}{epudiation} & 
@@ -138,93 +168,103 @@ La tabella successiva offre una visione d'insieme delle minacce identificate per
 \rowcolor{headerblue}
 \multicolumn{1}{|c|}{\textcolor{white}{\textit{Asset}}} & 
 \multicolumn{1}{c|}{\textcolor{white}{\textit{Valore}}} & 
+\multicolumn{1}{c|}{\textcolor{white}{\textit{ID}}} & 
 \rotheader{S}{poofing} & 
 \rotheader{T}{ampering} & 
 \rotheader{R}{epudiation} & 
-\rotheader{I}{nformation Disclosure} & 
-\rotheader{D}{oS} & 
+\rotheader{I}{nformation disclosure} & 
+\rotheader{D}{enial of service} & 
 \rotheader{E}{levation of privilege} & 
 \rotheader{D}{anger} & 
 \rotheader{U}{nreliability} & 
 \rotheader{A}{bsence of resilience} & 
-\rotheader{L}{eakage/Exp.} & 
+\rotheader{L}{eakage} & 
 \multicolumn{1}{c|}{\textcolor{white}{\textit{Descrizione attacco}}} & 
-\multicolumn{1}{c|}{\textcolor{white}{\textit{Mitigazione (Controllo)}}} \\
+\multicolumn{1}{c|}{\textcolor{white}{\textit{Mitigazione}}} \\
 \hline
 \endhead
 
+% === A1 - Smart Contract ===
 \rowcolor{stripeblue}
-A1 & Critico & & \chk & & & & & \chk & & & & T1.1: manipolazione logica codice compilato & Analisi + Verifica formale \\
+A1 & Critico & T1.1 & & \chk & & & & & \chk & & & & Manipolazione logica codice compilato & Analisi + Verifica formale \\
 \hline
-A1 & Critico & & & & & \chk & & & & \chk & & D1.1: blocco contratto (saturazione dello storage) & Limiti gas \\
-\hline
-\rowcolor{stripeblue}
-A1 & Critico & & & & & & \chk & & & & \chk & E1.1: escalation privilegi amministratore & Est. Gnosis Safe multi-firma \\
-\hline
-
-A2 & Critico & \chk & & & & & & \chk & & & & S2.1: impersonificazione sensore & Controllo accessi per ruoli \\
+A1 & Critico & D1.1 & & & & & \chk & & & & \chk & & Blocco contratto (saturazione dello storage) & Limiti gas \\
 \hline
 \rowcolor{stripeblue}
-A2 & Critico & & \chk & & & & & \chk & & & & T2.1: modifica evidenze in transito & Firma transazione (autenticazione mittente) \\
+A1 & Critico & E1.1 & & & & & & \chk & & & & \chk & Escalation privilegi amministratore & Est. Gnosis Safe multi-firma \\
 \hline
-A2 & Critico & & & \chk & & & & & & & & R2.1: ripudio invio evidenza & Registrazione eventi \\
-\hline
-\rowcolor{stripeblue}
-A2 & Critico & & & & \chk & & & & \chk & & & I2.1: corruzione dati sensore & Ridondanza E1-E5 \\
-\hline
-
-A3 & Critico & & \chk & & & & & \chk & & & & T3.1: attacco reentrancy & ReentrancyGuard \\
+\noalign{\vskip 2pt}
+% === A2 - Evidenze IoT ===
+A2 & Critico & S2.1 & \chk & & & & & & \chk & & & & Impersonificazione sensore & Controllo accessi per ruoli \\
 \hline
 \rowcolor{stripeblue}
-A3 & Critico & & & & & \chk & & & & \chk & & D3.1: blocco fondi escrow & Logica rimborsi + tempo massimo \\
+A2 & Critico & T2.1 & & \chk & & & & & \chk & & & & Modifica evidenze in transito & Firma transazione \\
 \hline
-A3 & Critico & & & & & & \chk & & & & \chk & E3.1: drenaggio fondi contratto & Pagamento sicuro + ReentrancyGuard \\
-\hline
-
-\rowcolor{stripeblue}
-A4 & Alto & \chk & & & & & & \chk & & & & S4.1: assegnazione ruolo fraudolenta & Concessione solo amministratore \\
-\hline
-A4 & Alto & & \chk & & & & & \chk & & & & T4.1: modifica mapping ruoli & Variabili di stato private \\
+A2 & Critico & R2.1 & & & \chk & & & & & & & & Ripudio invio evidenza & Registrazione eventi \\
 \hline
 \rowcolor{stripeblue}
-A4 & Alto & & & & & & \chk & & & & \chk & E4.1: escalation privilegi & Controlli multilivello \\
+A2 & Critico & I2.1 & & & & \chk & & & & \chk & & & Corruzione dati sensore & Ridondanza E1-E5 \\
 \hline
-
-A5 & Alto & & \chk & & & & & \chk & & & & T5.1: manipolazione CPT & Variabili private + amministratore \\
-\hline
-\rowcolor{stripeblue}
-A5 & Alto & & & & \chk & & & & & & \chk & I5.1: analisi inversa CPT & Offuscamento \\
-\hline
-A5 & Alto & & & & & & \chk & & & & \chk & E5.1: fuga parametri bayesiani & Funzioni di lettura private \\
-\hline
-
-\rowcolor{stripeblue}
-A6 & Medio & & & & \chk & & & & & & \chk & I6.1: estrazione dati competitiva & Offuscamento dati sensibili \\
-\hline
-A6 & Medio & & \chk & & & & & & & & & T6.1: modifica storico spedizioni & Immutabilità blockchain \\
+\noalign{\vskip 2pt}
+% === A3 - Pagamenti ETH ===
+A3 & Critico & T3.1 & & \chk & & & & & \chk & & & & Attacco reentrancy & ReentrancyGuard \\
 \hline
 \rowcolor{stripeblue}
-A6 & Medio & & & \chk & & & & & & & & R6.1: ripudio transazione & Log eventi permanenti \\
+A3 & Critico & D3.1 & & & & & \chk & & & & \chk & & Blocco fondi escrow & Logica rimborsi + tempo massimo \\
 \hline
-
-A7 & Medio & \chk & & & & & & \chk & & & & S7.1: phishing/impersonificazione interfaccia & Formazione utente + HTTPS \\
+A3 & Critico & E3.1 & & & & & & \chk & & & & \chk & Drenaggio fondi contratto & Pagamento sicuro + ReentrancyGuard \\
+\hline
+\noalign{\vskip 2pt}
+% === A4 - Ruoli e permessi ===
+\rowcolor{stripeblue}
+A4 & Alto & S4.1 & \chk & & & & & & \chk & & & & Assegnazione ruolo fraudolenta & Concessione solo amministratore \\
+\hline
+A4 & Alto & T4.1 & & \chk & & & & & \chk & & & & Modifica mapping ruoli & Variabili di stato private \\
 \hline
 \rowcolor{stripeblue}
-A7 & Medio & & \chk & & & & & \chk & & & & T7.1: attacco sulla connessione Web3 & TLS + SRI \\
+A4 & Alto & E4.1 & & & & & & \chk & & & & \chk & Escalation privilegi & Controlli multilivello \\
 \hline
-A7 & Medio & & & & \chk & & & & & & \chk & I7.1: iniezione di codice (XSS) & Bonifica degli input \\
-\hline
-
-\rowcolor{stripeblue}
-A8 & Critico & \chk & & & & & & \chk & & & & S8.1: furto chiavi (captatore di digitazioni) & Portafoglio hardware (hardware wallet) \\
-\hline
-A8 & Critico & & & & \chk & & & & & & \chk & I8.1: esposizione frase di recupero & Formazione per l'archiviazione sicura \\
+\noalign{\vskip 2pt}
+% === A5 - CPT e probabilità ===
+A5 & Alto & T5.1 & & \chk & & & & & \chk & & & & Manipolazione CPT & Variabili private + amministratore \\
 \hline
 \rowcolor{stripeblue}
-A8 & Critico & & & & & & \chk & & & & \chk & E8.1: accesso non autorizzato al portafoglio & Politica password + 2FA \\
+A5 & Alto & I5.1 & & & & \chk & & & & & & \chk & Analisi inversa CPT & Offuscamento \\
+\hline
+A5 & Alto & E5.1 & & & & & & \chk & & & & \chk & Fuga parametri bayesiani & Funzioni di lettura private \\
+\hline
+\noalign{\vskip 2pt}
+% === A6 - Dati spedizioni ===
+\rowcolor{stripeblue}
+A6 & Medio & I6.1 & & & & \chk & & & & & & \chk & Estrazione dati competitiva & Offuscamento dati sensibili \\
+\hline
+A6 & Medio & T6.1 & & \chk & & & & & & & & & Modifica storico spedizioni & Immutabilità blockchain \\
+\hline
+\rowcolor{stripeblue}
+A6 & Medio & R6.1 & & & \chk & & & & & & & & Ripudio transazione & Log eventi permanenti \\
+\hline
+\noalign{\vskip 2pt}
+% === A7 - Interfaccia Web ===
+A7 & Medio & S7.1 & \chk & & & & & & \chk & & & & Phishing/impersonificazione interfaccia & Formazione utente + HTTPS \\
+\hline
+\rowcolor{stripeblue}
+A7 & Medio & T7.1 & & \chk & & & & & \chk & & & & Attacco sulla connessione Web3 & TLS + SRI \\
+\hline
+A7 & Medio & I7.1 & & & & \chk & & & & & & \chk & Iniezione di codice (XSS) & Bonifica degli input \\
+\hline
+\noalign{\vskip 2pt}
+% === A8 - Chiavi private ===
+\rowcolor{stripeblue}
+A8 & Critico & S8.1 & \chk & & & & & & \chk & & & & Furto chiavi (captatore di digitazioni) & Portafoglio hardware \\
+\hline
+A8 & Critico & I8.1 & & & & \chk & & & & & & \chk & Esposizione frase di recupero & Formazione per l'archiviazione sicura \\
+\hline
+\rowcolor{stripeblue}
+A8 & Critico & E8.1 & & & & & & \chk & & & & \chk & Accesso non autorizzato al portafoglio & Politica password + 2FA \\
 \hline
 
 \end{longtable}
+\normalsize
 \end{landscape}
 \restoregeometry
 \newpage
@@ -242,7 +282,9 @@ A completamento dell'analisi tabellare, approfondiamo gli scenari più significa
 La validità del sistema dipende interamente dalla veridicità dei dati trasmessi dai sensori. Qui analizziamo il rischio di impersonificazione da parte di un attaccante esterno e l'inaffidabilità dovuta a guasti hardware.
 
 \subsubsection*{ABUSE CASE: S2.1-A}
+La Tabella~\ref{tab:s21a} descrive lo scenario in cui un attaccante, avendo compromesso la chiave privata di un sensore autorizzato, invia evidenze falsificate allo smart contract per validare spedizioni non conformi.
 \begin{longtable}{| >{\columncolor{abuseCol}}p{0.25\textwidth} | p{0.67\textwidth} |}
+\caption{Abuse Case S2.1-A: sensore malevolo falsificato tramite chiave compromessa}\label{tab:s21a}\\
 \hline
 \rowcolor{abuseHeader} \textcolor{white}{\textit{Campo}} & \textcolor{white}{\textit{Contenuto}} \\
 \hline
@@ -260,7 +302,7 @@ La validità del sistema dipende interamente dalla veridicità dei dati trasmess
 \hline
 \textit{Dati} & chiave privata del sensore, ID spedizione bersaglio, valori evidenze falsificati (E1-E5) \\
 \hline
-\textit{Precondizioni} & - spedizione in stato "In Attesa" \newline - l'attaccante possiede una chiave autorizzata \newline - bersaglio: spedizione con merce deteriorata (temperatura fuori limite) \\
+\textit{Precondizioni} & - spedizione in stato ``In Attesa'' \newline - l'attaccante possiede una chiave autorizzata \newline - bersaglio: spedizione con merce deteriorata (temperatura fuori limite) \\
 \hline
 \textit{Flusso principale} & 1. l'attaccante individua la spedizione monitorando gli eventi sulla blockchain \newline 2. invia evidenze inserendo valori positivi fittizi \newline 3. ripete l'operazione per tutti i sensori coinvolti \newline 4. il corriere richiede il pagamento e il sistema valida la spedizione \newline 5. il corriere viene pagato illegittimamente per merce non conforme \\
 \hline
@@ -275,7 +317,9 @@ La validità del sistema dipende interamente dalla veridicità dei dati trasmess
 \end{longtable}
 
 \subsubsection*{MISUSE CASE: S2.1-M}
+La Tabella~\ref{tab:s21m} descrive lo scenario in cui un sensore IoT legittimo trasmette dati errati a causa di guasti hardware, perdita di calibrazione o interferenze, generando valutazioni errate senza intenzione malevola.
 \begin{longtable}{| >{\columncolor{misuseCol}}p{0.25\textwidth} | p{0.70\textwidth} |}
+\caption{Misuse Case S2.1-M: guasto hardware del sensore IoT}\label{tab:s21m}\\
 \hline
 \rowcolor{misuseHeader} \textcolor{white}{\textit{Campo}} & \textcolor{white}{\textit{Contenuto}} \\
 \hline
@@ -303,7 +347,42 @@ La validità del sistema dipende interamente dalla veridicità dei dati trasmess
 \hline
 \textit{Risultato} & \textit{impatto:} rifiuto ingiusto di merce conforme con perdita economica per il mittente \newline \textit{requisiti non funzionali:} manutenzione periodica, monitoraggio della batteria \\
 \hline
-\textit{Commenti} & \textit{DUA-Unreliability:} l'assenza di manutenzione è la causa principale \newline \textit{contromisure consigliate:} algoritmi per il rilevamento della deriva dei dati, confronto tra sensori multipli \\
+\textit{Commenti} & \textit{DUAL-Unreliability:} l'assenza di manutenzione è la causa principale \newline \textit{contromisure consigliate:} algoritmi per il rilevamento della deriva dei dati, confronto tra sensori multipli \\
+\hline
+\end{longtable}
+
+\subsubsection*{ABUSE CASE: T2.1-A}
+La Tabella~\ref{tab:t21a} descrive lo scenario in cui un attaccante intercetta e modifica i dati trasmessi dai sensori IoT prima che raggiungano lo smart contract, alterando le evidenze in transito.
+\begin{longtable}{| >{\columncolor{abuseCol}}p{0.25\textwidth} | p{0.67\textwidth} |}
+\caption{Abuse Case T2.1-A: attacco Man-in-the-Middle sulle comunicazioni sensore}\label{tab:t21a}\\
+\hline
+\rowcolor{abuseHeader} \textcolor{white}{\textit{Campo}} & \textcolor{white}{\textit{Contenuto}} \\
+\hline
+\textit{Tipologia scenario} & Abuse Case \\
+\hline
+\textit{Caso d'uso} & invio evidenza sensore \\
+\hline
+\textit{ID scenario} & T2.1-A \\
+\hline
+\textit{Nome scenario} & \textit{intercettazione e modifica dati sensore in transito} \\
+\hline
+\textit{Attori} & attaccante con accesso alla rete locale o al canale di comunicazione \\
+\hline
+\textit{Descrizione} & un attaccante si posiziona tra il sensore IoT e il nodo blockchain, intercettando le transazioni prima che vengano inviate. Modifica il contenuto dei dati (payload) per alterare le evidenze, facendo passare per conformi spedizioni deteriorate o viceversa. \\
+\hline
+\textit{Dati} & transazioni non firmate, payload evidenze, traffico di rete \\
+\hline
+\textit{Precondizioni} & - accesso alla rete locale o al canale di comunicazione del sensore \newline - assenza di crittografia end-to-end tra sensore e nodo \newline - il sensore trasmette su un canale non protetto \\
+\hline
+\textit{Flusso principale} & 1. l'attaccante compromette il punto di accesso di rete del sensore \newline 2. intercetta il traffico contenente le transazioni di evidenza \newline 3. modifica i valori delle evidenze nel payload \newline 4. inoltra la transazione modificata al nodo blockchain \newline 5. il sistema registra dati falsificati come se fossero autentici \\
+\hline
+\textit{Flusso alternativo} & - l'attaccante ritarda intenzionalmente la trasmissione per causare un timeout \newline - sostituzione completa della transazione con una costruita ad hoc \\
+\hline
+\textit{Eccezioni} & - la firma digitale della transazione impedisce la modifica del payload senza invalidarla \newline - l'uso di TLS/DTLS protegge il canale di comunicazione \\
+\hline
+\textit{Risultato} & \textit{se l'attacco riesce:} le evidenze registrate non corrispondono alla realtà, compromettendo la validazione \newline \textit{se fallisce:} la transazione modificata viene scartata dal nodo per firma non valida \\
+\hline
+\textit{Commenti} & \textit{CAPEC-94:} Man-in-the-Middle \newline \textit{contromisure implementate:} firma crittografica delle transazioni tramite chiave privata del sensore, comunicazione su canale protetto \\
 \hline
 \end{longtable}
 
@@ -311,7 +390,9 @@ La validità del sistema dipende interamente dalla veridicità dei dati trasmess
 Gli smart contract gestiscono valore economico reale, rendendoli bersagli primari. Esaminiamo il classico attacco di reentrancy e, parallelamente, la possibilità di errori umani o blocchi involontari dei fondi (DoS).
 
 \subsubsection*{ABUSE CASE: T3.1-A}
+La Tabella~\ref{tab:t31a} descrive lo scenario in cui un attaccante sfrutta un attacco di reentrancy sulla funzione di pagamento per drenare i fondi detenuti in escrow dallo smart contract.
 \begin{longtable}{| >{\columncolor{abuseCol}}p{0.25\textwidth} | p{0.67\textwidth} |}
+\caption{Abuse Case T3.1-A: attacco di reentrancy sulla funzione \texttt{validaEPaga}}\label{tab:t31a}\\
 \hline
 \rowcolor{abuseHeader} \textcolor{white}{\textit{Campo}} & \textcolor{white}{\textit{Contenuto}} \\
 \hline
@@ -344,7 +425,9 @@ Gli smart contract gestiscono valore economico reale, rendendoli bersagli primar
 \end{longtable}
 
 \subsubsection*{MISUSE CASE: T3.1-M}
+La Tabella~\ref{tab:t31m} descrive lo scenario in cui un mittente inserisce per errore un indirizzo errato come destinatario del corriere, causando la perdita irreversibile dei fondi.
 \begin{longtable}{| >{\columncolor{misuseCol}}p{0.25\textwidth} | p{0.70\textwidth} |}
+\caption{Misuse Case T3.1-M: errore di digitazione dell'indirizzo del corriere}\label{tab:t31m}\\
 \hline
 \rowcolor{misuseHeader} \textcolor{white}{\textit{Campo}} & \textcolor{white}{\textit{Contenuto}} \\
 \hline
@@ -372,12 +455,14 @@ Gli smart contract gestiscono valore economico reale, rendendoli bersagli primar
 \hline
 \textit{Risultato} & \textit{impatto:} perdita definitiva dei fondi e possibile contenzioso legale \newline \textit{requisiti non funzionali:} interfaccia con selezione da elenco di operatori verificati \\
 \hline
-\textit{Commenti} & \textit{DUA-Exposure:} l'interfaccia espone l'utente a errori umani onerosi \newline \textit{contromisure consigliate:} lista bianca di corrieri, rubrica integrata nell'applicazione \\
+\textit{Commenti} & \textit{DUAL-Exposure:} l'interfaccia espone l'utente a errori umani onerosi \newline \textit{contromisure consigliate:} lista bianca di corrieri, rubrica integrata nell'applicazione \\
 \hline
 \end{longtable}
 
 \subsubsection*{ABUSE CASE: D3.1-A}
+La Tabella~\ref{tab:d31a} descrive lo scenario in cui un attaccante trattiene deliberatamente l'ultima evidenza necessaria alla validazione, bloccando i fondi del mittente come forma di estorsione.
 \begin{longtable}{| >{\columncolor{abuseCol}}p{0.25\textwidth} | p{0.67\textwidth} |}
+\caption{Abuse Case D3.1-A: blocco intenzionale delle evidenze (Denial of Service)}\label{tab:d31a}\\
 \hline
 \rowcolor{abuseHeader} \textcolor{white}{\textit{Campo}} & \textcolor{white}{\textit{Contenuto}} \\
 \hline
@@ -410,7 +495,9 @@ Gli smart contract gestiscono valore economico reale, rendendoli bersagli primar
 \end{longtable}
 
 \subsubsection*{MISUSE CASE: D3.1-M}
+La Tabella~\ref{tab:d31m} descrive lo scenario in cui un sensore perde la connettivit\`a durante il trasporto per cause accidentali, impedendo la trasmissione completa delle evidenze e bloccando la validazione.
 \begin{longtable}{| >{\columncolor{misuseCol}}p{0.25\textwidth} | p{0.70\textwidth} |}
+\caption{Misuse Case D3.1-M: perdita di connettività IoT durante il trasporto}\label{tab:d31m}\\
 \hline
 \rowcolor{misuseHeader} \textcolor{white}{\textit{Campo}} & \textcolor{white}{\textit{Contenuto}} \\
 \hline
@@ -444,7 +531,9 @@ Gli smart contract gestiscono valore economico reale, rendendoli bersagli primar
 Questi scenari si concentrano sulla manipolazione della logica decisionale del sistema (le tabelle CPT) e sull'estrazione di informazioni sensibili tramite analisi inversa o analisi dei dati pubblici.
 
 \subsubsection*{ABUSE CASE: T5.1-A}
+La Tabella~\ref{tab:t51a} descrive lo scenario in cui un amministratore infedele sfrutta i propri privilegi per alterare le tabelle di probabilit\`a condizionate (CPT), manipolando la logica decisionale del sistema.
 \begin{longtable}{| >{\columncolor{abuseCol}}p{0.25\textwidth} | p{0.67\textwidth} |}
+\caption{Abuse Case T5.1-A: abuso dei privilegi amministratore sui parametri bayesiani}\label{tab:t51a}\\
 \hline
 \rowcolor{abuseHeader} \textcolor{white}{\textit{Campo}} & \textcolor{white}{\textit{Contenuto}} \\
 \hline
@@ -472,12 +561,14 @@ Questi scenari si concentrano sulla manipolazione della logica decisionale del s
 \hline
 \textit{Risultato} & \textit{se l'attacco riesce:} perdita di integrità logica e danni economici diffusi \newline \textit{rilevamento:} analisi statistica delle prestazioni del sistema e allarmi su anomalie \\
 \hline
-\textit{Commenti} & \textit{CAPEC-122:} Abuso di privilegi \newline \textit{contromisure consigliate:} controllo multi-firma per le modifiche, parametri bloccati dopo la fase di calibrazione \\
+\textit{Commenti} & \textit{CAPEC-1:} Accessing Functionality Not Properly Constrained \newline \textit{contromisure consigliate:} controllo multi-firma per le modifiche, parametri bloccati dopo la fase di calibrazione \\
 \hline
 \end{longtable}
 
 \subsubsection*{MISUSE CASE: T5.1-M}
+La Tabella~\ref{tab:t51m} descrive lo scenario in cui un amministratore commette un errore non intenzionale nell'inserimento dei valori delle CPT, producendo calcoli distorti senza che il sistema li rilevi.
 \begin{longtable}{| >{\columncolor{misuseCol}}p{0.25\textwidth} | p{0.70\textwidth} |}
+\caption{Misuse Case T5.1-M: errore di configurazione delle probabilità bayesiane}\label{tab:t51m}\\
 \hline
 \rowcolor{misuseHeader} \textcolor{white}{\textit{Campo}} & \textcolor{white}{\textit{Contenuto}} \\
 \hline
@@ -505,12 +596,14 @@ Questi scenari si concentrano sulla manipolazione della logica decisionale del s
 \hline
 \textit{Risultato} & \textit{impatto:} instabilità del sistema con decisioni errate fino al ripristino dei valori corretti \newline \textit{requisiti non funzionali:} validazione rigorosa degli input e rilascio controllato \\
 \hline
-\textit{Commenti} & \textit{DUA-Unreliability:} l'interfaccia non impedisce errori semantici nei parametri \newline \textit{contromisure consigliate:} ambiente di staging pre-produzione, verifica incrociata dei valori inseriti, log immutabile delle modifiche \\
+\textit{Commenti} & \textit{DUAL-Unreliability:} l'interfaccia non impedisce errori semantici nei parametri \newline \textit{contromisure consigliate:} ambiente di staging pre-produzione, verifica incrociata dei valori inseriti, log immutabile delle modifiche \\
 \hline
 \end{longtable}
 
 \subsubsection*{ABUSE CASE: I6.1-A}
+La Tabella~\ref{tab:i61a} descrive lo scenario in cui un concorrente analizza le transazioni pubbliche sulla blockchain per estrarre informazioni strategiche su volumi, rotte commerciali e margini di profitto.
 \begin{longtable}{| >{\columncolor{abuseCol}}p{0.25\textwidth} | p{0.67\textwidth} |}
+\caption{Abuse Case I6.1-A: analisi competitiva dei dati pubblici sulla blockchain}\label{tab:i61a}\\
 \hline
 \rowcolor{abuseHeader} \textcolor{white}{\textit{Campo}} & \textcolor{white}{\textit{Contenuto}} \\
 \hline
@@ -543,7 +636,9 @@ Questi scenari si concentrano sulla manipolazione della logica decisionale del s
 \end{longtable}
 
 \subsubsection*{ABUSE CASE: I5.1-A}
+La Tabella~\ref{tab:i51a} descrive lo scenario in cui un attaccante legge direttamente la memoria dello smart contract per ricostruire la struttura della rete bayesiana e appropriarsi del modello proprietario.
 \begin{longtable}{| >{\columncolor{abuseCol}}p{0.25\textwidth} | p{0.67\textwidth} |}
+\caption{Abuse Case I5.1-A: analisi inversa dello stato del contratto per furto del modello}\label{tab:i51a}\\
 \hline
 \rowcolor{abuseHeader} \textcolor{white}{\textit{Campo}} & \textcolor{white}{\textit{Contenuto}} \\
 \hline
@@ -579,7 +674,9 @@ Questi scenari si concentrano sulla manipolazione della logica decisionale del s
 Infine, analizziamo il vettore di attacco più comune: il fattore umano. Dagli attacchi di phishing (impersonificazione dell'interfaccia) al furto o smarrimento delle chiavi private, questi scenari eludono spesso le difese crittografiche del contratto.
 
 \subsubsection*{ABUSE CASE: S7.1-A}
+La Tabella~\ref{tab:s71a} descrive lo scenario in cui un attaccante crea una replica dell'interfaccia legittima dell'applicazione per sottrarre le credenziali degli utenti tramite phishing.
 \begin{longtable}{| >{\columncolor{abuseCol}}p{0.25\textwidth} | p{0.67\textwidth} |}
+\caption{Abuse Case S7.1-A: clonazione dell'interfaccia tramite phishing}\label{tab:s71a}\\
 \hline
 \rowcolor{abuseHeader} \textcolor{white}{\textit{Campo}} & \textcolor{white}{\textit{Contenuto}} \\
 \hline
@@ -612,7 +709,9 @@ Infine, analizziamo il vettore di attacco più comune: il fattore umano. Dagli a
 \end{longtable}
 
 \subsubsection*{MISUSE CASE: S7.1-M}
+La Tabella~\ref{tab:s71m} descrive lo scenario in cui un utente commette errori di inserimento nell'interfaccia autentica, causando transazioni con parametri errati e perdite economiche.
 \begin{longtable}{| >{\columncolor{misuseCol}}p{0.25\textwidth} | p{0.70\textwidth} |}
+\caption{Misuse Case S7.1-M: errore di inserimento dei parametri nell'interfaccia}\label{tab:s71m}\\
 \hline
 \rowcolor{misuseHeader} \textcolor{white}{\textit{Campo}} & \textcolor{white}{\textit{Contenuto}} \\
 \hline
@@ -640,12 +739,14 @@ Infine, analizziamo il vettore di attacco più comune: il fattore umano. Dagli a
 \hline
 \textit{Risultato} & \textit{impatto:} perdita economica immediata per l'utente \newline \textit{requisiti non funzionali:} validazione avanzata nell'interfaccia e finestre di conferma dettagliate \\
 \hline
-\textit{Commenti} & \textit{DUA-Exposure:} un'interfaccia poco intuitiva espone a errori costosi \newline \textit{contromisure consigliate:} vincoli sugli input, anteprima della transazione prima della firma definitiva \\
+\textit{Commenti} & \textit{DUAL-Exposure:} un'interfaccia poco intuitiva espone a errori costosi \newline \textit{contromisure consigliate:} vincoli sugli input, anteprima della transazione prima della firma definitiva \\
 \hline
 \end{longtable}
 
 \subsubsection*{ABUSE CASE: S8.1-A}
+La Tabella~\ref{tab:s81a} descrive lo scenario in cui un attaccante installa software malevolo sul dispositivo della vittima per catturare la frase di recupero o le chiavi private del portafoglio.
 \begin{longtable}{| >{\columncolor{abuseCol}}p{0.25\textwidth} | p{0.67\textwidth} |}
+\caption{Abuse Case S8.1-A: sottrazione delle credenziali tramite software malevolo}\label{tab:s81a}\\
 \hline
 \rowcolor{abuseHeader} \textcolor{white}{\textit{Campo}} & \textcolor{white}{\textit{Contenuto}} \\
 \hline
@@ -678,7 +779,9 @@ Infine, analizziamo il vettore di attacco più comune: il fattore umano. Dagli a
 \end{longtable}
 
 \subsubsection*{MISUSE CASE: S8.1-M}
+La Tabella~\ref{tab:s81m} descrive lo scenario in cui un utente salva la propria frase di recupero in formati non sicuri, esponendola a furti accidentali o compromissioni.
 \begin{longtable}{| >{\columncolor{misuseCol}}p{0.25\textwidth} | p{0.70\textwidth} |}
+\caption{Misuse Case S8.1-M: frase di recupero salvata in chiaro per negligenza}\label{tab:s81m}\\
 \hline
 \rowcolor{misuseHeader} \textcolor{white}{\textit{Campo}} & \textcolor{white}{\textit{Contenuto}} \\
 \hline
@@ -706,12 +809,14 @@ Infine, analizziamo il vettore di attacco più comune: il fattore umano. Dagli a
 \hline
 \textit{Risultato} & \textit{impatto:} furto dei fondi per mancata protezione delle credenziali \newline \textit{requisiti non funzionali:} tutorial obbligatori e avvisi contro il salvataggio digitale \\
 \hline
-\textit{Commenti} & \textit{DUA-Exposure:} la mancata formazione espone le credenziali a rischi evitabili \newline \textit{contromisure consigliate:} tutorial obbligatorio alla creazione del portafoglio, blocco dello screenshot durante la visualizzazione della frase \\
+\textit{Commenti} & \textit{DUAL-Exposure:} la mancata formazione espone le credenziali a rischi evitabili \newline \textit{contromisure consigliate:} tutorial obbligatorio alla creazione del portafoglio, blocco dello screenshot durante la visualizzazione della frase \\
 \hline
 \end{longtable}
 
 \subsubsection*{ABUSE CASE: E4.1-A}
+La Tabella~\ref{tab:e41a} descrive lo scenario in cui un attaccante tenta di sfruttare una collisione sui selettori delle funzioni per aggirare i controlli di accesso e auto-assegnarsi privilegi amministrativi.
 \begin{longtable}{| >{\columncolor{abuseCol}}p{0.25\textwidth} | p{0.67\textwidth} |}
+\caption{Abuse Case E4.1-A: tentativo di escalation dei privilegi via collisione di selettori}\label{tab:e41a}\\
 \hline
 \rowcolor{abuseHeader} \textcolor{white}{\textit{Campo}} & \textcolor{white}{\textit{Contenuto}} \\
 \hline
@@ -746,7 +851,7 @@ Infine, analizziamo il vettore di attacco più comune: il fattore umano. Dagli a
 \section{Standard internazionali e mitigazioni}
 L'analisi non si è limitata all'identificazione dei rischi, ma ha provveduto a mapparli sui framework standard di settore per garantire una copertura esaustiva. La Tabella~\ref{tab:capec-mapping} correla le minacce discusse con i pattern \textit{CAPEC} (Common Attack Pattern Enumeration and Classification) e le tattiche \textit{MITRE ATT\&CK}.
 
-\begin{table}[ht!]
+\begin{table}[H]
 \centering
 \caption{Mappatura minacce su framework CAPEC e MITRE ATT\&CK}
 \label{tab:capec-mapping}
@@ -783,11 +888,11 @@ A fronte di queste minacce, sono state implementate contromisure specifiche prog
 \end{enumerate}
 
 \section{Conclusioni e rischio residuo}
-L'analisi \textit{DUAL-STRIDE} ha permesso di identificare 25 scenari di minaccia, dettagliando 9 abuse case e 6 misuse case.
+L'analisi \textit{DUAL-STRIDE} ha permesso di identificare 25 scenari di minaccia, dettagliando 10 abuse case e 6 misuse case.
 La valutazione finale, riassunta nella Tabella~\ref{tab:rischio-residuo}, mostra un quadro positivo per quanto riguarda la sicurezza del codice, ma evidenzia la criticità permanente legata alla gestione delle credenziali utente.
 
 \small
-\begin{table}[ht!]
+\begin{table}[H]
 \centering
 \caption{Rischio residuo per asset}
 \label{tab:rischio-residuo}
@@ -806,5 +911,6 @@ A8 & CRITICO & Raccomandazione HW Wallet & ALTO & \textit{!} Responsabilità ute
 \bottomrule
 \end{tabularx}
 \end{table}
+\normalsize
 
 In conclusione, mentre gli asset tecnici (A1-A6) sono stati messi in sicurezza con successo, l'asset \textit{A8 (Chiavi Private)} rimane l'elemento più vulnerabile, non mitigabile tecnologicamente se non tramite l'educazione dell'utente finale.

@@ -110,7 +110,7 @@ I 57 warning NatSpec iniziali erano così distribuiti:
 }
 \end{table}
 
-Questi dati evidenziano la necessità di un intervento sistematico sulla documentazione \textit{NatSpec}, il cui impatto sulla sicurezza, l'integrazione e la conformità agli standard è analizzato nel dettaglio nella \textit{Sezione 4.5}.
+Questi dati evidenziano la necessità di un intervento sistematico sulla documentazione \textit{NatSpec}, il cui impatto sulla sicurezza, l'integrazione e la conformità agli standard è analizzato nel dettaglio nella Sezione~\ref{sec:config-risultati-finali}.
 
 %===========================================
 \section{Analisi architetturale dei contratti}
@@ -232,7 +232,7 @@ if (!_tutteEvidenzeRicevute(_id)) {
     revert EvidenzeMancanti();
 }
 
-// S4: Probability Threshold - soglia 95%
+// S5: Probability Threshold - soglia 95%
 if (probF1 < SOGLIA_PROBABILITA || 
     probF2 < SOGLIA_PROBABILITA) {
     emit MonitorSafetyViolation("ProbabilityThreshold",
@@ -384,7 +384,7 @@ Allo stesso modo, facendo un bilancio tra costi e benefici, abbiamo capito che a
 Per dare l'ultima rifinitura, abbiamo convertito tutte le vecchie importazioni globali in importazioni nominate (\texttt{import \{X\} from "..."}), rimosso i costruttori vuoti inutilizzati e aggiunto il tag \texttt{@notice} agli errori personalizzati, raggiungendo finalmente l'obiettivo di zero segnalazioni.
 
 %===========================================
-\section{Configurazione e risultati finali}
+\section{Configurazione e risultati finali}\label{sec:config-risultati-finali}
 %===========================================
 
 Il file di configurazione \texttt{.solhint.json} che è emerso da questo lungo processo di taratura si presenta compatto e focalizzato sulle regole che portano reale valore al progetto, come riportato nel Listato~\ref{lst:solhint-finale}:
@@ -454,3 +454,5 @@ Complessità ciclomatica media & 4.1 & 6.5 \\
 \bottomrule
 \end{tabular}
 \end{table}
+
+In sintesi, il processo di analisi statica ha consentito di portare il codice a uno standard qualitativo elevato, abbattendo sistematicamente ogni categoria di warning attraverso interventi mirati di documentazione, ottimizzazione e refactoring. La combinazione di miglioramenti strutturali e di una configurazione intelligente del linter ha prodotto una base di codice matura e pronta per il deployment, in cui le scelte di compromesso (come il mantenimento della notazione matematica) sono state prese consapevolmente e documentate.

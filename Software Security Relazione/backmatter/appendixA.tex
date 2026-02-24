@@ -19,9 +19,9 @@ In questa appendice vengono presentati i risultati dei test di performance condo
     
     \section{Analisi dei Risultati}
     
-    L'aspetto più critico per la sostenibilità economica e tecnica di una soluzione blockchain è il consumo di Gas. Il grafico in Figura \ref{fig:gas_consumption} illustra chiaramente la distinzione tra i costi "una tantum" di configurazione e i costi operativi ricorrenti.
+    L'aspetto più critico per la sostenibilità economica e tecnica di una soluzione blockchain è il consumo di Gas. Il grafico in Figura~\ref{fig:gas_consumption} illustra chiaramente la distinzione tra i costi ``una tantum'' di configurazione e i costi operativi ricorrenti.
     
-    \begin{figure}[ht!]
+    \begin{figure}[H]
         \centering
         \includegraphics[width=0.9\linewidth]{backmatter/image/gas_consumption.png}
         \caption{Confronto dei costi operativi in Gas: Configurazione vs Inferenza}
@@ -32,9 +32,9 @@ In questa appendice vengono presentati i risultati dei test di performance condo
     
     Al contrario, il costo di \textit{Inferenza} (barre verdi), che rappresenta la spesa per ogni singola validazione di spedizione, si mantiene sorprendentemente contenuto. Anche nello scenario più complesso (\textit{BN\_Complex}), il consumo di gas rimane ben al di sotto delle 80.000 unità. Questo dato è molto positivo, in quanto dimostra che l'algoritmo di propagazione della credenza implementato in Solidity è efficiente e che l'aumento dei nodi non provoca un'esplosione esponenziale dei costi di calcolo per transazione.
     
-    Passando all'analisi temporale, la Figura \ref{fig:execution_time} riporta i tempi di esecuzione per le diverse fasi, utilizzando una scala logaritmica per apprezzare le differenze di ordine di grandezza.
+    Passando all'analisi temporale, la Figura~\ref{fig:execution_time} riporta i tempi di esecuzione per le diverse fasi, utilizzando una scala logaritmica per apprezzare le differenze di ordine di grandezza.
     
-    \begin{figure}[ht!]
+    \begin{figure}[H]
         \centering
         \includegraphics[width=0.9\linewidth]{backmatter/image/execution_time.png}
         \caption{Tempi di esecuzione (Scala Logaritmica)}
@@ -43,15 +43,15 @@ In questa appendice vengono presentati i risultati dei test di performance condo
     
     Il grafico evidenzia come il tempo necessario per la validazione di una transazione (linea verde) sia trascurabile, attestandosi su valori nell'ordine delle decine di millisecondi. I tempi più elevati si registrano solo durante il \textit{Deploy} e la \textit{Configurazione} iniziale, operazioni che, come già sottolineato, non impattano sull'operatività quotidiana della piattaforma. Questo conferma l'idoneità dell'architettura per scenari real-time o near real-time.
     
-    Infine, è stato analizzato l'impatto della logica aggiuntiva sulla dimensione del contratto compilato, come mostrato in Figura \ref{fig:contract_size}.
+    Infine, è stato analizzato l'impatto della logica aggiuntiva sulla dimensione del contratto compilato, come mostrato in Figura~\ref{fig:contract_size}.
     
-    \begin{figure}[ht!]
+    \begin{figure}[H]
         \centering
         \includegraphics[width=0.8\linewidth]{backmatter/image/contract_size.png}
         \caption{Dimensione del Bytecode dello Smart Contract}
         \label{fig:contract_size}
     \end{figure}
     
-    Anche in questo caso la crescita è moderata e lineare. Il contratto più complesso occupa meno di 8 KB di spazio, un valore ben lontano dal limite massimo di 24 KB imposto dallo standard EIP-170 ("Spurious Dragon"). Ciò garantisce un ampio margine per future estensioni delle funzionalità o per l'implementazione di reti bayesiane ancora più articolate senza rischiare di superare i limiti fisici del protocollo Ethereum.
+    Anche in questo caso la crescita è moderata e lineare. Il contratto più complesso occupa meno di 8 KB di spazio, un valore ben lontano dal limite massimo di 24 KB imposto dallo standard EIP-170 (``Spurious Dragon''). Ciò garantisce un ampio margine per future estensioni delle funzionalità o per l'implementazione di reti bayesiane ancora più articolate senza rischiare di superare i limiti fisici del protocollo Ethereum.
     
     In conclusione, i test effettuati confermano la validità delle scelte progettuali. L'approccio on-chain per la logica bayesiana si dimostra non solo tecnicamente fattibile, ma anche scalabile ed efficiente per i casi d'uso previsti nella supply chain.

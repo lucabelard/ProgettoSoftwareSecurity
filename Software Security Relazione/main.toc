@@ -8,55 +8,64 @@
 \contentsline {section}{\numberline {2.1}Modellazione i*}{3}{section.2.1}%
 \contentsline {subsection}{\numberline {2.1.1}Scenario senza sistema: supply chain tradizionale}{3}{subsection.2.1.1}%
 \contentsline {subsection}{\numberline {2.1.2}Scenario con sistema: introduzione della blockchain}{4}{subsection.2.1.2}%
-\contentsline {subsection}{\numberline {2.1.3}Scenario di minaccia: analisi degli attaccanti}{5}{subsection.2.1.3}%
-\contentsline {section}{\numberline {2.2}Analisi delle minacce DUAL-STRIDE}{6}{section.2.2}%
-\contentsline {section}{\numberline {2.3}Analisi dettagliata degli scenari (\textit {Abuse e Misuse Cases})}{9}{section.2.3}%
-\contentsline {subsection}{\numberline {2.3.1}Integrità dei dati IoT (Asset A2)}{9}{subsection.2.3.1}%
-\contentsline {subsection}{\numberline {2.3.2}Sicurezza dei pagamenti e fondi (Asset A3)}{11}{subsection.2.3.2}%
-\contentsline {subsection}{\numberline {2.3.3}Configurazione e logica bayesiana (Asset A5 e A6)}{14}{subsection.2.3.3}%
-\contentsline {subsection}{\numberline {2.3.4}Interfaccia utente e credenziali (Asset A7 e A8)}{17}{subsection.2.3.4}%
-\contentsline {section}{\numberline {2.4}Standard internazionali e mitigazioni}{21}{section.2.4}%
-\contentsline {section}{\numberline {2.5}Conclusioni e rischio residuo}{22}{section.2.5}%
-\contentsline {chapter}{\numberline {3}Analisi e progettazione architetturale}{24}{chapter.3}%
-\contentsline {section}{\numberline {3.1}Design Architetturale e Strategie di Sicurezza}{24}{section.3.1}%
-\contentsline {subsection}{\numberline {3.1.1}Architettura distribuita, ridondante e diversificata}{24}{subsection.3.1.1}%
-\contentsline {subsection}{\numberline {3.1.2}Interazione utente e strumenti di sviluppo}{24}{subsection.3.1.2}%
-\contentsline {subsection}{\numberline {3.1.3}Monitoraggio, isolamento e offuscamento}{25}{subsection.3.1.3}%
-\contentsline {section}{\numberline {3.2}Design degli asset e linee guida di sicurezza}{25}{section.3.2}%
-\contentsline {section}{\numberline {3.3}Modellazione Markov Chain e verifica formale con PRISM}{25}{section.3.3}%
-\contentsline {subsection}{\numberline {3.3.1}Definizione e dinamica del modello}{26}{subsection.3.3.1}%
-\contentsline {subsubsection}{Componenti del modello}{27}{subsubsection*.10}%
-\contentsline {subsection}{\numberline {3.3.2}Formalizzazione della matrice di transizione}{27}{subsection.3.3.2}%
-\contentsline {subsection}{\numberline {3.3.3}Calcolo della distribuzione di Equilibrio tramite Autovalori}{28}{subsection.3.3.3}%
-\contentsline {subsection}{\numberline {3.3.4}Analisi della distribuzione limite}{29}{subsection.3.3.4}%
-\contentsline {subsection}{\numberline {3.3.5}Verifica delle proprietà PCTL}{29}{subsection.3.3.5}%
-\contentsline {subsubsection}{Analisi di Safety: integrità finanziaria}{29}{subsubsection*.12}%
-\contentsline {subsubsection}{Analisi di Guarantee: resilienza e rimborsi}{30}{subsubsection*.13}%
-\contentsline {subsubsection}{Analisi quantitativa e reward}{30}{subsubsection*.14}%
-\contentsline {section}{\numberline {3.4}Monitoring}{31}{section.3.4}%
-\contentsline {subsection}{\numberline {3.4.1}Enforcement della proprietà di safety (S4: Probability Threshold)}{31}{subsection.3.4.1}%
-\contentsline {subsection}{\numberline {3.4.2}Enforcement della proprietà di guarantee (G1: Payment Validity)}{32}{subsection.3.4.2}%
-\contentsline {subsection}{\numberline {3.4.3}Adozione di librerie standard (OpenZeppelin)}{32}{subsection.3.4.3}%
-\contentsline {section}{\numberline {3.5}Architettura modulare del frontend}{32}{section.3.5}%
-\contentsline {section}{\numberline {3.6}Motivazione delle scelte tecnologiche}{33}{section.3.6}%
-\contentsline {subsection}{\numberline {3.6.1}Analisi di resistenza, ambiguità e sopravvivenza}{33}{subsection.3.6.1}%
-\contentsline {subsection}{\numberline {3.6.2}Mitigazione delle debolezze}{33}{subsection.3.6.2}%
-\contentsline {chapter}{\numberline {4}Analisi della qualità del codice e testing}{34}{chapter.4}%
-\contentsline {section}{\numberline {4.1}Introduzione}{34}{section.4.1}%
-\contentsline {subsection}{\numberline {4.1.1}Solhint nel progetto}{34}{subsection.4.1.1}%
-\contentsline {section}{\numberline {4.2}Metodologia}{34}{section.4.2}%
-\contentsline {subsection}{\numberline {4.2.1}Funzionamento di Solhint}{34}{subsection.4.2.1}%
-\contentsline {subsection}{\numberline {4.2.2}Installazione ed esecuzione}{35}{subsection.4.2.2}%
-\contentsline {section}{\numberline {4.3}Risultati iniziali}{35}{section.4.3}%
-\contentsline {subsection}{\numberline {4.3.1}Analisi dei warning NatSpec}{36}{subsection.4.3.1}%
-\contentsline {section}{\numberline {4.4}Analisi architetturale dei contratti}{36}{section.4.4}%
-\contentsline {subsection}{\numberline {4.4.1}BNCore.sol - analisi dettagliata}{36}{subsection.4.4.1}%
-\contentsline {subsection}{\numberline {4.4.2}BNGestoreSpedizioni.sol - analisi dettagliata}{37}{subsection.4.4.2}%
-\contentsline {subsection}{\numberline {4.4.3}BNPagamenti.sol - analisi dettagliata}{38}{subsection.4.4.3}%
-\contentsline {section}{\numberline {4.5}Processo di ottimizzazione}{39}{section.4.5}%
-\contentsline {subsection}{\numberline {4.5.1}Miglioramenti strutturali e documentazione}{39}{subsection.4.5.1}%
-\contentsline {subsection}{\numberline {4.5.2}Adattamento delle regole e pulizia finale}{41}{subsection.4.5.2}%
-\contentsline {section}{\numberline {4.6}Configurazione e risultati finali}{41}{section.4.6}%
-\contentsline {chapter}{\numberline {A}Analisi delle Performance e Scalabilità}{43}{appendix.Alph1}%
-\contentsline {section}{\numberline {A.1}Metodologia di Test e Scenari}{43}{section.Alph1.1}%
-\contentsline {section}{\numberline {A.2}Analisi dei Risultati}{43}{section.Alph1.2}%
+\contentsline {paragraph}{Sensore IoT.}{4}{paragraph*.5}%
+\contentsline {paragraph}{Sistema.}{4}{paragraph*.6}%
+\contentsline {paragraph}{Admin.}{5}{paragraph*.7}%
+\contentsline {paragraph}{Mittente.}{5}{paragraph*.8}%
+\contentsline {paragraph}{Corriere.}{5}{paragraph*.9}%
+\contentsline {paragraph}{Vantaggi rispetto allo scenario senza sistema.}{5}{paragraph*.10}%
+\contentsline {subsection}{\numberline {2.1.3}Scenario di minaccia: analisi degli attaccanti}{6}{subsection.2.1.3}%
+\contentsline {paragraph}{Attaccante Interno.}{6}{paragraph*.12}%
+\contentsline {paragraph}{Attaccante Esterno.}{6}{paragraph*.13}%
+\contentsline {paragraph}{Utente Maldestro.}{7}{paragraph*.14}%
+\contentsline {section}{\numberline {2.2}Analisi delle minacce DUAL-STRIDE}{8}{section.2.2}%
+\contentsline {section}{\numberline {2.3}Analisi dettagliata degli scenari (\textit {Abuse e Misuse Cases})}{11}{section.2.3}%
+\contentsline {subsection}{\numberline {2.3.1}Integrità dei dati IoT (Asset A2)}{11}{subsection.2.3.1}%
+\contentsline {subsection}{\numberline {2.3.2}Sicurezza dei pagamenti e fondi (Asset A3)}{14}{subsection.2.3.2}%
+\contentsline {subsection}{\numberline {2.3.3}Configurazione e logica bayesiana (Asset A5 e A6)}{17}{subsection.2.3.3}%
+\contentsline {subsection}{\numberline {2.3.4}Interfaccia utente e credenziali (Asset A7 e A8)}{21}{subsection.2.3.4}%
+\contentsline {section}{\numberline {2.4}Standard internazionali e mitigazioni}{26}{section.2.4}%
+\contentsline {section}{\numberline {2.5}Conclusioni e rischio residuo}{27}{section.2.5}%
+\contentsline {chapter}{\numberline {3}Analisi e progettazione architetturale}{28}{chapter.3}%
+\contentsline {section}{\numberline {3.1}Design Architetturale e Strategie di Sicurezza}{28}{section.3.1}%
+\contentsline {subsection}{\numberline {3.1.1}Architettura distribuita, ridondante e diversificata}{28}{subsection.3.1.1}%
+\contentsline {subsection}{\numberline {3.1.2}Interazione utente e strumenti di sviluppo}{29}{subsection.3.1.2}%
+\contentsline {subsection}{\numberline {3.1.3}Monitoraggio, isolamento e offuscamento}{29}{subsection.3.1.3}%
+\contentsline {section}{\numberline {3.2}Design degli asset e linee guida di sicurezza}{29}{section.3.2}%
+\contentsline {section}{\numberline {3.3}Modellazione Markov Chain e verifica formale con PRISM}{30}{section.3.3}%
+\contentsline {subsection}{\numberline {3.3.1}Definizione e dinamica del modello}{30}{subsection.3.3.1}%
+\contentsline {subsubsection}{Componenti del modello}{31}{subsubsection*.19}%
+\contentsline {subsection}{\numberline {3.3.2}Formalizzazione della matrice di transizione}{32}{subsection.3.3.2}%
+\contentsline {subsection}{\numberline {3.3.3}Calcolo della distribuzione di Equilibrio tramite Autovalori}{33}{subsection.3.3.3}%
+\contentsline {subsection}{\numberline {3.3.4}Analisi della distribuzione limite}{33}{subsection.3.3.4}%
+\contentsline {subsection}{\numberline {3.3.5}Verifica delle proprietà PCTL}{34}{subsection.3.3.5}%
+\contentsline {subsubsection}{Analisi di Safety: integrità finanziaria}{34}{subsubsection*.21}%
+\contentsline {subsubsection}{Analisi di Guarantee: resilienza e rimborsi}{34}{subsubsection*.22}%
+\contentsline {subsubsection}{Analisi quantitativa e reward}{35}{subsubsection*.23}%
+\contentsline {section}{\numberline {3.4}Monitoring}{35}{section.3.4}%
+\contentsline {subsection}{\numberline {3.4.1}Enforcement della proprietà di safety (S5: Probability Threshold)}{35}{subsection.3.4.1}%
+\contentsline {subsection}{\numberline {3.4.2}Enforcement della proprietà di guarantee (G1: Payment Validity)}{36}{subsection.3.4.2}%
+\contentsline {subsection}{\numberline {3.4.3}Adozione di librerie standard (OpenZeppelin)}{37}{subsection.3.4.3}%
+\contentsline {section}{\numberline {3.5}Architettura modulare del frontend}{37}{section.3.5}%
+\contentsline {section}{\numberline {3.6}Motivazione delle scelte tecnologiche}{38}{section.3.6}%
+\contentsline {subsection}{\numberline {3.6.1}Analisi di resistenza, ambiguità e sopravvivenza}{38}{subsection.3.6.1}%
+\contentsline {subsection}{\numberline {3.6.2}Mitigazione delle debolezze}{38}{subsection.3.6.2}%
+\contentsline {chapter}{\numberline {4}Analisi della qualità del codice e testing}{40}{chapter.4}%
+\contentsline {section}{\numberline {4.1}Introduzione}{40}{section.4.1}%
+\contentsline {subsection}{\numberline {4.1.1}Solhint nel progetto}{40}{subsection.4.1.1}%
+\contentsline {section}{\numberline {4.2}Metodologia}{40}{section.4.2}%
+\contentsline {subsection}{\numberline {4.2.1}Funzionamento di Solhint}{40}{subsection.4.2.1}%
+\contentsline {subsection}{\numberline {4.2.2}Installazione ed esecuzione}{41}{subsection.4.2.2}%
+\contentsline {section}{\numberline {4.3}Risultati iniziali}{41}{section.4.3}%
+\contentsline {subsection}{\numberline {4.3.1}Analisi dei warning NatSpec}{42}{subsection.4.3.1}%
+\contentsline {section}{\numberline {4.4}Analisi architetturale dei contratti}{42}{section.4.4}%
+\contentsline {subsection}{\numberline {4.4.1}BNCore.sol - analisi dettagliata}{42}{subsection.4.4.1}%
+\contentsline {subsection}{\numberline {4.4.2}BNGestoreSpedizioni.sol - analisi dettagliata}{43}{subsection.4.4.2}%
+\contentsline {subsection}{\numberline {4.4.3}BNPagamenti.sol - analisi dettagliata}{44}{subsection.4.4.3}%
+\contentsline {section}{\numberline {4.5}Processo di ottimizzazione}{45}{section.4.5}%
+\contentsline {subsection}{\numberline {4.5.1}Miglioramenti strutturali e documentazione}{45}{subsection.4.5.1}%
+\contentsline {subsection}{\numberline {4.5.2}Adattamento delle regole e pulizia finale}{47}{subsection.4.5.2}%
+\contentsline {section}{\numberline {4.6}Configurazione e risultati finali}{47}{section.4.6}%
+\contentsline {chapter}{\numberline {A}Analisi delle Performance e Scalabilità}{49}{appendix.Alph1}%
+\contentsline {section}{\numberline {A.1}Metodologia di Test e Scenari}{49}{section.Alph1.1}%
+\contentsline {section}{\numberline {A.2}Analisi dei Risultati}{50}{section.Alph1.2}%

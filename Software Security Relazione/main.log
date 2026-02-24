@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.28 (MiKTeX 25.12) (preloaded format=pdflatex 2026.2.12)  23 FEB 2026 18:36
+This is pdfTeX, Version 3.141592653-2.6-1.40.28 (MiKTeX 25.12) (preloaded format=pdflatex 2026.2.12)  24 FEB 2026 12:06
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -983,8 +983,8 @@ File: hpdftex.def 2025-07-12 v7.01o Hyperref driver for pdfTeX
 \c@bookmark@seq@number=\count406
 \Hy@SectionHShift=\skip126
 )
-Package hyperref Info: Option `colorlinks' set `true' on input line 104.
-Package hyperref Info: Option `breaklinks' set `true' on input line 104.
+Package hyperref Info: Option `colorlinks' set `true' on input line 105.
+Package hyperref Info: Option `breaklinks' set `true' on input line 105.
  (C:\Users\andre\AppData\Local\Programs\MiKTeX\tex/latex/bookmark\bookmark.sty
 Package: bookmark 2023-12-10 v1.31 PDF bookmarks (HO)
  (C:\Users\andre\AppData\Local\Programs\MiKTeX\tex/latex/bookmark\bkm-pdftex.def
@@ -1248,10 +1248,7 @@ Package microtype Info: Loading generic protrusion settings for font family
 Capitolo 1.
 LaTeX Font Info:    Font shape `T1/phv/m/n' will be
 (Font)              scaled to size 23.63593pt on input line 1.
-LaTeX Font Info:    Trying to load font information for TS1+ppl on input line 4.
-(C:\Users\andre\AppData\Local\Programs\MiKTeX\tex/latex/psnfss\ts1ppl.fd
-File: ts1ppl.fd 2001/06/04 font definitions for TS1/ppl.
-)
+
 pdfTeX warning (ext4): destination with the same identifier (name{page.1}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
@@ -1283,18 +1280,31 @@ LaTeX Font Info:    Font shape `T1/phv/b/n' will be
 
 
 ]
-<chapter1/image/sr_to_be.png, id=164, 10178.025pt x 6548.465pt>
+LaTeX Font Info:    Trying to load font information for T1+pcr on input line 38.
+ (C:\Users\andre\AppData\Local\Programs\MiKTeX\tex/latex/psnfss\t1pcr.fd
+File: t1pcr.fd 2001/06/04 font definitions for T1/pcr.
+)
+Package microtype Info: Loading generic protrusion settings for font family
+(microtype)             `pcr' (encoding: T1).
+(microtype)             For optimal results, create family-specific settings.
+(microtype)             See the microtype manual for details.
+ [4 <./chapter1/image/sd_as_is.png>]
+LaTeX Font Info:    Trying to load font information for TS1+ppl on input line 44.
+ (C:\Users\andre\AppData\Local\Programs\MiKTeX\tex/latex/psnfss\ts1ppl.fd
+File: ts1ppl.fd 2001/06/04 font definitions for TS1/ppl.
+)
+<chapter1/image/sr_to_be.png, id=176, 7090.49pt x 5861.9pt>
 File: chapter1/image/sr_to_be.png Graphic file (type png)
 <use chapter1/image/sr_to_be.png>
-Package pdftex.def Info: chapter1/image/sr_to_be.png  used on input line 46.
-(pdftex.def)             Requested size: 441.01775pt x 283.67686pt.
- [4 <./chapter1/image/sd_as_is.png>] [5 <./chapter1/image/sr_to_be.png>]
-<chapter1/image/sr_attackers.png, id=180, 2409.0pt x 904.37875pt>
+Package pdftex.def Info: chapter1/image/sr_to_be.png  used on input line 56.
+(pdftex.def)             Requested size: 441.01775pt x 364.57895pt.
+ [5] [6 <./chapter1/image/sr_to_be.png>]
+<chapter1/image/sr_attackers.png, id=199, 14678.84pt x 6568.54pt>
 File: chapter1/image/sr_attackers.png Graphic file (type png)
 <use chapter1/image/sr_attackers.png>
-Package pdftex.def Info: chapter1/image/sr_attackers.png  used on input line 68.
-(pdftex.def)             Requested size: 440.98972pt x 165.55489pt.
- [6 <./chapter1/image/sr_attackers.png>]
+Package pdftex.def Info: chapter1/image/sr_attackers.png  used on input line 94.
+(pdftex.def)             Requested size: 441.01814pt x 197.34837pt.
+ [7] [8 <./chapter1/image/sr_attackers.png>]
 *geometry* verbose mode - [ newgeometry ] result:
 * driver: pdftex
 * paper: a4paper
@@ -1328,136 +1338,137 @@ Package pdftex.def Info: chapter1/image/sr_attackers.png  used on input line 68.
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
 LaTeX Font Info:    Font shape `U/msa/m/n' will be
-(Font)              scaled to size 10.42007pt on input line 122.
+(Font)              scaled to size 10.42007pt on input line 152.
 LaTeX Font Info:    Font shape `U/msa/m/n' will be
-(Font)              scaled to size 7.91925pt on input line 122.
+(Font)              scaled to size 7.91925pt on input line 152.
 LaTeX Font Info:    Font shape `U/msb/m/n' will be
-(Font)              scaled to size 10.42007pt on input line 122.
+(Font)              scaled to size 10.42007pt on input line 152.
 LaTeX Font Info:    Font shape `U/msb/m/n' will be
-(Font)              scaled to size 7.91925pt on input line 122.
+(Font)              scaled to size 7.91925pt on input line 152.
 
-Underfull \hbox (badness 3417) in paragraph at lines 159--159
-[]|\T1/ppl/m/n/10 (+20) D1.1: bloc-co con-trat-to (sa-tu-ra-zio-ne
+Underfull \hbox (badness 10000) in paragraph at lines 189--189
+[]|\T1/ppl/m/n/10 (+20) Manipolazione lo-gi-ca co-di-ce
  []
 
-[7
+
+Underfull \hbox (badness 5302) in paragraph at lines 191--191
+[]|\T1/ppl/m/n/10 (+20) Blocco con-trat-to (sa-tu-ra-zio-ne
+ []
+
+[9
 
 
-] [8]
-Underfull \hbox (badness 2359) in paragraph at lines 273--274
+] [10]
+Underfull \hbox (badness 2359) in paragraph at lines 315--316
 \T1/ppl/m/it/10.95 (+20) contromisure con-si-glia-te: \T1/ppl/m/n/10.95 (+20) ro-ta-zio-ne pe-rio-di-ca del-le chia-vi,
  []
 
-chapter1/chapter1.tex:275: ignored error: Infinite glue shrinkage found in box being split [9
+chapter1/chapter1.tex:317: ignored error: Infinite glue shrinkage found in box being split [11
 
 
 ]
-Underfull \hbox (badness 2213) in paragraph at lines 302--303
+Underfull \hbox (badness 2213) in paragraph at lines 346--347
 \T1/ppl/m/n/10.95 (+20) - in-ter-ven-to ma-nua-le del-l'am-mi-ni-stra-to-re per sbloc-ca-re la
  []
 
 
-Overfull \hbox (3.14774pt too wide) in alignment at lines 278--308
+Overfull \hbox (3.14774pt too wide) in alignment at lines 321--352
  [] [] 
  []
 
-[10]
-LaTeX Font Info:    Trying to load font information for T1+pcr on input line 334.
- (C:\Users\andre\AppData\Local\Programs\MiKTeX\tex/latex/psnfss\t1pcr.fd
-File: t1pcr.fd 2001/06/04 font definitions for T1/pcr.
-)
-Package microtype Info: Loading generic protrusion settings for font family
-(microtype)             `pcr' (encoding: T1).
-(microtype)             For optimal results, create family-specific settings.
-(microtype)             See the microtype manual for details.
+chapter1/chapter1.tex:352: ignored error: Infinite glue shrinkage found in box being split [12]
+Underfull \hbox (badness 3098) in paragraph at lines 369--370
+[]|\T1/ppl/m/n/10.95 (+20) attaccante con ac-ces-so al-la re-te lo-ca-le o al ca-na-le di
+ []
 
-Overfull \hbox (3.14774pt too wide) in alignment at lines 347--377
+chapter1/chapter1.tex:387: ignored error: Infinite glue shrinkage found in box being split [13]
+chapter1/chapter1.tex:425: ignored error: Infinite glue shrinkage found in box being split [14]
+Overfull \hbox (3.14774pt too wide) in alignment at lines 429--460
  [] [] 
  []
 
-[11]
-chapter1/chapter1.tex:410: ignored error: Infinite glue shrinkage found in box being split [12]
-Overfull \hbox (3.14774pt too wide) in alignment at lines 413--441
+chapter1/chapter1.tex:460: ignored error: Infinite glue shrinkage found in box being split [15] [16]
+Overfull \hbox (3.14774pt too wide) in alignment at lines 499--528
  [] [] 
  []
 
-chapter1/chapter1.tex:441: ignored error: Infinite glue shrinkage found in box being split [13]
-Underfull \hbox (badness 3219) in paragraph at lines 469--470
+
+Underfull \hbox (badness 3219) in paragraph at lines 558--559
 []|\T1/ppl/m/n/10.95 (+20) - l'am-mi-ni-stra-to-re im-po-sta pa-ra-me-tri ta-li da im-pe-di-re
  []
 
-
-Underfull \hbox (badness 1308) in paragraph at lines 508--509
+[17]
+Underfull \hbox (badness 1308) in paragraph at lines 599--600
 \T1/ppl/m/n/10.95 (+20) ve-ri-fi-ca in-cro-cia-ta dei va-lo-ri in-se-ri-ti, log im-mu-ta-bi-le del-le
  []
 
 
-Overfull \hbox (3.14774pt too wide) in alignment at lines 480--510
+Overfull \hbox (3.14774pt too wide) in alignment at lines 570--601
  [] [] 
  []
 
-[14]
-Underfull \hbox (badness 5802) in paragraph at lines 531--532
+chapter1/chapter1.tex:601: ignored error: Infinite glue shrinkage found in box being split [18]
+Underfull \hbox (badness 5802) in paragraph at lines 624--625
 \T1/ppl/m/n/10.95 (+20) - as-so-cia-zio-ne de-gli in-di-riz-zi a iden-ti-tà rea-li tra-mi-te
  []
 
-chapter1/chapter1.tex:543: ignored error: Infinite glue shrinkage found in box being split [15]
-Underfull \hbox (badness 1478) in paragraph at lines 570--571
+chapter1/chapter1.tex:636: ignored error: Infinite glue shrinkage found in box being split [19]
+Underfull \hbox (badness 1478) in paragraph at lines 665--666
 \T1/ppl/m/n/10.95 (+20) - l'u-so di tec-ni-che di of-fu-sca-men-to ren-de la de-co-di-fi-ca
  []
 
-chapter1/chapter1.tex:576: ignored error: Infinite glue shrinkage found in box being split [16]
-chapter1/chapter1.tex:612: ignored error: Infinite glue shrinkage found in box being split [17]
-Underfull \hbox (badness 1442) in paragraph at lines 639--640
+chapter1/chapter1.tex:671: ignored error: Infinite glue shrinkage found in box being split [20]
+chapter1/chapter1.tex:709: ignored error: Infinite glue shrinkage found in box being split [21]
+Underfull \hbox (badness 1442) in paragraph at lines 738--739
 \T1/ppl/m/n/10.95 (+20) - vin-co-li di im-por-to mi-ni-mo/massimo im-pe-di-sco-no va-lo-ri
  []
 
 
-Overfull \hbox (3.14774pt too wide) in alignment at lines 615--645
+Overfull \hbox (3.14774pt too wide) in alignment at lines 713--744
  [] [] 
  []
 
-chapter1/chapter1.tex:645: ignored error: Infinite glue shrinkage found in box being split [18]
-Underfull \hbox (badness 2608) in paragraph at lines 668--669
+chapter1/chapter1.tex:744: ignored error: Infinite glue shrinkage found in box being split [22]
+Underfull \hbox (badness 2608) in paragraph at lines 769--770
 \T1/ppl/m/n/10.95 (+20) 5. l'at-tac-can-te im-por-ta le cre-den-zia-li e svuo-ta i fon-di
  []
 
-chapter1/chapter1.tex:678: ignored error: Infinite glue shrinkage found in box being split [19]
-Overfull \hbox (3.14774pt too wide) in alignment at lines 681--711
+chapter1/chapter1.tex:779: ignored error: Infinite glue shrinkage found in box being split [23]
+Overfull \hbox (3.14774pt too wide) in alignment at lines 783--814
  [] [] 
  []
 
-
-Underfull \hbox (badness 2717) in paragraph at lines 738--739
+chapter1/chapter1.tex:814: ignored error: Infinite glue shrinkage found in box being split [24]
+Underfull \hbox (badness 2717) in paragraph at lines 843--844
 \T1/ppl/m/n/10.95 (+20) - il si-ste-ma di con-trol-lo ac-ces-si ve-ri-fi-ca espli-ci-ta-men-te
  []
 
-chapter1/chapter1.tex:744: ignored error: Infinite glue shrinkage found in box being split [20] [21]) [22] [23]
+chapter1/chapter1.tex:849: ignored error: Infinite glue shrinkage found in box being split [25] [26]) [27]
 \openout2 = `chapter2/chapter2.aux'.
 
  (chapter2/chapter2.tex
 Capitolo 3.
-[24
+[28
 
 
 
 
-] [25] (C:\Users\andre\AppData\Local\Programs\MiKTeX\tex/latex/listings\lstlang1.sty
+] [29] (C:\Users\andre\AppData\Local\Programs\MiKTeX\tex/latex/listings\lstlang1.sty
 File: lstlang1.sty 2025/11/14 1.11b listings language file
 ) (C:\Users\andre\AppData\Local\Programs\MiKTeX\tex/latex/listings\lstmisc.sty
 File: lstmisc.sty 2025/11/14 1.11b (Carsten Heinz)
 )
 Package hyperref Info: bookmark level for unknown lstlisting defaults to 0 on input line 53.
- [26]
-<chapter2/image/Grafico_Markov_Chain.png, id=357, 1445.4pt x 813.0375pt>
+ [30] [31]
+<chapter2/image/Grafico_Markov_Chain.png, id=427, 1445.4pt x 813.0375pt>
 File: chapter2/image/Grafico_Markov_Chain.png Graphic file (type png)
 <use chapter2/image/Grafico_Markov_Chain.png>
 Package pdftex.def Info: chapter2/image/Grafico_Markov_Chain.png  used on input line 155.
 (pdftex.def)             Requested size: 441.01775pt x 248.06912pt.
- [27] [28 <./chapter2/image/Grafico_Markov_Chain.png (PNG copy)>] [29] [30]
+ [32 <./chapter2/image/Grafico_Markov_Chain.png (PNG copy)>] [33] [34]
 LaTeX Font Info:    Font shape `T1/pcr/m/it' in size <8> not available
-(Font)              Font shape `T1/pcr/m/sl' tried instead on input line 309.
- (chapter2/monitor_safety.tex) [31] (chapter2/monitor_guarantee.tex) [32]) [33]
+(Font)              Font shape `T1/pcr/m/sl' tried instead on input line 311.
+ [35] (chapter2/monitor_safety.tex) [36] (chapter2/monitor_guarantee.tex) [37] [38]) [39]
 \openout2 = `chapter4/chapter4.aux'.
 
  (chapter4/chapter4.tex)
@@ -1465,7 +1476,7 @@ LaTeX Font Info:    Font shape `T1/pcr/m/it' in size <8> not available
 
  (chapter6/chapter6.tex
 Capitolo 4.
-[34
+[40
 
 
 
@@ -1477,7 +1488,7 @@ Capitolo 4.
 File: lstlang1.sty 2025/11/14 1.11b listings language file
 ) (C:\Users\andre\AppData\Local\Programs\MiKTeX\tex/latex/listings\lstlang1.sty
 File: lstlang1.sty 2025/11/14 1.11b listings language file
-) [35]
+) [41]
 LaTeX Info: Symbol \textdownarrow not provided by
             font family pcr in TS1 encoding.
             Default family used instead on input line 127.
@@ -1492,19 +1503,9 @@ Package microtype Info: Loading generic protrusion settings for font family
 LaTeX Info: Symbol \textdownarrow not provided by
             font family pcr in TS1 encoding.
             Default family used instead on input line 127.
- [36]
-Overfull \hbox (54.2186pt too wide) in paragraph at lines 144--145
-[]\T1/ppl/m/n/10 (-20) Il con-trat-to man-tie-ne 5 CPT pri-va-te (\T1/pcr/m/n/10 cpt_E1 \T1/ppl/m/n/10 (-20) ... \T1/pcr/m/n/10 cpt_E5\T1/ppl/m/n/10 (-20) ), ac-ces-si-bi-li so-lo via get-ter con \T1/pcr/m/n/10 DEFAULT_ADMIN_ROLE
- []
-
-[37] [38]
-Overfull \hbox (85.5623pt too wide) in paragraph at lines 307--308
-\T1/ppl/m/n/10 (-20) il co-di-ce: ogni di-ra-ma-zio-ne (\T1/pcr/m/n/10 if\T1/ppl/m/n/10 (-20) , \T1/pcr/m/n/10 else\T1/ppl/m/n/10 (-20) , ci-cli) fa sa-li-re il con-ta-to-re. La no-stra fun-zio-ne \T1/pcr/m/n/10 _calcolaProbabilitaCombinata\T1/ppl/m/n/10 (-20) ,
- []
-
-[39] [40] (C:\Users\andre\AppData\Local\Programs\MiKTeX\tex/latex/listings\lstlang1.sty
+ [42] [43] [44] [45] [46] (C:\Users\andre\AppData\Local\Programs\MiKTeX\tex/latex/listings\lstlang1.sty
 File: lstlang1.sty 2025/11/14 1.11b listings language file
-) [41]) [42]
+) [47]) [48]
 \openout2 = `chapter7/chapter7.aux'.
 
  (chapter7/chapter7.tex)
@@ -1512,12 +1513,7 @@ File: lstlang1.sty 2025/11/14 1.11b listings language file
 
  (backmatter/appendixA.tex
 Appendice A.
-<backmatter/image/gas_consumption.png, id=715, 722.7pt x 433.62pt>
-File: backmatter/image/gas_consumption.png Graphic file (type png)
-<use backmatter/image/gas_consumption.png>
-Package pdftex.def Info: backmatter/image/gas_consumption.png  used on input line 26.
-(pdftex.def)             Requested size: 396.91327pt x 238.14767pt.
-[43
+[49
 
 
 
@@ -1526,18 +1522,23 @@ Package pdftex.def Info: backmatter/image/gas_consumption.png  used on input lin
 
 
 ]
-<backmatter/image/execution_time.png, id=722, 722.7pt x 433.62pt>
+<backmatter/image/gas_consumption.png, id=780, 722.7pt x 433.62pt>
+File: backmatter/image/gas_consumption.png Graphic file (type png)
+<use backmatter/image/gas_consumption.png>
+Package pdftex.def Info: backmatter/image/gas_consumption.png  used on input line 26.
+(pdftex.def)             Requested size: 396.91327pt x 238.14767pt.
+<backmatter/image/execution_time.png, id=782, 722.7pt x 433.62pt>
 File: backmatter/image/execution_time.png Graphic file (type png)
 <use backmatter/image/execution_time.png>
 Package pdftex.def Info: backmatter/image/execution_time.png  used on input line 39.
 (pdftex.def)             Requested size: 396.91327pt x 238.14767pt.
- [44 <./backmatter/image/gas_consumption.png> <./backmatter/image/execution_time.png>]
-<backmatter/image/contract_size.png, id=731, 578.16pt x 361.35pt>
+ [50 <./backmatter/image/gas_consumption.png>]
+<backmatter/image/contract_size.png, id=791, 578.16pt x 361.35pt>
 File: backmatter/image/contract_size.png Graphic file (type png)
 <use backmatter/image/contract_size.png>
 Package pdftex.def Info: backmatter/image/contract_size.png  used on input line 50.
 (pdftex.def)             Requested size: 352.81554pt x 220.50589pt.
-) [45 <./backmatter/image/contract_size.png>]
+ [51 <./backmatter/image/execution_time.png> <./backmatter/image/contract_size.png>]) [52]
 
 Package glossaries Warning: No \printglossary or \printglossaries found. 
 (Remove \makeglossaries if you don't want any glossaries.) 
@@ -1550,17 +1551,17 @@ L3 programming layer <2025-12-24>
  ***********
  ) 
 Here is how much of TeX's memory you used:
- 43756 strings out of 467871
- 857896 string characters out of 5418376
- 2060532 words of memory out of 5000000
- 70651 multiletter control sequences out of 15000+600000
- 734361 words of font info for 599 fonts, out of 8000000 for 9000
+ 43637 strings out of 467871
+ 856939 string characters out of 5418376
+ 1922590 words of memory out of 5000000
+ 70672 multiletter control sequences out of 15000+600000
+ 725786 words of font info for 492 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 111i,18n,139p,2575b,2162s stack positions out of 10000i,1000n,20000p,200000b,200000s
- <C:\Users\andre\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\tctt1000.pk><C:/Users/andre/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmex10.pfb><C:/Users/andre/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi10.pfb><C:/Users/andre/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr10.pfb><C:/Users/andre/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Users/andre/AppData/Local/Programs/MiKTeX/fonts/type1/public/mathpazo/fplmr.pfb><C:/Users/andre/AppData/Local/Programs/MiKTeX/fonts/type1/public/mathpazo/fplmri.pfb><C:/Users/andre/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/symbols/msam10.pfb><C:/Users/andre/AppData/Local/Programs/MiKTeX/fonts/type1/urw/courier/ucrb8a.pfb><C:/Users/andre/AppData/Local/Programs/MiKTeX/fonts/type1/urw/courier/ucrr8a.pfb><C:/Users/andre/AppData/Local/Programs/MiKTeX/fonts/type1/urw/courier/ucrro8a.pfb><C:/Users/andre/AppData/Local/Programs/MiKTeX/fonts/type1/urw/helvetic/uhvb8a.pfb><C:/Users/andre/AppData/Local/Programs/MiKTeX/fonts/type1/urw/helvetic/uhvr8a.pfb><C:/Users/andre/AppData/Local/Programs/MiKTeX/fonts/type1/urw/palatino/uplb8a.pfb><C:/Users/andre/AppData/Local/Programs/MiKTeX/fonts/type1/urw/palatino/uplbi8a.pfb><C:/Users/andre/AppData/Local/Programs/MiKTeX/fonts/type1/urw/palatino/uplr8a.pfb><C:/Users/andre/AppData/Local/Programs/MiKTeX/fonts/type1/urw/palatino/uplr8a.pfb><C:/Users/andre/AppData/Local/Programs/MiKTeX/fonts/type1/urw/palatino/uplri8a.pfb>
-Output written on main.pdf (48 pages, 3318527 bytes).
+ 111i,18n,139p,2575b,2211s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ <C:\Users\andre\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\tctt1095.pk><C:/Users/andre/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmex10.pfb><C:/Users/andre/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi10.pfb><C:/Users/andre/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr10.pfb><C:/Users/andre/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Users/andre/AppData/Local/Programs/MiKTeX/fonts/type1/public/mathpazo/fplmr.pfb><C:/Users/andre/AppData/Local/Programs/MiKTeX/fonts/type1/public/mathpazo/fplmri.pfb><C:/Users/andre/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/symbols/msam10.pfb><C:/Users/andre/AppData/Local/Programs/MiKTeX/fonts/type1/urw/courier/ucrb8a.pfb><C:/Users/andre/AppData/Local/Programs/MiKTeX/fonts/type1/urw/courier/ucrr8a.pfb><C:/Users/andre/AppData/Local/Programs/MiKTeX/fonts/type1/urw/courier/ucrro8a.pfb><C:/Users/andre/AppData/Local/Programs/MiKTeX/fonts/type1/urw/helvetic/uhvb8a.pfb><C:/Users/andre/AppData/Local/Programs/MiKTeX/fonts/type1/urw/helvetic/uhvr8a.pfb><C:/Users/andre/AppData/Local/Programs/MiKTeX/fonts/type1/urw/palatino/uplb8a.pfb><C:/Users/andre/AppData/Local/Programs/MiKTeX/fonts/type1/urw/palatino/uplbi8a.pfb><C:/Users/andre/AppData/Local/Programs/MiKTeX/fonts/type1/urw/palatino/uplr8a.pfb><C:/Users/andre/AppData/Local/Programs/MiKTeX/fonts/type1/urw/palatino/uplr8a.pfb><C:/Users/andre/AppData/Local/Programs/MiKTeX/fonts/type1/urw/palatino/uplri8a.pfb>
+Output written on main.pdf (55 pages, 6118997 bytes).
 PDF statistics:
- 1092 PDF objects out of 1200 (max. 8388607)
- 464 named destinations out of 1000 (max. 500000)
- 136725 words of extra memory for PDF output out of 154059 (max. 10000000)
+ 1162 PDF objects out of 1200 (max. 8388607)
+ 486 named destinations out of 1000 (max. 500000)
+ 132629 words of extra memory for PDF output out of 154059 (max. 10000000)
 
