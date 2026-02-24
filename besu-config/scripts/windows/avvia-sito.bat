@@ -1,5 +1,7 @@
 @echo off
 title Avvio Sito Web
+cd /d "%~dp0"
+cd ..\..\..
 cd web-interface
 echo ===================================================
 echo   AVVIO INTERFACCIA WEB

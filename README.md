@@ -108,6 +108,9 @@ Scegli il tuo sistema operativo e segui le istruzioni dedicate.
 .\besu-config\scripts\windows\clean-data.bat
 ```
 
+> [!WARNING]
+> Dopo la pulizia, resetta la cache di MetaMask: **Impostazioni > Avanzate > Cancella dati attività** (Clear activity tab data). Questo evita errori di nonce quando la blockchain riparte da zero.
+
 **2. Avvio Rete Blockchain**
 Questo script avvia il cluster di 4 nodi e il proxy di failover in finestre separate.
 ```cmd
@@ -123,6 +126,9 @@ Rimuove dati di vecchie sessioni e processi appesi.
 chmod +x ./besu-config/scripts/mac/*.sh
 ./besu-config/scripts/mac/clean-data.sh
 ```
+
+> [!WARNING]
+> Dopo la pulizia, resetta la cache di MetaMask: **Impostazioni > Avanzate > Cancella dati attività** (Clear activity tab data). Questo evita errori di nonce quando la blockchain riparte da zero.
 
 **2. Avvio Rete Blockchain**
 Avvia il cluster e il proxy aprendo automaticamente nuovi terminali per ogni nodo.
@@ -184,7 +190,7 @@ Dopo l'inizializzazione della rete, procedi con il deploy e la configurazione de
 ### 🪟 Windows
 ```cmd
 # Compilazione (Obbligatoria al primo avvio)
-truffle compile
+npx truffle compile
 
 # Deploy e Configurazione Completa
 node deploy-complete.js
@@ -193,10 +199,10 @@ node deploy-complete.js
 ### 🍎 Mac / Linux
 ```bash
 # Compilazione
-truffle compile
+npx truffle compile
 
 # Deploy tramite Truffle (Include migrazione e setup)
-truffle migrate --network besu
+npx truffle migrate --network besu
 ```
 
 > [!IMPORTANT]
