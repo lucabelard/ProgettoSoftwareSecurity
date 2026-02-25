@@ -264,6 +264,10 @@ Avvia l'interfaccia utente per interagire con il sistema distribuito.
 
 ## 🔄 6. Flussi operativi
 
+> [!NOTE]
+> **Cambio ruolo durante il testing:** per simulare più attori sulla stessa macchina, è sufficiente selezionare un account diverso in MetaMask — la pagina si aggiornerà automaticamente mostrando la vista corrispondente al ruolo dell'account selezionato.
+> In un contesto reale, ogni partecipante (mittente, corriere, sensore, ecc.) accederebbe con il proprio account MetaMask personale, senza la necessità di cambiare account manualmente.
+
 ### 👑 Pannello amministratore
 Accesso tramite account **Admin**.
 *   **Monitoraggio spedizioni:** visualizzazione in tempo reale dello stato.
