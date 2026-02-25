@@ -317,3 +317,14 @@ Il rimborso automatico viene attivato in tre casi specifici per garantire la pro
 | **Interfaccia non aggiornata** | se lo stato del contratto non cambia (es. dopo blocca/sblocca), **aggiorna la pagina** del browser. |
 
 ---
+
+## 👥 Autori
+
+Progetto realizzato per il corso di **Software Security and Blockchain ** — Università Politecnica delle Marche.
+
+| Matricola | Cognome | Nome |
+| :--- | :--- | :--- |
+| `1128865` | Altieri | Andrea |
+| `1132322` | Belardinelli | Luca |
+| `1132336` | Marchegiani | Filippo |
+| `1132368` | Greco | Luigi |
