@@ -54,7 +54,7 @@ module.exports = {
       provider: () => {
         const provider = new HDWalletProvider({
           privateKeys: besuPrivateKeys,
-          providerOrUrl: "http://127.0.0.1:8551",
+          providerOrUrl: "http://127.0.0.1:8545",  // Proxy di failover (uguale a Windows)
           numberOfAddresses: 4,
           pollingInterval: 4000,  // Check every 4 seconds (Besu block time is ~2s)
           timeout: 600000         // 10 minutes timeout
@@ -65,8 +65,7 @@ module.exports = {
         });
         return provider;
       },
-      //network_id: "2024",
-      network_id: "2025",
+      network_id: "2024",
       gas: 8000000,
       gasPrice: 1000,
       networkCheckTimeout: 600000,

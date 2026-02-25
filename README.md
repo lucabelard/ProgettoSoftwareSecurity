@@ -1,4 +1,3 @@
-
 # 📦 Progetto Software Security - Catena del freddo
 
 ![Besu](https://img.shields.io/badge/Hyperledger%20Besu-v25.11.0-blue?style=for-the-badge&logo=hyperledger)
@@ -10,7 +9,7 @@
 ![OpenZeppelin](https://img.shields.io/badge/OpenZeppelin-v4.9.3-4E5EE4?style=for-the-badge&logo=openzeppelin)
 ![MetaMask](https://img.shields.io/badge/MetaMask-Compatible-orange?style=for-the-badge&logo=metamask)
 
-Il presente documento fornisce una guida tecnica completa per l'installazione, la configurazione e l'utilizzo del Sistema di Tracciamento basato su Blockchain. L'architettura comprende una rete Blockchain Besu privata, Smart Contracts dedicati e un'interfaccia Web per l'interazione utente.
+Il presente documento fornisce una guida tecnica completa per l'installazione, la configurazione e l'utilizzo del sistema di tracciamento basato su blockchain. L'architettura comprende una rete Blockchain Besu privata, Smart Contracts dedicati e un'interfaccia web per l'interazione utente.
 
 ---
 
@@ -18,12 +17,12 @@ Il presente documento fornisce una guida tecnica completa per l'installazione, l
 
 Prima di iniziare, assicurati di avere installato i seguenti componenti. Le versioni sono **vincolanti** per il corretto funzionamento.
 
-| Componente | Versione Richiesta | Note |
+| Componente | Versione richiesta | Note |
 | :--- | :--- | :--- |
 | **Node.js** | `v18.x` o superiore | gestore runtime JS |
 | **Java JDK** | `v17` (consigliato) o `v11` | necessario per eseguire Besu |
 | **Hyperledger Besu** | `v25.11.0` | **CRITICO:** versioni differenti possono causare errori di consenso |
-| **MetaMask** | Estensione Browser | wallet per interagire con la blockchain |
+| **MetaMask** | Estensione browser | wallet per interagire con la blockchain |
 
 ## 📥 0. Download del Progetto
 Inizia clonando il repository e posizionandoti nella cartella di lavoro:
@@ -47,7 +46,7 @@ Il file `package.json` è configurato per gestire le dipendenze JavaScript (Truf
 
 ## ⚙️ 2. Installazione system-level (manuale)
 
-Le dipendenze di sistema (Besu, Java) devono essere configurate manualmente o tramite script, poiché variano in base al Sistema Operativo.
+Le dipendenze di sistema (Besu, Java) devono essere configurate manualmente o tramite script, poiché variano in base al sistema operativo.
 
 ### 🪟 Windows Setup
 
@@ -59,7 +58,7 @@ Besu non si installa tramite `npm`. Va scaricato e aggiunto al PATH.
 
 1.  **Download:** scarica lo zip di Besu v25.11.0 direttamente [qui](https://github.com/hyperledger/besu/releases/download/25.11.0/besu-25.11.0.zip).
 2.  **Estrazione:** estrai il contenuto in una cartella stabile, ad esempio `C:\Besu`.
-3.  **Configurazione PATH (Variabili d'Ambiente):**
+3.  **Configurazione PATH (Variabili d'ambiente):**
     *   Premi `Win + R`, digita `sysdm.cpl` e premi Invio.
     *   Vai su **Avanzate** > **Variabili d'ambiente**.
     *   Nella sezione **Variabili di sistema**, trova la variabile `Path` e clicca **Modifica**.
@@ -108,7 +107,7 @@ Besu non si installa tramite `npm`. Va scaricato manualmente per garantire la ve
 
 ---
 
-## 🚀 3. Inizializzazione del Sistema
+## 🚀 3. Inizializzazione del sistema
 
 Scegli il tuo sistema operativo e segui le istruzioni dedicate.
 
@@ -117,7 +116,7 @@ Scegli il tuo sistema operativo e segui le istruzioni dedicate.
 > [!TIP]
 > **Consigliato:** eseguire la pulizia preventiva per evitare conflitti o errori di _Genesis Mismatch_.
 
-**1. Pulizia Preventiva**
+**1. Pulizia preventiva**
 ```cmd
 .\besu-config\scripts\windows\clean-data.bat
 ```
@@ -125,16 +124,16 @@ Scegli il tuo sistema operativo e segui le istruzioni dedicate.
 > [!WARNING]
 > Dopo la pulizia, resetta la cache di MetaMask: **Impostazioni > Avanzate > Cancella dati attività** (Clear activity tab data). Questo evita errori di nonce quando la blockchain riparte da zero.
 
-**2. Avvio Rete Blockchain**
+**2. Avvio rete Blockchain**
 Questo script avvia il cluster di 4 nodi e il proxy di failover in finestre separate.
 ```cmd
 .\besu-config\scripts\windows\start-all-nodes-failover.bat
 ```
-*   **Verifica:** assicurati che le istanze dei nodi siano attive e che lo stato del Proxy indichi *Monitoring active...*.
+*   **Verifica:** assicurati che le istanze dei nodi siano attive e che lo stato del proxy indichi *Monitoring active...*.
 
 ### 🍎 Ambiente Mac / Linux
 
-**1. Pulizia Preventiva & Permessi**
+**1. Pulizia preventiva & permessi**
 Rimuove dati di vecchie sessioni e processi appesi.
 ```bash
 chmod +x ./besu-config/scripts/mac/*.sh
@@ -144,12 +143,12 @@ chmod +x ./besu-config/scripts/mac/*.sh
 > [!WARNING]
 > Dopo la pulizia, resetta la cache di MetaMask: **Impostazioni > Avanzate > Cancella dati attività** (Clear activity tab data). Questo evita errori di nonce quando la blockchain riparte da zero.
 
-**2. Avvio Rete Blockchain**
+**2. Avvio rete Blockchain**
 Avvia il cluster e il proxy aprendo automaticamente nuovi terminali per ogni nodo.
 ```bash
 ./besu-config/scripts/mac/start-all.sh
 ```
-*   **Verifica:** controllare che le finestre del terminale (Node 1-4 + Proxy) siano aperte e producano log.
+*   **Verifica:** assicurati che le finestre del terminale (Node 1–4 + proxy) siano aperte e producano log.
 
 ---
 
@@ -169,7 +168,7 @@ Per configurare la rete su MetaMask:
 | **Simbolo Valuta** | `ETH` |
 
 > [!NOTE]
-> Andare su *Settings > General* e attivare **"Show native token as main balance"** per visualizzare correttamente i fondi.
+> Vai su *Settings > General* e attiva **"Show native token as main balance"** per visualizzare correttamente i fondi.
 
 ### 👤 Importazione account di test
 Per interagire con il sistema, importa i seguenti account pre-finanziati nel tuo wallet MetaMask.
@@ -189,11 +188,14 @@ Per interagire con il sistema, importa i seguenti account pre-finanziati nel tuo
 | **🚚 Corriere** | `0xC5fdf4076b8F3A5357c5E395ab970B5B54098Fef` | `0x0dbbe8e4ae425a6d2687f1a7e3ba17bc98c673636790f1b8ad91193c05875ef1` |
 
 ### ⚠️ Risoluzione problemi macOS (Chain ID)
-In alcuni ambienti macOS, potresti riscontrare errori di connessione con Chain ID 2024.
-**Soluzione:**
-1.  Apri `truffle-config.js` e modifica `network_id` da `2024` a `2025`.
-2.  Riavvia la rete Besu.
-3.  In MetaMask, usa **Chain ID: 2025**.
+Il sistema utilizza di default **Chain ID 2024**. Su alcuni ambienti macOS, MetaMask potrebbe rifiutare questo valore durante la configurazione della rete con un errore di connessione.
+
+> [!NOTE]
+> Non è garantito che si verifichi questo problema — prova prima con Chain ID **2024**. Procedi con i passi seguenti solo se MetaMask non accetta la configurazione.
+
+**Soluzione alternativa (solo se necessario):**
+1.  In MetaMask, configura la rete con **Chain ID: 2025** anziché 2024 (il file genesis Mac supporta già questo valore).
+2.  Riavvia la rete Besu con `./besu-config/scripts/mac/start-all.sh`.
 
 ## 📜 4. Deploy degli Smart Contracts
 
@@ -264,35 +266,35 @@ Avvia l'interfaccia utente per interagire con il sistema distribuito.
 
 ### 👑 Pannello amministratore
 Accesso tramite account **Admin**.
-*   **Monitoraggio Spedizioni:** visualizzazione in tempo reale dello stato.
+*   **Monitoraggio spedizioni:** visualizzazione in tempo reale dello stato.
 *   **Circuit Breaker:** arresto di emergenza. *Ricaricare la pagina dopo la modifica.*
 *   **Parametri:** regolazione soglie e affidabilità.
 
-### ✅ Flusso standard (Consegna riuscita)
+### ✅ Flusso standard (consegna riuscita)
 1.  **Mittente:** crea la spedizione (indirizzo corriere + importo ETH).
 2.  **Sensore:** inserisce ID spedizione e invia conferma/evidenze (senza anomalie).
-3.  **Corriere:** esegue la validazione consegna -> fondi rilasciati.
+3.  **Corriere:** esegue la validazione consegna → fondi rilasciati.
 
-### 🚫 Annullamento Anticipato (Pre-Evidenze)
+### 🚫 Annullamento anticipato (pre-evidenze)
 1.  **Mittente:** crea la spedizione.
 2.  **Azione:** se il sensore non ha ancora inviato evidenze, il mittente può annullare la spedizione.
 3.  **Risultato:** i fondi vengono restituiti immediatamente al mittente.
     *   *Vincolo:* se le evidenze sono già state registrate, l'annullamento è disabilitato.
 
-### ❌ Scenari di Rimborso (Failure Modes)
+### ❌ Scenari di rimborso (failure modes)
 Il rimborso automatico viene attivato in tre casi specifici per garantire la protezione dei fondi:
 
-**1. Merce Non Conforme (Danneggiata)**
+**1. Merce non conforme (danneggiata)**
 1.  **Sensore:** rileva anomalie (es. temperatura fuori soglia) e invia le evidenze.
 2.  **Corriere:** tenta la validazione, che fallisce.
 3.  **Azione:** dopo **3 tentativi falliti** di validazione, il contratto sblocca il rimborso.
 4.  **Mittente:** recupera i fondi.
 
-**2. Timeout Evidenze (7 Giorni)**
+**2. Timeout evidenze (7 giorni)**
 *   Se il sensore non invia alcuna evidenza entro **7 giorni** dalla creazione, la spedizione è considerata *persa* o *non partita*.
 *   Il mittente può richiedere il rimborso immediato.
 
-**3. Inattività Corriere (14 Giorni)**
+**3. Inattività corriere (14 giorni)**
 *   Se le evidenze sono valide ma il corriere non finalizza la consegna entro **14 giorni**, il sistema presume inadempienza.
 *   Il mittente può forzare il rimborso per recuperare i fondi bloccati.
 
@@ -302,8 +304,8 @@ Il rimborso automatico viene attivato in tre casi specifici per garantire la pro
 
 | Problema | Soluzione |
 | :--- | :--- |
-| **Genesis Mismatch** | inconsistenza dati Blockchain.<br>**Win:** `.\besu-config\scripts\windows\clean-data.bat`<br>**Mac:** `./besu-config/scripts/mac/clean-data.sh`<br>Riavviare la rete dopo la pulizia. |
-| **Errore Nonce** | si verifica dopo il riavvio della rete.<br>**Azione:** MetaMask -> Impostazioni > Avanzate > Cancella dati attività tab. |
+| **Genesis Mismatch** | inconsistenza dati blockchain.<br>**Win:** `.\besu-config\scripts\windows\clean-data.bat`<br>**Mac:** `./besu-config/scripts/mac/clean-data.sh`<br>Riavviare la rete dopo la pulizia. |
+| **Errore Nonce** | si verifica dopo il riavvio della rete.<br>**Azione:** MetaMask → Impostazioni > Avanzate > Cancella dati attività. |
 | **Contratti assenti** | assicurati di aver eseguito il deploy (`node deploy-complete.js` o `truffle migrate`) **dopo** l'avvio della rete. |
 | **Interfaccia non aggiornata** | se lo stato del contratto non cambia (es. dopo blocca/sblocca), **aggiorna la pagina** del browser. |
 
