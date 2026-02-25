@@ -275,9 +275,12 @@ Accesso tramite account **Admin**.
 *   **Parametri:** regolazione soglie e affidabilità.
 
 ### ✅ Flusso standard (consegna riuscita)
-1.  **Mittente:** crea la spedizione (indirizzo corriere + importo ETH).
-2.  **Sensore:** inserisce ID spedizione e invia conferma/evidenze (senza anomalie).
-3.  **Corriere:** esegue la validazione consegna → fondi rilasciati.
+1.  **Mittente:** crea la spedizione inserendo l'indirizzo del corriere e l'importo ETH da depositare.
+2.  **Sensore:** seleziona la spedizione tramite ID e invia le evidenze di monitoraggio. Le evidenze possono essere inviate:
+    *   **Singolarmente:** ogni rilevamento (es. temperatura, umidità) viene confermato separatamente.
+    *   **Tutte insieme:** è possibile inviare tutte le evidenze in un'unica transazione se la merce risulta conforme.
+3.  **Corriere:** verifica la spedizione e, se le evidenze sono valide, esegue la **richiesta di pagamento** (validazione consegna).
+4.  **Risultato:** il contratto sblocca automaticamente i fondi e li trasferisce al corriere → spedizione completata.
 
 ### 🚫 Annullamento anticipato (pre-evidenze)
 1.  **Mittente:** crea la spedizione.
