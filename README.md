@@ -1,5 +1,5 @@
 
-# 📦 Progetto Software Security - Monitoraggio Blockchain
+# 📦 Progetto Software Security - Catena del freddo
 
 ![Besu](https://img.shields.io/badge/Hyperledger%20Besu-v25.11.0-blue?style=for-the-badge&logo=hyperledger)
 ![Truffle](https://img.shields.io/badge/Truffle-Suite-orange?style=for-the-badge&logo=truffle)
