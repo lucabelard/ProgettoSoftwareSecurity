@@ -2,8 +2,12 @@
 # 📦 Progetto Software Security - Catena del freddo
 
 ![Besu](https://img.shields.io/badge/Hyperledger%20Besu-v25.11.0-blue?style=for-the-badge&logo=hyperledger)
-![Truffle](https://img.shields.io/badge/Truffle-Suite-orange?style=for-the-badge&logo=truffle)
+![Truffle](https://img.shields.io/badge/Truffle-v5.11.5-orange?style=for-the-badge&logo=truffle)
 ![Node.js](https://img.shields.io/badge/Node.js-v18+-green?style=for-the-badge&logo=node.js)
+![Java JDK](https://img.shields.io/badge/Java%20JDK-17-red?style=for-the-badge&logo=openjdk)
+![Solidity](https://img.shields.io/badge/Solidity-0.8.19-363636?style=for-the-badge&logo=solidity)
+![Web3.js](https://img.shields.io/badge/Web3.js-v4.16.0-F16822?style=for-the-badge&logo=web3.js)
+![OpenZeppelin](https://img.shields.io/badge/OpenZeppelin-v4.9.3-4E5EE4?style=for-the-badge&logo=openzeppelin)
 ![MetaMask](https://img.shields.io/badge/MetaMask-Compatible-orange?style=for-the-badge&logo=metamask)
 
 Il presente documento fornisce una guida tecnica completa per l'installazione, la configurazione e l'utilizzo del Sistema di Tracciamento basato su Blockchain. L'architettura comprende una rete Blockchain Besu privata, Smart Contracts dedicati e un'interfaccia Web per l'interazione utente.
