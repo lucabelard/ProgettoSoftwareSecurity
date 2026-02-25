@@ -14,18 +14,18 @@ Il presente documento fornisce una guida tecnica completa per l'installazione, l
 
 ---
 
-### 🛠️ Prerequisiti di sistema
+## 🛠️ Prerequisiti di sistema
 
 Prima di iniziare, assicurati di avere installato i seguenti componenti. Le versioni sono **vincolanti** per il corretto funzionamento.
 
 | Componente | Versione Richiesta | Note |
 | :--- | :--- | :--- |
 | **Node.js** | `v18.x` o superiore | gestore runtime JS |
-| **Java JDK** | `v17` (Consigliato) o `v11` | necessario per eseguire Besu |
+| **Java JDK** | `v17` (consigliato) o `v11` | necessario per eseguire Besu |
 | **Hyperledger Besu** | `v25.11.0` | **CRITICO:** versioni differenti possono causare errori di consenso |
 | **MetaMask** | Estensione Browser | wallet per interagire con la blockchain |
 
-### 📥 0. Download del Progetto
+## 📥 0. Download del Progetto
 Inizia clonando il repository e posizionandoti nella cartella di lavoro:
 
 ```bash
@@ -33,7 +33,7 @@ git clone https://github.com/lucabelard/ProgettoSoftwareSecurity.git
 cd ProgettoSoftwareSecurity
 ```
 
-### 📦 1. Installazione automatica dipendenze (JS)
+## 📦 1. Installazione automatica dipendenze (JS)
 Il file `package.json` è configurato per gestire le dipendenze JavaScript (Truffle, Web3, OpenZeppelin).
 
 1.  Apri il terminale nella cartella del progetto.
@@ -57,15 +57,15 @@ Assicurati di avere Java installato. Verifica con `java -version`. Se mancante, 
 #### 2. Hyperledger Besu (v25.11.0)
 Besu non si installa tramite `npm`. Va scaricato e aggiunto al PATH.
 
-1.  **Download:** Scarica lo zip di Besu v25.11.0 direttamente [qui](https://github.com/hyperledger/besu/releases/download/25.11.0/besu-25.11.0.zip).
-2.  **Estrazione:** Estrai il contenuto in una cartella stabile, ad esempio `C:\Besu`.
+1.  **Download:** scarica lo zip di Besu v25.11.0 direttamente [qui](https://github.com/hyperledger/besu/releases/download/25.11.0/besu-25.11.0.zip).
+2.  **Estrazione:** estrai il contenuto in una cartella stabile, ad esempio `C:\Besu`.
 3.  **Configurazione PATH (Variabili d'Ambiente):**
     *   Premi `Win + R`, digita `sysdm.cpl` e premi Invio.
     *   Vai su **Avanzate** > **Variabili d'ambiente**.
     *   Nella sezione **Variabili di sistema**, trova la variabile `Path` e clicca **Modifica**.
     *   Clicca **Nuovo** e incolla il percorso alla cartella `bin` di Besu (es. `C:\Besu\besu-25.11.0\bin`).
     *   Conferma tutto con OK.
-4.  **Verifica:** Apri un **nuovo** terminale (CMD o PowerShell) e digita:
+4.  **Verifica:** apri un **nuovo** terminale (CMD o PowerShell) e digita:
     ```bash
     besu --version
     ```
@@ -78,34 +78,44 @@ Verifica con `java -version`. Se necessario, installalo tramite Homebrew:
 ```bash
 brew install openjdk@17
 ```
+Al termine, segui le istruzioni di Homebrew per aggiungere Java al PATH. Tipicamente:
+```bash
+echo 'export PATH="/opt/homebrew/opt/openjdk@17/bin:$PATH"' >> ~/.zshrc
+source ~/.zshrc
+```
+Verifica con `java -version`.
 
 #### 2. Hyperledger Besu (v25.11.0)
-Puoi usare Homebrew (se la versione corrisponde) o l'installazione manuale (consigliata per versioni specifiche).
+Besu non si installa tramite `npm`. Va scaricato manualmente per garantire la versione corretta.
 
-**Metodo Manuale (Consigliato per v25.11.0):**
-1.  Scarica il pacchetto `.tar.gz` direttamente [qui](https://github.com/hyperledger/besu/releases/download/25.11.0/besu-25.11.0.tar.gz).
-2.  Estrai l'archivio:
+**Metodo manuale (consigliato per v25.11.0):**
+1.  **Download:** scarica il pacchetto `.tar.gz` direttamente [qui](https://github.com/hyperledger/besu/releases/download/25.11.0/besu-25.11.0.tar.gz).
+2.  **Estrazione:** estrai l'archivio e spostalo in una cartella stabile:
     ```bash
     tar -xvf besu-25.11.0.tar.gz
     sudo mv besu-25.11.0 /usr/local/besu
     ```
-3.  Aggiungi al PATH nel tuo `~/.zshrc` o `~/.bash_profile`:
+3.  **Configurazione PATH:** aggiungi Besu al PATH nel tuo `~/.zshrc` (o `~/.bash_profile` per Bash):
     ```bash
-    export PATH=$PATH:/usr/local/besu/bin
+    echo 'export PATH=$PATH:/usr/local/besu/bin' >> ~/.zshrc
+    source ~/.zshrc
     ```
-4.  Ricarica la configurazione: `source ~/.zshrc`
-5.  Verifica: `besu --version`
+4.  **Verifica:** apri un **nuovo** terminale e digita:
+    ```bash
+    besu --version
+    ```
+    *Dovresti vedere l'output confermare la versione 25.11.0.*
 
 ---
 
-## 🚀 1. Inizializzazione del Sistema
+## 🚀 3. Inizializzazione del Sistema
 
 Scegli il tuo sistema operativo e segui le istruzioni dedicate.
 
 ### 🪟 Ambiente Windows
 
 > [!TIP]
-> **Consigliato:** Eseguire la pulizia preventiva per evitare conflitti o errori di _Genesis Mismatch_.
+> **Consigliato:** eseguire la pulizia preventiva per evitare conflitti o errori di _Genesis Mismatch_.
 
 **1. Pulizia Preventiva**
 ```cmd
@@ -145,8 +155,6 @@ Avvia il cluster e il proxy aprendo automaticamente nuovi terminali per ogni nod
 
 ## 🦊 Configurazione MetaMask
 
-
-
 Per configurare la rete su MetaMask:
 1.  Clicca sulle **3 linee** in alto a destra (o sull'icona del profilo).
 2.  Vai su **Impostazioni > Reti** (Settings > Networks).
@@ -176,8 +184,8 @@ Per interagire con il sistema, importa i seguenti account pre-finanziati nel tuo
 | Ruolo | Indirizzo Pubblico | Chiave Privata (SOLO PER TESTNET) |
 | :--- | :--- | :--- |
 | **👑 Admin** | `0xfe3b557e8fb62b89f4916b721be55ceb828dbd73` | `0x8f2a55949038a9610f50fb23b5883af3b4ecb3c3bb792cbcefbd1542c692be63` |
-| **� Sensore** | `0x627306090abaB3A6e1400e9345bC60c78a8BEf57` | `0xc87509a1c067bbde78beb793e6fa76530b6382a4c0241e5e4a9ec0a0f44dc0d3` |
-| **� Mittente** | `0xf17f52151EbEF6C7334FAD080c5704D77216b732` | `0xae6ae8e5ccbfb04590405997ee2d52d2b330726137b875053c36d94e974d162f` |
+| **🌡️ Sensore** | `0x627306090abaB3A6e1400e9345bC60c78a8BEf57` | `0xc87509a1c067bbde78beb793e6fa76530b6382a4c0241e5e4a9ec0a0f44dc0d3` |
+| **📤 Mittente** | `0xf17f52151EbEF6C7334FAD080c5704D77216b732` | `0xae6ae8e5ccbfb04590405997ee2d52d2b330726137b875053c36d94e974d162f` |
 | **🚚 Corriere** | `0xC5fdf4076b8F3A5357c5E395ab970B5B54098Fef` | `0x0dbbe8e4ae425a6d2687f1a7e3ba17bc98c673636790f1b8ad91193c05875ef1` |
 
 ### ⚠️ Risoluzione problemi macOS (Chain ID)
@@ -187,13 +195,13 @@ In alcuni ambienti macOS, potresti riscontrare errori di connessione con Chain I
 2.  Riavvia la rete Besu.
 3.  In MetaMask, usa **Chain ID: 2025**.
 
-## 📜 2. Deploy degli Smart Contracts
+## 📜 4. Deploy degli Smart Contracts
 
 Dopo l'inizializzazione della rete, procedi con il deploy e la configurazione dei contratti.
 
 ### 🪟 Windows
 ```cmd
-# Compilazione (Obbligatoria al primo avvio)
+# Compilazione (obbligatoria al primo avvio)
 npx truffle compile
 
 # Deploy e Configurazione Completa
@@ -205,7 +213,7 @@ node deploy-complete.js
 # Compilazione
 npx truffle compile
 
-# Deploy tramite Truffle (Include migrazione e setup)
+# Deploy tramite Truffle (include migrazione e setup)
 npx truffle migrate --network besu
 ```
 
@@ -214,14 +222,12 @@ npx truffle migrate --network besu
 
 ---
 
-
-
-## 💻 3. Interfaccia web
+## 💻 5. Interfaccia web
 
 Avvia l'interfaccia utente per interagire con il sistema distribuito.
 
-*   **🪟 Windows:** Eseguire `.\besu-config\scripts\windows\avvia-sito.bat`
-*   **🍎 Mac/Linux:** Eseguire `./besu-config/scripts/mac/avvia-sito.sh`
+*   **🪟 Windows:** eseguire `.\besu-config\scripts\windows\avvia-sito.bat`
+*   **🍎 Mac/Linux:** eseguire `./besu-config/scripts/mac/avvia-sito.sh`
 
 🔗 **URL di Accesso:** `http://127.0.0.1:8080`
 
@@ -254,15 +260,13 @@ Avvia l'interfaccia utente per interagire con il sistema distribuito.
 
 ---
 
-## 🔄 4. Flussi operativi
+## 🔄 6. Flussi operativi
 
 ### 👑 Pannello amministratore
 Accesso tramite account **Admin**.
 *   **Monitoraggio Spedizioni:** visualizzazione in tempo reale dello stato.
 *   **Circuit Breaker:** arresto di emergenza. *Ricaricare la pagina dopo la modifica.*
 *   **Parametri:** regolazione soglie e affidabilità.
-
-
 
 ### ✅ Flusso standard (Consegna riuscita)
 1.  **Mittente:** crea la spedizione (indirizzo corriere + importo ETH).
